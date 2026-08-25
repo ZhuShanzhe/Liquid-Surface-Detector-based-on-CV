@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>liquid_depth_camera</name>
+  <version>0.1.0</version>
+  <description>Synchronized RGB-D capture for the liquid depth pipeline.</description>
+  <maintainer email="noreply@example.com">Liquid Depth Project</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <test_depend>ament_pytest</test_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>
+

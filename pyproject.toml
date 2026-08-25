@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "liquid-depth"
+version = "0.1.0"
+description = "RGB-D liquid surface segmentation, plane fitting, and depth estimation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26,<3",
+  "opencv-python-headless>=4.9,<5",
+  "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "ruff>=0.9,<1"]
+train = [
+  "torch>=2.7",
+  "torchvision>=0.22",
+  "albumentations>=2,<3",
+  "tensorboard>=2.18,<3",
+  "tqdm>=4.66,<5",
+]
+visualization = ["open3d>=0.19,<0.20"]
+
+[project.scripts]
+liquid-depth = "liquid_depth.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+

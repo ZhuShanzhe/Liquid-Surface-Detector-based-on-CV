@@ -1,0 +1,12 @@
+rgbd_frame_saver:
+  ros__parameters:
+    output_dir: ./data/captures
+    color_topic: /camera/color/image_raw
+    depth_topic: /camera/depth/image_raw
+    color_info_topic: /camera/color/camera_info
+    depth_info_topic: /camera/depth/camera_info
+    queue_size: 10
+    sync_slop_seconds: 0.1
+    auto_save_interval_seconds: 0.0
+    preview: false
+

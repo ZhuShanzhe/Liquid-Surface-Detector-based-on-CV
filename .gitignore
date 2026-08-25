@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+
+# ROS 2 / colcon
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Runtime data, generated artifacts, and model weights
+output/
+point_cloud_result/
+liquid_plane/
+data/**
+!data/README.md
+artifacts/**
+!artifacts/README.md
+runs/
+checkpoints/
+weights/
+*.pth
+*.pt
+*.onnx
+*.engine
+*.npy
+*.ply
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+

@@ -1,0 +1,33 @@
+segmentation:
+  backend: classical
+  roi: [400, 150, 1000, 700]
+  classical:
+    saturation_max: 50
+    value_min: 55
+    value_max: 248
+    ellipse_center_offset: [0, 80]
+    ellipse_axis_margin: [90, 105]
+    open_kernel: 15
+    close_kernel: 41
+    min_area: 3000
+  torchscript:
+    model_path: weights/liquid_surface.ts
+    input_size: [512, 512]
+    threshold: 0.5
+
+geometry:
+  liquid_erode_px: 12
+  bottom_erode_px: 6
+  ransac_threshold_m: 0.006
+  max_points: 30000
+  seed: 7
+
+bottom:
+  roi: [400, 150, 1000, 700]
+  ellipse_center_offset: [40, 70]
+  ellipse_axes: [115, 85]
+
+output:
+  depth_unit: cm
+  calibration_scale_per_meter: 100.0
+

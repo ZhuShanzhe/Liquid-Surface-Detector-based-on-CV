@@ -1,0 +1,15 @@
+name: liquid-depth
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip>=24
+  - pip:
+      - numpy>=1.26,<3
+      - opencv-python-headless>=4.9,<5
+      - PyYAML>=6,<7
+      - albumentations>=2,<3
+      - tensorboard>=2.18,<3
+      - tqdm>=4.66,<5
+      - pytest>=8,<9
+
