@@ -12,10 +12,20 @@ import numpy as np
 def load_ground_truth(path: str | Path) -> dict[str, dict]:
     with Path(path).open("r", encoding="utf-8", newline="") as stream:
         rows = list(csv.DictReader(stream))
-    required = {"frame_id", "depth"}
-    if not rows or not required.issubset(rows[0]):
-        raise ValueError(f"Ground truth CSV requires columns {sorted(required)}")
-    return {row["frame_id"].strip(): row for row in rows}
+    if not rows or "frame_id" not in rows[0]:
+        raise ValueError("Ground truth CSV requires a frame_id column")
+    depth_column = next(
+        (name for name in ("depth", "depth_cm", "liquid_depth") if name in rows[0]), None
+    )
+    if depth_column is None:
+        raise ValueError("Ground truth CSV requires one of: depth, depth_cm, liquid_depth")
+    normalized = {}
+    for row in rows:
+        item = dict(row)
+        item["target_depth"] = item[depth_column]
+        item["target_depth_column"] = depth_column
+        normalized[item["frame_id"].strip()] = item
+    return normalized
 
 
 def load_predictions(root: str | Path) -> dict[str, dict]:
@@ -36,7 +46,14 @@ def _metrics(rows: list[dict], tolerance: float) -> dict:
 
     def error_stats(subset: list[dict]) -> dict:
         if not subset:
-            return {"count": 0, "mae": None, "rmse": None, "median_ae": None, "p95_ae": None, "bias": None}
+            return {
+                "count": 0,
+                "mae": None,
+                "rmse": None,
+                "median_ae": None,
+                "p95_ae": None,
+                "bias": None,
+            }
         errors = np.asarray([row["prediction"] - row["target"] for row in subset], dtype=np.float64)
         absolute = np.abs(errors)
         return {
@@ -74,7 +91,7 @@ def evaluate(
         rows.append(
             {
                 "frame_id": frame_id,
-                "target": float(target_row["depth"]),
+                "target": float(target_row["target_depth"]),
                 "prediction": value,
                 "accepted": bool(prediction and prediction.get("accepted", False)),
                 "scenario": target_row.get("scenario", "unspecified").strip() or "unspecified",
@@ -85,6 +102,7 @@ def evaluate(
     for row in rows:
         grouped[row["scenario"]].append(row)
     return {
+        "target_depth_column": next(iter(ground_truth.values()))["target_depth_column"],
         "tolerance": tolerance,
         "overall": _metrics(rows, tolerance),
         "by_scenario": {name: _metrics(items, tolerance) for name, items in sorted(grouped.items())},

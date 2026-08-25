@@ -24,7 +24,7 @@ def main() -> None:
         try:
             detail = action()
             checks.append({"name": name, "ok": True, "detail": str(detail)})
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - an audit must collect independent check failures
             checks.append({"name": name, "ok": False, "detail": str(exc)})
 
     check("python", lambda: sys.version.split()[0])

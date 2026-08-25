@@ -31,12 +31,14 @@ def main() -> None:
     parser.add_argument("root", type=Path, help="One frame directory or a root containing frame directories")
     parser.add_argument("--output", type=Path, help="Optional JSON report")
     args = parser.parse_args()
-    candidates = [args.root] if (args.root / "rgb.png").exists() else sorted(p for p in args.root.iterdir() if p.is_dir())
+    candidates = [args.root] if (args.root / "rgb.png").exists() else sorted(
+        path for path in args.root.iterdir() if path.is_dir()
+    )
     valid, failures = [], []
     for candidate in candidates:
         try:
             valid.append(inspect(candidate))
-        except Exception as exc:  # report all bad captures in one pass
+        except Exception as exc:  # noqa: BLE001 - validate all frames before reporting
             failures.append({"path": str(candidate), "error": str(exc)})
     report = {"root": str(args.root.resolve()), "valid_frames": valid, "failures": failures}
     rendered = json.dumps(report, ensure_ascii=False, indent=2)
