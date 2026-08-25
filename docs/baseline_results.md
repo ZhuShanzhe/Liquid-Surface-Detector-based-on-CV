@@ -9,8 +9,10 @@ Updated 2026-08-25 on the RTX 5090 server. “Runnable” means the official rev
 | Classical raw RGB-D | project regression | n/a | frozen control | 0.831 / 0.967 cm | not reprofiled |
 | TransCG DFNet | 135f9e0 | corrected 2022-10-14, MD5 `6e6e00f7cc02c644a34b1ce6e4f364fa` | runnable, official preprocessing | 0.535 / 0.669 cm | about 0.76 s including CPU nearest-neighbor fill |
 | DREDS SwinDRNet | 1b0ac30 | official `model.pth`, strict 650-state load | runnable, official validation resize | 0.753 / 0.820 cm | about 0.48 s |
-| ClearGrasp | 0688647 | downloading | adapter/reproduction pending verified extraction | pending | pending |
+| ClearGrasp | 0688647 | downloading | `depth2depth` optimizer compiled and smoke-tested; neural checkpoints pending extraction | pending | about 1 s CPU upstream |
 | RGB-D LIDF | 4dc85bb | pending dataset/checkpoint | source ready; CUDA extension needs current-toolchain port | pending | pending |
+
+ClearGrasp system dependencies and its upstream HDF5 include-path compatibility fix are automated by `scripts/setup_cleargrasp.sh`. Run it inside the project environment; add `--install-system-deps` only on a fresh server.
 
 DFNet is the current leader on the 10 ordinary project frames. This sequence is only a regression gate and must not decide the research baseline by itself.
 
