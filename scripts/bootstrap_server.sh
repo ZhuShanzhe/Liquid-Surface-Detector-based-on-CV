@@ -8,6 +8,7 @@ CACHE_DIR="${LIQUID_DEPTH_CACHE:-/root/autodl-tmp/cache}"
 mkdir -p "$(dirname "${ENV_PREFIX}")" "${CACHE_DIR}/pip" "${CACHE_DIR}/torch"
 export PIP_CACHE_DIR="${CACHE_DIR}/pip"
 export TORCH_HOME="${CACHE_DIR}/torch"
+export PIP_DEFAULT_TIMEOUT=600
 
 if [[ ! -x "${ENV_PREFIX}/bin/python" ]]; then
   conda create --yes --prefix "${ENV_PREFIX}" python=3.11 pip
@@ -16,8 +17,9 @@ fi
 PYTHON="${ENV_PREFIX}/bin/python"
 "${PYTHON}" -m pip install --upgrade pip setuptools wheel
 
-# CUDA 12.8+ is required for the RTX 5090 (sm_120).
-"${PYTHON}" -m pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+# Keep the normal Python index primary for small dependencies and use the official
+# CUDA index only for the explicitly requested Blackwell-compatible wheels.
+"${PYTHON}" -m pip install torch==2.11.0+cu128 torchvision==0.26.0+cu128 --extra-index-url https://download.pytorch.org/whl/cu128
 "${PYTHON}" -m pip install -e "${PROJECT_DIR}[train,dev]"
 
 "${PYTHON}" - <<'PY'
