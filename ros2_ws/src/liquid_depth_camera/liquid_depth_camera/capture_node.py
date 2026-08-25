@@ -80,7 +80,7 @@ class RGBDFrameSaver(Node):
                 cv2.imshow("RGB", rgb)
                 cv2.imshow("Depth", self._depth_preview(depth))
                 cv2.waitKey(1)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - keep the ROS callback alive
             self.get_logger().error(f"RGB-D callback failed: {exc}")
 
     def _on_save(self, _request: Trigger.Request, response: Trigger.Response) -> Trigger.Response:
@@ -94,7 +94,7 @@ class RGBDFrameSaver(Node):
             frame_dir = self._save(*latest)
             response.success = True
             response.message = str(frame_dir)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - report failure through the service
             response.success = False
             response.message = str(exc)
         return response
@@ -118,10 +118,10 @@ class RGBDFrameSaver(Node):
         target = self.output_dir / frame_id
         target.mkdir(parents=True, exist_ok=False)
         if not cv2.imwrite(str(target / "rgb.png"), rgb):
-            raise IOError("Could not write rgb.png")
+            raise OSError("Could not write rgb.png")
         np.save(target / "depth.npy", depth, allow_pickle=False)
         if not cv2.imwrite(str(target / "depth_vis.png"), self._depth_preview(depth)):
-            raise IOError("Could not write depth_vis.png")
+            raise OSError("Could not write depth_vis.png")
         for name, info in (
             ("color_info.json", self._camera_info(self.color_info)),
             ("depth_info.json", self._camera_info(self.depth_info)),
@@ -160,4 +160,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

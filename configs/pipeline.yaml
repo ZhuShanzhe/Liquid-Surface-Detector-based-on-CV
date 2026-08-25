@@ -23,9 +23,24 @@ depth_refinement:
     model_path: weights/depth_refiner.ts
     input_size: [640, 360]
     max_depth_m: 3.0
+  transcg_dfnet:
+    source_path: /root/autodl-tmp/liquid-depth-data/research/sources/TransCG
+    checkpoint_path: /root/autodl-tmp/liquid-depth-data/research/transcg/checkpoints/checkpoint.tar
+    input_size: [320, 240]
+    depth_min_m: 0.3
+    depth_max_m: 1.0
+    depth_coefficient: 3.0
+    inpainting: true
+  dreds_swindrnet:
+    source_path: /root/autodl-tmp/liquid-depth-data/research/sources/DREDS/SwinDRNet
+    checkpoint_path: /root/autodl-tmp/liquid-depth-data/research/dreds_std/archives/model.pth
+    input_size: [224, 224]
+    max_depth_m: 3.0
+
 
 geometry:
   liquid_erode_px: 12
+  meniscus_width_px: 12
   bottom_erode_px: 6
   ransac_threshold_m: 0.006
   max_points: 30000
@@ -48,3 +63,13 @@ quality:
   min_mean_segmentation_confidence: 0.20
   min_mean_depth_confidence: 0.20
   max_plane_angle_deg: 15.0
+
+temporal:
+  # Enabled for ordered batch/video inference. Single-frame inference remains stateless.
+  enabled: false
+  # Units follow output.depth_unit (centimeters in the default configuration).
+  process_variance: 0.01
+  measurement_variance: 0.25
+  gate_sigma: 3.5
+  max_jump: 2.0
+  min_confidence: 0.20

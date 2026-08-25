@@ -12,7 +12,7 @@ def load_config(path: str | Path) -> dict[str, Any]:
     with config_path.open("r", encoding="utf-8") as stream:
         config = yaml.safe_load(stream)
     if not isinstance(config, dict):
-        raise ValueError(f"Configuration must be a mapping: {config_path}")
+        raise TypeError(f"Configuration must be a mapping: {config_path}")
     config = deepcopy(config)
     config["_config_path"] = str(config_path)
     return config
@@ -23,4 +23,3 @@ def resolve_config_path(config: dict[str, Any], value: str | Path) -> Path:
     if path.is_absolute():
         return path
     return Path(config["_config_path"]).parent.parent / path
-

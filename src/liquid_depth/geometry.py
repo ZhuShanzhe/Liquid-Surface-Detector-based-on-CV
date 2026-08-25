@@ -63,6 +63,29 @@ def depth_to_meters(depth: np.ndarray) -> np.ndarray:
     return result
 
 
+def split_surface_mask(
+    mask: np.ndarray, interior_erode_px: int, meniscus_width_px: int
+) -> tuple[np.ndarray, np.ndarray]:
+    """Separate the approximately planar interior from the curved wall/meniscus ring."""
+    import cv2
+
+    if mask.ndim != 2:
+        raise ValueError(f"Expected a two-dimensional mask; got shape {mask.shape}")
+    mask = np.where(mask > 0, 255, 0).astype(np.uint8)
+    if interior_erode_px > 0:
+        size = 2 * interior_erode_px + 1
+        interior = cv2.erode(mask, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (size, size)))
+    else:
+        interior = mask.copy()
+    if meniscus_width_px > 0:
+        size = 2 * meniscus_width_px + 1
+        core = cv2.erode(mask, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (size, size)))
+        meniscus = cv2.bitwise_and(mask, cv2.bitwise_not(core))
+    else:
+        meniscus = np.zeros_like(mask)
+    return interior, meniscus
+
+
 def masked_points(
     depth: np.ndarray,
     mask: np.ndarray,

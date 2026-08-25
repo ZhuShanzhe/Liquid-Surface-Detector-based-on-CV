@@ -3,11 +3,15 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 
 from .config import load_config
 from .io import write_json
 from .pipeline import fit_bottom, infer_frame
+from .refinement import make_depth_refiner
+from .segmentation import make_segmenter
+from .temporal import make_temporal_filter
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -28,6 +32,11 @@ def _parser() -> argparse.ArgumentParser:
     batch.add_argument("--input-dir", required=True)
     batch.add_argument("--bottom-plane", required=True)
     batch.add_argument("--output-dir", required=True)
+    batch.add_argument(
+        "--temporal",
+        action="store_true",
+        help="Treat sorted frames as one ordered video and enable robust Kalman filtering",
+    )
     batch.add_argument(
         "--continue-on-error",
         action="store_true",
@@ -50,13 +59,26 @@ def main() -> None:
 
     input_dir = Path(args.input_dir)
     output_dir = Path(args.output_dir)
+    if args.temporal:
+        config.setdefault("temporal", {})["enabled"] = True
+    temporal_filter = make_temporal_filter(config)
+    segmenter = make_segmenter(config)
+    depth_refiner = make_depth_refiner(config)
     results, failures = [], []
     for frame in sorted(path for path in input_dir.iterdir() if path.is_dir()):
         required = (frame / "rgb.png", frame / "depth.npy", frame / "depth_info.json")
         if not all(path.exists() for path in required):
             continue
         try:
-            result = infer_frame(frame, args.bottom_plane, output_dir / frame.name, config)
+            result = infer_frame(
+                frame,
+                args.bottom_plane,
+                output_dir / frame.name,
+                config,
+                temporal_filter=temporal_filter,
+                segmenter=segmenter,
+                depth_refiner=depth_refiner,
+            )
         except Exception as exc:
             failure = {"frame_id": frame.name, "error": str(exc)}
             failures.append(failure)
@@ -65,13 +87,18 @@ def main() -> None:
                 raise
             continue
         results.append(result)
-        status = "accepted" if result["accepted"] else "rejected"
-        print(f"{frame.name}: {result['liquid_depth']:.3f} {result['liquid_depth_unit']} ({status})")
+        status = "accepted" if result["accepted"] else "rejected:" + ",".join(result["rejection_reasons"])
+        print(
+            f"{frame.name}: {result['liquid_depth']:.3f} {result['liquid_depth_unit']} "
+            f"confidence={result['confidence']:.3f} ({status})"
+        )
+    rejection_counts = Counter(reason for item in results for reason in item["rejection_reasons"])
     summary = {
         "processed": len(results),
         "accepted": sum(bool(item["accepted"]) for item in results),
         "rejected": sum(not bool(item["accepted"]) for item in results),
         "failed": len(failures),
+        "rejection_reason_counts": dict(sorted(rejection_counts.items())),
         "failures": failures,
     }
     write_json(output_dir / "batch_summary.json", summary)

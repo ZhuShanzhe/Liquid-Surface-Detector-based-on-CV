@@ -43,10 +43,24 @@ datasets:
     filename: transcg-info.zip
     destination: transcg
     expected_size_gb: 0.15
+    expected_bytes: 155651163
     license: CC-BY-NC-SA-4.0
     requires_acceptance: true
     priority: high
     role: Models, metadata, camera intrinsics, and meshes for TransCG.
+
+  transcg_dfnet_weights:
+    method: gdrive
+    file_id: 1oZi9zdOg0WYuTHM10xlyq5FRlfoKDKzU
+    filename: checkpoint.tar
+    destination: transcg/checkpoints
+    expected_size_gb: 0.006
+    expected_bytes: 5373307
+    license: CC-BY-NC-SA-4.0
+    requires_acceptance: true
+    priority: high
+    role: Official corrected DFNet checkpoint released on 2022-10-14.
+
 
   transcg_pilot:
     method: gdrive
@@ -57,7 +71,7 @@ datasets:
     license: CC-BY-NC-SA-4.0
     requires_acceptance: true
     priority: high
-    role: Scenes 1-10 pilot with real RGB, raw depth, refined metric depth, masks, and normals.
+    role: Scenes 1-10 pilot with real RGB, raw/refined metric depth, masks, and normals.
 
   transcg_code:
     method: git
@@ -69,24 +83,118 @@ datasets:
     priority: high
     role: DFNet reference implementation and pretrained-model integration.
 
-  cleargrasp:
-    method: manual
-    url: https://sites.google.com/view/cleargrasp/data
-    destination: cleargrasp
-    expected_size_gb: 70
-    license: verify-at-source
-    priority: high
-    role: Synthetic normals, boundaries and masks plus a 286-image real transparent RGB-D benchmark.
-
-  dreds:
-    method: manual
-    url: https://github.com/PKU-EPIC/DREDS
-    destination: dreds
-    expected_size_gb: 130
+  dreds_std:
+    method: http
+    destination: dreds_std/archives
+    expected_size_gb: 53.0
+    connections: 4
     license: CC-BY-NC-4.0
     requires_acceptance: true
     priority: high
-    role: Specular/transparent RGB-D restoration with realistic sensor-noise simulation.
+    role: Real specular/transparent RGB-D benchmark for SwinDRNet evaluation.
+    files:
+      - filename: STD-CatKnown.tar.gz
+        url: https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/data/STD-CatKnown/STD-CatKnown.tar.gz
+        expected_bytes: 44503353719
+      - filename: STD-CatNovel.tar.gz
+        url: https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/data/STD-CatNovel/STD-CatNovel.tar.gz
+        expected_bytes: 8236620093
+
+  dreds_swindrnet_weights:
+    method: http
+    destination: dreds_std/archives
+    expected_size_gb: 2.0
+    connections: 2
+    license: CC-BY-NC-4.0
+    requires_acceptance: true
+    priority: high
+    role: Official SwinDRNet checkpoint and Swin-Tiny initialization.
+    files:
+      - filename: model.pth
+        url: https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/checkpoint/SwinDRNet/models/model.pth
+        expected_bytes: 1872388181
+      - filename: swin_tiny_patch4_window7_224.pth
+        url: https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/checkpoint/SwinDRNet/pretrain_model/swin_tiny_patch4_window7_224.pth
+        expected_bytes: 114342173
+
+  dreds_code:
+    method: git
+    url: https://github.com/PKU-EPIC/DREDS.git
+    destination: sources/DREDS
+    expected_size_gb: 0.3
+    license: CC-BY-NC-4.0
+    requires_acceptance: true
+    priority: high
+    role: Official SwinDRNet implementation.
+
+  cleargrasp_eval:
+    method: http
+    destination: cleargrasp/archives
+    expected_size_gb: 2.8
+    connections: 2
+    license: Apache-2.0-code; dataset-terms-at-source
+    priority: high
+    role: Real/synthetic test and validation data plus official checkpoints.
+    files:
+      - filename: cleargrasp-dataset-test-val.tar
+        url: https://storage.googleapis.com/cleargrasp/cleargrasp-dataset-test-val.tar
+        expected_bytes: 1809184768
+      - filename: cleargrasp-checkpoints.zip
+        url: https://storage.googleapis.com/cleargrasp/cleargrasp-checkpoints.zip
+        expected_bytes: 912737706
+
+  cleargrasp_train:
+    method: http
+    destination: cleargrasp/archives
+    expected_size_gb: 77.2
+    connections: 2
+    license: Apache-2.0-code; dataset-terms-at-source
+    priority: medium
+    role: Synthetic transparent-object normals, boundaries, masks, and depth training data.
+    files:
+      - filename: cleargrasp-dataset-train.tar
+        url: https://storage.googleapis.com/cleargrasp/cleargrasp-dataset-train.tar
+        expected_bytes: 77180078080
+
+  cleargrasp_code:
+    method: git
+    url: https://github.com/Shreeyak/cleargrasp.git
+    destination: sources/ClearGrasp
+    expected_size_gb: 0.3
+    license: Apache-2.0
+    priority: high
+    role: Official ClearGrasp normals/boundaries/depth completion pipeline.
+
+  lidf_code:
+    method: git
+    url: https://github.com/NVlabs/implicit_depth.git
+    destination: sources/LIDF
+    expected_size_gb: 0.3
+    license: NVIDIA-Source-Code-License
+    priority: high
+    role: Official RGB-D Local Implicit Function depth-completion implementation.
+
+  todd:
+    method: http
+    destination: todd/archives
+    expected_size_gb: 3.9
+    connections: 1
+    license: CC-BY-4.0
+    priority: high
+    role: Transparent object depth dataset used by RGB-D LIDF; train/val/test archives.
+    files:
+      - filename: train.7z
+        url: https://borealisdata.ca/api/access/datafile/200799
+        expected_bytes: 2110058115
+        checksum: md5:bf9343eccb8e34bdbe59f59e5e13976b
+      - filename: val.7z
+        url: https://borealisdata.ca/api/access/datafile/200797
+        expected_bytes: 889151115
+        checksum: md5:1d0f3804f00f887ff643fe2fd90c384d
+      - filename: test.7z
+        url: https://borealisdata.ca/api/access/datafile/200798
+        expected_bytes: 901855490
+        checksum: md5:8114fed06562f231ce46a72908c616ce
 
   mirror3d:
     method: manual
@@ -95,7 +203,7 @@ datasets:
     expected_size_gb: 100
     license: mixed-upstream-agreements
     priority: low
-    role: Planar mirror masks and planes; useful only for context-to-plane auxiliary pretraining.
+    role: Planar mirror masks and planes; context-to-plane auxiliary pretraining only.
 
   booster:
     method: manual
@@ -104,7 +212,7 @@ datasets:
     expected_size_gb: 200
     license: registration-required
     priority: medium
-    role: Accurate transparent/specular stereo benchmark; requires registration and stereo input.
+    role: Transparent/specular stereo benchmark; only after adding stereo input.
 
   urbanlf_non_lambertian:
     method: manual
@@ -113,7 +221,7 @@ datasets:
     expected_size_gb: 50
     license: research-only-verify-at-source
     priority: low
-    role: Non-Lambertian light-field depth; only relevant after adding a light-field/multi-view camera.
+    role: Non-Lambertian light-field depth; only after adding light-field/multi-view input.
 
   hci_lightfield:
     method: manual
@@ -122,4 +230,4 @@ datasets:
     expected_size_gb: 10
     license: research-only-verify-at-source
     priority: low
-    role: Light-field disparity benchmark with an input domain different from the current RGB-D sensor.
+    role: Light-field disparity benchmark outside the current RGB-D input domain.

@@ -26,6 +26,11 @@ train = [
 research = [
   "huggingface-hub>=0.30,<2",
   "gdown>=5,<6",
+  "einops>=0.8,<1",
+  "imageio>=2.37,<3",
+  "scipy>=1.13,<2",
+  "timm>=1,<2",
+  "yacs>=0.1.8,<1",
 ]
 visualization = ["open3d>=0.19,<0.20"]
 
@@ -39,5 +44,6 @@ where = ["src"]
 testpaths = ["tests"]
 
 [tool.ruff]
+exclude = ["third_party"]
 line-length = 110
 target-version = "py310"

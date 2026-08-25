@@ -14,6 +14,8 @@ and generated artifacts have stable boundaries so models can change without rewr
 - RANSAC plus robust-refinement plane fitting and bottom/liquid physical consistency checks.
 - One-command single-frame or batch inference with explicit accepted/rejected output.
 - DeepLabV3 training baseline and TorchScript export.
+- Five-channel RGB-D multi-task network for mask, metric depth, normal, uncertainty, and confidence.
+- Difficulty-balanced training, meniscus-aware geometry, and confidence-aware robust Kalman filtering.
 - Scenario-aware end-to-end evaluation, frame validation, system audit, and research-data registry.
 - Server bootstrap for an RTX 5090 using CUDA 12.8 PyTorch.
 
@@ -93,6 +95,8 @@ clouds, and generated artifacts stay on the server data disk.
 ## Documentation
 
 - [System architecture](docs/architecture.md)
+- [Executable algorithm roadmap](docs/algorithm_roadmap.md)
+- [Baseline reproduction status](docs/baseline_results.md)
 - [Transparent/specular robustness and SeeGroup plan](docs/robustness_research.md)
 - [System readiness](docs/system_readiness.md)
 - [Camera acquisition](docs/camera.md)

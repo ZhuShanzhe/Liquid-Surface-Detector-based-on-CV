@@ -1,0 +1,55 @@
+baselines:
+  transcg_dfnet:
+    family: metric_rgbd_restoration
+    source: sources/TransCG
+    expected_revision: 135f9e0
+    license: CC-BY-NC-SA-4.0
+    data_globs: ["transcg/**/rgb*", "transcg/**/depth*"]
+    checkpoint_globs: ["transcg/**/checkpoint.tar", "transcg/**/*dfnet*.pth", "transcg/**/*best*.pth"]
+    input_contract: aligned RGB, raw metric depth, validity
+    output_contract: metric restored depth, normal
+    adaptation: run official model under current PyTorch; do not install its legacy stack into the project environment
+
+  dreds_swindrnet:
+    family: metric_rgbd_restoration
+    source: sources/DREDS
+    expected_revision: 1b0ac30
+    license: CC-BY-NC-4.0
+    data_globs: ["dreds_std/**/STD-CatKnown*", "dreds_std/**/STD-CatNovel*"]
+    checkpoint_globs: ["dreds_std/**/model.pth", "dreds_std/**/swin_tiny_patch4_window7_224.pth"]
+    input_contract: aligned RGB, simulated/raw depth
+    output_contract: restored depth and semantic logits
+    adaptation: modernize deprecated APIs while preserving official weights and preprocessing
+
+  cleargrasp:
+    family: normal_boundary_global_optimization
+    source: sources/ClearGrasp
+    expected_revision: 0688647
+    license: verify-at-source
+    data_globs: ["cleargrasp/**/cleargrasp-dataset-test-val*", "cleargrasp/**/cleargrasp-dataset-train*"]
+    checkpoint_globs: ["cleargrasp/**/*checkpoint*", "cleargrasp/**/*.pth"]
+    input_contract: RGB, raw depth, transparent-object mask
+    output_contract: completed depth via normal and boundary prediction
+    adaptation: benchmark as a quality reference; global optimization may be too slow for deployment
+
+  nvidia_lidf:
+    family: local_implicit_rgbd
+    source: sources/LIDF
+    expected_revision: 4dc85bb
+    license: NVIDIA-Source-Code-License-Non-Commercial
+    data_globs: ["cleargrasp/**/cleargrasp-dataset-test-val*"]
+    checkpoint_globs: ["lidf/**/*checkpoint*", "lidf/**/*.pth"]
+    input_contract: RGB, noisy local depth, camera rays
+    output_contract: metric completed depth after iterative refinement
+    adaptation: isolate CUDA extensions and rebuild for PyTorch 2.x/CUDA 12.8; official PyTorch 1.6 wheels cannot run RTX 5090
+
+selection_metrics:
+  - transparent_mask_depth_mae_m
+  - transparent_mask_depth_rmse_m
+  - boundary_depth_rmse_m
+  - valid_prediction_coverage
+  - uncertainty_error_calibration
+  - end_to_end_liquid_depth_mae_cm
+  - accepted_sample_coverage
+  - latency_ms
+  - peak_gpu_memory_mb
