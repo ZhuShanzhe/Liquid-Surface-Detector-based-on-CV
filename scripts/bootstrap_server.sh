@@ -17,7 +17,7 @@ PYTHON="${ENV_PREFIX}/bin/python"
 "${PYTHON}" -m pip install --upgrade pip setuptools wheel
 
 # CUDA 12.8+ is required for the RTX 5090 (sm_120).
-"${PYTHON}" -m pip install +  torch==2.11.0 torchvision==0.26.0 +  --index-url https://download.pytorch.org/whl/cu128
+"${PYTHON}" -m pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
 "${PYTHON}" -m pip install -e "${PROJECT_DIR}[train,dev]"
 
 "${PYTHON}" - <<'PY'
