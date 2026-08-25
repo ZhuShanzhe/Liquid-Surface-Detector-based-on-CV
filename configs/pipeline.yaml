@@ -15,12 +15,22 @@ segmentation:
     input_size: [512, 512]
     threshold: 0.5
 
+depth_refinement:
+  # identity preserves the validated classical baseline. Switch to torchscript
+  # after a transparent/specular RGB-D completion model passes offline evaluation.
+  backend: identity
+  torchscript:
+    model_path: weights/depth_refiner.ts
+    input_size: [640, 360]
+    max_depth_m: 3.0
+
 geometry:
   liquid_erode_px: 12
   bottom_erode_px: 6
   ransac_threshold_m: 0.006
   max_points: 30000
   seed: 7
+  min_depth_confidence: 0.25
 
 bottom:
   roi: [400, 150, 1000, 700]
@@ -31,3 +41,10 @@ output:
   depth_unit: cm
   calibration_scale_per_meter: 100.0
 
+quality:
+  min_mask_area: 10000
+  min_inlier_ratio: 0.30
+  max_median_residual_m: 0.006
+  min_mean_segmentation_confidence: 0.20
+  min_mean_depth_confidence: 0.20
+  max_plane_angle_deg: 15.0

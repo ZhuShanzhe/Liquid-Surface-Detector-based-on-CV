@@ -1,0 +1,125 @@
+datasets:
+  layereddepth:
+    method: huggingface
+    repo_id: princeton-vl/LayeredDepth
+    repo_type: dataset
+    destination: layereddepth
+    expected_size_gb: 19.3
+    license: CC0-1.0
+    priority: medium
+    role: Real multi-layer transparent-depth benchmark; relative rather than metric depth.
+
+  layereddepth_syn:
+    method: huggingface
+    repo_id: princeton-vl/LayeredDepth-Syn
+    repo_type: dataset
+    destination: layereddepth_syn
+    expected_size_gb: 24.7
+    license: BSD-3-Clause
+    priority: medium
+    role: Synthetic multi-layer pretraining for SeeGroup-style experiments.
+
+  seegroup_code:
+    method: git
+    url: https://github.com/princeton-vl/SeeGroup.git
+    destination: sources/SeeGroup
+    expected_size_gb: 0.2
+    license: BSD-3-Clause
+    priority: medium
+    role: Reference implementation for order-agnostic multi-layer depth.
+
+  layereddepth_code:
+    method: git
+    url: https://github.com/princeton-vl/LayeredDepth.git
+    destination: sources/LayeredDepth
+    expected_size_gb: 0.5
+    license: BSD-3-Clause
+    priority: medium
+    role: Official evaluator and transparent-scene synthetic generator.
+
+  transcg_info:
+    method: gdrive
+    file_id: 18LkbelKNTURF-8f8N-ykzs79FJ013knH
+    filename: transcg-info.zip
+    destination: transcg
+    expected_size_gb: 0.15
+    license: CC-BY-NC-SA-4.0
+    requires_acceptance: true
+    priority: high
+    role: Models, metadata, camera intrinsics, and meshes for TransCG.
+
+  transcg_pilot:
+    method: gdrive
+    file_id: 1rDgbMrzyO8GvTwEyPDbyx6pS9TVVDJLI
+    filename: transcg-data-1.zip
+    destination: transcg
+    expected_size_gb: 13.9
+    license: CC-BY-NC-SA-4.0
+    requires_acceptance: true
+    priority: high
+    role: Scenes 1-10 pilot with real RGB, raw depth, refined metric depth, masks, and normals.
+
+  transcg_code:
+    method: git
+    url: https://github.com/Galaxies99/TransCG.git
+    destination: sources/TransCG
+    expected_size_gb: 0.3
+    license: CC-BY-NC-SA-4.0
+    requires_acceptance: true
+    priority: high
+    role: DFNet reference implementation and pretrained-model integration.
+
+  cleargrasp:
+    method: manual
+    url: https://sites.google.com/view/cleargrasp/data
+    destination: cleargrasp
+    expected_size_gb: 70
+    license: verify-at-source
+    priority: high
+    role: Synthetic normals, boundaries and masks plus a 286-image real transparent RGB-D benchmark.
+
+  dreds:
+    method: manual
+    url: https://github.com/PKU-EPIC/DREDS
+    destination: dreds
+    expected_size_gb: 130
+    license: CC-BY-NC-4.0
+    requires_acceptance: true
+    priority: high
+    role: Specular/transparent RGB-D restoration with realistic sensor-noise simulation.
+
+  mirror3d:
+    method: manual
+    url: https://github.com/3dlg-hcvc/mirror3d
+    destination: mirror3d
+    expected_size_gb: 100
+    license: mixed-upstream-agreements
+    priority: low
+    role: Planar mirror masks and planes; useful only for context-to-plane auxiliary pretraining.
+
+  booster:
+    method: manual
+    url: https://cvlab-unibo.github.io/booster-web/
+    destination: booster
+    expected_size_gb: 200
+    license: registration-required
+    priority: medium
+    role: Accurate transparent/specular stereo benchmark; requires registration and stereo input.
+
+  urbanlf_non_lambertian:
+    method: manual
+    url: https://github.com/HAWKEYE-Group/UrbanLF
+    destination: urbanlf
+    expected_size_gb: 50
+    license: research-only-verify-at-source
+    priority: low
+    role: Non-Lambertian light-field depth; only relevant after adding a light-field/multi-view camera.
+
+  hci_lightfield:
+    method: manual
+    url: https://lightfield-analysis.net/
+    destination: hci_lightfield
+    expected_size_gb: 10
+    license: research-only-verify-at-source
+    priority: low
+    role: Light-field disparity benchmark with an input domain different from the current RGB-D sensor.

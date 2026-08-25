@@ -67,10 +67,16 @@ def masked_points(
     depth: np.ndarray,
     mask: np.ndarray,
     camera_matrix: np.ndarray,
+    confidence: np.ndarray | None = None,
+    min_confidence: float = 0.0,
     percentiles: tuple[float, float] = (2.0, 98.0),
 ) -> tuple[np.ndarray, np.ndarray]:
     depth_m = depth_to_meters(depth)
     valid = (mask > 0) & np.isfinite(depth_m) & (depth_m > 0)
+    if confidence is not None:
+        if confidence.shape != depth.shape:
+            raise ValueError(f"Depth confidence shape {confidence.shape} does not match depth {depth.shape}")
+        valid &= np.isfinite(confidence) & (confidence >= min_confidence)
     if not np.any(valid):
         return np.empty((0, 3)), np.empty((0, 2), dtype=np.int32)
     low, high = np.percentile(depth_m[valid], percentiles)
@@ -159,6 +165,8 @@ def fit_plane_from_mask(
     threshold_m: float,
     max_points: int,
     seed: int,
+    confidence: np.ndarray | None = None,
+    min_confidence: float = 0.0,
 ) -> PlaneFit:
     import cv2
 
@@ -169,8 +177,15 @@ def fit_plane_from_mask(
         eroded = cv2.erode(mask, kernel)
         if cv2.countNonZero(eroded) >= 500:
             fit_mask = eroded
-    points, pixels = masked_points(depth, fit_mask, camera_matrix)
+    points, pixels = masked_points(
+        depth, fit_mask, camera_matrix, confidence=confidence, min_confidence=min_confidence
+    )
     return fit_plane(points, pixels, threshold_m=threshold_m, max_points=max_points, seed=seed)
+
+
+def plane_angle_degrees(first: Plane, second: Plane) -> float:
+    cosine = float(np.clip(abs(np.dot(first.normal, second.normal)), 0.0, 1.0))
+    return float(np.degrees(np.arccos(cosine)))
 
 
 def save_plane(path: str | Path, fit: PlaneFit, kind: str, frame_id: str) -> None:
@@ -185,4 +200,3 @@ def load_plane(path: str | Path) -> Plane:
     normal, d = _normalize_plane(coefficients[:3], float(coefficients[3]))
     centroid = np.asarray(payload["point_on_plane_centroid_m"], dtype=np.float64)
     return Plane(normal, d, centroid)
-

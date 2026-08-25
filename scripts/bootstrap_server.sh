@@ -5,9 +5,10 @@ ENV_PREFIX="${LIQUID_DEPTH_ENV:-/root/autodl-tmp/envs/liquid-depth}"
 PROJECT_DIR="${LIQUID_DEPTH_PROJECT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 CACHE_DIR="${LIQUID_DEPTH_CACHE:-/root/autodl-tmp/cache}"
 
-mkdir -p "$(dirname "${ENV_PREFIX}")" "${CACHE_DIR}/pip" "${CACHE_DIR}/torch"
+mkdir -p "$(dirname "${ENV_PREFIX}")" "${CACHE_DIR}/pip" "${CACHE_DIR}/torch" "${CACHE_DIR}/huggingface"
 export PIP_CACHE_DIR="${CACHE_DIR}/pip"
 export TORCH_HOME="${CACHE_DIR}/torch"
+export HF_HOME="${CACHE_DIR}/huggingface"
 export PIP_DEFAULT_TIMEOUT=600
 
 if [[ ! -x "${ENV_PREFIX}/bin/python" ]]; then
@@ -24,7 +25,7 @@ PYTHON="${ENV_PREFIX}/bin/python"
 # Use the official CUDA index only for the explicitly requested Blackwell wheels
 # and their NVIDIA runtime packages.
 "${PYTHON}" -m pip install torch==2.11.0+cu128 torchvision==0.26.0+cu128 --extra-index-url https://download.pytorch.org/whl/cu128
-"${PYTHON}" -m pip install -e "${PROJECT_DIR}[train,dev]"
+"${PYTHON}" -m pip install -e "${PROJECT_DIR}[train,dev,research]"
 
 "${PYTHON}" - <<'PY'
 import cv2
@@ -44,3 +45,4 @@ tensor = torch.randn(1024, 1024, device="cuda")
 print("cuda_smoke_sum", float(tensor.square().sum()))
 PY
 
+"${PYTHON}" "${PROJECT_DIR}/scripts/audit_system.py" --config "${PROJECT_DIR}/configs/pipeline.yaml" --require-cuda

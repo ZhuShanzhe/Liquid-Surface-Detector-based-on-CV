@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from .config import load_config
+from .io import write_json
 from .pipeline import fit_bottom, infer_frame
 
 
@@ -26,6 +28,11 @@ def _parser() -> argparse.ArgumentParser:
     batch.add_argument("--input-dir", required=True)
     batch.add_argument("--bottom-plane", required=True)
     batch.add_argument("--output-dir", required=True)
+    batch.add_argument(
+        "--continue-on-error",
+        action="store_true",
+        help="Record failed frames in batch_summary.json instead of stopping the batch",
+    )
     return parser
 
 
@@ -42,17 +49,34 @@ def main() -> None:
         return
 
     input_dir = Path(args.input_dir)
-    results = []
+    output_dir = Path(args.output_dir)
+    results, failures = [], []
     for frame in sorted(path for path in input_dir.iterdir() if path.is_dir()):
         required = (frame / "rgb.png", frame / "depth.npy", frame / "depth_info.json")
         if not all(path.exists() for path in required):
             continue
-        result = infer_frame(frame, args.bottom_plane, Path(args.output_dir) / frame.name, config)
+        try:
+            result = infer_frame(frame, args.bottom_plane, output_dir / frame.name, config)
+        except Exception as exc:
+            failure = {"frame_id": frame.name, "error": str(exc)}
+            failures.append(failure)
+            print(f"{frame.name}: ERROR {exc}", file=sys.stderr)
+            if not args.continue_on_error:
+                raise
+            continue
         results.append(result)
-        print(f"{frame.name}: {result['liquid_depth']:.3f} {result['liquid_depth_unit']}")
-    print(f"Processed {len(results)} frame(s)")
+        status = "accepted" if result["accepted"] else "rejected"
+        print(f"{frame.name}: {result['liquid_depth']:.3f} {result['liquid_depth_unit']} ({status})")
+    summary = {
+        "processed": len(results),
+        "accepted": sum(bool(item["accepted"]) for item in results),
+        "rejected": sum(not bool(item["accepted"]) for item in results),
+        "failed": len(failures),
+        "failures": failures,
+    }
+    write_json(output_dir / "batch_summary.json", summary)
+    print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
     main()
-

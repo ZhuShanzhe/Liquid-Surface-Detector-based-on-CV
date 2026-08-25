@@ -1,31 +1,37 @@
 # Liquid Surface Detector based on RGB-D Computer Vision
 
-An end-to-end system for synchronized Orbbec RGB-D capture, liquid-surface segmentation, robust 3-D plane fitting,
-and liquid-depth output. The repository separates camera acquisition, algorithm code, large datasets, generated
-artifacts, and future deep-learning training so work can move between an edge camera computer and a GPU server.
+An end-to-end system for synchronized Orbbec RGB-D capture, liquid-surface perception, transparent/specular depth
+restoration, calibrated 3-D geometry, and quality-gated liquid-depth output. Camera acquisition, GPU research, raw data,
+and generated artifacts have stable boundaries so models can change without rewriting the complete system.
 
-## What is ready
+## System status
 
 - ROS 2 Humble acquisition node for synchronized RGB, depth, and camera intrinsics.
 - Pinned upstream Orbbec Gemini 2 ROS driver as a Git submodule.
 - Stable frame-directory contract independent of ROS.
-- Classical segmentation baseline compatible with the May 2026 prototype.
-- RANSAC + robust-refinement 3-D liquid and bottom plane fitting.
-- One-command depth inference with masks, plane metrics, confidence, and a quality gate.
-- Swappable TorchScript segmentation backend and DeepLabV3 training baseline.
-- Server bootstrap for an RTX 5090 using a CUDA 12.8 PyTorch build.
+- Classical and TorchScript segmentation backends.
+- Identity and TorchScript RGB-D depth-refinement backends with per-pixel confidence.
+- RANSAC plus robust-refinement plane fitting and bottom/liquid physical consistency checks.
+- One-command single-frame or batch inference with explicit accepted/rejected output.
+- DeepLabV3 training baseline and TorchScript export.
+- Scenario-aware end-to-end evaluation, frame validation, system audit, and research-data registry.
+- Server bootstrap for an RTX 5090 using CUDA 12.8 PyTorch.
+
+The current classical path is a validated regression baseline. Transparent liquid and strong reflection require learned
+RGB-D restoration and uncertainty rather than RANSAC tuning alone. See
+[the research plan](docs/robustness_research.md) and [readiness checklist](docs/system_readiness.md).
 
 ## Repository layout
 
 ```text
-configs/                   pipeline and backend configuration
-src/liquid_depth/          reusable inference and geometry package
-src/liquid_depth/training/ deep-learning dataset and training baseline
+configs/                   runtime and research-dataset configuration
+src/liquid_depth/          reusable inference, refinement, geometry, and evaluation package
+src/liquid_depth/training/ deep-learning dataset and segmentation baseline
 ros2_ws/src/               camera acquisition ROS 2 package
 third_party/               pinned OrbbecSDK_ROS2 submodule
-scripts/                   server, camera, data, and training entry points
+scripts/                   server, camera, data, audit, export, evaluation, and training entry points
 tests/                     deterministic unit tests
-docs/                      architecture, deployment, camera, and training notes
+docs/                      architecture, deployment, camera, research, and training notes
 data/                      documentation only; large captures live outside Git
 artifacts/                 documentation only; generated outputs live outside Git
 ```
@@ -38,18 +44,19 @@ cd Liquid-Surface-Detector-based-on-CV
 bash scripts/bootstrap_server.sh
 conda activate /root/autodl-tmp/envs/liquid-depth
 pytest -q
+python scripts/audit_system.py --require-cuda --data-root /root/autodl-tmp/liquid-depth-data
 ```
 
-The configured deployment uses:
+Configured deployment locations:
 
 - project: `/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV`
 - environment: `/root/autodl-tmp/envs/liquid-depth`
-- raw data: `/root/autodl-tmp/liquid-depth-data`
+- raw/research data: `/root/autodl-tmp/liquid-depth-data`
 - outputs/models: `/root/autodl-tmp/liquid-depth-artifacts`
 
 ## Offline end-to-end inference
 
-First fit the empty-container bottom plane:
+Fit the empty-container bottom plane once for a fixed camera/container setup:
 
 ```bash
 liquid-depth --config configs/pipeline.yaml fit-bottom \
@@ -57,7 +64,7 @@ liquid-depth --config configs/pipeline.yaml fit-bottom \
   --output /root/autodl-tmp/liquid-depth-artifacts/calibration/bottom_plane.json
 ```
 
-Then estimate one liquid depth:
+Estimate one liquid depth:
 
 ```bash
 liquid-depth --config configs/pipeline.yaml infer \
@@ -66,25 +73,30 @@ liquid-depth --config configs/pipeline.yaml infer \
   --output-dir /root/autodl-tmp/liquid-depth-artifacts/inference/20260517_143323
 ```
 
-The primary machine-readable output is `depth_result.json`. A result with `accepted: false` should be treated as
-uncertain and not sent to downstream control logic.
+`depth_result.json` contains the numeric result, model backends, confidence/validity, plane diagnostics, and quality-gate
+decision. A result with `accepted: false` must not be sent to downstream control logic.
 
-The default scale is geometric centimeters per meter. For calibrated physical depth, update
-`output.calibration_scale_per_meter` from a reference measurement or multi-point calibration.
+The default scale is geometric centimeters per meter. Determine `output.calibration_scale_per_meter` from a multi-point
+physical calibration before reporting final accuracy.
 
-## Camera acquisition
+## Research data
 
-See [docs/camera.md](docs/camera.md). The camera-facing machine and GPU server are deliberately decoupled: a rented
-cloud server cannot access a USB camera attached elsewhere. They exchange the stable RGB-D frame format.
+Inspect the registry before downloading. It records task match, approximate size, source, and license:
 
-## Deep-learning work
+```bash
+python scripts/download_research_data.py --list
+```
 
-See [docs/training.md](docs/training.md). The next milestone is a reviewed, leakage-free labeled dataset spanning
-complex conditions. Do not optimize only on the 2026 prototype sequence: that sequence is useful for regression tests
-but is too small and homogeneous for robustness claims.
+Only code, configuration, provenance, loaders, and metrics belong in Git. Raw datasets, weights, environments, point
+clouds, and generated artifacts stay on the server data disk.
 
-## Security and data policy
+## Documentation
 
-Credentials, raw data, generated point clouds, environments, model weights, and build outputs are ignored by Git.
-Never commit server passwords, private keys, or access tokens.
+- [System architecture](docs/architecture.md)
+- [Transparent/specular robustness and SeeGroup plan](docs/robustness_research.md)
+- [System readiness](docs/system_readiness.md)
+- [Camera acquisition](docs/camera.md)
+- [Training](docs/training.md)
+- [Server operations](docs/server.md)
 
+Credentials and access tokens are never stored in this repository.
