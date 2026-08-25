@@ -17,8 +17,12 @@ fi
 PYTHON="${ENV_PREFIX}/bin/python"
 "${PYTHON}" -m pip install --upgrade pip setuptools wheel
 
-# Keep the normal Python index primary for small dependencies and use the official
-# CUDA index only for the explicitly requested Blackwell-compatible wheels.
+# Resolve small, generic dependencies from the normal Python index first. The
+# rented server's route to the PyTorch wheel index can be slow for small files.
+"${PYTHON}" -m pip install filelock typing-extensions "setuptools<82" "sympy>=1.13.3" networkx jinja2 fsspec numpy pillow "cuda-bindings>=12.9.4,<13" "cuda-pathfinder~=1.1" MarkupSafe mpmath
+
+# Use the official CUDA index only for the explicitly requested Blackwell wheels
+# and their NVIDIA runtime packages.
 "${PYTHON}" -m pip install torch==2.11.0+cu128 torchvision==0.26.0+cu128 --extra-index-url https://download.pytorch.org/whl/cu128
 "${PYTHON}" -m pip install -e "${PROJECT_DIR}[train,dev]"
 
