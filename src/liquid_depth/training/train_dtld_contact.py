@@ -13,7 +13,22 @@ def _move(target: dict, device):
     return {name: value.to(device, non_blocking=True) for name, value in target.items()}
 
 
-def _balanced_weights(rows: list[dict[str, str]]) -> list[float]:
+def _parse_object_boosts(specifications: list[str]) -> dict[str, float]:
+    boosts = {}
+    for specification in specifications:
+        object_id, separator, multiplier = specification.partition(":")
+        if not separator or object_id not in {"15", "16", "17", "19"}:
+            raise ValueError(f"Invalid --object-boost: {specification!r}")
+        value = float(multiplier)
+        if not np.isfinite(value) or value <= 0.0:
+            raise ValueError("Object boost multipliers must be finite and positive")
+        boosts[object_id] = value
+    return boosts
+
+
+def _balanced_weights(
+    rows: list[dict[str, str]], object_boosts: dict[str, float] | None = None
+) -> list[float]:
     keys = [
         (
             row["object_id"],
@@ -23,17 +38,21 @@ def _balanced_weights(rows: list[dict[str, str]]) -> list[float]:
         for row in rows
     ]
     counts = Counter(keys)
-    raw = [1.0 / np.sqrt(counts[key]) for key in keys]
+    boosts = object_boosts or {}
+    raw = [
+        boosts.get(row["object_id"], 1.0) / np.sqrt(counts[key]) for row, key in zip(rows, keys, strict=True)
+    ]
     mean = sum(raw) / max(len(raw), 1)
     return [value / mean for value in raw]
 
 
-def _evaluate(model, loader, device, image_size: tuple[int, int]) -> dict[str, float]:
+def _evaluate(model, loader, device, image_size: tuple[int, int]) -> dict[str, object]:
     import torch
 
     model.eval()
     curve_errors = []
     confidence = []
+    object_indices = []
     intersection = 0
     union = 0
     residual_squared = 0.0
@@ -50,6 +69,7 @@ def _evaluate(model, loader, device, image_size: tuple[int, int]) -> dict[str, f
             ).mean(dim=1)
             curve_errors.append(error.cpu())
             confidence.append(prediction["curve_confidence"].cpu())
+            object_indices.append(target["object_index"].cpu())
             predicted_contact = prediction["contact_logits"].sigmoid() >= 0.5
             target_contact = target["contact"] >= 0.5
             intersection += int((predicted_contact & target_contact).sum())
@@ -60,6 +80,17 @@ def _evaluate(model, loader, device, image_size: tuple[int, int]) -> dict[str, f
             residual_values += int(support.sum()) * 3
     values = torch.cat(curve_errors).numpy()
     confidence_values = torch.cat(confidence).numpy()
+    object_values = torch.cat(object_indices).numpy()
+    object_ids = ("15", "16", "17", "19")
+    by_object = {
+        object_id: {
+            "samples": int((object_values == index).sum()),
+            "mean_px": float(values[object_values == index].mean()),
+            "p95_px": float(np.percentile(values[object_values == index], 95)),
+        }
+        for index, object_id in enumerate(object_ids)
+        if np.any(object_values == index)
+    }
     correlation = (
         float(np.corrcoef(confidence_values, values)[0, 1])
         if np.std(confidence_values) > 1e-8 and np.std(values) > 1e-8
@@ -71,6 +102,8 @@ def _evaluate(model, loader, device, image_size: tuple[int, int]) -> dict[str, f
         "val_contact_iou": intersection / max(union, 1),
         "val_ali_residual_rmse": float(np.sqrt(residual_squared / max(residual_values, 1))),
         "val_confidence_error_correlation": correlation,
+        "val_curve_by_object": by_object,
+        "val_worst_object_mae_px": max(group["mean_px"] for group in by_object.values()),
         "val_samples": len(values),
     }
 
@@ -122,9 +155,19 @@ def main() -> None:
     parser.add_argument("--image-size", default="320,180", help="width,height")
     parser.add_argument("--max-depth-m", type=float, default=3.0)
     parser.add_argument("--base-channels", type=int, default=24)
+    parser.add_argument("--backbone", choices=("unet", "resnet34"), default="unet")
+    parser.add_argument("--pretrained-backbone", action="store_true")
+    parser.add_argument(
+        "--object-boost",
+        action="append",
+        default=[],
+        metavar="OBJECT_ID:MULTIPLIER",
+    )
     parser.add_argument("--geometry-conditioning", action="store_true")
     parser.add_argument("--object-experts", action="store_true")
     parser.add_argument("--consistency-weight", type=float, default=0.0)
+    parser.add_argument("--decoupled-uncertainty", action="store_true")
+    parser.add_argument("--uncertainty-weight", type=float, default=0.1)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--resume", type=Path)
@@ -139,7 +182,7 @@ def main() -> None:
 
     from liquid_depth.training.dtld_contact import (
         DTLDContactGeometryLoss,
-        DTLDContactGeometryNet,
+        build_dtld_contact_model,
     )
     from liquid_depth.training.dtld_height import DTLDContactHeightDataset
 
@@ -177,7 +220,8 @@ def main() -> None:
         train_set.rows = train_set.rows[:: args.train_stride]
     if args.val_stride > 1:
         val_set.rows = val_set.rows[:: args.val_stride]
-    weights = torch.as_tensor(_balanced_weights(train_set.rows), dtype=torch.double)
+    object_boosts = _parse_object_boosts(args.object_boost)
+    weights = torch.as_tensor(_balanced_weights(train_set.rows, object_boosts), dtype=torch.double)
     sampler = WeightedRandomSampler(weights, num_samples=len(weights), replacement=True)
     train_loader = DataLoader(
         train_set,
@@ -195,18 +239,24 @@ def main() -> None:
         persistent_workers=args.workers > 0,
     )
 
-    model = DTLDContactGeometryNet(
+    model = build_dtld_contact_model(
+        args.backbone,
         args.base_channels,
+        pretrained_backbone=args.pretrained_backbone and not args.resume,
         geometry_conditioning=args.geometry_conditioning,
         object_experts=args.object_experts,
     ).to(device)
     criterion = DTLDContactGeometryLoss(
-        consistency_weight=args.consistency_weight
+        consistency_weight=args.consistency_weight,
+        decoupled_uncertainty=args.decoupled_uncertainty,
+        uncertainty_weight=args.uncertainty_weight,
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     start_epoch = 1
     best_curve_px = float("inf")
+    best_p95_px = float("inf")
+    best_worst_object_px = float("inf")
     if args.warm_start:
         loaded = _load_compatible(model, args.warm_start)
         print(json.dumps({"warm_start": str(args.warm_start), "compatible_tensors": loaded}))
@@ -217,6 +267,8 @@ def main() -> None:
         scheduler.load_state_dict(state["scheduler"])
         start_epoch = int(state["epoch"]) + 1
         best_curve_px = float(state.get("best_curve_px", best_curve_px))
+        best_p95_px = float(state.get("best_p95_px", best_p95_px))
+        best_worst_object_px = float(state.get("best_worst_object_px", best_worst_object_px))
 
     metrics_path = output_dir / "metrics.jsonl"
     for epoch in range(start_epoch, args.epochs + 1):
@@ -256,23 +308,38 @@ def main() -> None:
         with metrics_path.open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(metrics) + "\n")
         improved = metrics["val_curve_mae_px"] < best_curve_px
+        improved_p95 = metrics["val_curve_p95_px"] < best_p95_px
+        improved_worst = metrics["val_worst_object_mae_px"] < best_worst_object_px
         if improved:
             best_curve_px = metrics["val_curve_mae_px"]
+        if improved_p95:
+            best_p95_px = metrics["val_curve_p95_px"]
+        if improved_worst:
+            best_worst_object_px = metrics["val_worst_object_mae_px"]
         checkpoint = {
             "model": model.state_dict(),
             "optimizer": optimizer.state_dict(),
             "scheduler": scheduler.state_dict(),
             "epoch": epoch,
             "best_curve_px": best_curve_px,
+            "best_p95_px": best_p95_px,
+            "best_worst_object_px": best_worst_object_px,
             "metrics": metrics,
             "image_size": image_size,
             "base_channels": args.base_channels,
+            "backbone": args.backbone,
+            "pretrained_backbone": args.pretrained_backbone,
+            "object_boosts": object_boosts,
             "geometry_conditioning": args.geometry_conditioning,
             "object_experts": args.object_experts,
             "consistency_weight": args.consistency_weight,
+            "decoupled_uncertainty": args.decoupled_uncertainty,
+            "uncertainty_weight": args.uncertainty_weight,
             "max_depth_m": args.max_depth_m,
             "architecture": (
-                "crm_bezier_object_experts_explicit_geometry_v4"
+                "crm_resnet34_bezier_explicit_geometry_v5"
+                if args.backbone == "resnet34"
+                else "crm_bezier_object_experts_explicit_geometry_v4"
                 if args.object_experts
                 else "crm_bezier_pose_film_explicit_geometry_v3"
                 if args.geometry_conditioning
@@ -284,6 +351,10 @@ def main() -> None:
         torch.save(checkpoint, output_dir / "latest.pth")
         if improved:
             torch.save(checkpoint, output_dir / "best.pth")
+        if improved_p95:
+            torch.save(checkpoint, output_dir / "best_p95.pth")
+        if improved_worst:
+            torch.save(checkpoint, output_dir / "best_worst_object.pth")
 
 
 if __name__ == "__main__":

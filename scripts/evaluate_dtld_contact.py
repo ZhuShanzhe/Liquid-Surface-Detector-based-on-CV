@@ -26,7 +26,7 @@ def main() -> None:
 
     from liquid_depth.training.contact_metrics import summarize_curve_group
     from liquid_depth.training.dtld_contact import (
-        DTLDContactGeometryNet,
+        build_dtld_contact_model,
         sample_cubic_bezier,
     )
     from liquid_depth.training.dtld_height import DTLDContactHeightDataset
@@ -54,8 +54,10 @@ def main() -> None:
         pin_memory=device.type == "cuda",
         persistent_workers=args.workers > 0,
     )
-    model = DTLDContactGeometryNet(
+    model = build_dtld_contact_model(
+        state.get("backbone", "unet"),
         base_channels,
+        pretrained_backbone=False,
         geometry_conditioning=bool(state.get("geometry_conditioning", False)),
         object_experts=bool(state.get("object_experts", False)),
     )
@@ -83,8 +85,8 @@ def main() -> None:
             color_target = target["color_residual"].to(device, non_blocking=True)
             support = target_contact.expand_as(color_target)
             residual_squared = (
-                (prediction["color_residual"] - color_target).square() * support
-            ).flatten(1).sum(dim=1)
+                ((prediction["color_residual"] - color_target).square() * support).flatten(1).sum(dim=1)
+            )
             residual_count = support.flatten(1).sum(dim=1)
             batch_values = {
                 "curve_error": curve_error,
@@ -102,12 +104,9 @@ def main() -> None:
 
     def summarize(indices: list[int] | np.ndarray) -> dict[str, object]:
         index = np.asarray(indices, dtype=np.int64)
-        summary = summarize_curve_group(
-            arrays["curve_error"][index], arrays["confidence"][index]
-        )
+        summary = summarize_curve_group(arrays["curve_error"][index], arrays["confidence"][index])
         summary["contact_iou_micro"] = float(
-            arrays["intersection"][index].sum()
-            / max(float(arrays["union"][index].sum()), 1.0)
+            arrays["intersection"][index].sum() / max(float(arrays["union"][index].sum()), 1.0)
         )
         summary["ali_residual_rmse"] = float(
             np.sqrt(
@@ -130,9 +129,7 @@ def main() -> None:
         groups["object_id"][row["object_id"]].append(position)
         groups["scenario"][row.get("scenario", "unknown")].append(position)
         groups["sequence_id"][row["sequence_id"]].append(position)
-        groups["object_sequence"][
-            f"{row['object_id']}:{row['sequence_id']}"
-        ].append(position)
+        groups["object_sequence"][f"{row['object_id']}:{row['sequence_id']}"].append(position)
         tags = [tag for tag in row.get("difficulty_tags", "").split(";") if tag]
         for tag in tags or ["untagged"]:
             groups["difficulty_tag"][tag].append(position)
@@ -148,9 +145,7 @@ def main() -> None:
         "device": str(device),
         "overall": summarize(np.arange(len(dataset))),
         "groups": {
-            group_name: {
-                name: summarize(indices) for name, indices in sorted(mapping.items())
-            }
+            group_name: {name: summarize(indices) for name, indices in sorted(mapping.items())}
             for group_name, mapping in groups.items()
         },
     }
