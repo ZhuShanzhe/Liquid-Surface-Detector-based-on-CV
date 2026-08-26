@@ -127,7 +127,7 @@ is a stronger but custom-hardware option. These are later hardware branches, not
 
 | Dataset | Match to current task | Decision |
 | --- | --- | --- |
-| DTLD (ECCV 2024) | 27,678 RealSense D435 RGB-D frames with contact-line annotations, masks, camera/pose metadata, and per-instance liquid height in millimeters. | **Highest priority and downloaded first.** This is the direct end-to-end liquid-height benchmark and the primary source for the 1 cm acceptance gate. |
+| DTLD (ECCV 2024) | 27,678 RealSense D435 RGB-D frames with contact-line annotations, masks, camera/pose metadata, and per-instance liquid height in millimeters. | **Highest priority and downloaded first.** This is a direct end-to-end liquid-height stress benchmark, but its short 15-96 mm range cannot alone certify the intended operating range. |
 | Phys-Liquid (AAAI 2026) | Physics-informed transparent-liquid images and 3-D meshes across containers, lighting, colors, and rotations. | **Medium-high priority.** Use for liquid mask/geometry/volume auxiliary pretraining after DTLD; it does not replace real metric validation. |
 | TransCG | Real RGB-D, raw and refined metric depth, masks/normals; 57,715 images. Same input/output family as this project. | **High priority.** Download metadata and scenes 1-10 pilot first; expand only after loader and baseline pass. |
 | DREDS/STD | Synthetic sensor-corrupted RGB-D plus real specular/transparent scenes and released SwinDRNet. | **High priority.** Best source for material and sensor-noise robustness; non-commercial license. |
@@ -147,13 +147,16 @@ and [UrbanLF](https://github.com/HAWKEYE-Group/UrbanLF).
 
 ## Experimental acceptance criteria
 
-The fixed project target is an absolute liquid-depth error of at most 1 cm at an
-approximately 1 m working distance. Promotion therefore requires end-to-end
-liquid-depth MAE <= 1 cm, with RMSE, P95 absolute error, and the ratio within
-1 cm reported as co-primary metrics. Results must also be split by container,
-viewpoint, lighting, liquid appearance, glare, and occlusion. A low error obtained
-by rejecting most frames is not acceptable, so accepted coverage is always paired
-with accepted-only error.
+The fixed project target is relative error at or below approximately 1% of the
+ground-truth liquid depth; 1 m therefore corresponds to about 1 cm tolerance.
+Promotion requires end-to-end MAPE <= 1%, with P95 relative error and the ratio
+within 1% reported as co-primary metrics. MAE/RMSE/P95 in millimeters remain
+diagnostics rather than a fixed pass threshold. DTLD liquid heights are only
+about 15-96 mm, so a literal 1% gate there is sub-millimeter and is used as a
+stress test; certification needs data spanning the intended working range.
+Results must also be split by container, viewpoint, lighting, liquid appearance,
+glare, and occlusion. A low error obtained by rejecting most frames is not
+acceptable, so accepted coverage is always paired with accepted-only error.
 
 Every candidate must be compared with the frozen baseline using the same split and calibration. Promotion requires:
 

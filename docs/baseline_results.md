@@ -63,25 +63,25 @@ mask IoU 0.7258. Epoch 12 reached mask IoU 0.7258 but slightly worse depth RMSE.
 | ClearGrasp real-test (113 frames) | 100% | 27.40 mm | 41.41 mm | 66.12 mm | 10.2 ms |
 
 This checkpoint is useful for project mask/normal/feature initialization, but it
-does not replace SwinDRNet and does not satisfy the 10 mm end-to-end liquid-depth
-target. Confidence is derived from log variance using a bounded sigmoid and must
-be calibrated on DTLD before it can drive selective rejection.
+does not replace SwinDRNet and does not satisfy the 1% relative-error target.
+Confidence is derived from log variance using a bounded sigmoid and must be
+calibrated before it can drive selective rejection.
 
 ## DTLD contact-height pilot
 
-The 12-epoch scene-subsampled pilot completed on 2026-08-26. Epoch 1 was best;
-later epochs reduced training loss while degrading scene-held-out height error,
-which is evidence of scene memorization. The object-specific train-median
-no-image control scored 25.63 mm test MAE; the learned pilot improved this but
-did not approach the 10 mm gate.
+The first 12-epoch scene-subsampled pilot completed on 2026-08-26. Epoch 1 was
+best; later epochs reduced training loss while degrading scene-held-out height
+error, which is evidence of scene memorization. The object-specific train-median
+no-image control scored 25.63 mm test MAE. This pilot was trained before the
+acceptance rule was corrected from a fixed 10 mm threshold to relative error.
 
-| Gate | Coverage | MAE | RMSE | P95 absolute | Within 10 mm |
+| Gate | Coverage | MAPE | P95 relative | Within 1% | MAE diagnostic |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| DTLD validation (epoch 1) | 100% | 17.16 mm | 20.59 mm | 37.71 mm | 33.37% |
-| DTLD held-out test (16,650 instances) | 100% | 22.59 mm | 26.73 mm | 44.93 mm | 26.53% |
+| DTLD held-out test (16,650 instances) | 100% | 48.66% | 150.13% | 1.21% | 22.59 mm |
 
-G-rex (object 19) was worst at 34.41 mm test MAE. Do not expand direct
-height-regression training. The next baseline must improve Bezier/contact-line
+G-rex (object 19) was worst at 34.41 mm test MAE. Do not expand the old direct
+height-regression run. Retrain with relative loss, improve continuous
+Bezier/contact-line perception, and use calibrated container geometry.
 
 ## Runtime backend selection
 

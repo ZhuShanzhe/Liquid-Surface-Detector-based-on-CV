@@ -22,13 +22,16 @@ def _summary(records: list[dict], confidence_threshold: float) -> dict:
     if not accepted:
         return result
     error = np.asarray([record["error_mm"] for record in accepted])
+    truth = np.asarray([record["truth_mm"] for record in accepted])
+    relative = error / np.maximum(np.abs(truth), 1.0)
     result.update(
         {
             "mae_mm": float(error.mean()),
             "rmse_mm": float(np.sqrt(np.mean(error**2))),
             "p95_absolute_error_mm": float(np.percentile(error, 95)),
-            "within_10mm_ratio": float(np.mean(error <= 10.0)),
-            "passes_10mm_mae_gate": bool(error.mean() <= 10.0),
+            "mape_percent": float(relative.mean() * 100.0),
+            "p95_relative_error_percent": float(np.percentile(relative, 95) * 100.0),
+            "within_1percent_ratio": float(np.mean(relative <= 0.01)),
         }
     )
     return result
@@ -116,8 +119,9 @@ def main() -> None:
         "checkpoint": str(args.checkpoint.resolve()),
         "split": args.split,
         "acceptance_target": {
-            "working_distance_m": 1.0,
-            "absolute_error_mm": 10.0,
+            "relative_error_percent": 1.0,
+            "example_distance_m": 1.0,
+            "example_tolerance_mm": 10.0,
         },
         "overall": _summary(records, args.confidence_threshold),
         "by_object": {

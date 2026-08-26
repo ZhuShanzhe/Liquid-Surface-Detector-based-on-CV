@@ -88,9 +88,12 @@ ZIP CRC validation. The builder excludes the four affected depth instances and
 records affected optional visible masks as absent.
 Use the object-domain multi-task checkpoint only as initialization, keep
 SwinDRNet as the restoration control, and supervise contact line/liquid height
-directly. At an approximately 1 m working distance, promotion requires liquid
-height MAE <= 1 cm and must also report RMSE, P95 absolute error, within-1-cm
-ratio, accepted coverage, and per-container/per-lighting results.
+directly. Promotion requires MAPE <= 1%, P95 relative error, and the ratio
+within 1%, together with accepted coverage and per-container/per-lighting
+results. At 1 m this is approximately 1 cm, but it is not a fixed 1 cm gate.
+Because DTLD labels span only about 15-96 mm, its literal 1% tolerance is
+sub-millimeter; use it as a transparent-liquid stress test and certify the final
+system on project data spanning the intended liquid-depth range.
 
 The first DTLD perception baseline predicts a contact-line heatmap and a
 pose-conditioned metric height with heteroscedastic uncertainty. It uses an

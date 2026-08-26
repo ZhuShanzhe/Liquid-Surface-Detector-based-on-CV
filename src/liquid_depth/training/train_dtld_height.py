@@ -32,6 +32,7 @@ def _evaluate(model, loader, device) -> dict[str, float]:
 
     model.eval()
     errors = []
+    truths = []
     squared_error = 0.0
     contact_intersection = 0
     contact_union = 0
@@ -43,6 +44,7 @@ def _evaluate(model, loader, device) -> dict[str, float]:
             prediction = model(inputs, target["object_index"], target["pose"])
             error = (prediction["height_mm"] - target["height_mm"]).abs()
             errors.append(error.cpu())
+            truths.append(target["height_mm"].cpu())
             squared_error += float(error.square().sum())
             confidence.append(prediction["height_confidence"].cpu())
             predicted_contact = prediction["contact_logits"].sigmoid() >= 0.5
@@ -50,6 +52,8 @@ def _evaluate(model, loader, device) -> dict[str, float]:
             contact_intersection += int((predicted_contact & target_contact).sum())
             contact_union += int((predicted_contact | target_contact).sum())
     absolute = torch.cat(errors).numpy()
+    truth = torch.cat(truths).numpy()
+    relative = absolute / np.maximum(np.abs(truth), 1.0)
     confidence_values = torch.cat(confidence).numpy()
     correlation = (
         float(np.corrcoef(confidence_values, absolute)[0, 1])
@@ -60,7 +64,9 @@ def _evaluate(model, loader, device) -> dict[str, float]:
         "val_height_mae_mm": float(absolute.mean()),
         "val_height_rmse_mm": float(np.sqrt(squared_error / max(len(absolute), 1))),
         "val_height_p95_mm": float(np.percentile(absolute, 95)),
-        "val_within_10mm_ratio": float(np.mean(absolute <= 10.0)),
+        "val_height_mape_percent": float(relative.mean() * 100.0),
+        "val_height_p95_relative_percent": float(np.percentile(relative, 95) * 100.0),
+        "val_within_1percent_ratio": float(np.mean(relative <= 0.01)),
         "val_contact_iou": contact_intersection / max(contact_union, 1),
         "val_confidence_error_correlation": correlation,
         "val_samples": len(absolute),
@@ -163,7 +169,7 @@ def main() -> None:
         T_max=args.epochs,
     )
     start_epoch = 1
-    best_mae = float("inf")
+    best_mape = float("inf")
     metrics_path = output_dir / "metrics.jsonl"
     if args.resume:
         state = torch.load(args.resume, map_location="cpu", weights_only=False)
@@ -171,7 +177,7 @@ def main() -> None:
         optimizer.load_state_dict(state["optimizer"])
         scheduler.load_state_dict(state["scheduler"])
         start_epoch = int(state["epoch"]) + 1
-        best_mae = float(state.get("best_mae_mm", best_mae))
+        best_mape = float(state.get("best_mape_percent", best_mape))
 
     for epoch in range(start_epoch, args.epochs + 1):
         model.train()
@@ -209,15 +215,15 @@ def main() -> None:
         print(json.dumps(metrics), flush=True)
         with metrics_path.open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(metrics) + "\n")
-        improved = metrics["val_height_mae_mm"] < best_mae
+        improved = metrics["val_height_mape_percent"] < best_mape
         if improved:
-            best_mae = metrics["val_height_mae_mm"]
+            best_mape = metrics["val_height_mape_percent"]
         checkpoint = {
             "model": model.state_dict(),
             "optimizer": optimizer.state_dict(),
             "scheduler": scheduler.state_dict(),
             "epoch": epoch,
-            "best_mae_mm": best_mae,
+            "best_mape_percent": best_mape,
             "metrics": metrics,
             "image_size": image_size,
             "base_channels": args.base_channels,
@@ -225,8 +231,9 @@ def main() -> None:
             "max_height_mm": args.max_height_mm,
             "input_contract": "instance RGB-D crop + object id + 6D pose",
             "acceptance_target": {
-                "working_distance_m": 1.0,
-                "absolute_error_mm": 10.0,
+                "relative_error_percent": 1.0,
+                "example_distance_m": 1.0,
+                "example_tolerance_mm": 10.0,
             },
         }
         torch.save(checkpoint, output_dir / "latest.pth")

@@ -341,7 +341,8 @@ class DTLDContactHeightLoss(nn.Module):
             probability.sum() + contact.sum() + 1.0
         )
         contact_loss = contact_bce + contact_dice
-        error = (prediction["height_mm"] - target["height_mm"]).abs() / self.max_height_mm
+        denominator = target["height_mm"].abs().clamp_min(1.0)
+        error = (prediction["height_mm"] - target["height_mm"]).abs() / denominator
         log_variance = prediction["height_log_variance"]
         height_loss = (error * torch.exp(-log_variance) + 0.5 * log_variance).mean()
         total = self.contact_weight * contact_loss + self.height_weight * height_loss
