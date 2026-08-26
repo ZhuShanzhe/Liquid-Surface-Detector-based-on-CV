@@ -10,11 +10,11 @@ Updated 2026-08-26 on the RTX 5090 server. “Runnable” means the official rev
 | TransCG DFNet | 135f9e0 | corrected 2022-10-14, MD5 `6e6e00f7cc02c644a34b1ce6ee4f364fa` | runnable, official preprocessing | 0.535 / 0.669 cm | about 0.76 s including CPU nearest-neighbor fill |
 | DREDS SwinDRNet | 1b0ac30 | official `model.pth`, strict 650-state load | runnable, official validation resize | 0.753 / 0.820 cm | about 0.48 s |
 | ClearGrasp | 0688647 | official mask, outline, and normal checkpoints | runnable; three strict DRN loads plus released depth2depth optimizer | pending on project captures | 774.4 ms on ClearGrasp real-test |
-| RGB-D LIDF | 4dc85bb | official Drive link currently unavailable | source imports and both CUDA extensions pass on PyTorch 2.11 / CUDA 12.8 / sm_120 | pending | pending |
+| RGB-D LIDF (optional) | 4dc85bb | official Drive link currently unavailable | source imports and both CUDA extensions pass on PyTorch 2.11 / CUDA 12.8 / sm_120 | pending | pending |
 
 ClearGrasp system dependencies and its upstream HDF5 include-path compatibility fix are automated by `scripts/setup_cleargrasp.sh`. The modern adapter loads all three official neural checkpoints directly and does not require the legacy Python-2 inference stack.
 
-LIDF modern-environment setup is automated by `scripts/setup_lidf.sh`. It builds `torch-scatter` and the released point/AABB and ray/AABB CUDA extensions for the current GPU, applies the NumPy 2 compatibility shim to the research checkout, and runs numerical CUDA smoke tests. Full inference is waiting only for the released checkpoint archive.
+LIDF modern-environment setup is automated by `scripts/setup_lidf.sh`. It builds `torch-scatter` and the released point/AABB and ray/AABB CUDA extensions for the current GPU, applies the NumPy 2 compatibility shim to the research checkout, and runs numerical CUDA smoke tests. Full LIDF inference would require the released checkpoint archive, but it is no longer a baseline-selection blocker.
 
 DFNet is the current leader on the 10 ordinary project frames. This sequence is only a regression gate and must not decide the research baseline by itself.
 

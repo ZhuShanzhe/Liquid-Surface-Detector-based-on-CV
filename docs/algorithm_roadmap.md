@@ -7,13 +7,13 @@ This document is the implementation contract for the transparent/specular liquid
 | Stage | Deliverable | Promotion gate |
 | --- | --- | --- |
 | R0 | Frozen classical RGB-D geometry baseline | Reproducible metrics and scenario/sequence split |
-| R1 | DFNet, SwinDRNet, ClearGrasp, and RGB-D LIDF comparison | Best difficult-scene depth error at useful accepted coverage |
+| R1 | DFNet, SwinDRNet, and ClearGrasp comparison; RGB-D LIDF optional | Best difficult-scene depth error at useful accepted coverage |
 | R2 | Project multi-task RGB-D model | Beats R1 end-to-end liquid-depth error without easy-scene regression |
 | R3 | Interior/meniscus physics and SeeGroup auxiliary study | Improves ambiguity handling and calibrated rejection |
 | R4 | Robust temporal fusion | Lower static jitter without lagging real level changes |
 | R5 | Polarization, multi-exposure, or short-baseline stereo | Only if synchronized single RGB-D remains uncertainty-limited |
 
-R0 regression is frozen. The R2 model, R3 geometry hooks, R4 filter, and common evaluators are implemented; R1 data and official weights are downloaded and verified before any official model is declared reproduced.
+R0 regression is frozen. DFNet, SwinDRNet, and ClearGrasp satisfy the R1 gate, with SwinDRNet selected as the deployment baseline. LIDF is optional and does not block R2. The R2 model, R3 geometry hooks, R4 filter, and common evaluators are implemented.
 
 ## Server locations
 
@@ -45,7 +45,7 @@ Extraction is a separate explicit operation and happens only after size/checksum
     python scripts/prepare_research_data.py \
       --dataset cleargrasp_eval todd --extract
 
-Run each official implementation in an isolated adapter environment. Do not downgrade the RTX 5090 project environment to the projects' historical PyTorch/CUDA versions. Preserve official preprocessing and weights while porting deprecated APIs and rebuilding LIDF CUDA extensions for current PyTorch/CUDA.
+Run each official implementation through an isolated adapter. Do not downgrade the RTX 5090 project environment to historical PyTorch/CUDA versions. LIDF CUDA compatibility is available through `scripts/setup_lidf.sh`, but its unavailable legacy checkpoint is not a promotion dependency.
 
 All candidates produce the same per-frame record and are ranked by:
 
@@ -71,9 +71,18 @@ The CSV manifest contract is:
 
     rgb_path,raw_depth_path,target_depth_path,mask_path,normal_path,split,sequence_id,difficulty_tags,depth_scale_to_m
 
+Build the verified research pretraining manifest directly from the extracted datasets:
+
+    python scripts/build_research_multitask_manifest.py \
+      --output /root/autodl-tmp/liquid-depth-data/research/manifests/research_multitask.csv
+
+The generated manifest adds `dataset`, `normal_channel_order`, and `corrupt_depth_in_mask`. Missing normal maps are derived from metric target depth; multi-channel depth EXRs select the channel containing valid depth. ClearGrasp synthetic depth is corrupted only inside the transparent mask so the network cannot learn a trivial depth copy.
+
 difficulty_tags is a semicolon-separated subset of:
 
     transparent;translucent;glare;saturated_highlight;container_edge;ordinary
+
+Training augmentation explicitly synthesizes exposure shifts, saturated glare blobs, sensor-depth dropout under highlights, and noise. These object datasets pretrain transparent/non-Lambertian restoration; they do not replace the later liquid-surface fine-tuning set with true liquid masks and liquid-plane labels.
 
 Split by whole capture sequence/container/liquid/lighting session. Never split adjacent video frames. Training uses inverse-frequency scenario sampling so ordinary liquid cannot dominate difficult cases.
 

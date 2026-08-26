@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 from pathlib import Path
+
+import numpy as np
 
 
 def _move(target: dict, device):
@@ -20,6 +23,8 @@ def main() -> None:
     parser.add_argument("--max-depth-m", type=float, default=3.0)
     parser.add_argument("--base-channels", type=int, default=32)
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--seed", type=int, default=2026)
+    parser.add_argument("--resume", type=Path)
     args = parser.parse_args()
 
     import torch
@@ -29,6 +34,11 @@ def main() -> None:
     from liquid_depth.sampling import balanced_sample_weights
     from liquid_depth.training.dataset import MultiTaskDataset
 
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    torch.cuda.manual_seed_all(args.seed)
+    torch.set_float32_matmul_precision("high")
     if not torch.cuda.is_available():
         raise SystemExit("CUDA is required for the configured training workflow")
     device = torch.device("cuda")
@@ -59,9 +69,22 @@ def main() -> None:
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     best_rmse = float("inf")
+    start_epoch = 1
     metrics_path = output_dir / "metrics.jsonl"
+    if args.resume:
+        state = torch.load(args.resume, map_location="cpu", weights_only=False)
+        model.load_state_dict(state["model"], strict=True)
+        optimizer.load_state_dict(state["optimizer"])
+        scheduler.load_state_dict(state["scheduler"])
+        saved_total_epochs = int(state.get("total_epochs", args.epochs))
+        if saved_total_epochs != args.epochs:
+            raise ValueError(
+                f"Resume checkpoint was scheduled for {saved_total_epochs} epochs, not {args.epochs}"
+            )
+        best_rmse = float(state.get("best_rmse", float("inf")))
+        start_epoch = int(state["epoch"]) + 1
 
-    for epoch in range(1, args.epochs + 1):
+    for epoch in range(start_epoch, args.epochs + 1):
         model.train()
         running = 0.0
         for inputs, target in train_loader:
@@ -102,19 +125,25 @@ def main() -> None:
         print(json.dumps(metrics))
         with metrics_path.open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(metrics) + "\n")
-        if metrics["val_depth_rmse_m"] < best_rmse:
+        improved = metrics["val_depth_rmse_m"] < best_rmse
+        if improved:
             best_rmse = metrics["val_depth_rmse_m"]
-            torch.save(
-                {
-                    "model": model.state_dict(),
-                    "metrics": metrics,
-                    "image_size": image_size,
-                    "base_channels": args.base_channels,
-                    "max_depth_m": args.max_depth_m,
-                    "input_contract": "RGB ImageNet-normalized + depth/max_depth_m + validity",
-                },
-                output_dir / "best.pth",
-            )
+        checkpoint = {
+            "model": model.state_dict(),
+            "optimizer": optimizer.state_dict(),
+            "scheduler": scheduler.state_dict(),
+            "epoch": epoch,
+            "total_epochs": args.epochs,
+            "best_rmse": best_rmse,
+            "metrics": metrics,
+            "image_size": image_size,
+            "base_channels": args.base_channels,
+            "max_depth_m": args.max_depth_m,
+            "input_contract": "RGB ImageNet-normalized + depth/max_depth_m + validity",
+        }
+        torch.save(checkpoint, output_dir / "latest.pth")
+        if improved:
+            torch.save(checkpoint, output_dir / "best.pth")
 
 
 if __name__ == "__main__":

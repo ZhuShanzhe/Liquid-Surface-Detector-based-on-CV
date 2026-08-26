@@ -67,6 +67,8 @@ def test_archive(path: Path) -> str:
                     raise ValueError(f"Archive links are not extracted: {member.name}")
         return "tar"
     if lower.endswith(".7z"):
+        if shutil.which("7z") is None:
+            raise RuntimeError("7z is required for .7z archives; install p7zip-full")
         subprocess.run(
             ["7z", "t", str(path)],
             check=True,
@@ -157,10 +159,14 @@ def main() -> None:
             dataset_report.append(record)
             print(f"Verified: {path} ({archive_type})")
         report["datasets"][name] = dataset_report
+        if args.extract:
+            marker = extraction_root / f".{name}.complete"
+            marker.write_text(report["verified_at"] + "\n", encoding="utf-8")
 
     report_dir = args.root / "manifests"
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_path = report_dir / "archive_verification.json"
+    report_name = "archive_verification_" + "-".join(args.dataset) + ".json"
+    report_path = report_dir / report_name
     report_path.write_text(
         json.dumps(report, indent=2) + "\n",
         encoding="utf-8",

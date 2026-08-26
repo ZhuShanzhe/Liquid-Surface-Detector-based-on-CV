@@ -95,11 +95,14 @@ class MultiTaskLoss(nn.Module):
         depth_error = (prediction["depth_m"] - target["depth_m"]).abs()
         depth_nll = depth_error * torch.exp(-prediction["log_variance"]) + prediction["log_variance"]
         depth_loss = self._masked_mean(depth_nll, valid)
-        horizontal = (prediction["depth_m"][..., :, 1:] - prediction["depth_m"][..., :, :-1]).abs()
-        target_horizontal = (target["depth_m"][..., :, 1:] - target["depth_m"][..., :, :-1]).abs()
-        vertical = (prediction["depth_m"][..., 1:, :] - prediction["depth_m"][..., :-1, :]).abs()
-        target_vertical = (target["depth_m"][..., 1:, :] - target["depth_m"][..., :-1, :]).abs()
-        gradient_loss = F.l1_loss(horizontal, target_horizontal) + F.l1_loss(vertical, target_vertical)
+        horizontal = prediction["depth_m"][..., :, 1:] - prediction["depth_m"][..., :, :-1]
+        target_horizontal = target["depth_m"][..., :, 1:] - target["depth_m"][..., :, :-1]
+        horizontal_valid = valid[..., :, 1:] * valid[..., :, :-1]
+        vertical = prediction["depth_m"][..., 1:, :] - prediction["depth_m"][..., :-1, :]
+        target_vertical = target["depth_m"][..., 1:, :] - target["depth_m"][..., :-1, :]
+        vertical_valid = valid[..., 1:, :] * valid[..., :-1, :]
+        gradient_loss = self._masked_mean((horizontal - target_horizontal).abs(), horizontal_valid)
+        gradient_loss += self._masked_mean((vertical - target_vertical).abs(), vertical_valid)
 
         normal_valid = target.get("normal_valid", valid).float()
         normal_cosine = 1.0 - (prediction["normal"] * target["normal"]).sum(dim=1, keepdim=True)
