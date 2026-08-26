@@ -65,3 +65,24 @@ Report metrics globally and by difficulty tag:
 - raw and temporally filtered jitter on static videos.
 
 A model is promoted only if it improves difficult-scene depth and end-to-end liquid height without an unacceptable regression on ordinary liquid.
+
+## DTLD liquid-height adaptation
+
+DTLD is the primary end-to-end benchmark because it supplies RealSense D435 RGB-D,
+object and visible masks, contact-line control points, camera/pose metadata, and
+per-instance liquid height in millimeters. Build the project manifest after the
+official archive is extracted:
+
+    python scripts/build_dtld_manifest.py \
+      --root /root/autodl-tmp/liquid-depth-data/research/dtld/extracted/DTLD_dataset \
+      --split-map configs/dtld_scene_split_v1.json \
+      --output /root/autodl-tmp/liquid-depth-data/research/manifests/dtld_v1.csv
+
+The release does not designate official train/validation/test subsets. Use the
+tracked scene-level split map and never randomly split adjacent frames from a
+capture; doing so would leak nearly identical video frames into evaluation.
+Use the object-domain multi-task checkpoint only as initialization, keep
+SwinDRNet as the restoration control, and supervise contact line/liquid height
+directly. At an approximately 1 m working distance, promotion requires liquid
+height MAE <= 1 cm and must also report RMSE, P95 absolute error, within-1-cm
+ratio, accepted coverage, and per-container/per-lighting results.

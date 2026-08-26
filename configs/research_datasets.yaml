@@ -1,4 +1,33 @@
 datasets:
+  dtld:
+    method: huggingface
+    repo_id: z7r7y7/DLTD
+    repo_type: dataset
+    destination: dtld
+    expected_size_gb: 34.6
+    license: MIT
+    priority: high
+    role: Exact RGB-D liquid-level task with contact-line, masks, camera pose, and metric liquid-height labels.
+
+  tcld_code:
+    method: git
+    url: https://github.com/dualtransparency/TCLD.git
+    destination: sources/TCLD
+    expected_size_gb: 0.1
+    license: MIT
+    priority: high
+    role: ECCV 2024 DTLD contact-line and arbitrary-view liquid-level reference implementation.
+
+  phys_liquid:
+    method: huggingface
+    repo_id: sutama/Phys-Liquid
+    repo_type: dataset
+    destination: phys_liquid
+    expected_size_gb: 16.5
+    license: CC-BY-NC-4.0
+    requires_acceptance: true
+    priority: medium
+    role: Physics-informed transparent-liquid RGB and 3-D mesh supervision for geometry and volume pretraining.
   layereddepth:
     method: huggingface
     repo_id: princeton-vl/LayeredDepth

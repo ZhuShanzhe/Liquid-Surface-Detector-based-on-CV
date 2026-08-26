@@ -68,7 +68,7 @@ class TorchScriptDepthRefiner:
         depth_tensor = output["depth_m"]
         confidence_tensor = output.get("confidence")
         if confidence_tensor is None and "log_variance" in output:
-            confidence_tensor = self.torch.exp(-output["log_variance"]).clamp(0.0, 1.0)
+            confidence_tensor = self.torch.sigmoid(-output["log_variance"])
         if confidence_tensor is None:
             confidence_tensor = self.torch.ones_like(depth_tensor)
         depth = depth_tensor[0, 0].float().cpu().numpy()

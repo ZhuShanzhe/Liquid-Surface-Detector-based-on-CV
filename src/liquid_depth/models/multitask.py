@@ -62,7 +62,7 @@ class LiquidSurfaceMultiTaskNet(nn.Module):
             "depth_m": torch.sigmoid(self.depth_head(d1)) * self.max_depth_m,
             "normal": F.normalize(self.normal_head(d1), dim=1, eps=1e-6),
             "log_variance": log_variance,
-            "confidence": torch.exp(-log_variance).clamp(0.0, 1.0),
+            "confidence": torch.sigmoid(-log_variance),
         }
 
 

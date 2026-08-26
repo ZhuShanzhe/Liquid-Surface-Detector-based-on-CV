@@ -16,6 +16,18 @@ def test_multitask_network_contract_and_loss():
     assert prediction["confidence"].shape == (2, 1, 32, 32)
     assert torch.all((prediction["depth_m"] >= 0.0) & (prediction["depth_m"] <= 3.0))
 
+    with torch.no_grad():
+        calibration_model = LiquidSurfaceMultiTaskNet(base_channels=8, max_depth_m=3.0)
+        calibration_model.log_variance_head.weight.zero_()
+        calibration_model.log_variance_head.bias.fill_(-2.0)
+        calibrated = calibration_model(torch.zeros(1, 5, 32, 32))
+    expected_confidence = torch.sigmoid(torch.tensor(2.0))
+    assert torch.allclose(
+        calibrated["confidence"],
+        torch.full_like(calibrated["confidence"], expected_confidence),
+    )
+    assert torch.all(calibrated["confidence"] < 1.0)
+
     target = {
         "mask": torch.ones(2, 1, 32, 32),
         "depth_m": torch.ones(2, 1, 32, 32),

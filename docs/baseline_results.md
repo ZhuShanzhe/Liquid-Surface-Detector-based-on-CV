@@ -51,6 +51,22 @@ Common outputs and evaluation artifacts stay under:
 
     /root/autodl-tmp/liquid-depth-artifacts/evaluation
 
+## Project multi-task object pretraining
+
+The 12-epoch object-domain pretraining run completed on 2026-08-26. Epoch 11 is
+the selected checkpoint with validation depth RMSE 50.33 mm, MAE 28.85 mm, and
+mask IoU 0.7258. Epoch 12 reached mask IoU 0.7258 but slightly worse depth RMSE.
+
+| Public gate | Coverage | MAE | RMSE | Boundary RMSE | Median warm latency |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| DREDS STD 12-sequence sample | 100% | 64.99 mm | 103.44 mm | 120.84 mm | 23.5 ms |
+| ClearGrasp real-test (113 frames) | 100% | 27.40 mm | 41.41 mm | 66.12 mm | 10.2 ms |
+
+This checkpoint is useful for project mask/normal/feature initialization, but it
+does not replace SwinDRNet and does not satisfy the 10 mm end-to-end liquid-depth
+target. Confidence is derived from log variance using a bounded sigmoid and must
+be calibrated on DTLD before it can drive selective rejection.
+
 ## Runtime backend selection
 
 Runtime adapters are selected through `depth_refinement.backend`:
