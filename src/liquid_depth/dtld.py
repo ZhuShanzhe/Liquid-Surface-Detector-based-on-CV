@@ -26,6 +26,7 @@ MANIFEST_FIELDS = (
     "depth_scale_to_m",
 )
 _IMAGE_SUFFIXES = (".png", ".jpg", ".jpeg", ".tiff", ".tif")
+_PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
 
 def _load_json(path: Path, required: bool = True) -> dict:
@@ -46,10 +47,21 @@ def _frame_item(payload: dict, frame_key: str):
     return payload.get(frame_key, payload.get(str(int(frame_key)), {}))
 
 
+def _has_image_signature(path: Path) -> bool:
+    with path.open("rb") as stream:
+        header = stream.read(8)
+    suffix = path.suffix.lower()
+    if suffix == ".png":
+        return header == _PNG_SIGNATURE
+    if suffix in {".jpg", ".jpeg"}:
+        return header.startswith(b"\xff\xd8")
+    return header.startswith((b"II*\x00", b"MM\x00*"))
+
+
 def _image_path(directory: Path, stem: str, required: bool) -> Path | None:
     for suffix in _IMAGE_SUFFIXES:
         candidate = directory / f"{stem}{suffix}"
-        if candidate.is_file():
+        if candidate.is_file() and _has_image_signature(candidate):
             return candidate.resolve()
     if required:
         raise FileNotFoundError(f"No image for {directory / stem}")
@@ -155,13 +167,15 @@ def build_dtld_rows(
             rgb_path = _image_path(
                 scene_dir / "rgb",
                 frame_stem,
-                not allow_missing,
+                False,
             )
             depth_path = _image_path(
                 scene_dir / "depth",
                 frame_stem,
-                not allow_missing,
+                False,
             )
+            if not allow_missing and (rgb_path is None or depth_path is None):
+                continue
             camera = _frame_item(camera_gt, frame_key)
             poses = _frame_item(pose_gt, frame_key) or []
             infos = _frame_item(info_gt, frame_key) or []

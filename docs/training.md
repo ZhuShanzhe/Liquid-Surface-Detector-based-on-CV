@@ -81,8 +81,28 @@ official archive is extracted:
 The release does not designate official train/validation/test subsets. Use the
 tracked scene-level split map and never randomly split adjacent frames from a
 capture; doing so would leak nearly identical video frames into evaluation.
+The verified v1 manifest contains 90,734 labeled instances: 61,203 train,
+12,881 validation, and 16,650 test. The upstream archive contains one
+zero-filled depth file and 46 zero-filled visible-mask files despite passing
+ZIP CRC validation. The builder excludes the four affected depth instances and
+records affected optional visible masks as absent.
 Use the object-domain multi-task checkpoint only as initialization, keep
 SwinDRNet as the restoration control, and supervise contact line/liquid height
 directly. At an approximately 1 m working distance, promotion requires liquid
 height MAE <= 1 cm and must also report RMSE, P95 absolute error, within-1-cm
 ratio, accepted coverage, and per-container/per-lighting results.
+
+The first DTLD perception baseline predicts a contact-line heatmap and a
+pose-conditioned metric height with heteroscedastic uncertainty. It uses an
+instance crop supplied by the container detection/pose stage; no ground-truth
+liquid mask or contact point is provided as model input. Start with a
+scene-subsampled pilot:
+
+    python scripts/train_dtld_height.py \
+      --manifest /root/autodl-tmp/liquid-depth-data/research/manifests/dtld_v1.csv \
+      --output-dir /root/autodl-tmp/liquid-depth-artifacts/training/dtld-contact-height-v1 \
+      --epochs 12 --batch-size 32 --train-stride 10 --val-stride 10
+
+Remove the stride arguments for the final run only after the pilot reduces
+scene-held-out MAE. This baseline isolates contact-line perception; the final
+geometry head must convert the detected contact curve using calibrated container geometry.

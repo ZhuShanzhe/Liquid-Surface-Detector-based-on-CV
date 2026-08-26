@@ -8,10 +8,11 @@ def test_build_dtld_manifest_preserves_sequence_split_and_metric_height(tmp_path
     scene = tmp_path / "train" / "000013"
     for name in ("rgb", "depth", "mask", "mask_visib"):
         (scene / name).mkdir(parents=True)
-    (scene / "rgb" / "000007.png").write_bytes(b"rgb")
-    (scene / "depth" / "000007.png").write_bytes(b"depth")
-    (scene / "mask" / "000007_000000.png").write_bytes(b"mask")
-    (scene / "mask_visib" / "000007_000000.png").write_bytes(b"visible")
+    png = b"\x89PNG\r\n\x1a\n"
+    (scene / "rgb" / "000007.png").write_bytes(png)
+    (scene / "depth" / "000007.png").write_bytes(png)
+    (scene / "mask" / "000007_000000.png").write_bytes(png)
+    (scene / "mask_visib" / "000007_000000.png").write_bytes(png)
     (scene / "liquid_label").mkdir()
     (scene / "liquid_label" / "scene_gt_liquid.json").write_text(
         json.dumps(
