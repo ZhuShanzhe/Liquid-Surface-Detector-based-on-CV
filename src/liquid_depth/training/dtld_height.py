@@ -198,6 +198,7 @@ class DTLDContactHeightDataset:
                 dtype=torch.long,
             ),
             "pose": torch.from_numpy(_pose_features(row)).float(),
+            "row_index": torch.tensor(index, dtype=torch.long),
         }
         return torch.from_numpy(inputs.transpose(2, 0, 1)).float(), target
 
