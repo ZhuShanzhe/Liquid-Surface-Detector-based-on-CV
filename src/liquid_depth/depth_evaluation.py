@@ -97,6 +97,8 @@ def _array(path: Path) -> np.ndarray:
     value = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
     if value is None:
         raise FileNotFoundError(path)
+    if path.suffix.lower() == ".exr" and value.ndim == 3:
+        value = value[..., 0]
     return value
 
 

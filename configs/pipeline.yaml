@@ -38,6 +38,19 @@ depth_refinement:
     max_depth_m: 3.0
 
 
+  cleargrasp:
+    source_path: /root/autodl-tmp/liquid-depth-data/research/sources/ClearGrasp
+    checkpoint_root: /root/autodl-tmp/liquid-depth-data/research/cleargrasp/extracted/cleargrasp-checkpoints/cleargrasp-checkpoints
+    executable_path: /root/autodl-tmp/liquid-depth-data/research/sources/ClearGrasp/api/depth2depth/gaps/bin/x86_64/depth2depth
+    inference_size: [256, 256]
+    output_size: [256, 144]
+    intrinsics: [185.0, 185.0, 128.0, 72.0]
+    min_depth_m: 0.1
+    max_depth_m: 1.5
+    inertia_weight: 1000.0
+    smoothness_weight: 0.001
+    tangent_weight: 1.0
+
 geometry:
   liquid_erode_px: 12
   meniscus_width_px: 12

@@ -25,6 +25,8 @@ def read_array(path: Path, flags: int = cv2.IMREAD_UNCHANGED) -> np.ndarray:
     value = cv2.imread(str(path), flags)
     if value is None:
         raise FileNotFoundError(path)
+    if path.suffix.lower() == ".exr" and value.ndim == 3:
+        value = value[..., 0]
     return value
 
 
@@ -45,7 +47,7 @@ def main() -> None:
     parser.add_argument("--config", type=Path, default=Path("configs/pipeline.yaml"))
     parser.add_argument(
         "--backend",
-        choices=("identity", "transcg_dfnet", "dreds_swindrnet", "torchscript"),
+        choices=("identity", "transcg_dfnet", "dreds_swindrnet", "cleargrasp", "torchscript"),
         required=True,
     )
     parser.add_argument("--output-dir", type=Path, required=True)

@@ -311,4 +311,21 @@ def make_depth_refiner(config: dict) -> DepthRefiner:
             model.get("input_size", [224, 224]),
             model.get("max_depth_m", 3.0),
         )
+    if backend == "cleargrasp":
+        from .cleargrasp_refiner import ClearGraspRefiner
+
+        model = options["cleargrasp"]
+        return ClearGraspRefiner(
+            resolve_config_path(config, model["source_path"]),
+            resolve_config_path(config, model["checkpoint_root"]),
+            resolve_config_path(config, model["executable_path"]),
+            model.get("inference_size", [256, 256]),
+            model.get("output_size", [256, 144]),
+            model.get("intrinsics", [185.0, 185.0, 128.0, 72.0]),
+            model.get("min_depth_m", 0.1),
+            model.get("max_depth_m", 1.5),
+            model.get("inertia_weight", 1000.0),
+            model.get("smoothness_weight", 0.001),
+            model.get("tangent_weight", 1.0),
+        )
     raise ValueError(f"Unknown depth refinement backend: {backend}")
