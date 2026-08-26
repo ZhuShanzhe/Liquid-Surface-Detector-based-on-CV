@@ -95,6 +95,23 @@ def _instance_bbox(
     return _pose_bbox(row, shape)
 
 
+def _liquid_lane(label: dict, object_id: str) -> np.ndarray:
+    if object_id == "19":
+        points = np.asarray(list(label.values()), dtype=np.float32)
+        lower_half = points[np.argsort(points[:, 1])[::-1]][: len(points) // 2]
+        return lower_half[np.argsort(lower_half[:, 0])]
+    a = np.asarray(label["A"], dtype=np.float32)
+    b = np.asarray(label["B"], dtype=np.float32)
+    c = np.asarray(label["C"], dtype=np.float32)
+    d = np.asarray(label["D"], dtype=np.float32)
+    candidates = ((a, c), (a, d), (b, c), (b, d))
+    start, end = max(
+        candidates,
+        key=lambda pair: float(np.linalg.norm(pair[0] - pair[1])),
+    )
+    return np.linspace(start, end, num=20, dtype=np.float32)
+
+
 def _contact_target(
     points: np.ndarray,
     crop: tuple[int, int, int, int],
@@ -106,9 +123,14 @@ def _contact_target(
     scale_x = width / max(x1 - x0, 1)
     scale_y = height / max(y1 - y0, 1)
     transformed = np.column_stack(((points[:, 0] - x0) * scale_x, (points[:, 1] - y0) * scale_y))
-    for x, y in transformed:
-        if 0 <= x < width and 0 <= y < height:
-            cv2.circle(target, (round(x), round(y)), 3, 1.0, -1)
+    rendered = np.rint(transformed).astype(np.int32)
+    inside = rendered[
+        (rendered[:, 0] >= 0) & (rendered[:, 0] < width) & (rendered[:, 1] >= 0) & (rendered[:, 1] < height)
+    ]
+    if len(inside) >= 2:
+        cv2.polylines(target, [inside], False, 1.0, 3)
+    for x, y in inside:
+        cv2.circle(target, (int(x), int(y)), 3, 1.0, -1)
     target = cv2.GaussianBlur(target, (0, 0), sigmaX=1.5)
     if target.max() > 0:
         target /= target.max()
@@ -185,10 +207,8 @@ class DTLDContactHeightDataset:
             ),
             axis=2,
         )
-        points = np.asarray(
-            list(json.loads(row["liquid_label_json"]).values()),
-            dtype=np.float32,
-        )
+        label = json.loads(row["liquid_label_json"])
+        points = _liquid_lane(label, row["object_id"])
         contact = _contact_target(points, crop, self.image_size)
         target = {
             "contact": torch.from_numpy(contact[None]).float(),

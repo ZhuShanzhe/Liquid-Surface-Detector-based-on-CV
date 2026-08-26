@@ -3,7 +3,21 @@ import torch
 from liquid_depth.training.dtld_height import (
     DTLDContactHeightLoss,
     DTLDContactHeightNet,
+    _liquid_lane,
 )
+
+
+def test_dtld_liquid_lane_matches_official_visible_curve_rule():
+    label = {
+        "A": [10, 10],
+        "B": [20, 20],
+        "C": [90, 12],
+        "D": [30, 21],
+    }
+    lane = _liquid_lane(label, "15")
+    assert lane.shape == (20, 2)
+    assert torch.allclose(torch.from_numpy(lane[0]), torch.tensor([10.0, 10.0]))
+    assert torch.allclose(torch.from_numpy(lane[-1]), torch.tensor([90.0, 12.0]))
 
 
 def test_dtld_contact_height_model_contract_and_loss():
