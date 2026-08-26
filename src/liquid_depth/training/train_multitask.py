@@ -25,6 +25,7 @@ def main() -> None:
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--resume", type=Path)
+    parser.add_argument("--log-every", type=int, default=100)
     args = parser.parse_args()
 
     import torch
@@ -87,7 +88,7 @@ def main() -> None:
     for epoch in range(start_epoch, args.epochs + 1):
         model.train()
         running = 0.0
-        for inputs, target in train_loader:
+        for step, (inputs, target) in enumerate(train_loader, start=1):
             inputs, target = inputs.to(device, non_blocking=True), _move(target, device)
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast("cuda", dtype=torch.bfloat16):
@@ -97,6 +98,18 @@ def main() -> None:
             torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
             optimizer.step()
             running += float(losses["total"].detach())
+            if args.log_every > 0 and step % args.log_every == 0:
+                print(
+                    json.dumps(
+                        {
+                            "epoch": epoch,
+                            "step": step,
+                            "steps": len(train_loader),
+                            "mean_train_loss": running / step,
+                        }
+                    ),
+                    flush=True,
+                )
         scheduler.step()
 
         model.eval()
