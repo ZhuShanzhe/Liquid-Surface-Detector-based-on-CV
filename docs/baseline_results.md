@@ -67,6 +67,22 @@ does not replace SwinDRNet and does not satisfy the 10 mm end-to-end liquid-dept
 target. Confidence is derived from log variance using a bounded sigmoid and must
 be calibrated on DTLD before it can drive selective rejection.
 
+## DTLD contact-height pilot
+
+The 12-epoch scene-subsampled pilot completed on 2026-08-26. Epoch 1 was best;
+later epochs reduced training loss while degrading scene-held-out height error,
+which is evidence of scene memorization. The object-specific train-median
+no-image control scored 25.63 mm test MAE; the learned pilot improved this but
+did not approach the 10 mm gate.
+
+| Gate | Coverage | MAE | RMSE | P95 absolute | Within 10 mm |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| DTLD validation (epoch 1) | 100% | 17.16 mm | 20.59 mm | 37.71 mm | 33.37% |
+| DTLD held-out test (16,650 instances) | 100% | 22.59 mm | 26.73 mm | 44.93 mm | 26.53% |
+
+G-rex (object 19) was worst at 34.41 mm test MAE. Do not expand direct
+height-regression training. The next baseline must improve Bezier/contact-line
+
 ## Runtime backend selection
 
 Runtime adapters are selected through `depth_refinement.backend`:
