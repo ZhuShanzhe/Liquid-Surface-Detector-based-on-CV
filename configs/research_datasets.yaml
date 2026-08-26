@@ -28,6 +28,17 @@ datasets:
     requires_acceptance: true
     priority: medium
     role: Physics-informed transparent-liquid RGB and 3-D mesh supervision for geometry and volume pretraining.
+
+
+  phys_liquid_code:
+    method: git
+    url: https://github.com/dualtransparency/Phys-Liquid-AAAI.git
+    destination: sources/Phys-Liquid-AAAI
+    expected_size_gb: 0.5
+    license: MIT
+    priority: medium
+    role: Official AAAI 2026 reconstruction code and examples; use after contact/CAD geometry baseline.
+
   layereddepth:
     method: huggingface
     repo_id: princeton-vl/LayeredDepth

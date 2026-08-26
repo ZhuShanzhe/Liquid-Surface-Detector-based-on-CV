@@ -22,6 +22,59 @@ def _read_image(path: str, flags: int) -> np.ndarray:
     return value
 
 
+def _augment_non_lambertian(rgb: np.ndarray, depth: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Synthesize glare, saturation, haze, and correlated active-depth failure."""
+    image = rgb.astype(np.float32)
+    height, width = image.shape[:2]
+    if np.random.random() < 0.45:
+        mask = np.zeros((height, width), dtype=np.float32)
+        center = (
+            int(np.random.uniform(0.15, 0.85) * width),
+            int(np.random.uniform(0.1, 0.9) * height),
+        )
+        axes = (
+            max(2, int(np.random.uniform(0.03, 0.18) * width)),
+            max(2, int(np.random.uniform(0.02, 0.12) * height)),
+        )
+        cv2.ellipse(
+            mask,
+            center,
+            axes,
+            float(np.random.uniform(0.0, 180.0)),
+            0.0,
+            360.0,
+            1.0,
+            -1,
+        )
+        sigma = max(1.0, np.random.uniform(0.01, 0.04) * max(height, width))
+        mask = cv2.GaussianBlur(mask, (0, 0), sigmaX=sigma)
+        alpha = np.clip(mask * np.random.uniform(0.65, 1.0), 0.0, 1.0)[..., None]
+        tint = np.random.uniform(235.0, 255.0, size=(1, 1, 3))
+        image = image * (1.0 - alpha) + tint * alpha
+        if np.random.random() < 0.7:
+            depth[mask > np.random.uniform(0.2, 0.55)] = 0.0
+    if np.random.random() < 0.3:
+        mean_color = image.mean(axis=(0, 1), keepdims=True)
+        haze = np.random.uniform(0.15, 0.45)
+        image = image * (1.0 - haze) + mean_color * haze
+    if np.random.random() < 0.8:
+        image = image * np.random.uniform(0.7, 1.3) + np.random.uniform(-15.0, 15.0)
+    if np.random.random() < 0.45:
+        image *= np.random.uniform(0.75, 1.25, size=(1, 1, 3))
+    if np.random.random() < 0.3:
+        gamma = np.random.uniform(0.65, 1.5)
+        image = 255.0 * np.power(np.clip(image / 255.0, 0.0, 1.0), gamma)
+    if np.random.random() < 0.25:
+        sigma = np.random.uniform(1.0, 8.0)
+        image += np.random.normal(0.0, sigma, size=image.shape)
+    if np.random.random() < 0.15:
+        image = cv2.GaussianBlur(image, (3, 3), sigmaX=np.random.uniform(0.3, 1.2))
+    if np.random.random() < 0.35:
+        dropout = np.random.random(depth.shape) < np.random.uniform(0.01, 0.08)
+        depth[dropout] = 0.0
+    return np.clip(image, 0.0, 255.0).astype(np.uint8), depth
+
+
 def _bbox_from_mask(mask: np.ndarray) -> tuple[int, int, int, int] | None:
     locations = cv2.findNonZero((mask > 0).astype(np.uint8))
     if locations is None:
@@ -45,6 +98,30 @@ def _clip_bbox(
     if x1 <= x0 or y1 <= y0:
         raise ValueError(f"Degenerate DTLD crop: {(x0, y0, x1, y1)}")
     return x0, y0, x1, y1
+
+
+def _jitter_crop(
+    crop: tuple[int, int, int, int],
+    shape: tuple[int, int],
+) -> tuple[int, int, int, int]:
+    x0, y0, x1, y1 = crop
+    width = max(x1 - x0, 2)
+    height = max(y1 - y0, 2)
+    scale = float(np.random.uniform(0.85, 1.2))
+    center_x = (x0 + x1) / 2.0 + np.random.uniform(-0.08, 0.08) * width
+    center_y = (y0 + y1) / 2.0 + np.random.uniform(-0.08, 0.08) * height
+    half_width = width * scale / 2.0
+    half_height = height * scale / 2.0
+    return _clip_bbox(
+        (
+            int(center_x - half_width),
+            int(center_y - half_height),
+            int(center_x + half_width),
+            int(center_y + half_height),
+        ),
+        shape,
+        margin=0.0,
+    )
 
 
 def _pose_bbox(row: dict[str, str], shape: tuple[int, int]) -> tuple[int, int, int, int]:
@@ -137,6 +214,43 @@ def _contact_target(
     return target
 
 
+def _bezier_target(
+    points: np.ndarray,
+    crop: tuple[int, int, int, int],
+    image_size: tuple[int, int],
+) -> np.ndarray:
+    """Fit four normalized cubic Bezier control points to an annotated contact line."""
+    x0, y0, x1, y1 = crop
+    transformed = np.column_stack(
+        (
+            (points[:, 0] - x0) / max(x1 - x0, 1),
+            (points[:, 1] - y0) / max(y1 - y0, 1),
+        )
+    )
+    transformed = np.clip(transformed, 0.0, 1.0)
+    if transformed[0, 0] > transformed[-1, 0]:
+        transformed = transformed[::-1]
+    segment = np.linalg.norm(np.diff(transformed, axis=0), axis=1)
+    cumulative = np.concatenate(([0.0], np.cumsum(segment)))
+    if cumulative[-1] < 1e-8:
+        parameter = np.linspace(0.0, 1.0, len(transformed))
+    else:
+        parameter = cumulative / cumulative[-1]
+    basis = np.column_stack(
+        (
+            (1.0 - parameter) ** 3,
+            3.0 * (1.0 - parameter) ** 2 * parameter,
+            3.0 * (1.0 - parameter) * parameter**2,
+            parameter**3,
+        )
+    )
+    control, _, _, _ = np.linalg.lstsq(basis, transformed, rcond=None)
+    control[0] = transformed[0]
+    control[-1] = transformed[-1]
+    control[:, 0] = np.maximum.accumulate(control[:, 0])
+    return np.clip(control, 0.0, 1.0).astype(np.float32)
+
+
 def _pose_features(row: dict[str, str]) -> np.ndarray:
     pose = json.loads(row["pose_json"])
     rotation = np.asarray(pose["cam_R_m2c"], dtype=np.float32)
@@ -174,6 +288,8 @@ class DTLDContactHeightDataset:
         rgb = _read_image(row["rgb_path"], cv2.IMREAD_COLOR)
         depth = _read_image(row["raw_depth_path"], cv2.IMREAD_UNCHANGED)
         crop = _instance_bbox(row, rgb.shape[:2])
+        if self.augment:
+            crop = _jitter_crop(crop, rgb.shape[:2])
         x0, y0, x1, y1 = crop
         width, height = self.image_size
         rgb = cv2.resize(rgb[y0:y1, x0:x1], (width, height), interpolation=cv2.INTER_LINEAR)
@@ -185,18 +301,10 @@ class DTLDContactHeightDataset:
         depth *= float(row["depth_scale_to_m"])
         depth = np.where(np.isfinite(depth) & (depth > 0), depth, 0.0)
         if self.augment:
-            if np.random.random() < 0.8:
-                rgb = np.clip(
-                    rgb.astype(np.float32) * np.random.uniform(0.7, 1.3) + np.random.uniform(-15.0, 15.0),
-                    0,
-                    255,
-                ).astype(np.uint8)
-            if np.random.random() < 0.35:
-                dropout = np.random.random(depth.shape) < np.random.uniform(0.01, 0.08)
-                depth[dropout] = 0.0
+            rgb, depth = _augment_non_lambertian(rgb, depth)
         valid = ((depth > 0) & (depth <= self.max_depth_m)).astype(np.float32)
-        rgb = cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
-        rgb = (rgb - np.array([0.485, 0.456, 0.406], np.float32)) / np.array(
+        rgb_unit = cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
+        rgb = (rgb_unit - np.array([0.485, 0.456, 0.406], np.float32)) / np.array(
             [0.229, 0.224, 0.225], np.float32
         )
         inputs = np.concatenate(
@@ -210,8 +318,16 @@ class DTLDContactHeightDataset:
         label = json.loads(row["liquid_label_json"])
         points = _liquid_lane(label, row["object_id"])
         contact = _contact_target(points, crop, self.image_size)
+        bezier = _bezier_target(points, crop, self.image_size)
+        support = contact > 0.05
+        color_residual = np.zeros_like(rgb_unit)
+        if np.any(support):
+            mean_color = rgb_unit[support].mean(axis=0)
+            color_residual[support] = mean_color - rgb_unit[support]
         target = {
             "contact": torch.from_numpy(contact[None]).float(),
+            "bezier_control_points": torch.from_numpy(bezier).float(),
+            "color_residual": torch.from_numpy(color_residual.transpose(2, 0, 1)).float(),
             "height_mm": torch.tensor(float(row["liquid_height_mm"]), dtype=torch.float32),
             "object_index": torch.tensor(
                 DTLD_OBJECT_INDEX[row["object_id"]],

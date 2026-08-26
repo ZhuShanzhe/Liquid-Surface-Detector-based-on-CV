@@ -1,0 +1,54 @@
+version: 1
+product:
+  software_name_zh_proposed: RGB-D工业液深智能测量系统
+  software_name_en_proposed: RGB-D Industrial Liquid Depth Measurement System
+  short_name_proposed: LiquidDepth Industrial
+  registration_version: V1.0
+  current_development_version: 0.2.0
+  status: development
+  completion_date: TO_BE_CONFIRMED
+  publication_status: TO_BE_CONFIRMED
+ownership:
+  copyright_holder: TO_BE_CONFIRMED
+  applicant_type: TO_BE_CONFIRMED
+  development_mode: independent_development
+  employment_or_project_contract_reviewed: false
+  contributor_identity_reviewed: false
+source_deposit:
+  include_prefixes:
+    - src/liquid_depth/
+    - scripts/
+    - ros2_ws/src/liquid_depth_camera/
+    - configs/
+  exclude_prefixes:
+    - third_party/
+    - data/
+    - artifacts/
+    - weights/
+    - checkpoints/
+    - tests/
+  exclude_suffixes:
+    - .pth
+    - .pt
+    - .onnx
+    - .engine
+    - .npy
+  documentation_candidate: docs/software_user_manual.md
+  confidential_exception_deposit: false
+release:
+  tag: v1.0.0-copyright
+  root_license_policy: TO_BE_CONFIRMED
+  accuracy_profile: configs/accuracy_profile_industrial_v1.yaml
+  required_gates:
+    - end_to_end_camera_or_replay_to_depth_output
+    - reproducible_clean_server_install
+    - industrial_accuracy_report
+    - transparent_glare_selective_risk_report
+    - third_party_provenance_and_license_review
+    - no_credentials_or_personal_data
+    - user_manual_complete
+    - source_deposit_inventory_generated
+notes:
+  - Proposed product names and ownership fields require applicant confirmation.
+  - Raw datasets, third-party repositories, environments, and trained weights are not original source deposit.
+  - Software copyright registration does not certify measurement accuracy or industrial safety.

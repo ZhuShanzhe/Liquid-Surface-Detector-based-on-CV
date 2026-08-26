@@ -147,16 +147,26 @@ and [UrbanLF](https://github.com/HAWKEYE-Group/UrbanLF).
 
 ## Experimental acceptance criteria
 
-The fixed project target is relative error at or below approximately 1% of the
-ground-truth liquid depth; 1 m therefore corresponds to about 1 cm tolerance.
-Promotion requires end-to-end MAPE <= 1%, with P95 relative error and the ratio
-within 1% reported as co-primary metrics. MAE/RMSE/P95 in millimeters remain
-diagnostics rather than a fixed pass threshold. DTLD liquid heights are only
-about 15-96 mm, so a literal 1% gate there is sub-millimeter and is used as a
-stress test; certification needs data spanning the intended working range.
-Results must also be split by container, viewpoint, lighting, liquid appearance,
-glare, and occlusion. A low error obtained by rejecting most frames is not
-acceptable, so accepted coverage is always paired with accepted-only error.
+The industrial requirement is tracked in
+`configs/accuracy_profile_industrial_v1.yaml`. It uses
+`max(absolute millimeter floor, relative percentage * true liquid depth)`
+because a pure percentage becomes physically meaningless close to zero. The
+primary bands are 0.2-1 m, 1-5 m, and 5-10 m; 20-200 mm is retained as a
+near-zero stress band for DTLD.
+
+From 1-10 m the research target is approximately 1% mean error, with P95 at
+approximately 2%. Close range uses tighter millimeter goals where feasible. A
+separate deployment gate is deliberately wider, especially at 5-10 m, and may
+only be enabled after the exact sensor, mode, pose, and container geometry pass
+traceable qualification. Camera standoff is evaluated independently from the
+liquid-depth measurand.
+
+Every report includes MAE, RMSE, signed bias, P95, temporal jitter, accepted
+coverage, and false acceptance, split by container, viewpoint, lighting, liquid
+appearance, glare, and occlusion. A low error obtained by rejecting most frames
+is not acceptable. VDI/VDE 2634-style flatness/length checks and ASTM E2938
+relative-range methodology guide sensor qualification; neither standard
+prescribes this application's permissible error.
 
 Every candidate must be compared with the frozen baseline using the same split and calibration. Promotion requires:
 

@@ -49,11 +49,18 @@ def main() -> None:
     parser.add_argument("--stride", type=int, default=1)
     parser.add_argument("--confidence-threshold", type=float, default=0.0)
     parser.add_argument("--output", type=Path)
+    parser.add_argument(
+        "--accuracy-profile",
+        type=Path,
+        default=Path("configs/accuracy_profile_industrial_v1.yaml"),
+    )
+    parser.add_argument("--acceptance-level", choices=("target", "deployment"), default="target")
     args = parser.parse_args()
 
     import torch
     from torch.utils.data import DataLoader
 
+    from liquid_depth.accuracy import evaluate_accuracy_profile, load_accuracy_profile
     from liquid_depth.training.dtld_height import (
         DTLDContactHeightDataset,
         DTLDContactHeightNet,
@@ -115,14 +122,23 @@ def main() -> None:
     for record in records:
         by_object[record["object_id"]].append(record)
         by_sequence[record["sequence_id"]].append(record)
+    profile = load_accuracy_profile(args.accuracy_profile)
     report = {
         "checkpoint": str(args.checkpoint.resolve()),
         "split": args.split,
-        "acceptance_target": {
-            "relative_error_percent": 1.0,
-            "example_distance_m": 1.0,
-            "example_tolerance_mm": 10.0,
+        "acceptance_profile": {
+            "path": str(args.accuracy_profile.resolve()),
+            "name": profile["name"],
+            "level": args.acceptance_level,
         },
+        "profile_evaluation": evaluate_accuracy_profile(
+            [record["truth_mm"] / 1000.0 for record in records],
+            [record["prediction_mm"] / 1000.0 for record in records],
+            profile,
+            confidence=[record["confidence"] for record in records],
+            confidence_threshold=args.confidence_threshold,
+            level=args.acceptance_level,
+        ),
         "overall": _summary(records, args.confidence_threshold),
         "by_object": {
             key: _summary(value, args.confidence_threshold) for key, value in sorted(by_object.items())

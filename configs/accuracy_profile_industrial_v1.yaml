@@ -1,0 +1,123 @@
+version: 1
+name: industrial_liquid_depth_v1
+measurand: vertical_liquid_depth_m
+reference_range_m: [0.02, 10.0]
+
+# These are project engineering requirements, not accuracy values prescribed by
+# VDI/VDE 2634 or ASTM E2938. Standards define traceable test procedures; the
+# application owner must set the maximum permissible error.
+policy:
+  minimum_overall_accepted_coverage: 0.95
+  minimum_difficult_accepted_coverage: 0.90
+  maximum_false_accept_ratio: 0.01
+  report_signed_bias: true
+  report_temporal_jitter: true
+  report_by:
+    - camera_standoff_band
+    - container
+    - liquid_appearance
+    - transparent
+    - translucent
+    - glare
+    - saturated_highlight
+    - container_edge
+    - illumination
+    - temperature_band
+
+# A per-sample tolerance is max(absolute_floor_mm, relative_percent * truth).
+# The normalized MAE and normalized P95 must both be <= 1.0 for a band to pass.
+bands:
+  - name: near_zero_stress
+    min_m: 0.02
+    max_m: 0.20
+    target:
+      mae:
+        absolute_floor_mm: 1.0
+        relative_percent: 0.75
+      p95:
+        absolute_floor_mm: 2.0
+        relative_percent: 1.5
+      bias:
+        absolute_floor_mm: 0.5
+        relative_percent: 0.30
+      temporal_std:
+        absolute_floor_mm: 0.5
+        relative_percent: 0.30
+    deployment:
+      mae:
+        absolute_floor_mm: 2.0
+        relative_percent: 1.5
+      p95:
+        absolute_floor_mm: 4.0
+        relative_percent: 3.0
+      bias:
+        absolute_floor_mm: 1.0
+        relative_percent: 0.75
+      temporal_std:
+        absolute_floor_mm: 1.0
+        relative_percent: 0.75
+
+  - name: close
+    min_m: 0.20
+    max_m: 1.00
+    target:
+      mae: {absolute_floor_mm: 2.0, relative_percent: 0.5}
+      p95: {absolute_floor_mm: 5.0, relative_percent: 1.0}
+      bias: {absolute_floor_mm: 1.0, relative_percent: 0.25}
+      temporal_std: {absolute_floor_mm: 1.0, relative_percent: 0.25}
+    deployment:
+      mae: {absolute_floor_mm: 5.0, relative_percent: 1.0}
+      p95: {absolute_floor_mm: 10.0, relative_percent: 2.0}
+      bias: {absolute_floor_mm: 2.0, relative_percent: 0.5}
+      temporal_std: {absolute_floor_mm: 2.0, relative_percent: 0.5}
+
+  - name: medium
+    min_m: 1.00
+    max_m: 5.00
+    target:
+      mae: {absolute_floor_mm: 5.0, relative_percent: 1.0}
+      p95: {absolute_floor_mm: 10.0, relative_percent: 2.0}
+      bias: {absolute_floor_mm: 3.0, relative_percent: 0.3}
+      temporal_std: {absolute_floor_mm: 3.0, relative_percent: 0.3}
+    deployment:
+      mae: {absolute_floor_mm: 10.0, relative_percent: 1.5}
+      p95: {absolute_floor_mm: 20.0, relative_percent: 3.0}
+      bias: {absolute_floor_mm: 5.0, relative_percent: 0.5}
+      temporal_std: {absolute_floor_mm: 5.0, relative_percent: 0.5}
+
+  - name: long_range
+    min_m: 5.00
+    max_m: 10.00
+    target:
+      mae: {absolute_floor_mm: 10.0, relative_percent: 1.0}
+      p95: {absolute_floor_mm: 20.0, relative_percent: 2.0}
+      bias: {absolute_floor_mm: 10.0, relative_percent: 0.5}
+      temporal_std: {absolute_floor_mm: 10.0, relative_percent: 0.5}
+    deployment:
+      mae: {absolute_floor_mm: 20.0, relative_percent: 2.0}
+      p95: {absolute_floor_mm: 40.0, relative_percent: 4.0}
+      bias: {absolute_floor_mm: 20.0, relative_percent: 1.0}
+      temporal_std: {absolute_floor_mm: 20.0, relative_percent: 1.0}
+
+# Camera standoff is an independent operating variable. A liquid-depth result
+# cannot be certified outside the sensor/mode range qualified with traceable
+# targets, even when the predicted liquid depth itself is inside a band above.
+camera_standoff_bands_m:
+  close: [0.2, 1.0]
+  medium: [1.0, 5.0]
+  long_range: [5.0, 10.0]
+
+qualification:
+  reference_instrument_uncertainty_fraction_of_tolerance_max: 0.25
+  minimum_repeats_per_condition: 30
+  minimum_independent_sessions: 3
+  temperature_and_warmup_sweep_required: true
+  standards_methodology:
+    - VDI_VDE_2634_Part_2_flatness_and_length_errors
+    - ASTM_E2938_relative_range_where_applicable_2m_to_150m
+    - traceable_vertical_liquid_depth_reference
+  notes:
+    - Certify end-to-end liquid depth, not only per-pixel camera Z accuracy.
+    - Calibrate each camera, lens, mounting pose, container geometry, and sensor mode.
+    - A rejected frame is not an accurate measurement; always report coverage.
+    - DTLD is below the primary industrial range and is a stress test only.

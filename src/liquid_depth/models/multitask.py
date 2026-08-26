@@ -8,7 +8,11 @@ from torch.nn import functional as F
 class ConvBlock(nn.Module):
     def __init__(self, input_channels: int, output_channels: int) -> None:
         super().__init__()
-        groups = min(8, output_channels)
+        groups = next(
+            value
+            for value in range(min(8, output_channels), 0, -1)
+            if output_channels % value == 0
+        )
         self.layers = nn.Sequential(
             nn.Conv2d(input_channels, output_channels, 3, padding=1, bias=False),
             nn.GroupNorm(groups, output_channels),

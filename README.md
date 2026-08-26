@@ -98,6 +98,8 @@ clouds, and generated artifacts stay on the server data disk.
 - [Executable algorithm roadmap](docs/algorithm_roadmap.md)
 - [Baseline reproduction status](docs/baseline_results.md)
 - [Transparent/specular robustness and SeeGroup plan](docs/robustness_research.md)
+- [Industrial accuracy profile](configs/accuracy_profile_industrial_v1.yaml)
+- [Software copyright and V1.0 productization plan](docs/software_copyright_plan.md)
 - [System readiness](docs/system_readiness.md)
 - [Camera acquisition](docs/camera.md)
 - [Training](docs/training.md)
