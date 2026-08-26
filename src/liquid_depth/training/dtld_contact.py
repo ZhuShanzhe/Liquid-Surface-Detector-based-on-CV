@@ -68,9 +68,16 @@ class ColorRectificationModule(nn.Module):
 class DTLDContactGeometryNet(nn.Module):
     """CRM + contact segmentation + cubic Bezier perception for explicit geometry."""
 
-    def __init__(self, base_channels: int = 24) -> None:
+    def __init__(
+        self,
+        base_channels: int = 24,
+        geometry_conditioning: bool = False,
+        object_experts: bool = False,
+    ) -> None:
         super().__init__()
         channels = int(base_channels)
+        self.geometry_conditioning = bool(geometry_conditioning)
+        self.object_experts = bool(object_experts)
         self.crm = ColorRectificationModule(max(channels // 2, 8))
         self.register_buffer(
             "rgb_mean",
@@ -88,9 +95,18 @@ class DTLDContactGeometryNet(nn.Module):
         self.dec3 = ConvBlock(channels * 12, channels * 4)
         self.dec2 = ConvBlock(channels * 6, channels * 2)
         self.dec1 = ConvBlock(channels * 3, channels)
-        self.contact_head = nn.Conv2d(channels, 1, 1)
-        self.control_heatmap_head = nn.Conv2d(channels, 4, 1)
+        spatial_objects = 4 if self.object_experts else 1
+        self.contact_head = nn.Conv2d(channels, spatial_objects, 1)
+        self.control_heatmap_head = nn.Conv2d(channels, spatial_objects * 4, 1)
         self.object_embedding = nn.Embedding(4, 8)
+        if self.geometry_conditioning:
+            self.geometry_film = nn.Sequential(
+                nn.Linear(20, channels * 4),
+                nn.SiLU(),
+                nn.Linear(channels * 4, channels * 16),
+            )
+            nn.init.zeros_(self.geometry_film[-1].weight)
+            nn.init.zeros_(self.geometry_film[-1].bias)
         self.curve_quality_head = nn.Sequential(
             nn.Linear(channels * 8 + 12 + 8, channels * 4),
             nn.SiLU(),
@@ -139,16 +155,28 @@ class DTLDContactGeometryNet(nn.Module):
         e2 = self.enc2(self.pool(e1))
         e3 = self.enc3(self.pool(e2))
         features = self.bottleneck(self.pool(e3))
+        object_features = self.object_embedding(object_index)
+        if self.geometry_conditioning:
+            film = self.geometry_film(torch.cat((pose, object_features), dim=1))
+            scale, bias = film.chunk(2, dim=1)
+            features = features * (1.0 + 0.1 * torch.tanh(scale[:, :, None, None]))
+            features = features + 0.1 * torch.tanh(bias[:, :, None, None])
         d3 = self.dec3(torch.cat((self._up(features, e3), e3), dim=1))
         d2 = self.dec2(torch.cat((self._up(d3, e2), e2), dim=1))
         d1 = self.dec1(torch.cat((self._up(d2, e1), e1), dim=1))
         contact_logits = self.contact_head(d1)
         control_heatmap_logits = self.control_heatmap_head(d1)
+        if self.object_experts:
+            batch_index = torch.arange(len(d1), device=d1.device)
+            contact_logits = contact_logits[batch_index, object_index][:, None]
+            control_heatmap_logits = control_heatmap_logits.reshape(
+                len(d1), 4, 4, *d1.shape[-2:]
+            )[batch_index, object_index]
         control_points = self._soft_argmax(control_heatmap_logits)
 
         pooled = F.adaptive_avg_pool2d(features, 1).flatten(1)
         curve_output = self.curve_quality_head(
-            torch.cat((pooled, pose, self.object_embedding(object_index)), dim=1)
+            torch.cat((pooled, pose, object_features), dim=1)
         )
         presence_logit = curve_output[:, 0]
         curve_log_variance = curve_output[:, 1].clamp(-7.0, 5.0)
@@ -176,6 +204,7 @@ class DTLDContactGeometryLoss(nn.Module):
         localization_weight: float = 0.25,
         segmentation_weight: float = 0.75,
         residual_weight: float = 1.0,
+        consistency_weight: float = 0.0,
     ) -> None:
         super().__init__()
         self.weights = (
@@ -184,6 +213,7 @@ class DTLDContactGeometryLoss(nn.Module):
             float(localization_weight),
             float(segmentation_weight),
             float(residual_weight),
+            float(consistency_weight),
         )
 
     def forward(
@@ -236,6 +266,18 @@ class DTLDContactGeometryLoss(nn.Module):
             dim=2,
         ).mean(dim=1)
         curve_error = control_error + sampled_error
+        target_grid = target_curve.mul(2.0).sub(1.0)[:, None]
+        predicted_grid = predicted_curve.mul(2.0).sub(1.0)[:, None]
+        predicted_on_target = F.grid_sample(
+            probability, target_grid, align_corners=True
+        ).squeeze(1).squeeze(1)
+        target_on_prediction = F.grid_sample(
+            contact, predicted_grid, align_corners=True
+        ).squeeze(1).squeeze(1)
+        consistency = (
+            -torch.log(predicted_on_target.clamp_min(1e-5)).mean()
+            + (1.0 - target_on_prediction).mean()
+        )
         log_variance = prediction["curve_log_variance"]
         curve = (curve_error * torch.exp(-log_variance) + 0.5 * log_variance).mean()
 
@@ -249,13 +291,14 @@ class DTLDContactGeometryLoss(nn.Module):
             residual_difference.square() * residual_importance
         ).sum() / (3.0 * residual_importance.sum().clamp_min(1.0))
 
-        wc, wp, wl, ws, wr = self.weights
+        wc, wp, wl, ws, wr, wcons = self.weights
         total = (
             wc * curve
             + wp * presence
             + wl * localization
             + ws * segmentation
             + wr * residual
+            + wcons * consistency
         )
         return {
             "total": total,
@@ -264,4 +307,5 @@ class DTLDContactGeometryLoss(nn.Module):
             "localization": localization,
             "segmentation": segmentation,
             "residual": residual,
+            "consistency": consistency,
         }

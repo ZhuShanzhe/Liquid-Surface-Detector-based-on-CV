@@ -92,6 +92,20 @@ def _load_compatible(model, checkpoint: Path) -> int:
         for name, value in source.items()
         if name in current and current[name].shape == value.shape
     }
+    expert_heads = {
+        "contact_head.weight",
+        "contact_head.bias",
+        "control_heatmap_head.weight",
+        "control_heatmap_head.bias",
+    }
+    for name in expert_heads:
+        if name not in source or name not in current or name in compatible:
+            continue
+        value = source[name]
+        target = current[name]
+        if target.shape[1:] == value.shape[1:] and target.shape[0] % value.shape[0] == 0:
+            repeats = (target.shape[0] // value.shape[0],) + (1,) * (value.ndim - 1)
+            compatible[name] = value.repeat(repeats)
     model.load_state_dict(compatible, strict=False)
     return len(compatible)
 
@@ -108,6 +122,9 @@ def main() -> None:
     parser.add_argument("--image-size", default="320,180", help="width,height")
     parser.add_argument("--max-depth-m", type=float, default=3.0)
     parser.add_argument("--base-channels", type=int, default=24)
+    parser.add_argument("--geometry-conditioning", action="store_true")
+    parser.add_argument("--object-experts", action="store_true")
+    parser.add_argument("--consistency-weight", type=float, default=0.0)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--resume", type=Path)
@@ -178,8 +195,14 @@ def main() -> None:
         persistent_workers=args.workers > 0,
     )
 
-    model = DTLDContactGeometryNet(args.base_channels).to(device)
-    criterion = DTLDContactGeometryLoss()
+    model = DTLDContactGeometryNet(
+        args.base_channels,
+        geometry_conditioning=args.geometry_conditioning,
+        object_experts=args.object_experts,
+    ).to(device)
+    criterion = DTLDContactGeometryLoss(
+        consistency_weight=args.consistency_weight
+    )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     start_epoch = 1
@@ -244,8 +267,17 @@ def main() -> None:
             "metrics": metrics,
             "image_size": image_size,
             "base_channels": args.base_channels,
+            "geometry_conditioning": args.geometry_conditioning,
+            "object_experts": args.object_experts,
+            "consistency_weight": args.consistency_weight,
             "max_depth_m": args.max_depth_m,
-            "architecture": "crm_bezier_spatial_explicit_geometry_v2",
+            "architecture": (
+                "crm_bezier_object_experts_explicit_geometry_v4"
+                if args.object_experts
+                else "crm_bezier_pose_film_explicit_geometry_v3"
+                if args.geometry_conditioning
+                else "crm_bezier_spatial_explicit_geometry_v2"
+            ),
             "input_contract": "instance RGB-D crop + object id + 6D pose",
             "output_contract": "contact heatmap + cubic Bezier + uncalibrated geometric confidence",
         }

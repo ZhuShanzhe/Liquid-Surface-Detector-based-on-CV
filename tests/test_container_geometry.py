@@ -49,6 +49,7 @@ def test_contact_curve_recovers_metric_container_level_with_outliers():
     assert result.coverage > 0.9
     assert result.uncertainty_m is not None
     assert result.uncertainty_m < 0.003
+    assert 0.5 < result.geometric_confidence <= 1.0
 
 
 def test_contact_curve_rejects_pixels_without_model_support():
@@ -65,6 +66,7 @@ def test_contact_curve_rejects_pixels_without_model_support():
 
     assert not result.accepted
     assert result.level_m is None
+    assert result.geometric_confidence == 0.0
     assert "insufficient_geometry_matches" in result.rejection_reasons
     assert "low_curve_coverage" in result.rejection_reasons
 

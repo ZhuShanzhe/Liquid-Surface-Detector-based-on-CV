@@ -58,9 +58,24 @@ class ContactGeometryEstimate:
     def accepted(self) -> bool:
         return self.level_m is not None and not self.rejection_reasons
 
+    @property
+    def geometric_confidence(self) -> float:
+        if self.level_m is None:
+            return 0.0
+        reprojection = self.median_reprojection_px or 0.0
+        uncertainty = self.uncertainty_m or 0.0
+        scores = (
+            max(self.coverage, 1e-6),
+            max(self.inlier_ratio, 1e-6),
+            np.exp(-reprojection / 3.0),
+            np.exp(-uncertainty / 0.01),
+        )
+        return float(np.prod(scores) ** (1.0 / len(scores)))
+
     def to_dict(self) -> dict:
         return {
             "accepted": self.accepted,
+            "geometric_confidence_uncalibrated": self.geometric_confidence,
             "level_m": self.level_m,
             "uncertainty_m": self.uncertainty_m,
             "curve_points": self.curve_points,
