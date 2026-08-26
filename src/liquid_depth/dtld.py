@@ -126,9 +126,7 @@ def build_dtld_rows(
 ) -> list[dict[str, str | int | float]]:
     root = Path(root).resolve()
     scene_dirs = sorted(
-        path.parent
-        for path in root.rglob("rgb")
-        if path.is_dir() and (path.parent / "depth").is_dir()
+        path.parent for path in root.rglob("rgb") if path.is_dir() and (path.parent / "depth").is_dir()
     )
     liquid_files = []
     for scene_dir in scene_dirs:
@@ -186,7 +184,8 @@ def build_dtld_rows(
                     instance_index,
                     False,
                 )
-                depth_scale = float(camera.get("depth_scale", 1.0)) / 1000.0
+                declared_scale = float(camera.get("depth_scale", 0.001))
+                depth_scale = declared_scale if declared_scale < 0.1 else declared_scale / 1000.0
                 rows.append(
                     {
                         "frame_id": (

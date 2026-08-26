@@ -28,7 +28,7 @@ def test_build_dtld_manifest_preserves_sequence_split_and_metric_height(tmp_path
         encoding="utf-8",
     )
     (scene / "scene_camera.json").write_text(
-        json.dumps({"7": {"depth_scale": 1.0, "cam_K": [1, 0, 0]}}),
+        json.dumps({"7": {"depth_scale": 0.001, "cam_K": [1, 0, 0]}}),
         encoding="utf-8",
     )
     (scene / "scene_gt.json").write_text(
