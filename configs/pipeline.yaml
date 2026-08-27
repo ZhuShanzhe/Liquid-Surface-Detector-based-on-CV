@@ -25,6 +25,45 @@ illumination:
   min_gamma: 0.45
   clahe_clip_limit: 1.5
 
+complex_scene:
+  # off: never use a specialist; auto: trigger by diagnostics/context; always: force one.
+  mode: auto
+  latency_budget_ms: 500.0
+  enforce_latency_budget: true
+  hold_frames: 8
+  # An unavailable specialist makes the measurement explicitly invalid.
+  missing_model_policy: reject
+  auto:
+    raw_depth_valid_ratio_below: 0.45
+    saturated_pixel_ratio_above: 0.10
+    luma_p50_below: 0.18
+    dark_pixel_ratio_above: 0.70
+    dynamic_range_below: 0.06
+  # Optional per-camera defaults. A frame-local scene_context.json overrides these.
+  scene_context: {}
+  models:
+    # Existing DREDS/DTLD object-pretrained completion model: useful for glare and
+    # sensor holes, but it is not a true multi-layer SeeGroup replacement.
+    glare:
+      enabled: true
+      backend: torchscript
+      torchscript:
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/multitask-object-pretrain-v1.ts
+        input_size: [640, 360]
+        max_depth_m: 3.0
+    depth_failure:
+      enabled: true
+      backend: torchscript
+      torchscript:
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/multitask-object-pretrain-v1.ts
+        input_size: [640, 360]
+        max_depth_m: 3.0
+    # Enable after the matching specialist passes scene-stratified validation.
+    transparent_multilayer:
+      enabled: false
+    low_light:
+      enabled: false
+
 depth_refinement:
   # identity preserves the validated classical baseline. Switch to torchscript
   # after a transparent/specular RGB-D completion model passes offline evaluation.

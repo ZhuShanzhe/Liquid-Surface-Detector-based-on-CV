@@ -122,6 +122,9 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
     checkpoint = Path(str(checkpoint_value)).expanduser().resolve()
     if not checkpoint.is_file():
         raise FileNotFoundError(f"Checkpoint not found: {checkpoint}")
+    complex_mode = str(payload.get("complex_scene_mode", "auto")).lower()
+    if complex_mode not in {"off", "auto", "always"}:
+        raise ValueError("complex_scene_mode must be off, auto, or always")
     profile = {
         "schema_version": 1,
         "name": profile_path.stem,
@@ -155,6 +158,22 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
             "gate_sigma": 3.5,
             "max_jump_m": 0.02,
             "min_confidence": 0.2,
+        },
+        "complex_scene": {
+            "mode": complex_mode,
+            "latency_budget_ms": 500.0,
+            "enforce_latency_budget": True,
+            "hold_frames": 8,
+            "missing_model_policy": "reject",
+            "auto": {
+                "raw_depth_valid_ratio_below": 0.45,
+                "saturated_pixel_ratio_above": 0.10,
+                "luma_p50_below": 0.18,
+                "dark_pixel_ratio_above": 0.70,
+                "dynamic_range_below": 0.06,
+            },
+            "scene_context": {},
+            "models": {},
         },
         "deployment": {
             "camera_motion_policy": "recalibrate_after_move",

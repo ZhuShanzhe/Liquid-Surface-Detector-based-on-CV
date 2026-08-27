@@ -49,3 +49,11 @@ def test_panel_state_reuses_and_invalidates_product_system(
 
     assert replacement is not first
     assert created[-1] == (profile, "cuda", False)
+
+
+def test_panel_exposes_scene_adaptive_model_policy() -> None:
+    html = (Path(product_web.__file__).with_name("ui") / "index.html").read_text(encoding="utf-8")
+    assert 'id="complexSceneMode"' in html
+    assert 'value="auto" selected' in html
+    assert "complex_scene_mode:cfg.complex_scene_mode" in html
+    assert "端到端 P95 ≤ 0.50 秒" in html

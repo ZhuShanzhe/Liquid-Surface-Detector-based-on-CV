@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
@@ -277,8 +278,11 @@ class TransCGDFNetRefiner:
         return RefinedDepth(result, confidence, "transcg_dfnet")
 
 
-def make_depth_refiner(config: dict) -> DepthRefiner:
-    options = config.get("depth_refinement", {"backend": "identity"})
+def make_depth_refiner(
+    config: dict,
+    options_override: dict | None = None,
+) -> DepthRefiner:
+    options = options_override or config.get("depth_refinement", {"backend": "identity"})
     backend = str(options.get("backend", "identity")).lower()
     if backend in {"none", "identity"}:
         return IdentityDepthRefiner()
@@ -329,3 +333,25 @@ def make_depth_refiner(config: dict) -> DepthRefiner:
             model.get("tangent_weight", 1.0),
         )
     raise ValueError(f"Unknown depth refinement backend: {backend}")
+
+
+def make_complex_depth_refiners(config: dict) -> dict[str, DepthRefiner]:
+    """Build configured specialist refiners once for stream/batch reuse."""
+
+    specialists: dict[str, DepthRefiner] = {}
+    cache: dict[str, DepthRefiner] = {}
+    model_options = config.get("complex_scene", {}).get("models", {})
+    if not isinstance(model_options, dict):
+        raise TypeError("complex_scene.models must be a mapping")
+    for variant, options in model_options.items():
+        if not isinstance(options, dict):
+            raise TypeError(f"complex_scene.models.{variant} must be a mapping")
+        if not bool(options.get("enabled", True)):
+            continue
+        clean_options = deepcopy(options)
+        clean_options.pop("enabled", None)
+        cache_key = repr(clean_options)
+        if cache_key not in cache:
+            cache[cache_key] = make_depth_refiner(config, clean_options)
+        specialists[str(variant)] = cache[cache_key]
+    return specialists

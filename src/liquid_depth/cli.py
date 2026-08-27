@@ -9,7 +9,11 @@ from pathlib import Path
 from .config import load_config
 from .io import write_json
 from .pipeline import fit_bottom, infer_frame
-from .refinement import make_depth_refiner
+from .refinement import (
+    make_complex_depth_refiners,
+    make_depth_refiner,
+)
+from .scenario_policy import ComplexScenePolicy
 from .segmentation import make_segmenter
 from .temporal import make_temporal_filter
 
@@ -64,6 +68,11 @@ def main() -> None:
     temporal_filter = make_temporal_filter(config)
     segmenter = make_segmenter(config)
     depth_refiner = make_depth_refiner(config)
+    complex_depth_refiners = make_complex_depth_refiners(config)
+    scene_policy = ComplexScenePolicy(
+        config.get("complex_scene", {}),
+        available_variants=complex_depth_refiners,
+    )
     results, failures = [], []
     for frame in sorted(path for path in input_dir.iterdir() if path.is_dir()):
         required = (frame / "rgb.png", frame / "depth.npy", frame / "depth_info.json")
@@ -78,6 +87,8 @@ def main() -> None:
                 temporal_filter=temporal_filter,
                 segmenter=segmenter,
                 depth_refiner=depth_refiner,
+                complex_depth_refiners=complex_depth_refiners,
+                scene_policy=scene_policy,
             )
         except Exception as exc:
             failure = {"frame_id": frame.name, "error": str(exc)}

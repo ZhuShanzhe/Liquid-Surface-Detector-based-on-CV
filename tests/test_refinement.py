@@ -1,7 +1,10 @@
 import numpy as np
 
 from liquid_depth.geometry import Plane, plane_angle_degrees
-from liquid_depth.refinement import IdentityDepthRefiner
+from liquid_depth.refinement import (
+    IdentityDepthRefiner,
+    make_complex_depth_refiners,
+)
 
 
 def test_identity_refiner_converts_millimeters_and_validity():
@@ -19,3 +22,18 @@ def test_plane_angle_is_sign_invariant():
     second = Plane(np.asarray([0.0, 0.0, 1.0]), -1.0, np.zeros(3))
 
     assert plane_angle_degrees(first, second) == 0.0
+
+
+def test_identical_complex_refiners_share_one_loaded_instance():
+    config = {
+        "complex_scene": {
+            "models": {
+                "glare": {"backend": "identity"},
+                "depth_failure": {"backend": "identity"},
+                "disabled": {"enabled": False},
+            }
+        }
+    }
+    refiners = make_complex_depth_refiners(config)
+    assert set(refiners) == {"glare", "depth_failure"}
+    assert refiners["glare"] is refiners["depth_failure"]

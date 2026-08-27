@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 import cv2
 import numpy as np
 
 from .calibration import CameraCalibration
+from .contact_model import load_contact_specialists
 from .io import load_frame, write_json
 from .rail_calibration import intersect_curve_with_rail, rail_depth_from_y
+from .scenario_policy import ComplexScenePolicy, load_scene_context, measure_scene_signals
 from .system_runtime import (
     _depth_input,
     _fixed_crop,
@@ -72,6 +75,13 @@ class RailLiquidDepthSystem:
             if self.reference_bgr is None:
                 raise FileNotFoundError(f"Reference image not readable: {reference_path}")
         self._load_model(device)
+        specialist_device = device or self.profile["perception"].get("device", "cuda")
+        self.complex_models = load_contact_specialists(
+            self.profile, resolve_path=resolve_profile_path, device=specialist_device
+        )
+        self.scene_policy = ComplexScenePolicy(
+            self.profile.get("complex_scene", {}), available_variants=self.complex_models
+        )
         self.temporal_filter = None
         if temporal:
             options = self.profile.get("temporal", {})
@@ -115,24 +125,38 @@ class RailLiquidDepthSystem:
         rgb_bgr: np.ndarray,
         depth_raw: np.ndarray,
         crop: tuple[int, int, int, int],
+        bundle=None,
     ) -> tuple[np.ndarray, np.ndarray, float]:
+        if bundle is None:
+            model = self.model
+            torch = self.torch
+            device = self.device
+            input_size = self.input_size
+            max_depth_m = self.max_depth_m
+        else:
+            model = bundle.model
+            torch = bundle.torch
+            device = bundle.device
+            input_size = bundle.input_size
+            max_depth_m = bundle.max_depth_m
+
         inputs = _depth_input(
             rgb_bgr,
             depth_raw,
             crop,
-            self.input_size,
+            input_size,
             self.depth_scale_to_m,
-            self.max_depth_m,
+            max_depth_m,
         )
         pose_features = np.zeros(12, dtype=np.float32)
-        with self.torch.inference_mode():
-            prediction = self.model(
-                self.torch.from_numpy(inputs.transpose(2, 0, 1))[None].to(self.device),
-                self.torch.tensor(
+        with torch.inference_mode():
+            prediction = model(
+                torch.from_numpy(inputs.transpose(2, 0, 1))[None].to(device),
+                torch.tensor(
                     [int(self.profile["perception"]["object_index"])],
-                    device=self.device,
+                    device=device,
                 ),
-                self.torch.from_numpy(pose_features)[None].to(self.device),
+                torch.from_numpy(pose_features)[None].to(device),
             )
         normalized = prediction["contact_curve"][0].detach().cpu().numpy()
         point_confidence = prediction["contact_curve_point_confidence"][0].detach().cpu().numpy()
@@ -197,6 +221,18 @@ class RailLiquidDepthSystem:
             frame.rgb_bgr.shape[:2],
         )
         reasons: list[str] = []
+        started = perf_counter()
+        signals = measure_scene_signals(
+            frame.rgb_bgr,
+            frame.depth,
+            roi=crop,
+            depth_scale_to_m=self.depth_scale_to_m,
+            max_depth_m=max(self.max_depth_m, 10.0),
+        )
+        scene_context = dict(self.profile.get("complex_scene", {}).get("scene_context", {}))
+        scene_context.update(load_scene_context(frame.source_dir))
+        scene_decision = self.scene_policy.decide(signals, scene_context)
+        specialist = self.complex_models.get(scene_decision.model_variant)
         reference_motion_px = None
         if self.reference_bgr is not None:
             reference_motion_px = estimate_reference_motion_px(self.reference_bgr, frame.rgb_bgr, crop)
@@ -205,11 +241,14 @@ class RailLiquidDepthSystem:
                 reasons.append("camera_motion_unobservable")
             elif reference_motion_px > limit:
                 reasons.append("camera_moved_recalibration_required")
+        prediction_started = perf_counter()
         curve, point_confidence, global_confidence = self._predict(
             frame.rgb_bgr,
             frame.depth,
             crop,
+            bundle=specialist if scene_decision.activated else None,
         )
+        prediction_ms = (perf_counter() - prediction_started) * 1000.0
         rail = self.profile["measurement"]["rail_calibration"]
         rail_x = float(rail["rail_x_px"])
         intersection_y = None
@@ -242,6 +281,9 @@ class RailLiquidDepthSystem:
             float(depth_range[0]) - 1e-6 <= candidate <= float(depth_range[1]) + 1e-6
         ):
             reasons.append("depth_outside_calibrated_range")
+        if not scene_decision.result_allowed:
+            reasons.append("complex_model_required_but_unavailable")
+
         accepted = candidate is not None and not reasons
         confidence = local_confidence
         temporal_payload = None
@@ -265,6 +307,15 @@ class RailLiquidDepthSystem:
             accepted = accepted and temporal.accepted
             confidence = min(confidence, temporal.confidence)
             filtered = temporal.value
+        total_ms = (perf_counter() - started) * 1000.0
+        latency_within_budget = total_ms <= scene_decision.latency_budget_ms
+        if not latency_within_budget and bool(
+            self.profile.get("complex_scene", {}).get("enforce_latency_budget", True)
+        ):
+            accepted = False
+            reasons.append("latency_budget_exceeded")
+        reasons = list(dict.fromkeys(reasons))
+
         reported = filtered if accepted and filtered is not None else candidate
         result = {
             "schema_version": 1,
@@ -276,6 +327,14 @@ class RailLiquidDepthSystem:
             "liquid_depth_candidate_m": candidate,
             "uncertainty_m": float(rail["loocv_mae_m"]),
             "confidence_uncalibrated": confidence,
+            "complex_scene": scene_decision.to_dict(),
+            "latency": {
+                "inference_total_ms": total_ms,
+                "model_prediction_ms": prediction_ms,
+                "budget_ms": scene_decision.latency_budget_ms,
+                "within_budget": latency_within_budget,
+                "budget_scope": "warm_measurement_frame_load_excluded_artifact_serialization_excluded",
+            },
             "rejection_reasons": list(dict.fromkeys(reasons)),
             "crop_xyxy": list(crop),
             "rail_x_px": rail_x,

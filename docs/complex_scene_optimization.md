@@ -86,8 +86,9 @@ project RTX 5090, one 640x480 image measured after warm-up as follows:
 | 518 | 86.13 ms | 86.41 ms | 2.25 GB |
 
 These are isolated model measurements, not full camera-to-output latency. The
-518 model fits the stated 182 ms component budget but may push the complete path
-over budget. The recommended sequence is:
+518 model is easily inside the revised 500 ms end-to-end P95 budget in isolation.
+It is nevertheless loaded only for a qualified scene profile or automatic trigger;
+model initialization is excluded by keeping the service resident. The recommended sequence is:
 
 1. reproduce the official LayeredDepth validation metrics locally;
 2. use full SeeGroup as an offline teacher and difficult-frame reference;
@@ -144,7 +145,8 @@ Promote an experiment only when the same held-out sequences show:
 - calibrated accepted-sample coverage and false-acceptance rate;
 - no unacceptable regression on opaque/colored liquids;
 - stable temporal output and explicit rejection of unsupported geometry;
-- full camera-to-output P95 latency no greater than 182 ms on the target profile;
+- warm full camera-to-output P95 latency no greater than 500 ms on the target profile,
+  reported separately for standard and specialist routes;
 - metric accuracy evaluated against the industrial distance-band profile, not
   inferred from LayeredDepth ordering or DTLD pixel error.
 

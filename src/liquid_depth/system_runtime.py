@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 import cv2
@@ -13,8 +14,10 @@ from .calibration import (
     compose_container_pose,
     detect_aruco_marker_pose,
 )
+from .contact_model import load_contact_specialists
 from .container_geometry import load_container_model, project_model_points
 from .io import load_frame, write_json
+from .scenario_policy import ComplexScenePolicy, load_scene_context, measure_scene_signals
 from .sparse_contact import estimate_level_from_sparse_contact
 from .temporal import RobustKalmanFilter
 
@@ -196,6 +199,16 @@ class LiquidDepthSystem:
         if self.depth_scale_to_m <= 0:
             raise ValueError("camera.depth_scale_to_m must be positive")
         self._load_model(device)
+        specialist_device = device or self.profile["perception"].get("device", "cuda")
+        self.complex_models = load_contact_specialists(
+            self.profile,
+            resolve_path=resolve_profile_path,
+            device=specialist_device,
+        )
+        self.scene_policy = ComplexScenePolicy(
+            self.profile.get("complex_scene", {}),
+            available_variants=self.complex_models,
+        )
         self.temporal_filter = None
         if temporal:
             options = self.profile.get("temporal", {})
@@ -262,25 +275,38 @@ class LiquidDepthSystem:
         depth: np.ndarray,
         crop: tuple[int, int, int, int],
         pose: PoseEstimate,
+        bundle=None,
     ) -> tuple[np.ndarray, np.ndarray, float]:
+        if bundle is None:
+            model = self.model
+            torch = self.torch
+            device = self.device
+            input_size = self.input_size
+            max_depth_m = self.max_depth_m
+        else:
+            model = bundle.model
+            torch = bundle.torch
+            device = bundle.device
+            input_size = bundle.input_size
+            max_depth_m = bundle.max_depth_m
         inputs = _depth_input(
             rgb_bgr,
             depth,
             crop,
-            self.input_size,
+            input_size,
             self.depth_scale_to_m,
-            self.max_depth_m,
+            max_depth_m,
         )
         rotation_features = pose.rotation_m2c.reshape(-1)
         pose_features = np.concatenate((rotation_features, pose.translation_m2c_m / 2.0)).astype(np.float32)
-        with self.torch.inference_mode():
-            prediction = self.model(
-                self.torch.from_numpy(inputs.transpose(2, 0, 1))[None].to(self.device),
-                self.torch.tensor(
+        with torch.inference_mode():
+            prediction = model(
+                torch.from_numpy(inputs.transpose(2, 0, 1))[None].to(device),
+                torch.tensor(
                     [int(self.profile["perception"]["object_index"])],
-                    device=self.device,
+                    device=device,
                 ),
-                self.torch.from_numpy(pose_features)[None].to(self.device),
+                torch.from_numpy(pose_features)[None].to(device),
             )
         normalized = prediction["contact_curve"][0].detach().cpu().numpy()
         confidence = prediction["contact_curve_point_confidence"][0].detach().cpu().numpy()
@@ -307,6 +333,7 @@ class LiquidDepthSystem:
                 f"Frame size {frame.rgb_bgr.shape[1::-1]} differs from calibrated "
                 f"size {self.calibration.image_size}"
             )
+        started = perf_counter()
         pose = self._pose(frame.rgb_bgr)
         projected, _, _ = project_model_points(
             self.container_model,
@@ -324,12 +351,26 @@ class LiquidDepthSystem:
                 float(perception.get("crop_margin_ratio", 0.18)),
             )
         )
+        signals = measure_scene_signals(
+            frame.rgb_bgr,
+            frame.depth,
+            roi=crop,
+            depth_scale_to_m=self.depth_scale_to_m,
+            max_depth_m=max(self.max_depth_m, 10.0),
+        )
+        scene_context = dict(self.profile.get("complex_scene", {}).get("scene_context", {}))
+        scene_context.update(load_scene_context(frame.source_dir))
+        scene_decision = self.scene_policy.decide(signals, scene_context)
+        specialist = self.complex_models.get(scene_decision.model_variant)
+        prediction_started = perf_counter()
         curve, point_confidence, curve_confidence = self._predict_curve(
             frame.rgb_bgr,
             frame.depth,
             crop,
             pose,
+            bundle=specialist if scene_decision.activated else None,
         )
+        prediction_ms = (perf_counter() - prediction_started) * 1000.0
         selection = self.profile.get("selection", {})
         geometry = self.profile.get("geometry", {})
         estimate = estimate_level_from_sparse_contact(
@@ -361,6 +402,9 @@ class LiquidDepthSystem:
         scale = float(output.get("scale", 1.0)) if apply_output_calibration else 1.0
         offset = float(output.get("offset_m", 0.0)) if apply_output_calibration else 0.0
         candidate_m = None if raw_depth_m is None else scale * raw_depth_m + offset
+        if not scene_decision.result_allowed:
+            reasons.append("complex_model_required_but_unavailable")
+
         accepted = estimate.accepted and not reasons and candidate_m is not None
         confidence = estimate.confidence * float(
             np.exp(-pose.reprojection_rmse_px / max(max_pose_rmse, 1e-6))
@@ -386,6 +430,15 @@ class LiquidDepthSystem:
             accepted = accepted and temporal.accepted
             confidence = min(confidence, temporal.confidence)
             filtered_m = temporal.value
+        total_ms = (perf_counter() - started) * 1000.0
+        latency_within_budget = total_ms <= scene_decision.latency_budget_ms
+        if not latency_within_budget and bool(
+            self.profile.get("complex_scene", {}).get("enforce_latency_budget", True)
+        ):
+            accepted = False
+            reasons.append("latency_budget_exceeded")
+        reasons = list(dict.fromkeys(reasons))
+
         reported_m = filtered_m if accepted and filtered_m is not None else candidate_m
         result = {
             "schema_version": 1,
@@ -396,6 +449,14 @@ class LiquidDepthSystem:
             "raw_geometry_level_m": raw_depth_m,
             "uncertainty_m": estimate.uncertainty_m,
             "confidence_uncalibrated": confidence,
+            "complex_scene": scene_decision.to_dict(),
+            "latency": {
+                "inference_total_ms": total_ms,
+                "model_prediction_ms": prediction_ms,
+                "budget_ms": scene_decision.latency_budget_ms,
+                "within_budget": latency_within_budget,
+                "budget_scope": "warm_measurement_frame_load_excluded_artifact_serialization_excluded",
+            },
             "rejection_reasons": list(dict.fromkeys(reasons)),
             "pose": pose.to_dict(),
             "crop_xyxy": list(crop),

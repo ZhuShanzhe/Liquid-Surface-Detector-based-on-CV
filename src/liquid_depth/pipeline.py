@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
+from time import perf_counter
 
 import cv2
 import numpy as np
@@ -17,7 +19,15 @@ from .geometry import (
 from .illumination import adaptive_exposure_correction
 from .io import load_frame, write_json
 from .quality import assess_quality
-from .refinement import make_depth_refiner
+from .refinement import (
+    make_complex_depth_refiners,
+    make_depth_refiner,
+)
+from .scenario_policy import (
+    ComplexScenePolicy,
+    load_scene_context,
+    measure_scene_signals,
+)
 from .segmentation import make_bottom_mask, make_segmenter, overlay_mask
 from .surface_support import assess_planar_support
 from .temporal import RobustKalmanFilter
@@ -64,14 +74,43 @@ def infer_frame(
     temporal_filter: RobustKalmanFilter | None = None,
     segmenter=None,
     depth_refiner=None,
+    complex_depth_refiners=None,
+    scene_policy: ComplexScenePolicy | None = None,
 ) -> dict:
     frame = load_frame(frame_dir)
+    segmenter = segmenter or make_segmenter(config)
+    depth_refiner = depth_refiner or make_depth_refiner(config)
+    if complex_depth_refiners is None:
+        complex_depth_refiners = make_complex_depth_refiners(config)
+    specialists = complex_depth_refiners
+    scene_policy = scene_policy or ComplexScenePolicy(
+        config.get("complex_scene", {}),
+        available_variants=specialists,
+    )
+    started = perf_counter()
     exposure = adaptive_exposure_correction(frame.rgb_bgr, config.get("illumination", {}))
     perception_rgb = exposure.image_bgr
-    segmenter = segmenter or make_segmenter(config)
     mask, segmentation_confidence = segmenter.predict(perception_rgb)
-    depth_refiner = depth_refiner or make_depth_refiner(config)
-    refined = depth_refiner.predict(perception_rgb, frame.depth)
+    mask_pixels = mask > 0
+    mask_area = int(mask_pixels.sum())
+    raw_depth_m = depth_to_meters(frame.depth)
+    raw_valid_ratio = float(
+        (np.isfinite(raw_depth_m) & (raw_depth_m > 0) & mask_pixels).sum() / max(mask_area, 1)
+    )
+    signals = measure_scene_signals(perception_rgb, frame.depth)
+    signals = replace(
+        signals,
+        raw_depth_valid_ratio=raw_valid_ratio,
+    )
+    scene_context = dict(config.get("complex_scene", {}).get("scene_context", {}))
+    scene_context.update(load_scene_context(frame.source_dir))
+    scene_decision = scene_policy.decide(signals, scene_context)
+    active_refiner = depth_refiner
+    if scene_decision.activated:
+        active_refiner = specialists[scene_decision.model_variant]
+    depth_started = perf_counter()
+    refined = active_refiner.predict(perception_rgb, frame.depth)
+    depth_refinement_ms = (perf_counter() - depth_started) * 1000.0
     geometry = config["geometry"]
     interior_mask, meniscus_mask = split_surface_mask(
         mask,
@@ -99,12 +138,6 @@ def infer_frame(
     raw_liquid_depth = raw_gap_m * scale
 
     quality = config.get("quality", {})
-    mask_pixels = mask > 0
-    mask_area = int(mask_pixels.sum())
-    raw_depth_m = depth_to_meters(frame.depth)
-    raw_valid_ratio = float(
-        (np.isfinite(raw_depth_m) & (raw_depth_m > 0) & mask_pixels).sum() / max(mask_area, 1)
-    )
     mean_segmentation_confidence = (
         float(segmentation_confidence[mask_pixels].mean()) if np.any(mask_pixels) else 0.0
     )
@@ -136,9 +169,13 @@ def infer_frame(
         ) ** (1.0 / 3.0)
         final_confidence = min(final_confidence, support_confidence)
     filtered_depth: float | None = None
+    if not scene_decision.result_allowed:
+        accepted = False
+        rejection_reasons.append("complex_model_required_but_unavailable")
+
     temporal_payload: dict | None = None
     if temporal_filter is not None:
-        temporal = temporal_filter.update(raw_liquid_depth, assessment.confidence, assessment.accepted)
+        temporal = temporal_filter.update(raw_liquid_depth, final_confidence, accepted)
         filtered_depth = temporal.value
         temporal_payload = {
             "enabled": True,
@@ -154,6 +191,16 @@ def infer_frame(
             rejection_reasons.append(temporal.reason)
 
     reported_depth = filtered_depth if filtered_depth is not None else raw_liquid_depth
+    inference_total_ms = (perf_counter() - started) * 1000.0
+    latency_budget_ms = scene_decision.latency_budget_ms
+    latency_within_budget = inference_total_ms <= latency_budget_ms
+    if not latency_within_budget and bool(
+        config.get("complex_scene", {}).get("enforce_latency_budget", True)
+    ):
+        accepted = False
+        rejection_reasons.append("latency_budget_exceeded")
+    rejection_reasons = list(dict.fromkeys(rejection_reasons))
+
     result = {
         "frame_id": frame.frame_id,
         "accepted": accepted,
@@ -165,6 +212,14 @@ def infer_frame(
         "illumination": exposure.to_dict(),
         "planar_support": planar_support.to_dict(),
         "mask_area_px": mask_area,
+        "complex_scene": scene_decision.to_dict(),
+        "latency": {
+            "inference_total_ms": inference_total_ms,
+            "depth_refinement_ms": depth_refinement_ms,
+            "budget_ms": latency_budget_ms,
+            "within_budget": latency_within_budget,
+            "budget_scope": "frame_load_excluded_artifact_serialization_excluded",
+        },
         "interior_mask_area_px": int((interior_mask > 0).sum()),
         "meniscus_mask_area_px": int((meniscus_mask > 0).sum()),
         "mean_mask_confidence": mean_segmentation_confidence,
