@@ -1,94 +1,138 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>液深智能测量工作台</title>
-<style>
-:root{--ink:#152231;--muted:#667486;--line:#d9e1e8;--panel:#fff;--bg:#eef2f5;--blue:#1261a0;--cyan:#00a6a6;--red:#bd2c35;--green:#178557}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
-header{height:64px;background:#14283b;color:#fff;display:flex;align-items:center;padding:0 28px;justify-content:space-between;border-bottom:4px solid var(--cyan)}
-.brand{font-size:20px;font-weight:650;letter-spacing:.5px}.brand small{font-size:12px;font-weight:400;color:#a9bdce;margin-left:14px}
-.status{display:flex;gap:18px;align-items:center}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#8393a2;margin-right:7px}.dot.ok{background:#29c281}
-main{display:grid;grid-template-columns:250px minmax(540px,1fr) 310px;gap:16px;padding:16px;max-width:1700px;margin:auto}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:5px;box-shadow:0 1px 2px #18263712}.card h2{font-size:15px;margin:0;padding:14px 16px;border-bottom:1px solid var(--line)}
-.steps{padding:8px}.step{display:flex;gap:10px;padding:12px 10px;border-left:3px solid transparent;color:var(--muted)}.step.active{background:#edf7fa;border-left-color:var(--cyan);color:var(--ink)}.num{width:22px;height:22px;border:1px solid #96a7b7;border-radius:50%;text-align:center;line-height:20px;flex:none}.active .num{background:var(--cyan);border-color:var(--cyan);color:#fff}
-.mode{margin:12px;padding:12px;border:1px solid var(--line);border-radius:4px}.mode label{display:block;margin:7px 0}.warning{padding:10px;background:#fff7e6;border-left:3px solid #e29b22;color:#6c4b10;margin-top:10px}
-.workspace{padding:14px}.toolbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-bottom:12px}input,select,button{font:inherit;border:1px solid #aebdca;border-radius:3px;padding:8px 10px;background:#fff}button{cursor:pointer;background:#f8fafb}button.primary{background:var(--blue);color:#fff;border-color:var(--blue)}button.accent{background:var(--cyan);color:#fff;border-color:var(--cyan)}button:disabled{opacity:.45;cursor:not-allowed}
-.viewport{position:relative;background:#1b2731;min-height:410px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid #0d1821}canvas{max-width:100%;max-height:590px;cursor:crosshair}
-.hint{margin-top:10px;color:var(--muted)}.forms{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.field input,.field select{width:100%}.wide{grid-column:1/-1}
-.points{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.point{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;padding:5px 0}.point button{padding:3px 8px;color:var(--red)}
-.metrics{padding:12px}.metric{border-bottom:1px solid var(--line);padding:14px 4px}.metric label{display:block;color:var(--muted);font-size:12px}.metric strong{font-size:28px;font-weight:600}.metric strong.small{font-size:16px}.accepted{color:var(--green)}.rejected{color:var(--red)}
-.log{height:170px;overflow:auto;background:#f6f8fa;border:1px solid var(--line);padding:8px;font:12px/1.55 Consolas,monospace;white-space:pre-wrap}.actions{display:grid;gap:8px;padding:12px}
-@media(max-width:1050px){main{grid-template-columns:220px 1fr}.right{grid-column:1/-1}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.metric{border:0}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>液深智能测量终端</title>
+  <style>
+    :root{--navy:#0b1f33;--navy2:#132d46;--blue:#1677ff;--cyan:#00a6a6;--bg:#eef2f5;--panel:#fff;--line:#d6dee6;--text:#172533;--muted:#66788a;--ok:#0c8a5a;--warn:#c47a00;--bad:#c63838;--shadow:0 2px 10px rgba(22,45,70,.08)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif}
+    button,input,select{font:inherit}button{cursor:pointer}
+    .topbar{height:72px;padding:0 24px;background:var(--navy);color:#fff;display:flex;align-items:center;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:280px}.brand-mark{width:38px;height:38px;border:3px solid #48d7d2;display:grid;place-items:center;font-weight:800;color:#48d7d2}
+    .brand h1{font-size:20px;margin:0;letter-spacing:1px}.brand small{display:block;color:#a9bdcf;margin-top:3px}
+    .top-meta{display:flex;align-items:center;gap:12px;margin-left:auto}.solution{background:var(--navy2);border:1px solid #36536e;color:#fff;padding:10px 36px 10px 12px;min-width:210px}
+    .indicator{display:flex;align-items:center;gap:7px;color:#c7d6e3;font-size:14px}.dot{width:10px;height:10px;border-radius:50%;background:#778899}.dot.ok{background:#24c883;box-shadow:0 0 0 4px rgba(36,200,131,.13)}
+    .clock{font-variant-numeric:tabular-nums;color:#c7d6e3}.tabs{height:54px;background:#fff;border-bottom:1px solid var(--line);display:flex;padding:0 24px;gap:6px}
+    .tab{border:0;background:transparent;padding:0 26px;color:#526578;border-bottom:3px solid transparent;font-weight:700}.tab.active{color:var(--blue);border-color:var(--blue)}
+    .main{padding:18px 24px 28px;max-width:1680px;margin:auto}.view.hidden{display:none}.panel{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
+    .panel-head{height:48px;padding:0 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panel-head h2,.panel-head h3{font-size:16px;margin:0}.subtle{font-size:13px;color:var(--muted)}
+    .operator-grid{display:grid;grid-template-columns:minmax(620px,1.65fr) minmax(360px,.75fr);gap:16px}
+    .camera-box{position:relative;background:#101820;min-height:510px;display:grid;place-items:center;overflow:hidden}.camera-box img{display:block;width:100%;height:100%;max-height:68vh;object-fit:contain}
+    .camera-empty{color:#90a2b2;text-align:center;line-height:1.8}.camera-tag{position:absolute;left:14px;top:14px;background:rgba(8,24,38,.78);color:#fff;padding:7px 10px;font-size:13px}.camera-tag b{color:#61ddd7}
+    .result-panel{display:flex;flex-direction:column;min-height:558px}.state-banner{padding:18px 22px;background:#e8edf1;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .state-banner.ok{background:#e5f6ef;color:#086d49}.state-banner.warn{background:#fff2da;color:#8c5700}.state-banner.bad{background:#fdeaea;color:#9d2929}.state-title{font-size:24px;font-weight:800}.state-time{font-size:13px}
+    .depth-block{padding:30px 24px 22px;text-align:center;border-bottom:1px solid var(--line)}.depth-label{color:var(--muted);font-weight:700}.depth-value{font-size:78px;line-height:1.15;font-weight:800;font-variant-numeric:tabular-nums;color:var(--navy)}.depth-value span{font-size:25px;margin-left:8px;color:#536a7c}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.metric{padding:16px 8px;text-align:center;border-right:1px solid var(--line)}.metric:last-child{border-right:0}.metric b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.metric span{font-size:12px;color:var(--muted)}
+    .confidence{padding:15px 20px;border-bottom:1px solid var(--line)}.bar{height:9px;background:#e4e9ed;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+    .actions{padding:18px;margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:1px solid #aebcc8;background:#fff;color:#203446;min-height:48px;padding:0 18px;font-weight:700}.btn:hover{border-color:var(--blue);color:var(--blue)}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.stop{background:#fff2f2;border-color:#e0aaaa;color:#a72222}.btn:disabled{opacity:.45;cursor:not-allowed}.wide{grid-column:1/-1}
+    .lower-grid{display:grid;grid-template-columns:.9fr 1.4fr;gap:16px;margin-top:16px}.alarm-body{padding:16px;min-height:204px}.alarm-empty{height:165px;display:grid;place-items:center;color:var(--ok);text-align:center}.alarm-icon{font-size:38px;display:block;margin-bottom:8px}
+    .alarm-item{border-left:5px solid var(--bad);background:#fff0f0;padding:14px}.alarm-item b{display:block;margin-bottom:6px;color:#9f2626}.alarm-item p{margin:0;color:#5f3c3c;line-height:1.6}.alarm-action{margin-top:12px;font-weight:700}.trend-wrap{padding:12px 16px 14px;height:204px}#trendCanvas{width:100%;height:100%}
+    .wizard{display:grid;grid-template-columns:260px minmax(600px,1fr) 340px;gap:16px}.steps{padding:18px}.step{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);color:#718293}.step-no{width:30px;height:30px;border:2px solid #9babb9;display:grid;place-items:center;font-weight:800}
+    .step.active{color:var(--blue)}.step.active .step-no{border-color:var(--blue);background:#eaf3ff}.step.done{color:var(--ok)}.step.done .step-no{border-color:var(--ok);background:#e5f6ef}.wizard-note{margin-top:18px;padding:12px;background:#f3f6f8;color:#526578;font-size:13px;line-height:1.6}
+    .cal-stage{background:#101820;min-height:600px;position:relative;display:grid;place-items:center}#calCanvas{max-width:100%;max-height:70vh;cursor:crosshair}.tool-strip{position:absolute;left:12px;top:12px;display:flex;gap:8px}.tool{border:1px solid #52697c;background:rgba(9,26,40,.9);color:#fff;padding:10px 13px}.tool.active{background:var(--blue);border-color:var(--blue)}
+    .cal-side{padding:18px}.instruction{background:#edf5ff;border-left:4px solid var(--blue);padding:13px;line-height:1.55;margin-bottom:16px}.field{margin-bottom:14px}.field label{display:block;font-size:13px;font-weight:700;color:#536779;margin-bottom:7px}.field input,.field select{width:100%;height:43px;border:1px solid #b9c5cf;padding:0 11px;background:#fff}
+    .point-list{border:1px solid var(--line);max-height:210px;overflow:auto;margin:12px 0}.point-row{display:grid;grid-template-columns:35px 1fr 80px 34px;align-items:center;border-bottom:1px solid var(--line);font-size:13px;min-height:38px;padding:0 5px}.point-row:last-child{border-bottom:0}.point-row button{border:0;background:transparent;color:var(--bad);font-size:18px}.quality{padding:12px;background:#f3f6f8;margin:12px 0;font-size:13px;line-height:1.6}
+    .settings{max-width:980px;margin:auto}.settings-section{padding:20px 24px;border-bottom:1px solid var(--line)}.settings-section:last-child{border-bottom:0}.settings-section h3{margin:0 0 16px;font-size:16px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mode-card{border:2px solid var(--line);padding:16px;cursor:pointer}.mode-card.active{border-color:var(--blue);background:#f2f7ff}.mode-card b{display:block;margin-bottom:6px}.mode-card span{font-size:13px;color:var(--muted);line-height:1.55}
+    .warning{background:#fff3df;border-left:5px solid var(--warn);padding:14px;margin-top:14px;line-height:1.6}.warning.hidden{display:none}.technical{margin-top:14px;border:1px solid var(--line)}.technical summary{padding:13px;font-weight:700;cursor:pointer;background:#f5f7f9}.technical-body{padding:16px}
+    .toast{position:fixed;right:24px;bottom:24px;min-width:290px;max-width:430px;background:#132d46;color:#fff;padding:14px 18px;box-shadow:0 6px 24px rgba(0,0,0,.25);transform:translateY(120px);opacity:0;transition:.25s;z-index:30}.toast.show{transform:none;opacity:1}.toast.bad{background:#9e2929}
+    .modal{position:fixed;inset:0;background:rgba(4,16,27,.58);display:grid;place-items:center;z-index:40}.modal.hidden{display:none}.dialog{width:390px;background:#fff;box-shadow:0 14px 50px rgba(0,0,0,.3)}.dialog h3{margin:0;padding:17px 20px;border-bottom:1px solid var(--line)}.dialog-body{padding:20px}.dialog-actions{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}
+    @media(max-width:1100px){.operator-grid,.lower-grid,.wizard{grid-template-columns:1fr}.steps{display:none}.top-meta .indicator,.clock{display:none}.brand{min-width:auto}.camera-box{min-height:420px}.settings-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-<header><div class="brand">液深智能测量工作台 <small>RGB-D INDUSTRIAL PANEL</small></div><div class="status"><span><i id="frameDot" class="dot"></i>图像源</span><span><i id="profileDot" class="dot"></i>标定配置</span></div></header>
-<main>
-<section class="card">
-<h2>初始化流程</h2>
-<div class="steps">
-<div class="step active"><span class="num">1</span><div><b>加载同步帧</b><br><small>RGB 与深度已对齐</small></div></div>
-<div class="step"><span class="num">2</span><div><b>框选容器区域</b><br><small>依次点击左上、右下</small></div></div>
-<div class="step"><span class="num">3</span><div><b>液深参考点</b><br><small>至少 3 点，建议 5 点</small></div></div>
-<div class="step"><span class="num">4</span><div><b>生成标定配置</b><br><small>自动拟合并交叉验证</small></div></div>
-<div class="step"><span class="num">5</span><div><b>测量与监控</b><br><small>深度、置信度、拒绝原因</small></div></div>
-</div>
-<div class="mode">
-<b>机位模式</b>
-<label><input type="radio" name="mode" value="fixed" checked> 固定/偶尔移动</label>
-<label><input type="radio" name="mode" value="moving"> 持续移动</label>
-<div id="motionNote" class="warning" hidden>持续移动必须提供容器 CAD（或等价三维点云）并安装固定 ArUco/定位标记。请先用高级 CAD 标定命令生成配置，再在本面板加载。</div>
-</div>
-</section>
-
-<section class="card">
-<h2>图像与标定</h2>
-<div class="workspace">
-<div class="toolbar"><input id="framePath" placeholder="帧目录；留空加载采集目录中最新一帧"><button id="loadBtn">加载图像</button><button id="latestBtn" class="primary">加载最新帧</button></div>
-<div class="viewport"><canvas id="canvas" width="960" height="540"></canvas></div>
-<div id="hint" class="hint">加载图像后，先点击“框选区域”，再在画面中依次点击容器左上角和右下角。</div>
-<div class="forms">
-<div class="field wide"><label>模型权重</label><input id="checkpoint" value="/root/autodl-tmp/liquid-depth-artifacts/training/dtld-crm-resnet34-pretrained-full-v9/best.pth"></div>
-<div class="field"><label>容器类别</label><select id="objectIndex"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
-<div class="field"><label>深度比例（原始单位→米）</label><input id="depthScale" type="number" step="0.000001" value="0.001"></div>
-<div class="field wide"><label>系统配置输出路径</label><input id="profilePath" value="/root/autodl-tmp/liquid-depth-artifacts/deployment/site_profile.yaml"></div>
-</div>
-<div style="display:flex;gap:8px;margin-top:12px"><button id="roiBtn">框选区域</button><button id="pointBtn">添加参考点</button><button id="undoBtn">撤销</button><button id="calibrateBtn" class="accent">生成标定配置</button></div>
-<div class="points"><b>参考点（沿同一条可见竖向测量线，位置不限）</b><div id="points"></div></div>
-</div>
-</section>
-
-<section class="card right">
-<h2>测量结果</h2>
-<div class="metrics">
-<div class="metric"><label>液体深度</label><strong id="depth">—</strong></div>
-<div class="metric"><label>判定状态</label><strong id="decision" class="small">未测量</strong></div>
-<div class="metric"><label>置信度</label><strong id="confidence" class="small">—</strong></div>
-<div class="metric"><label>估计不确定度</label><strong id="uncertainty" class="small">—</strong></div>
-</div>
-<div class="actions"><button id="measureBtn" class="primary">测量当前/最新帧</button><label><input id="temporal" type="checkbox" checked> 启用视频鲁棒滤波</label><div id="log" class="log">系统待机。</div></div>
-</section>
-</main>
-<script>
-const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d'),img=new Image();
-let info=null,roi=[],points=[],tool='roi';
-const $=id=>document.getElementById(id);
-function log(s){$('log').textContent=new Date().toLocaleTimeString()+'  '+s+'\n'+$('log').textContent}
-async function api(path,data){const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const v=await r.json();if(!r.ok||!v.ok)throw Error(v.error||'操作失败');return v}
-function coords(e){const b=canvas.getBoundingClientRect();return{x:(e.clientX-b.left)*canvas.width/b.width,y:(e.clientY-b.top)*canvas.height/b.height}}
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);if(img.complete&&img.naturalWidth)ctx.drawImage(img,0,0,canvas.width,canvas.height);if(roi.length===2){ctx.strokeStyle='#00d7d7';ctx.lineWidth=3;ctx.strokeRect(roi[0].x,roi[0].y,roi[1].x-roi[0].x,roi[1].y-roi[0].y)}points.forEach((p,i)=>{ctx.fillStyle='#ffe168';ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#111';ctx.fillText(String(i+1),p.x+8,p.y-8)})}
-function renderPoints(){$('points').innerHTML=points.map((p,i)=>'<div class="point"><span>#'+(i+1)+'</span><span>x '+p.x.toFixed(1)+' / y '+p.y.toFixed(1)+'</span><span>'+p.depth_mm.toFixed(1)+' mm</span><button data-i="'+i+'">删除</button></div>').join('');document.querySelectorAll('.point button').forEach(b=>b.onclick=()=>{points.splice(+b.dataset.i,1);renderPoints();draw()})}
-async function loadFrame(latest){try{const v=await api('/api/load-frame',{frame_dir:latest?'':$('framePath').value});info=v;$('framePath').value=v.frame_dir;img.onload=()=>{canvas.width=v.width;canvas.height=v.height;draw()};img.src='/api/frame-image?t='+Date.now();$('frameDot').className='dot ok';log('已加载 '+v.frame_dir)}catch(e){log('错误：'+e.message)}}
-$('loadBtn').onclick=()=>loadFrame(false);$('latestBtn').onclick=()=>loadFrame(true);
-$('roiBtn').onclick=()=>{tool='roi';roi=[];$('hint').textContent='依次点击容器区域的左上角和右下角。';draw()};
-$('pointBtn').onclick=()=>{tool='point';$('hint').textContent='沿同一条可见竖向测量线点击参考点，并输入该点对应的实际液深。建议覆盖工作量程。'};
-$('undoBtn').onclick=()=>{if(tool==='point')points.pop();else roi.pop();renderPoints();draw()};
-canvas.onclick=e=>{if(!info)return;const p=coords(e);if(tool==='roi'){if(roi.length>=2)roi=[];roi.push(p)}else{const value=prompt('该点对应的实际液深（毫米）');if(value!==null&&Number.isFinite(+value))points.push({...p,depth_mm:+value})}renderPoints();draw()};
-$('calibrateBtn').onclick=async()=>{try{if(roi.length!==2)throw Error('请先框选容器区域');if(points.length<3)throw Error('至少需要 3 个参考点，建议使用 5 个');const p=[Math.min(roi[0].x,roi[1].x),Math.min(roi[0].y,roi[1].y),Math.max(roi[0].x,roi[1].x),Math.max(roi[0].y,roi[1].y)].map(Math.round);const v=await api('/api/calibrate-rail',{frame_dir:$('framePath').value,crop_xyxy:p,points,checkpoint_path:$('checkpoint').value,object_index:+$('objectIndex').value,depth_scale_to_m:+$('depthScale').value,profile_path:$('profilePath').value});$('profileDot').className='dot ok';log('标定完成：'+v.calibration.model+'，留一验证 MAE '+(v.calibration.loocv_mae_m*1000).toFixed(2)+' mm')}catch(e){log('标定失败：'+e.message)}};
-$('measureBtn').onclick=async()=>{try{log('正在运行模型…');const v=await api('/api/measure',{profile_path:$('profilePath').value,frame_dir:$('framePath').value,temporal:$('temporal').checked});const r=v.result;$('depth').textContent=r.liquid_depth_m==null?'—':(r.liquid_depth_m*1000).toFixed(1)+' mm';$('decision').textContent=r.accepted?'有效':'拒绝';$('decision').className='small '+(r.accepted?'accepted':'rejected');$('confidence').textContent=(100*(r.confidence_uncalibrated||0)).toFixed(1)+'%';$('uncertainty').textContent=(1000*(r.uncertainty_m||0)).toFixed(1)+' mm';log(r.accepted?'测量已接受':'测量被拒绝：'+(r.rejection_reasons||[]).join(', '));img.src='/api/overlay-image?t='+Date.now()}catch(e){log('测量失败：'+e.message)}};
-document.querySelectorAll('input[name=mode]').forEach(x=>x.onchange=()=>{$('motionNote').hidden=x.value!=='moving';$('calibrateBtn').disabled=x.value==='moving'});
-</script>
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">LD</div><div><h1>液深智能测量终端</h1><small>工业 RGB-D 液位感知系统</small></div></div>
+    <div class="top-meta">
+      <select id="solutionSelect" class="solution" aria-label="当前测量方案"><option>标准固定机位方案</option></select>
+      <div class="indicator"><i id="sourceDot" class="dot"></i><span id="sourceText">图像源待连接</span></div>
+      <div class="indicator"><i id="modelDot" class="dot"></i><span id="modelText">算法待启动</span></div>
+      <div id="clock" class="clock"></div>
+    </div>
+  </header>
+  <nav class="tabs"><button class="tab active" data-view="operate">日常测量</button><button class="tab" data-view="calibrate">标定向导</button><button class="tab" data-view="maintain">维护设置</button></nav>
+  <main class="main">
+    <section id="view-operate" class="view">
+      <div class="operator-grid">
+        <article class="panel"><div class="panel-head"><h2>现场画面</h2><span id="imageMode" class="subtle">等待采集</span></div><div class="camera-box"><img id="monitorImage" alt="" hidden><div id="cameraEmpty" class="camera-empty">尚未采集画面<br><span class="subtle">点击右侧“单次测量”或“开始自动测量”</span></div><div class="camera-tag">显示：<b id="overlayText">原始画面</b></div></div></article>
+        <article class="panel result-panel">
+          <div id="stateBanner" class="state-banner"><div><div id="stateTitle" class="state-title">待机</div><div id="stateHint" class="subtle">系统已就绪，请开始测量</div></div><div id="lastTime" class="state-time">--:--:--</div></div>
+          <div class="depth-block"><div class="depth-label">当前液体深度</div><div id="depthValue" class="depth-value">—<span>mm</span></div></div>
+          <div class="metrics"><div class="metric"><b id="confidenceValue">—</b><span>测量置信度</span></div><div class="metric"><b id="uncertaintyValue">—</b><span>不确定度 / mm</span></div><div class="metric"><b id="cycleValue">—</b><span>单次耗时 / s</span></div></div>
+          <div class="confidence"><div class="subtle">综合可信程度</div><div class="bar"><i id="confidenceBar"></i></div></div>
+          <div class="actions"><button id="startBtn" class="btn primary wide">开始自动测量</button><button id="singleBtn" class="btn">单次测量</button><button id="stopBtn" class="btn stop" disabled>停止</button><button id="refreshBtn" class="btn wide">刷新现场画面</button></div>
+        </article>
+      </div>
+      <div class="lower-grid">
+        <article class="panel"><div class="panel-head"><h3>设备与测量告警</h3><span id="alarmCount" class="subtle">0 条</span></div><div id="alarmBody" class="alarm-body"><div class="alarm-empty"><div><span class="alarm-icon">✓</span>当前无告警</div></div></div></article>
+        <article class="panel"><div class="panel-head"><h3>最近测量趋势</h3><span class="subtle">最近 30 次 · 绿色有效 / 红色拒绝</span></div><div class="trend-wrap"><canvas id="trendCanvas"></canvas></div></article>
+      </div>
+    </section>
+    <section id="view-calibrate" class="view hidden">
+      <div class="wizard">
+        <aside class="panel steps"><h3>固定机位标定</h3><div id="step1" class="step active"><div class="step-no">1</div><div><b>采集空容器</b><br><span class="subtle">确认画面与机位</span></div></div><div id="step2" class="step"><div class="step-no">2</div><div><b>框选容器区域</b><br><span class="subtle">避开外部背景</span></div></div><div id="step3" class="step"><div class="step-no">3</div><div><b>录入已知深度点</b><br><span class="subtle">至少 3 点，建议 5 点</span></div></div><div id="step4" class="step"><div class="step-no">4</div><div><b>生成测量方案</b><br><span class="subtle">自动检查标定质量</span></div></div><div class="wizard-note">标定由调试人员执行。相机或容器发生明显位移后，请重新标定；日常操作人员无需进入本页。</div></aside>
+        <article class="panel"><div class="panel-head"><h2>标定画面</h2><span id="calFrameText" class="subtle">未载入</span></div><div class="cal-stage"><canvas id="calCanvas"></canvas><div class="tool-strip"><button id="roiTool" class="tool active">框选容器</button><button id="pointTool" class="tool">添加深度点</button><button id="clearTool" class="tool">清除标注</button></div></div></article>
+        <aside class="panel cal-side"><div id="calInstruction" class="instruction"><b>第 1 步</b><br>保持容器为空、相机固定，然后载入当前画面。</div><button id="loadCalBtn" class="btn primary wide">载入当前空容器画面</button><div class="field" style="margin-top:16px"><label>容器有效区域</label><input id="roiText" readonly value="尚未框选"></div><div class="field"><label>已知深度点（像素位置 / 实际深度）</label><div id="pointList" class="point-list"><div class="point-row"><span>—</span><span>尚未添加</span><span></span><span></span></div></div></div><div id="qualityBox" class="quality">标定质量：等待数据<br>建议在容器不同高度、不同左右位置均匀选择 5 个点。</div><button id="calibrateBtn" class="btn primary wide" disabled>生成并启用测量方案</button></aside>
+      </div>
+    </section>
+    <section id="view-maintain" class="view hidden">
+      <article class="panel settings"><div class="panel-head"><h2>维护与工程设置</h2><span class="subtle">仅供设备调试及算法维护人员</span></div>
+        <div class="settings-section"><h3>测量方案</h3><div class="settings-grid"><div class="field"><label>方案名称</label><input id="solutionName" value="标准固定机位方案"></div><div class="field"><label>当前工作模式</label><input value="RGB-D 液面深度测量" readonly></div></div></div>
+        <div class="settings-section"><h3>相机使用方式</h3><div class="mode-cards"><div id="fixedMode" class="mode-card active"><b>固定机位</b><span>安装后相机和容器保持不动。通过空容器和多个已知深度点完成现场标定。</span></div><div id="movingMode" class="mode-card"><b>持续移动机位</b><span>相机在测量过程中移动，需要 CAD、稳定定位标记或外部位姿系统。</span></div></div><div id="cadWarning" class="warning hidden"><b>移动机位需要工程集成</b><br>请准备容器 CAD 或准确的容器几何尺寸，并提供 ArUco/AprilTag、机器人位姿或 SLAM 定位。未满足条件时，系统不会将移动机位结果作为有效测量值。</div></div>
+        <div class="settings-section"><h3>算法与文件</h3><details class="technical"><summary>展开高级参数</summary><div class="technical-body"><div class="field"><label>RGB-D 帧目录</label><input id="framePath" value="/root/autodl-tmp/liquid-depth-data/legacy_rgbd"></div><div class="field"><label>现场标定方案文件</label><input id="profilePath" value="/root/autodl-tmp/liquid-depth-artifacts/deployment/site_profile.yaml"></div><div class="field"><label>算法模型文件</label><input id="checkpointPath" value="/root/autodl-tmp/liquid-depth-artifacts/training/dtld-crm-resnet34-pretrained-full-v9/best.pth"></div><div class="settings-grid"><div class="field"><label>目标类别索引</label><input id="objectIndex" type="number" min="0" value="5"></div><div class="field"><label>深度比例系数</label><input id="depthScale" type="number" step="0.000001" value="0.001"></div></div><div class="field"><label><input id="temporal" type="checkbox" style="width:auto;height:auto"> 启用视频时序滤波与异常拒绝</label></div></div></details></div>
+      </article>
+    </section>
+  </main>
+  <div id="toast" class="toast"></div>
+  <div id="pointModal" class="modal hidden"><div class="dialog"><h3>录入该点的实际深度</h3><div class="dialog-body"><div class="field"><label>从容器底部到该点的实际距离（毫米）</label><input id="pointDepth" type="number" min="0.1" step="0.1" placeholder="例如 250.0"></div><div class="subtle">请使用经过校准的尺具测量。系统会用多个点互相验证并剔除异常点。</div></div><div class="dialog-actions"><button id="cancelPoint" class="btn">取消</button><button id="savePoint" class="btn primary">保存该点</button></div></div></div>
+  <script>
+    const $=id=>document.getElementById(id);
+    const ui={frame:null,roi:null,roiStart:null,points:[],tool:"roi",pendingPoint:null,running:false,busy:false,history:[],frameLoaded:false,mode:"fixed"};
+    const reasons={
+      low_rail_intersection_confidence:["液面识别置信度不足","调整光照或视角，减少强反光后重试。"],
+      camera_moved_recalibration_required:["检测到机位或容器位置变化","请停止测量并由调试人员重新完成现场标定。"],
+      camera_motion_unobservable:["无法确认机位稳定性","检查参考标记是否被遮挡，或切换到具备位姿输入的移动机位方案。"],
+      depth_outside_calibrated_range:["结果超出标定量程","检查容器状态；如工况正常，请扩充标定深度范围。"],
+      temporal_rejection:["液面变化过快，结果已拒绝","等待液面稳定或检查是否存在振动、飞溅。"],
+      no_valid_liquid_surface:["未找到可用液面区域","检查容器是否在画面中以及镜头是否被遮挡。"],
+      profile_not_found:["尚未完成现场标定","请由调试人员进入“标定向导”生成测量方案。"],
+      measurement_failed:["本次测量未完成","检查图像源、模型和现场标定状态。"]
+    };
+    const timeText=()=>new Date().toLocaleString("zh-CN",{hour12:false});
+    function tickClock(){$("clock").textContent=timeText()}tickClock();setInterval(tickClock,1000);
+    function toast(message,bad){const el=$("toast");el.textContent=message;el.className="toast show"+(bad?" bad":"");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.className="toast",3200)}
+    async function api(path,payload){const response=await fetch(path,{method:payload?"POST":"GET",headers:payload?{"Content-Type":"application/json"}:{},body:payload?JSON.stringify(payload):undefined});const data=await response.json();if(!response.ok)throw new Error(data.error||"请求失败");return data}
+    function settings(){return{frame_path:$("framePath").value.trim(),profile_path:$("profilePath").value.trim(),checkpoint:$("checkpointPath").value.trim()||null,object_index:Number($("objectIndex").value),depth_scale:Number($("depthScale").value),temporal:$("temporal").checked}}
+    document.querySelectorAll(".tab").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===button));document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));$("view-"+button.dataset.view).classList.remove("hidden");if(button.dataset.view==="calibrate"&&ui.frameLoaded)drawCalibration();if(button.dataset.view==="operate")drawTrend()}));
+    function setConnection(source,model){$("sourceDot").classList.toggle("ok",source);$("sourceText").textContent=source?"图像源在线":"图像源待连接";$("modelDot").classList.toggle("ok",model);$("modelText").textContent=model?"算法运行正常":"算法待启动"}
+    function showImage(kind){const image=$("monitorImage");image.src=(kind==="overlay"?"/api/overlay-image":"/api/frame-image")+"?t="+Date.now();image.hidden=false;$("cameraEmpty").hidden=true;$("overlayText").textContent=kind==="overlay"?"液面识别结果":"原始画面";$("imageMode").textContent=kind==="overlay"?"已叠加识别区域":"当前 RGB 画面"}
+    async function loadFrame(notify){const cfg=settings();const data=await api("/api/load-frame",{path:cfg.frame_path,latest:true,object_index:cfg.object_index,depth_scale:cfg.depth_scale});ui.frame=data;ui.frameLoaded=true;$("calFrameText").textContent=data.frame_id;showImage("raw");setConnection(true,$("modelDot").classList.contains("ok"));updateSteps();if(notify)toast("现场画面已更新");return data}
+    function setMeasureState(kind,title,hint){const banner=$("stateBanner");banner.className="state-banner"+(kind?" "+kind:"");$("stateTitle").textContent=title;$("stateHint").textContent=hint;$("lastTime").textContent=new Date().toLocaleTimeString("zh-CN",{hour12:false})}
+    function showAlarm(code,detail){const info=reasons[code]||[detail||"本次测量未通过质量检查","请检查现场状态后重试。"];$("alarmCount").textContent="1 条";$("alarmBody").innerHTML='<div class="alarm-item"><b>'+info[0]+'</b><p>'+info[1]+'</p><div class="alarm-action">系统保护：本次结果未输出</div></div>'}
+    function clearAlarm(){$("alarmCount").textContent="0 条";$("alarmBody").innerHTML='<div class="alarm-empty"><div><span class="alarm-icon">✓</span>当前无告警</div></div>'}
+    function updateResult(result,elapsed){const accepted=Boolean(result.accepted);const rawDepthMm=result.depth_mm??(result.liquid_depth_m==null?null:Number(result.liquid_depth_m)*1000);const depthMm=accepted&&Number.isFinite(Number(rawDepthMm))?Number(rawDepthMm):null;const confidence=Number(result.confidence??result.confidence_uncalibrated??result.score??0);const uncertaintyMm=Number(result.uncertainty_mm??result.depth_uncertainty_mm??0);$("depthValue").innerHTML=(depthMm===null?"—":depthMm.toFixed(1))+"<span>mm</span>";$("confidenceValue").textContent=Number.isFinite(confidence)?Math.round(confidence*100)+"%":"—";$("uncertaintyValue").textContent=Number.isFinite(uncertaintyMm)&&uncertaintyMm>0?uncertaintyMm.toFixed(1):"—";$("cycleValue").textContent=elapsed.toFixed(2);$("confidenceBar").style.width=Math.max(0,Math.min(100,confidence*100))+"%";if(accepted){setMeasureState("ok","测量有效","结果已通过质量检查");clearAlarm()}else{const code=result.rejection_reason||(result.rejection_reasons||[])[0]||result.reason||"measurement_failed";setMeasureState("warn","结果已拒绝","系统未输出不可靠数值");showAlarm(code,result.message)}ui.history.push({depth:depthMm,accepted:accepted,time:Date.now()});ui.history=ui.history.slice(-30);drawTrend()}
+    function setBusy(busy){ui.busy=busy;$("singleBtn").disabled=busy||ui.running;$("refreshBtn").disabled=busy||ui.running;if(!ui.running)$("startBtn").disabled=busy}
+    async function measureOnce(){if(ui.busy)return;setBusy(true);setMeasureState("","测量中","正在采集并分析现场画面");const started=performance.now();try{const cfg=settings();const response=await api("/api/measure",{path:cfg.frame_path,latest:true,profile_path:cfg.profile_path,checkpoint:cfg.checkpoint,device:null,temporal:cfg.temporal});const result=response.result||response;showImage("overlay");setConnection(true,true);updateResult(result,(performance.now()-started)/1000)}catch(error){$("depthValue").innerHTML='—<span>mm</span>';setMeasureState("bad","设备异常","测量任务未完成");showAlarm(error.message.includes("profile")?"profile_not_found":"measurement_failed",error.message);toast(error.message,true)}finally{setBusy(false)}}
+    const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+    async function startAutomatic(){if(ui.running)return;ui.running=true;$("startBtn").disabled=true;$("singleBtn").disabled=true;$("refreshBtn").disabled=true;$("stopBtn").disabled=false;toast("自动测量已启动；首次加载算法可能需要数秒");while(ui.running){await measureOnce();if(ui.running)await delay(700)}}
+    function stopAutomatic(){ui.running=false;$("startBtn").disabled=ui.busy;$("singleBtn").disabled=ui.busy;$("refreshBtn").disabled=ui.busy;$("stopBtn").disabled=true;if(!ui.busy)setMeasureState("","已停止","保留最后一次有效结果");toast("自动测量已停止")}
+    $("startBtn").addEventListener("click",startAutomatic);$("singleBtn").addEventListener("click",measureOnce);$("stopBtn").addEventListener("click",stopAutomatic);$("refreshBtn").addEventListener("click",()=>loadFrame(true).catch(e=>toast(e.message,true)));
+    function drawTrend(){const canvas=$("trendCanvas"),rect=canvas.getBoundingClientRect();if(rect.width<10)return;const ratio=window.devicePixelRatio||1;canvas.width=rect.width*ratio;canvas.height=rect.height*ratio;const c=canvas.getContext("2d");c.scale(ratio,ratio);const w=rect.width,h=rect.height,p={l:48,r:15,t:15,b:27};c.clearRect(0,0,w,h);c.strokeStyle="#d9e0e6";c.lineWidth=1;for(let i=0;i<4;i++){const y=p.t+(h-p.t-p.b)*i/3;c.beginPath();c.moveTo(p.l,y);c.lineTo(w-p.r,y);c.stroke()}const valid=ui.history.filter(x=>x.depth!==null);if(!valid.length){c.fillStyle="#7b8b99";c.font="14px Microsoft YaHei";c.textAlign="center";c.fillText("开始测量后显示真实趋势",w/2,h/2);return}const values=valid.map(x=>x.depth),min=Math.min(...values),max=Math.max(...values),span=Math.max(max-min,10),lo=min-span*.15,hi=max+span*.15;c.fillStyle="#637687";c.font="12px Arial";c.textAlign="right";c.fillText(hi.toFixed(0)+" mm",p.l-7,p.t+5);c.fillText(lo.toFixed(0)+" mm",p.l-7,h-p.b);c.strokeStyle="#0c8a5a";c.lineWidth=2;c.beginPath();let started=false;ui.history.forEach((item,index)=>{if(item.depth===null)return;const x=p.l+(w-p.l-p.r)*(ui.history.length===1?.5:index/(ui.history.length-1)),y=p.t+(h-p.t-p.b)*(hi-item.depth)/(hi-lo);if(!started){c.moveTo(x,y);started=true}else c.lineTo(x,y)});c.stroke();ui.history.forEach((item,index)=>{const x=p.l+(w-p.l-p.r)*(ui.history.length===1?.5:index/(ui.history.length-1));if(item.depth===null){c.fillStyle="#c63838";c.fillRect(x-3,h-p.b-7,6,6);return}const y=p.t+(h-p.t-p.b)*(hi-item.depth)/(hi-lo);c.fillStyle=item.accepted?"#0c8a5a":"#c63838";c.beginPath();c.arc(x,y,3.5,0,Math.PI*2);c.fill()})}
+    window.addEventListener("resize",drawTrend);drawTrend();
+    function updateSteps(){const states=[ui.frameLoaded,Boolean(ui.roi),ui.points.length>=3,false];states.forEach((done,index)=>{const el=$("step"+(index+1));el.classList.toggle("done",done);el.classList.toggle("active",!done&&(index===0||states.slice(0,index).every(Boolean)))});$("calibrateBtn").disabled=!(ui.frameLoaded&&ui.roi&&ui.points.length>=3&&ui.mode==="fixed");if(!ui.frameLoaded)$("calInstruction").innerHTML="<b>第 1 步</b><br>保持容器为空、相机固定，然后载入当前画面。";else if(!ui.roi)$("calInstruction").innerHTML="<b>第 2 步</b><br>选择“框选容器”，在图中点击矩形的两个对角。";else if(ui.points.length<3)$("calInstruction").innerHTML="<b>第 3 步</b><br>选择“添加深度点”，点击容器上的已知位置并录入实际深度。";else $("calInstruction").innerHTML="<b>第 4 步</b><br>数据已满足最低要求。建议达到 5 点后生成方案。";$("qualityBox").innerHTML="标定质量："+(ui.points.length>=5?"采样充分":ui.points.length>=3?"可计算，建议再补 "+(5-ui.points.length)+" 点":"还需至少 "+Math.max(0,3-ui.points.length)+" 点")+"<br>多个点应覆盖不同高度和左右位置，避免集中在同一区域。"}
+    function calibrationImage(){const image=new Image();image.onload=()=>{ui.calImage=image;drawCalibration()};image.src="/api/frame-image?t="+Date.now()}
+    function drawCalibration(){if(!ui.calImage)return;const canvas=$("calCanvas"),maxW=canvas.parentElement.clientWidth,maxH=canvas.parentElement.clientHeight,scale=Math.min(maxW/ui.calImage.width,maxH/ui.calImage.height,1);canvas.width=ui.calImage.width*scale;canvas.height=ui.calImage.height*scale;const c=canvas.getContext("2d");c.drawImage(ui.calImage,0,0,canvas.width,canvas.height);c.lineWidth=2;c.strokeStyle="#38e0d7";c.fillStyle="rgba(56,224,215,.12)";if(ui.roi){const x=ui.roi[0]*scale,y=ui.roi[1]*scale,w=(ui.roi[2]-ui.roi[0])*scale,h=(ui.roi[3]-ui.roi[1])*scale;c.fillRect(x,y,w,h);c.strokeRect(x,y,w,h)}ui.points.forEach((p,i)=>{const x=p.u*scale,y=p.v*scale;c.fillStyle="#ffcf33";c.beginPath();c.arc(x,y,7,0,Math.PI*2);c.fill();c.fillStyle="#081824";c.font="bold 11px Arial";c.textAlign="center";c.fillText(String(i+1),x,y+4)})}
+    function setTool(tool){ui.tool=tool;["roiTool","pointTool"].forEach(id=>$(id).classList.toggle("active",id.startsWith(tool)))}
+    $("roiTool").addEventListener("click",()=>setTool("roi"));$("pointTool").addEventListener("click",()=>setTool("point"));$("clearTool").addEventListener("click",()=>{ui.roi=null;ui.roiStart=null;ui.points=[];$("roiText").value="尚未框选";renderPoints();drawCalibration();updateSteps()});
+    $("loadCalBtn").addEventListener("click",async()=>{try{await loadFrame(false);calibrationImage();toast("空容器画面已载入，请框选容器区域")}catch(e){toast(e.message,true)}});
+    $("calCanvas").addEventListener("click",event=>{if(!ui.calImage)return;const rect=event.currentTarget.getBoundingClientRect(),u=Math.round((event.clientX-rect.left)*ui.calImage.width/rect.width),v=Math.round((event.clientY-rect.top)*ui.calImage.height/rect.height);if(ui.tool==="roi"){if(!ui.roiStart){ui.roiStart=[u,v];toast("已记录第一个角点，请点击对角位置")}else{ui.roi=[Math.min(ui.roiStart[0],u),Math.min(ui.roiStart[1],v),Math.max(ui.roiStart[0],u),Math.max(ui.roiStart[1],v)];ui.roiStart=null;$("roiText").value=ui.roi.join(", ");setTool("point");drawCalibration();updateSteps()}}else{ui.pendingPoint={u:u,v:v};$("pointDepth").value="";$("pointModal").classList.remove("hidden");$("pointDepth").focus()}});
+    $("cancelPoint").addEventListener("click",()=>{$("pointModal").classList.add("hidden");ui.pendingPoint=null});$("savePoint").addEventListener("click",()=>{const mm=Number($("pointDepth").value);if(!ui.pendingPoint||!Number.isFinite(mm)||mm<=0){toast("请输入有效的实际深度",true);return}ui.points.push({u:ui.pendingPoint.u,v:ui.pendingPoint.v,known_depth_m:mm/1000});ui.pendingPoint=null;$("pointModal").classList.add("hidden");renderPoints();drawCalibration();updateSteps()});$("pointDepth").addEventListener("keydown",e=>{if(e.key==="Enter")$("savePoint").click()});
+    function renderPoints(){const list=$("pointList");if(!ui.points.length){list.innerHTML='<div class="point-row"><span>—</span><span>尚未添加</span><span></span><span></span></div>';return}list.innerHTML=ui.points.map((p,i)=>'<div class="point-row"><b>'+(i+1)+'</b><span>('+p.u+', '+p.v+')</span><span>'+(p.known_depth_m*1000).toFixed(1)+' mm</span><button data-i="'+i+'">×</button></div>').join("");list.querySelectorAll("button").forEach(button=>button.onclick=()=>{ui.points.splice(Number(button.dataset.i),1);renderPoints();drawCalibration();updateSteps()})}
+    $("calibrateBtn").addEventListener("click",async()=>{if(ui.mode!=="fixed"){toast("移动机位不能使用固定机位标定流程",true);return}try{const cfg=settings(),result=await api("/api/calibrate-rail",{path:cfg.frame_path,latest:true,object_index:cfg.object_index,depth_scale:cfg.depth_scale,roi:ui.roi,points:ui.points,profile_path:cfg.profile_path});$("qualityBox").innerHTML="<b>标定完成</b><br>交叉验证误差："+Number(result.cross_validation_mae_mm||0).toFixed(2)+" mm<br>方案已启用，可返回日常测量。";$("step4").classList.add("done");$("modelText").textContent="测量方案已就绪";toast("现场标定成功，测量方案已启用")}catch(e){toast(e.message,true)}});
+    $("fixedMode").addEventListener("click",()=>{ui.mode="fixed";$("fixedMode").classList.add("active");$("movingMode").classList.remove("active");$("cadWarning").classList.add("hidden");updateSteps()});$("movingMode").addEventListener("click",()=>{ui.mode="moving";$("movingMode").classList.add("active");$("fixedMode").classList.remove("active");$("cadWarning").classList.remove("hidden");updateSteps()});
+    $("solutionName").addEventListener("change",()=>{const name=$("solutionName").value.trim()||"未命名方案";$("solutionSelect").innerHTML="<option>"+name.replace(/[<>]/g,"")+"</option>"});
+    api("/api/status").then(data=>{if(data.frame_id){ui.frameLoaded=true;showImage(data.overlay_available?"overlay":"raw");setConnection(true,data.overlay_available)}}).catch(()=>{});updateSteps();
+  </script>
 </body>
 </html>

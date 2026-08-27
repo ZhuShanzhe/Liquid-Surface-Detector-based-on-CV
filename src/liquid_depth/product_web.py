@@ -27,7 +27,33 @@ class PanelState:
         self.frame_image: bytes | None = None
         self.overlay_image: bytes | None = None
         self.last_result: dict[str, Any] | None = None
+        self.system_cache: dict[tuple[str, str | None, bool], Any] = {}
         self.lock = threading.Lock()
+        self.cache_lock = threading.Lock()
+        self.measurement_lock = threading.Lock()
+
+    def system_for(
+        self,
+        profile_path: Path,
+        device: str | None,
+        temporal: bool,
+    ) -> Any:
+        key = (str(profile_path), device, temporal)
+        with self.cache_lock:
+            system = self.system_cache.get(key)
+            if system is None:
+                system = make_product_system(
+                    profile_path,
+                    device=device,
+                    temporal=temporal,
+                )
+                self.system_cache[key] = system
+            return system
+
+    def invalidate_profile(self, profile_path: Path) -> None:
+        target = str(profile_path)
+        with self.cache_lock:
+            self.system_cache = {key: value for key, value in self.system_cache.items() if key[0] != target}
 
 
 def _complete_frame(path: Path) -> bool:
@@ -44,6 +70,18 @@ def _latest_frame(root: Path) -> Path:
     return candidates[0]
 
 
+def _source_from_payload(payload: dict[str, Any], default_root: Path) -> Path:
+    requested = payload.get("frame_dir") or payload.get("path")
+    if not requested:
+        return _latest_frame(default_root)
+    source = Path(str(requested)).expanduser().resolve()
+    if _complete_frame(source):
+        return source
+    if source.is_dir():
+        return _latest_frame(source)
+    raise FileNotFoundError(f"RGB-D source is neither a complete frame nor a frame directory: {source}")
+
+
 def _safe_profile_path(value: str) -> Path:
     path = Path(value).expanduser().resolve()
     if path.suffix.lower() not in {".yaml", ".yml"}:
@@ -55,7 +93,7 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
     frame_dir = Path(payload["frame_dir"]).expanduser().resolve()
     frame = load_frame(frame_dir)
     camera = import_factory_calibration(frame_dir)
-    crop = [int(value) for value in payload["crop_xyxy"]]
+    crop = [int(value) for value in payload.get("crop_xyxy", payload.get("roi", []))]
     if len(crop) != 4:
         raise ValueError("crop_xyxy must contain x0,y0,x1,y1")
     x0, y0, x1, y1 = crop
@@ -64,9 +102,11 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
         raise ValueError("Selected region is outside the image")
     points = [
         {
-            "x_px": float(item["x_px"]),
-            "y_px": float(item["y_px"]),
-            "depth_m": float(item["depth_mm"]) / 1000.0,
+            "x_px": float(item.get("x_px", item.get("u"))),
+            "y_px": float(item.get("y_px", item.get("v"))),
+            "depth_m": (
+                float(item["depth_mm"]) / 1000.0 if "depth_mm" in item else float(item["known_depth_m"])
+            ),
         }
         for item in payload["points"]
     ]
@@ -76,7 +116,10 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
     reference_path = profile_path.with_name(profile_path.stem + "_reference.png")
     if not cv2.imwrite(str(reference_path), frame.rgb_bgr):
         raise OSError(f"Could not write reference image {reference_path}")
-    checkpoint = Path(payload["checkpoint_path"]).expanduser().resolve()
+    checkpoint_value = payload.get("checkpoint_path") or payload.get("checkpoint")
+    if not checkpoint_value:
+        raise ValueError("A model checkpoint is required")
+    checkpoint = Path(str(checkpoint_value)).expanduser().resolve()
     if not checkpoint.is_file():
         raise FileNotFoundError(f"Checkpoint not found: {checkpoint}")
     profile = {
@@ -92,7 +135,7 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
         },
         "camera": {
             **camera.to_dict(),
-            "depth_scale_to_m": float(payload.get("depth_scale_to_m", 0.001)),
+            "depth_scale_to_m": float(payload.get("depth_scale_to_m", payload.get("depth_scale", 0.001))),
             "depth_registered_to_color": True,
         },
         "perception": {
@@ -164,6 +207,8 @@ class PanelHandler(BaseHTTPRequestHandler):
                         "capture_dir": str(self.state.capture_dir),
                         "output_dir": str(self.state.output_dir),
                         "frame_dir": (str(self.state.frame_dir) if self.state.frame_dir else None),
+                        "frame_id": (self.state.frame_dir.name if self.state.frame_dir else None),
+                        "overlay_available": self.state.overlay_image is not None,
                         "last_result": self.state.last_result,
                     }
                 )
@@ -198,12 +243,7 @@ class PanelHandler(BaseHTTPRequestHandler):
             payload = self._body()
             path = urlparse(self.path).path
             if path == "/api/load-frame":
-                frame_dir = payload.get("frame_dir")
-                source = (
-                    Path(frame_dir).expanduser().resolve()
-                    if frame_dir
-                    else _latest_frame(self.state.capture_dir)
-                )
+                source = _source_from_payload(payload, self.state.capture_dir)
                 frame = load_frame(source)
                 ok, encoded = cv2.imencode(".jpg", frame.rgb_bgr, [cv2.IMWRITE_JPEG_QUALITY, 92])
                 if not ok:
@@ -215,36 +255,50 @@ class PanelHandler(BaseHTTPRequestHandler):
                     {
                         "ok": True,
                         "frame_dir": str(source),
+                        "frame_id": source.name,
                         "width": frame.rgb_bgr.shape[1],
                         "height": frame.rgb_bgr.shape[0],
                     }
                 )
                 return
             if path == "/api/calibrate-rail":
+                source = _source_from_payload(payload, self.state.capture_dir)
+                payload["frame_dir"] = str(source)
                 profile_path, rail = create_rail_profile(payload)
-                self._json({"ok": True, "profile_path": str(profile_path), "calibration": rail})
+                self.state.invalidate_profile(profile_path)
+                self._json(
+                    {
+                        "ok": True,
+                        "profile_path": str(profile_path),
+                        "calibration": rail,
+                        "cross_validation_mae_mm": (float(rail.get("cross_validation_mae_m", 0.0)) * 1000.0),
+                    }
+                )
                 return
             if path == "/api/measure":
-                frame_dir = payload.get("frame_dir")
-                source = (
-                    Path(frame_dir).expanduser().resolve()
-                    if frame_dir
-                    else _latest_frame(self.state.capture_dir)
-                )
+                source = _source_from_payload(payload, self.state.capture_dir)
                 profile_path = _safe_profile_path(payload["profile_path"])
                 target = self.state.output_dir / source.name
-                system = make_product_system(
+                system = self.state.system_for(
                     profile_path,
-                    device=payload.get("device"),
-                    temporal=bool(payload.get("temporal", False)),
+                    payload.get("device"),
+                    bool(payload.get("temporal", False)),
                 )
-                result = system.measure(source, target)
-                overlay = cv2.imread(str(target / "measurement_overlay.png"), cv2.IMREAD_COLOR)
-                encoded_data = None
-                if overlay is not None:
-                    ok, encoded = cv2.imencode(".jpg", overlay, [cv2.IMWRITE_JPEG_QUALITY, 92])
-                    if ok:
-                        encoded_data = encoded.tobytes()
+                with self.state.measurement_lock:
+                    result = system.measure(source, target)
+                    overlay = cv2.imread(
+                        str(target / "measurement_overlay.png"),
+                        cv2.IMREAD_COLOR,
+                    )
+                    encoded_data = None
+                    if overlay is not None:
+                        ok, encoded = cv2.imencode(
+                            ".jpg",
+                            overlay,
+                            [cv2.IMWRITE_JPEG_QUALITY, 92],
+                        )
+                        if ok:
+                            encoded_data = encoded.tobytes()
                 with self.state.lock:
                     self.state.frame_dir = source
                     self.state.overlay_image = encoded_data
