@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>液深智能测量工作台</title>
+<style>
+:root{--ink:#152231;--muted:#667486;--line:#d9e1e8;--panel:#fff;--bg:#eef2f5;--blue:#1261a0;--cyan:#00a6a6;--red:#bd2c35;--green:#178557}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
+header{height:64px;background:#14283b;color:#fff;display:flex;align-items:center;padding:0 28px;justify-content:space-between;border-bottom:4px solid var(--cyan)}
+.brand{font-size:20px;font-weight:650;letter-spacing:.5px}.brand small{font-size:12px;font-weight:400;color:#a9bdce;margin-left:14px}
+.status{display:flex;gap:18px;align-items:center}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#8393a2;margin-right:7px}.dot.ok{background:#29c281}
+main{display:grid;grid-template-columns:250px minmax(540px,1fr) 310px;gap:16px;padding:16px;max-width:1700px;margin:auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:5px;box-shadow:0 1px 2px #18263712}.card h2{font-size:15px;margin:0;padding:14px 16px;border-bottom:1px solid var(--line)}
+.steps{padding:8px}.step{display:flex;gap:10px;padding:12px 10px;border-left:3px solid transparent;color:var(--muted)}.step.active{background:#edf7fa;border-left-color:var(--cyan);color:var(--ink)}.num{width:22px;height:22px;border:1px solid #96a7b7;border-radius:50%;text-align:center;line-height:20px;flex:none}.active .num{background:var(--cyan);border-color:var(--cyan);color:#fff}
+.mode{margin:12px;padding:12px;border:1px solid var(--line);border-radius:4px}.mode label{display:block;margin:7px 0}.warning{padding:10px;background:#fff7e6;border-left:3px solid #e29b22;color:#6c4b10;margin-top:10px}
+.workspace{padding:14px}.toolbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-bottom:12px}input,select,button{font:inherit;border:1px solid #aebdca;border-radius:3px;padding:8px 10px;background:#fff}button{cursor:pointer;background:#f8fafb}button.primary{background:var(--blue);color:#fff;border-color:var(--blue)}button.accent{background:var(--cyan);color:#fff;border-color:var(--cyan)}button:disabled{opacity:.45;cursor:not-allowed}
+.viewport{position:relative;background:#1b2731;min-height:410px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid #0d1821}canvas{max-width:100%;max-height:590px;cursor:crosshair}
+.hint{margin-top:10px;color:var(--muted)}.forms{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.field input,.field select{width:100%}.wide{grid-column:1/-1}
+.points{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.point{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;padding:5px 0}.point button{padding:3px 8px;color:var(--red)}
+.metrics{padding:12px}.metric{border-bottom:1px solid var(--line);padding:14px 4px}.metric label{display:block;color:var(--muted);font-size:12px}.metric strong{font-size:28px;font-weight:600}.metric strong.small{font-size:16px}.accepted{color:var(--green)}.rejected{color:var(--red)}
+.log{height:170px;overflow:auto;background:#f6f8fa;border:1px solid var(--line);padding:8px;font:12px/1.55 Consolas,monospace;white-space:pre-wrap}.actions{display:grid;gap:8px;padding:12px}
+@media(max-width:1050px){main{grid-template-columns:220px 1fr}.right{grid-column:1/-1}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.metric{border:0}}
+</style>
+</head>
+<body>
+<header><div class="brand">液深智能测量工作台 <small>RGB-D INDUSTRIAL PANEL</small></div><div class="status"><span><i id="frameDot" class="dot"></i>图像源</span><span><i id="profileDot" class="dot"></i>标定配置</span></div></header>
+<main>
+<section class="card">
+<h2>初始化流程</h2>
+<div class="steps">
+<div class="step active"><span class="num">1</span><div><b>加载同步帧</b><br><small>RGB 与深度已对齐</small></div></div>
+<div class="step"><span class="num">2</span><div><b>框选容器区域</b><br><small>依次点击左上、右下</small></div></div>
+<div class="step"><span class="num">3</span><div><b>液深参考点</b><br><small>至少 3 点，建议 5 点</small></div></div>
+<div class="step"><span class="num">4</span><div><b>生成标定配置</b><br><small>自动拟合并交叉验证</small></div></div>
+<div class="step"><span class="num">5</span><div><b>测量与监控</b><br><small>深度、置信度、拒绝原因</small></div></div>
+</div>
+<div class="mode">
+<b>机位模式</b>
+<label><input type="radio" name="mode" value="fixed" checked> 固定/偶尔移动</label>
+<label><input type="radio" name="mode" value="moving"> 持续移动</label>
+<div id="motionNote" class="warning" hidden>持续移动必须提供容器 CAD（或等价三维点云）并安装固定 ArUco/定位标记。请先用高级 CAD 标定命令生成配置，再在本面板加载。</div>
+</div>
+</section>
+
+<section class="card">
+<h2>图像与标定</h2>
+<div class="workspace">
+<div class="toolbar"><input id="framePath" placeholder="帧目录；留空加载采集目录中最新一帧"><button id="loadBtn">加载图像</button><button id="latestBtn" class="primary">加载最新帧</button></div>
+<div class="viewport"><canvas id="canvas" width="960" height="540"></canvas></div>
+<div id="hint" class="hint">加载图像后，先点击“框选区域”，再在画面中依次点击容器左上角和右下角。</div>
+<div class="forms">
+<div class="field wide"><label>模型权重</label><input id="checkpoint" value="/root/autodl-tmp/liquid-depth-artifacts/training/dtld-crm-resnet34-pretrained-full-v9/best.pth"></div>
+<div class="field"><label>容器类别</label><select id="objectIndex"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+<div class="field"><label>深度比例（原始单位→米）</label><input id="depthScale" type="number" step="0.000001" value="0.001"></div>
+<div class="field wide"><label>系统配置输出路径</label><input id="profilePath" value="/root/autodl-tmp/liquid-depth-artifacts/deployment/site_profile.yaml"></div>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px"><button id="roiBtn">框选区域</button><button id="pointBtn">添加参考点</button><button id="undoBtn">撤销</button><button id="calibrateBtn" class="accent">生成标定配置</button></div>
+<div class="points"><b>参考点（沿同一条可见竖向测量线，位置不限）</b><div id="points"></div></div>
+</div>
+</section>
+
+<section class="card right">
+<h2>测量结果</h2>
+<div class="metrics">
+<div class="metric"><label>液体深度</label><strong id="depth">—</strong></div>
+<div class="metric"><label>判定状态</label><strong id="decision" class="small">未测量</strong></div>
+<div class="metric"><label>置信度</label><strong id="confidence" class="small">—</strong></div>
+<div class="metric"><label>估计不确定度</label><strong id="uncertainty" class="small">—</strong></div>
+</div>
+<div class="actions"><button id="measureBtn" class="primary">测量当前/最新帧</button><label><input id="temporal" type="checkbox" checked> 启用视频鲁棒滤波</label><div id="log" class="log">系统待机。</div></div>
+</section>
+</main>
+<script>
+const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d'),img=new Image();
+let info=null,roi=[],points=[],tool='roi';
+const $=id=>document.getElementById(id);
+function log(s){$('log').textContent=new Date().toLocaleTimeString()+'  '+s+'\n'+$('log').textContent}
+async function api(path,data){const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const v=await r.json();if(!r.ok||!v.ok)throw Error(v.error||'操作失败');return v}
+function coords(e){const b=canvas.getBoundingClientRect();return{x:(e.clientX-b.left)*canvas.width/b.width,y:(e.clientY-b.top)*canvas.height/b.height}}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);if(img.complete&&img.naturalWidth)ctx.drawImage(img,0,0,canvas.width,canvas.height);if(roi.length===2){ctx.strokeStyle='#00d7d7';ctx.lineWidth=3;ctx.strokeRect(roi[0].x,roi[0].y,roi[1].x-roi[0].x,roi[1].y-roi[0].y)}points.forEach((p,i)=>{ctx.fillStyle='#ffe168';ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#111';ctx.fillText(String(i+1),p.x+8,p.y-8)})}
+function renderPoints(){$('points').innerHTML=points.map((p,i)=>'<div class="point"><span>#'+(i+1)+'</span><span>x '+p.x.toFixed(1)+' / y '+p.y.toFixed(1)+'</span><span>'+p.depth_mm.toFixed(1)+' mm</span><button data-i="'+i+'">删除</button></div>').join('');document.querySelectorAll('.point button').forEach(b=>b.onclick=()=>{points.splice(+b.dataset.i,1);renderPoints();draw()})}
+async function loadFrame(latest){try{const v=await api('/api/load-frame',{frame_dir:latest?'':$('framePath').value});info=v;$('framePath').value=v.frame_dir;img.onload=()=>{canvas.width=v.width;canvas.height=v.height;draw()};img.src='/api/frame-image?t='+Date.now();$('frameDot').className='dot ok';log('已加载 '+v.frame_dir)}catch(e){log('错误：'+e.message)}}
+$('loadBtn').onclick=()=>loadFrame(false);$('latestBtn').onclick=()=>loadFrame(true);
+$('roiBtn').onclick=()=>{tool='roi';roi=[];$('hint').textContent='依次点击容器区域的左上角和右下角。';draw()};
+$('pointBtn').onclick=()=>{tool='point';$('hint').textContent='沿同一条可见竖向测量线点击参考点，并输入该点对应的实际液深。建议覆盖工作量程。'};
+$('undoBtn').onclick=()=>{if(tool==='point')points.pop();else roi.pop();renderPoints();draw()};
+canvas.onclick=e=>{if(!info)return;const p=coords(e);if(tool==='roi'){if(roi.length>=2)roi=[];roi.push(p)}else{const value=prompt('该点对应的实际液深（毫米）');if(value!==null&&Number.isFinite(+value))points.push({...p,depth_mm:+value})}renderPoints();draw()};
+$('calibrateBtn').onclick=async()=>{try{if(roi.length!==2)throw Error('请先框选容器区域');if(points.length<3)throw Error('至少需要 3 个参考点，建议使用 5 个');const p=[Math.min(roi[0].x,roi[1].x),Math.min(roi[0].y,roi[1].y),Math.max(roi[0].x,roi[1].x),Math.max(roi[0].y,roi[1].y)].map(Math.round);const v=await api('/api/calibrate-rail',{frame_dir:$('framePath').value,crop_xyxy:p,points,checkpoint_path:$('checkpoint').value,object_index:+$('objectIndex').value,depth_scale_to_m:+$('depthScale').value,profile_path:$('profilePath').value});$('profileDot').className='dot ok';log('标定完成：'+v.calibration.model+'，留一验证 MAE '+(v.calibration.loocv_mae_m*1000).toFixed(2)+' mm')}catch(e){log('标定失败：'+e.message)}};
+$('measureBtn').onclick=async()=>{try{log('正在运行模型…');const v=await api('/api/measure',{profile_path:$('profilePath').value,frame_dir:$('framePath').value,temporal:$('temporal').checked});const r=v.result;$('depth').textContent=r.liquid_depth_m==null?'—':(r.liquid_depth_m*1000).toFixed(1)+' mm';$('decision').textContent=r.accepted?'有效':'拒绝';$('decision').className='small '+(r.accepted?'accepted':'rejected');$('confidence').textContent=(100*(r.confidence_uncalibrated||0)).toFixed(1)+'%';$('uncertainty').textContent=(1000*(r.uncertainty_m||0)).toFixed(1)+' mm';log(r.accepted?'测量已接受':'测量被拒绝：'+(r.rejection_reasons||[]).join(', '));img.src='/api/overlay-image?t='+Date.now()}catch(e){log('测量失败：'+e.message)}};
+document.querySelectorAll('input[name=mode]').forEach(x=>x.onchange=()=>{$('motionNote').hidden=x.value!=='moving';$('calibrateBtn').disabled=x.value==='moving'});
+</script>
+</body>
+</html>

@@ -56,6 +56,25 @@ Configured deployment locations:
 - raw/research data: `/root/autodl-tmp/liquid-depth-data`
 - outputs/models: `/root/autodl-tmp/liquid-depth-artifacts`
 
+## Product control panel
+
+The product layer supports two deliberately separate calibration modes:
+
+- fixed or occasionally moved camera: operator-selected measurement rail, 3 points minimum and 5 recommended;
+- continuously moving camera: metric container CAD/point cloud plus per-frame marker pose are required.
+
+Start the local-only panel with:
+
+```bash
+liquid-depth-panel \
+  --capture-dir /root/autodl-tmp/liquid-depth-data/live \
+  --output-dir /root/autodl-tmp/liquid-depth-artifacts/live
+```
+
+Use SSH port forwarding to open the panel from an operator computer. The model/runtime modules are independent of the
+HTML panel so the perception network can be replaced without rebuilding the operator workflow. See the
+[Chinese product deployment and calibration guide](docs/product_deployment_zh.md).
+
 ## Offline end-to-end inference
 
 Fit the empty-container bottom plane once for a fixed camera/container setup:

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "liquid-depth"
-version = "0.2.0"
+version = "0.3.0"
 description = "RGB-D liquid perception, depth restoration, calibrated geometry, and evaluation"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -38,9 +38,14 @@ visualization = ["open3d>=0.19,<0.20"]
 
 [project.scripts]
 liquid-depth = "liquid_depth.cli:main"
+liquid-depth-system = "liquid_depth.system_cli:main"
+liquid-depth-panel = "liquid_depth.product_web:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+liquid_depth = ["ui/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
