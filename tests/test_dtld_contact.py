@@ -5,6 +5,7 @@ from liquid_depth.training.dtld_contact import (
     DTLDContactGeometryNet,
     build_dtld_contact_model,
     sample_cubic_bezier,
+    sample_curve_support,
 )
 
 
@@ -16,6 +17,15 @@ def test_bezier_sampling_preserves_endpoints():
     curve = sample_cubic_bezier(control, samples=17)
     torch.testing.assert_close(curve[:, 0], control[:, 0])
     torch.testing.assert_close(curve[:, -1], control[:, -1])
+
+
+def test_curve_support_samples_contact_probability():
+    logits = torch.zeros(1, 1, 12, 20)
+    curve = torch.tensor([[[0.1, 0.2], [0.5, 0.5], [0.9, 0.8]]])
+
+    support = sample_curve_support(logits, curve)
+
+    torch.testing.assert_close(support, torch.full((1, 3), 0.5))
 
 
 def test_contact_geometry_model_and_loss_are_differentiable():
@@ -30,6 +40,11 @@ def test_contact_geometry_model_and_loss_are_differentiable():
     assert prediction["bezier_control_points"].shape == (2, 4, 2)
     assert prediction["contact_curve"].shape == (2, 64, 2)
     assert torch.all((prediction["bezier_control_points"] >= 0) & (prediction["bezier_control_points"] <= 1))
+    assert prediction["contact_curve_point_confidence"].shape == (2, 64)
+    assert torch.all(
+        (prediction["contact_curve_point_confidence"] >= 0)
+        & (prediction["contact_curve_point_confidence"] <= 1)
+    )
 
     target = {
         "contact": torch.zeros(2, 1, 48, 80),
@@ -97,6 +112,11 @@ def test_resnet34_bezier_backbone_preserves_output_contract():
     assert prediction["control_heatmap_logits"].shape == (2, 4, 64, 96)
     assert prediction["contact_curve"].shape == (2, 64, 2)
     assert torch.all((prediction["bezier_control_points"] >= 0) & (prediction["bezier_control_points"] <= 1))
+    assert prediction["contact_curve_point_confidence"].shape == (2, 64)
+    assert torch.all(
+        (prediction["contact_curve_point_confidence"] >= 0)
+        & (prediction["contact_curve_point_confidence"] <= 1)
+    )
     prediction["contact_curve"].sum().backward()
     assert model.stem_conv.weight.grad is not None
 

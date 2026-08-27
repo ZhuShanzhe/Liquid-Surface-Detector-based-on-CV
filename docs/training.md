@@ -145,6 +145,24 @@ Validation remains unaugmented. Do not promote a checkpoint from training loss:
 select by independent-scene curve error, contact IoU, confidence/error
 correlation, and eventually end-to-end metric height.
 
+Export one RGB-D container crop to the curve contract:
+
+    python scripts/predict_contact_curve.py \
+      --checkpoint /path/to/best.pth \
+      --rgb /path/to/rgb.png --depth /path/to/depth.png \
+      --depth-scale-to-m 0.001 \
+      --pose-json /path/to/pose.json --object-index 2 \
+      --crop-xyxy 308,64,476,357 \
+      --output /path/to/contact_curve.json
+
+The crop coordinates remain in the original image, and exported curve pixels are
+mapped back to that same coordinate system. The current checkpoint's object
+indices are DTLD IDs 15, 16, 17, and 19 mapped to 0, 1, 2, and 3. A new project
+container should be calibrated/fine-tuned rather than assigned an arbitrary
+index; this command is the executable baseline interface, not a claim of
+cross-container generalization.
+
+
 Convert an accepted predicted curve to metric level using a calibrated container
 surface:
 
@@ -154,7 +172,41 @@ surface:
       --camera-json /path/to/camera.json \
       --pose-json /path/to/pose.json \
       --level-axis 0,1,0 --level-origin-m 0,0,0 \
+      --min-point-confidence 0.5 --max-selected-points 24 \
+      --horizontal-bins 8 --min-reliable-points 6 \
+      --min-horizontal-span-ratio 0.5 --min-occupied-bins 3 \
+      --sensitivity-trials 100 \
       --output /path/to/liquid_level.json
+
+The curve JSON accepts either a bare pixel array or an object. The recommended
+object contract is:
+
+```json
+{
+  "contact_curve_pixels": [[318.2, 241.7], [322.8, 241.4]],
+  "point_confidences": [0.91, 0.86]
+}
+```
+
+Both contact backbones now return `contact_curve_point_confidence`. It is the
+independent contact-heatmap support at each sampled curve point. The uncalibrated
+global `curve_confidence` remains a separate frame-level ranking signal; do not
+multiply it into the point threshold. This adds no learned parameters, so the
+promoted checkpoint remains compatible.
+
+The metric solver deliberately does not require an accurate dense curve. It
+keeps at most 24 high-confidence points distributed across the visible contact
+line, then applies robust CAD correspondence and consensus. A measurement is
+rejected when reliable points are too few, their horizontal coverage is weak,
+or CAD reprojection/height agreement is ambiguous. The output records explicit
+rejection reasons rather than emitting an unsupported depth.
+
+With `--sensitivity-trials`, the same output also reports random pixel-jitter
+MAE/P95 in millimetres, acceptance ratio, and local vertical mm-per-pixel
+sensitivity. Run this with the deployment camera calibration, pose, and project
+container CAD before setting a pixel-accuracy target. Synthetic sensitivity is
+a solver check, not evidence that the industrial metric target has been met.
+
 
 The official DTLD archive provides poses but currently does not include the CAD
 models used by the paper. DTLD metric end-to-end reproduction therefore remains

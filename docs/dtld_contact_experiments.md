@@ -112,6 +112,22 @@ python scripts/evaluate_dtld_contact.py \
 The report includes overall, object, sequence, object-sequence, scenario, and
 difficulty-tag groups.
 
+## Sparse reliable contact route
+
+The promoted downstream interface now treats dense curve accuracy as an
+intermediate diagnostic, not the final objective. Each predicted sample gets a
+point confidence from the independent contact heatmap. The metric stage keeps a
+small spatially distributed subset and rejects insufficient point count,
+horizontal coverage, CAD reprojection support, ambiguity, or robust-consensus
+support. Synthetic cylinder tests cover sparse selection, rejection, robust
+metric recovery, and pixel-to-millimetre perturbation propagation.
+
+This changes the research question from "is every liquid-boundary pixel
+correct?" to "are enough geometrically observable contact points correct to
+support the requested metric risk?" Real millimetre claims still require the
+project camera calibration, container CAD/inner-wall scan, poses, and measured
+liquid levels.
+
 ## Next promoted algorithm work
 
 1. Optimize object 16 with validation-driven hard-example mining over height,

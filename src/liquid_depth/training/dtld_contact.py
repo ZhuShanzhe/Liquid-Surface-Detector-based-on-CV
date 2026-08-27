@@ -33,6 +33,21 @@ def sample_cubic_bezier(
     return torch.einsum("sk,bkd->bsd", basis, control_points)
 
 
+def sample_curve_support(
+    contact_logits: torch.Tensor,
+    normalized_curve: torch.Tensor,
+) -> torch.Tensor:
+    """Read independent contact-map support at each predicted curve point."""
+    if contact_logits.ndim != 4 or contact_logits.shape[1] != 1:
+        raise ValueError("contact_logits must have shape (batch, 1, height, width)")
+    if normalized_curve.ndim != 3 or normalized_curve.shape[2] != 2:
+        raise ValueError("normalized_curve must have shape (batch, samples, 2)")
+    if len(contact_logits) != len(normalized_curve):
+        raise ValueError("contact logits and curve batch sizes differ")
+    sampling_grid = normalized_curve.mul(2.0).sub(1.0)[:, None]
+    return F.grid_sample(contact_logits.sigmoid(), sampling_grid, align_corners=True).squeeze(1).squeeze(1)
+
+
 class ColorRectificationModule(nn.Module):
     """Predict a bounded RGB residual before contact-line feature extraction."""
 
@@ -177,16 +192,19 @@ class DTLDContactGeometryNet(nn.Module):
         curve_output = self.curve_quality_head(torch.cat((pooled, pose, object_features), dim=1))
         presence_logit = curve_output[:, 0]
         curve_log_variance = curve_output[:, 1].clamp(-7.0, 5.0)
+        contact_curve = sample_cubic_bezier(control_points)
+        curve_confidence = presence_logit.sigmoid() * torch.sigmoid(-curve_log_variance)
         return {
             "color_residual": color_residual,
             "rectified_rgb": rectified_rgb,
             "contact_logits": contact_logits,
             "control_heatmap_logits": control_heatmap_logits,
             "bezier_control_points": control_points,
-            "contact_curve": sample_cubic_bezier(control_points),
+            "contact_curve": contact_curve,
             "curve_presence_logit": presence_logit,
             "curve_log_variance": curve_log_variance,
-            "curve_confidence": presence_logit.sigmoid() * torch.sigmoid(-curve_log_variance),
+            "curve_confidence": curve_confidence,
+            "contact_curve_point_confidence": sample_curve_support(contact_logits, contact_curve),
         }
 
 
@@ -292,16 +310,19 @@ class DTLDResNet34BezierNet(nn.Module):
         curve_output = self.curve_quality_head(torch.cat((pooled, pose, object_features), dim=1))
         presence_logit = curve_output[:, 0]
         curve_log_variance = curve_output[:, 1].clamp(-7.0, 5.0)
+        contact_curve = sample_cubic_bezier(control_points)
+        curve_confidence = presence_logit.sigmoid() * torch.sigmoid(-curve_log_variance)
         return {
             "color_residual": color_residual,
             "rectified_rgb": rectified_rgb,
             "contact_logits": contact_logits,
             "control_heatmap_logits": control_heatmap_logits,
             "bezier_control_points": control_points,
-            "contact_curve": sample_cubic_bezier(control_points),
+            "contact_curve": contact_curve,
             "curve_presence_logit": presence_logit,
             "curve_log_variance": curve_log_variance,
-            "curve_confidence": presence_logit.sigmoid() * torch.sigmoid(-curve_log_variance),
+            "curve_confidence": curve_confidence,
+            "contact_curve_point_confidence": sample_curve_support(contact_logits, contact_curve),
         }
 
 
