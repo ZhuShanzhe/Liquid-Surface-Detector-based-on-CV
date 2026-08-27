@@ -184,3 +184,45 @@ def test_decoupled_uncertainty_keeps_geometry_gradient_independent_of_variance()
     torch.testing.assert_close(easy_gradient, hard_gradient, rtol=1e-4, atol=1e-6)
     assert log_variance.grad is not None
     assert torch.isfinite(log_variance.grad).all()
+
+
+def test_tail_loss_focuses_on_worst_curve_examples():
+    target_control = torch.tensor(
+        [
+            [[0.1, 0.5], [0.3, 0.5], [0.6, 0.5], [0.9, 0.5]],
+            [[0.1, 0.5], [0.3, 0.5], [0.6, 0.5], [0.9, 0.5]],
+            [[0.1, 0.5], [0.3, 0.5], [0.6, 0.5], [0.9, 0.5]],
+            [[0.1, 0.5], [0.3, 0.5], [0.6, 0.5], [0.9, 0.5]],
+        ]
+    )
+    offsets = torch.tensor([0.01, 0.02, 0.05, 0.25]).view(4, 1, 1)
+    predicted_control = (
+        target_control + torch.cat((offsets, torch.zeros_like(offsets)), dim=2)
+    ).requires_grad_()
+    prediction = {
+        "contact_logits": torch.zeros(4, 1, 8, 8, requires_grad=True),
+        "control_heatmap_logits": torch.zeros(4, 4, 8, 8, requires_grad=True),
+        "bezier_control_points": predicted_control,
+        "curve_presence_logit": torch.zeros(4, requires_grad=True),
+        "curve_log_variance": torch.zeros(4, requires_grad=True),
+        "color_residual": torch.zeros(4, 3, 8, 8, requires_grad=True),
+    }
+    target = {
+        "contact": torch.zeros(4, 1, 8, 8),
+        "bezier_control_points": target_control,
+        "color_residual": torch.zeros(4, 3, 8, 8),
+    }
+    criterion = DTLDContactGeometryLoss(
+        curve_weight=0.0,
+        presence_weight=0.0,
+        localization_weight=0.0,
+        segmentation_weight=0.0,
+        residual_weight=0.0,
+        tail_fraction=0.25,
+        tail_weight=1.0,
+    )
+    losses = criterion(prediction, target)
+    losses["total"].backward()
+    assert losses["curve_tail"] > losses["curve"]
+    assert predicted_control.grad[-1].abs().sum() > 0
+    assert predicted_control.grad[:-1].abs().sum() == 0

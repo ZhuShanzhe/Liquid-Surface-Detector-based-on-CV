@@ -168,6 +168,8 @@ def main() -> None:
     parser.add_argument("--consistency-weight", type=float, default=0.0)
     parser.add_argument("--decoupled-uncertainty", action="store_true")
     parser.add_argument("--uncertainty-weight", type=float, default=0.1)
+    parser.add_argument("--tail-fraction", type=float, default=0.25)
+    parser.add_argument("--tail-weight", type=float, default=0.0)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--resume", type=Path)
@@ -250,6 +252,8 @@ def main() -> None:
         consistency_weight=args.consistency_weight,
         decoupled_uncertainty=args.decoupled_uncertainty,
         uncertainty_weight=args.uncertainty_weight,
+        tail_fraction=args.tail_fraction,
+        tail_weight=args.tail_weight,
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
@@ -335,6 +339,8 @@ def main() -> None:
             "consistency_weight": args.consistency_weight,
             "decoupled_uncertainty": args.decoupled_uncertainty,
             "uncertainty_weight": args.uncertainty_weight,
+            "tail_fraction": args.tail_fraction,
+            "tail_weight": args.tail_weight,
             "max_depth_m": args.max_depth_m,
             "architecture": (
                 "crm_resnet34_bezier_explicit_geometry_v5"

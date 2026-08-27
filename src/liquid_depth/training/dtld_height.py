@@ -57,15 +57,51 @@ def _augment_non_lambertian(rgb: np.ndarray, depth: np.ndarray) -> tuple[np.ndar
         mean_color = image.mean(axis=(0, 1), keepdims=True)
         haze = np.random.uniform(0.15, 0.45)
         image = image * (1.0 - haze) + mean_color * haze
+    if np.random.random() < 0.45:
+        # Broad illumination gradients cover shadowed vessels and uneven factory lighting.
+        direction = np.random.choice(("horizontal", "vertical"))
+        if direction == "horizontal":
+            ramp = np.linspace(
+                np.random.uniform(0.22, 0.65),
+                np.random.uniform(0.75, 1.15),
+                width,
+                dtype=np.float32,
+            )[None, :, None]
+        else:
+            ramp = np.linspace(
+                np.random.uniform(0.22, 0.65),
+                np.random.uniform(0.75, 1.15),
+                height,
+                dtype=np.float32,
+            )[:, None, None]
+        if np.random.random() < 0.5:
+            ramp = np.flip(ramp, axis=1 if direction == "horizontal" else 0)
+        image *= ramp
+    if np.random.random() < 0.25:
+        # Floating material is treated as an occluder: the network must recover
+        # the representative interface while lowering confidence locally.
+        occluder = np.zeros((height, width), dtype=np.uint8)
+        center = (np.random.randint(width), np.random.randint(height))
+        axes = (
+            max(3, int(width * np.random.uniform(0.03, 0.12))),
+            max(3, int(height * np.random.uniform(0.03, 0.12))),
+        )
+        cv2.ellipse(occluder, center, axes, np.random.uniform(0, 180), 0, 360, 255, -1)
+        color = np.random.uniform(15.0, 220.0, size=(1, 1, 3))
+        alpha = np.random.uniform(0.65, 1.0)
+        selected = occluder > 0
+        image[selected] = image[selected] * (1.0 - alpha) + color.reshape(3) * alpha
+        depth[selected] = 0.0
     if np.random.random() < 0.8:
-        image = image * np.random.uniform(0.7, 1.3) + np.random.uniform(-15.0, 15.0)
+        image = image * np.random.uniform(0.35, 1.4) + np.random.uniform(-35.0, 15.0)
     if np.random.random() < 0.45:
         image *= np.random.uniform(0.75, 1.25, size=(1, 1, 3))
-    if np.random.random() < 0.3:
-        gamma = np.random.uniform(0.65, 1.5)
+    if np.random.random() < 0.5:
+        gamma = np.random.uniform(0.55, 2.8)
         image = 255.0 * np.power(np.clip(image / 255.0, 0.0, 1.0), gamma)
     if np.random.random() < 0.25:
-        sigma = np.random.uniform(1.0, 8.0)
+        signal = np.clip(image, 0.0, 255.0) / 255.0
+        sigma = np.random.uniform(1.0, 6.0) + (1.0 - signal) * np.random.uniform(2.0, 14.0)
         image += np.random.normal(0.0, sigma, size=image.shape)
     if np.random.random() < 0.15:
         image = cv2.GaussianBlur(image, (3, 3), sigmaX=np.random.uniform(0.3, 1.2))

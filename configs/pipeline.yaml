@@ -15,6 +15,16 @@ segmentation:
     input_size: [512, 512]
     threshold: 0.5
 
+illumination:
+  # Keep correction opt-in until camera-specific dark-scene validation passes.
+  # Diagnostics and quality rejection remain active even when correction is off.
+  enabled: false
+  preview_max_side: 320
+  trigger_luma_p50: 0.22
+  target_luma_p50: 0.42
+  min_gamma: 0.45
+  clahe_clip_limit: 1.5
+
 depth_refinement:
   # identity preserves the validated classical baseline. Switch to torchscript
   # after a transparent/specular RGB-D completion model passes offline evaluation.
@@ -60,6 +70,18 @@ geometry:
   seed: 7
   min_depth_confidence: 0.25
 
+surface_support:
+  # Enables rejection of compact accidental patches while accepting a spatially
+  # distributed partial plane when floating material or glare hides some surface.
+  enabled: false
+  horizontal_tiles: 6
+  vertical_tiles: 4
+  min_points_per_tile: 3
+  min_tile_coverage: 0.30
+  min_horizontal_span_ratio: 0.45
+  min_vertical_span_ratio: 0.25
+  min_fit_inlier_ratio: 0.25
+
 bottom:
   roi: [400, 150, 1000, 700]
   ellipse_center_offset: [40, 70]
@@ -76,6 +98,10 @@ quality:
   min_mean_segmentation_confidence: 0.20
   min_mean_depth_confidence: 0.20
   max_plane_angle_deg: 15.0
+  min_luma_p50: 0.05
+  max_dark_pixel_ratio: 0.90
+  max_saturated_pixel_ratio: 0.35
+  min_dynamic_range: 0.03
 
 temporal:
   # Enabled for ordered batch/video inference. Single-frame inference remains stateless.

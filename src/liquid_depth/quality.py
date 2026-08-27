@@ -27,7 +27,7 @@ def _upper_score(value: float, limit: float) -> float:
 
 
 def assess_quality(metrics: dict[str, float | int], thresholds: dict) -> QualityAssessment:
-    checks = (
+    checks = [
         (
             "plane_support",
             float(metrics["inlier_ratio"]),
@@ -70,7 +70,36 @@ def assess_quality(metrics: dict[str, float | int], thresholds: dict) -> Quality
             "liquid_bottom_plane_not_parallel",
             "upper",
         ),
+    ]
+    optional_checks = (
+        ("min_luma_p50", "luma_p50", "illumination", "scene_too_dark", "lower"),
+        (
+            "max_dark_pixel_ratio",
+            "dark_pixel_ratio",
+            "dark_pixels",
+            "excessive_dark_pixels",
+            "upper",
+        ),
+        (
+            "max_saturated_pixel_ratio",
+            "saturated_pixel_ratio",
+            "saturation",
+            "excessive_saturated_highlights",
+            "upper",
+        ),
+        (
+            "min_dynamic_range",
+            "dynamic_range",
+            "dynamic_range",
+            "insufficient_image_dynamic_range",
+            "lower",
+        ),
     )
+    for threshold_key, metric_key, name, reason, direction in optional_checks:
+        if threshold_key in thresholds and metric_key in metrics:
+            checks.append(
+                (name, float(metrics[metric_key]), float(thresholds[threshold_key]), reason, direction)
+            )
     reasons: list[str] = []
     scores: dict[str, float] = {}
     for name, value, threshold, reason, direction in checks:

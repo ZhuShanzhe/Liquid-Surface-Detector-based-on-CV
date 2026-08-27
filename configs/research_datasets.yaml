@@ -30,6 +30,20 @@ datasets:
     role: Physics-informed transparent-liquid RGB and 3-D mesh supervision for geometry and volume pretraining.
 
 
+  trade_real:
+    method: http
+    destination: trade/archives
+    expected_size_gb: 4.3
+    license: verify-at-source
+    priority: high
+    role: Real D435 RGB-D transparent containers, liquid fill levels, varied views, backgrounds, strong light, caustics, refraction, and reflection.
+    files:
+      - filename: trade_real.zip
+        url: https://researchdata.tuwien.at/records/j72kx-6fw97/files/trade_real.zip?download=1
+        expected_bytes: 4630331407
+        checksum: md5:43f02f1fdf71a31e92f7bf657c98cc33
+
+
   phys_liquid_code:
     method: git
     url: https://github.com/dualtransparency/Phys-Liquid-AAAI.git

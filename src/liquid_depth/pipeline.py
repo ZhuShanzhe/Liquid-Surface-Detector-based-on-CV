@@ -14,10 +14,12 @@ from .geometry import (
     save_plane,
     split_surface_mask,
 )
+from .illumination import adaptive_exposure_correction
 from .io import load_frame, write_json
 from .quality import assess_quality
 from .refinement import make_depth_refiner
 from .segmentation import make_bottom_mask, make_segmenter, overlay_mask
+from .surface_support import assess_planar_support
 from .temporal import RobustKalmanFilter
 
 
@@ -64,10 +66,12 @@ def infer_frame(
     depth_refiner=None,
 ) -> dict:
     frame = load_frame(frame_dir)
+    exposure = adaptive_exposure_correction(frame.rgb_bgr, config.get("illumination", {}))
+    perception_rgb = exposure.image_bgr
     segmenter = segmenter or make_segmenter(config)
-    mask, segmentation_confidence = segmenter.predict(frame.rgb_bgr)
+    mask, segmentation_confidence = segmenter.predict(perception_rgb)
     depth_refiner = depth_refiner or make_depth_refiner(config)
-    refined = depth_refiner.predict(frame.rgb_bgr, frame.depth)
+    refined = depth_refiner.predict(perception_rgb, frame.depth)
     geometry = config["geometry"]
     interior_mask, meniscus_mask = split_surface_mask(
         mask,
@@ -81,6 +85,11 @@ def infer_frame(
         "liquid_erode_px",
         depth=refined.depth_m,
         depth_confidence=refined.confidence,
+    )
+    support_config = config.get("surface_support", {})
+    support_options = {key: value for key, value in support_config.items() if key != "enabled"}
+    planar_support = assess_planar_support(
+        interior_mask, fit.inlier_pixels, fit_inlier_ratio=fit.inlier_ratio, **support_options
     )
     bottom = load_plane(bottom_plane_path)
     raw_gap_m = abs(bottom.signed_distance(fit.plane.centroid))
@@ -99,6 +108,7 @@ def infer_frame(
     mean_segmentation_confidence = (
         float(segmentation_confidence[mask_pixels].mean()) if np.any(mask_pixels) else 0.0
     )
+    illumination_metrics = exposure.before.to_dict()
     mean_depth_confidence = float(refined.confidence[mask_pixels].mean()) if np.any(mask_pixels) else 0.0
     assessment = assess_quality(
         {
@@ -108,12 +118,23 @@ def infer_frame(
             "mean_segmentation_confidence": mean_segmentation_confidence,
             "mean_depth_confidence": mean_depth_confidence,
             "plane_angle_deg": plane_angle_deg,
+            **illumination_metrics,
         },
         quality,
     )
     rejection_reasons = list(assessment.rejection_reasons)
     accepted = assessment.accepted
     final_confidence = assessment.confidence
+    if bool(support_config.get("enabled", False)):
+        accepted = accepted and planar_support.accepted
+        if not planar_support.accepted:
+            rejection_reasons.extend(planar_support.rejection_reasons)
+        support_confidence = (
+            planar_support.tile_coverage
+            * max(planar_support.horizontal_span_ratio, 1e-6)
+            * max(planar_support.vertical_span_ratio, 1e-6)
+        ) ** (1.0 / 3.0)
+        final_confidence = min(final_confidence, support_confidence)
     filtered_depth: float | None = None
     temporal_payload: dict | None = None
     if temporal_filter is not None:
@@ -141,6 +162,8 @@ def infer_frame(
         "quality_scores": assessment.scores,
         "segmentation_backend": config["segmentation"]["backend"],
         "depth_refinement_backend": refined.backend,
+        "illumination": exposure.to_dict(),
+        "planar_support": planar_support.to_dict(),
         "mask_area_px": mask_area,
         "interior_mask_area_px": int((interior_mask > 0).sum()),
         "meniscus_mask_area_px": int((meniscus_mask > 0).sum()),
@@ -163,6 +186,8 @@ def infer_frame(
     cv2.imwrite(str(target / "liquid_interior_mask.png"), interior_mask)
     cv2.imwrite(str(target / "liquid_meniscus_mask.png"), meniscus_mask)
     cv2.imwrite(str(target / "liquid_mask_vis.png"), overlay_mask(frame.rgb_bgr, mask))
+    if exposure.applied:
+        cv2.imwrite(str(target / "illumination_corrected.png"), perception_rgb)
     np.save(target / "liquid_confidence.npy", segmentation_confidence)
     np.save(target / "refined_depth_m.npy", refined.depth_m)
     np.save(target / "refined_depth_confidence.npy", refined.confidence)

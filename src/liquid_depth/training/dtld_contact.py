@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -359,10 +361,16 @@ class DTLDContactGeometryLoss(nn.Module):
         consistency_weight: float = 0.0,
         decoupled_uncertainty: bool = False,
         uncertainty_weight: float = 0.1,
+        tail_fraction: float = 0.25,
+        tail_weight: float = 0.0,
     ) -> None:
         super().__init__()
         if uncertainty_weight < 0.0:
             raise ValueError("uncertainty_weight must be non-negative")
+        if not 0.0 < tail_fraction <= 1.0:
+            raise ValueError("tail_fraction must be within (0, 1]")
+        if tail_weight < 0.0:
+            raise ValueError("tail_weight must be non-negative")
         self.weights = (
             float(curve_weight),
             float(presence_weight),
@@ -373,6 +381,8 @@ class DTLDContactGeometryLoss(nn.Module):
         )
         self.decoupled_uncertainty = bool(decoupled_uncertainty)
         self.uncertainty_weight = float(uncertainty_weight)
+        self.tail_fraction = float(tail_fraction)
+        self.tail_weight = float(tail_weight)
 
     def forward(
         self,
@@ -423,6 +433,8 @@ class DTLDContactGeometryLoss(nn.Module):
             dim=2,
         ).mean(dim=1)
         curve_error = control_error + sampled_error
+        tail_count = max(1, math.ceil(curve_error.numel() * self.tail_fraction))
+        curve_tail = torch.topk(curve_error, tail_count, sorted=False).values.mean()
         target_grid = target_curve.mul(2.0).sub(1.0)[:, None]
         predicted_grid = predicted_curve.mul(2.0).sub(1.0)[:, None]
         predicted_on_target = (
@@ -461,6 +473,7 @@ class DTLDContactGeometryLoss(nn.Module):
             + ws * segmentation
             + wr * residual
             + wcons * consistency
+            + self.tail_weight * curve_tail
         )
         return {
             "total": total,
@@ -471,4 +484,5 @@ class DTLDContactGeometryLoss(nn.Module):
             "segmentation": segmentation,
             "residual": residual,
             "consistency": consistency,
+            "curve_tail": curve_tail,
         }

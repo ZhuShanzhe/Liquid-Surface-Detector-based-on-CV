@@ -35,6 +35,36 @@ def test_quality_reports_explicit_rejection_reasons():
     assert 0.0 <= result.confidence <= 1.0
 
 
+def test_quality_rejects_unusable_illumination_when_thresholds_are_configured():
+    metrics = {
+        "inlier_ratio": 0.8,
+        "median_residual_m": 0.001,
+        "mask_area_px": 20000,
+        "mean_segmentation_confidence": 0.9,
+        "mean_depth_confidence": 0.9,
+        "plane_angle_deg": 1.0,
+        "luma_p50": 0.02,
+        "dark_pixel_ratio": 0.95,
+        "saturated_pixel_ratio": 0.0,
+        "dynamic_range": 0.01,
+    }
+    result = assess_quality(
+        metrics,
+        {
+            "min_luma_p50": 0.05,
+            "max_dark_pixel_ratio": 0.9,
+            "max_saturated_pixel_ratio": 0.35,
+            "min_dynamic_range": 0.03,
+        },
+    )
+    assert not result.accepted
+    assert set(result.rejection_reasons) == {
+        "scene_too_dark",
+        "excessive_dark_pixels",
+        "insufficient_image_dynamic_range",
+    }
+
+
 def test_temporal_filter_rejects_large_jump_without_moving_state():
     tracker = RobustKalmanFilter(max_jump=1.0, measurement_variance=0.1)
     first = tracker.update(10.0, 0.9)
