@@ -125,6 +125,12 @@ centimeter-level metric liquid-height accuracy, so calibration remains mandatory
 - TRADE: optional 4.3 GB real stress set for containers, fill levels, refraction,
   reflection, and strong light. Its 122.5 GB simulation set is lower priority
   than current LayeredDepth-Syn completion.
+  `scripts/build_trade_manifest.py` creates deterministic scene-disjoint splits,
+  preserves per-object fill fractions, and optionally records exposure metrics.
+  The first extracted real release contains 2,856 paired RGB-D frames across 34
+  scenes, including 960 frames from scenes with at least one partially filled
+  object. It is a robustness/relative-fill benchmark; fill fractions are not
+  direct metric liquid-depth labels.
 
 Dataset licenses are tracked separately. Non-commercial datasets may support
 research and a software-copyright demonstration but must be reviewed before any
