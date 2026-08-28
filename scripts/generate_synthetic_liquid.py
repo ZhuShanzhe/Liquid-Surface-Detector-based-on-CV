@@ -17,7 +17,7 @@ from mathutils import Matrix
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-import importlib.util  # noqa: E402
+import importlib.util
 
 _spec = importlib.util.spec_from_file_location("liquid_simulation", REPO_ROOT / "src/liquid_depth/simulation.py")
 _simulation = importlib.util.module_from_spec(_spec)
@@ -321,7 +321,7 @@ def configure_render(scene, args: argparse.Namespace) -> str:
             render.cycles.samples = args.render_samples
             render.cycles.use_denoising = True
             return "cycles_optix"
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             print(f"Cycles GPU unavailable, falling back to Eevee: {exc}", flush=True)
     render.render.engine = "BLENDER_EEVEE_NEXT"
     render.render.image_settings.color_depth = "8"

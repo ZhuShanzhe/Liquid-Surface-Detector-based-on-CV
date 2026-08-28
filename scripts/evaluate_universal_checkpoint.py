@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ruff: noqa: B023
 from __future__ import annotations
 
 import argparse

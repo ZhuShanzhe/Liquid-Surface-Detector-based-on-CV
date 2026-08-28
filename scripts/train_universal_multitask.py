@@ -8,7 +8,6 @@ from pathlib import Path
 
 import numpy as np
 
-
 RANGE_BINS = (
     ("0.1-0.3m", 0.1, 0.3),
     ("0.3-1m", 0.3, 1.0),

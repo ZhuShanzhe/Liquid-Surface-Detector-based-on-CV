@@ -1,3 +1,4 @@
+# ruff: noqa: B023
 from __future__ import annotations
 
 import csv
@@ -8,7 +9,6 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import numpy as np
-
 
 SCENARIOS = (
     "ordinary",

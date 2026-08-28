@@ -80,7 +80,7 @@ def main() -> None:
                 range_counts["1-3m"] += 1
             else:
                 range_counts["3-10m"] += 1
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             errors.append(f"row {row_index}: {exc}")
             if len(errors) >= args.max_errors:
                 break
