@@ -17,16 +17,20 @@ from mathutils import Matrix
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from liquid_depth.simulation import (  # noqa: E402
-    build_manifest,
-    camera_to_world,
-    render_geometric_labels,
-    sample_scene,
-    scene_metadata,
-    simulate_raw_depth,
-    surface_height_and_gradient,
-    write_sample_arrays,
-)
+import importlib.util  # noqa: E402
+
+_spec = importlib.util.spec_from_file_location("liquid_simulation", REPO_ROOT / "src/liquid_depth/simulation.py")
+_simulation = importlib.util.module_from_spec(_spec)
+sys.modules[_spec.name] = _simulation
+_spec.loader.exec_module(_simulation)
+build_manifest = _simulation.build_manifest
+camera_to_world = _simulation.camera_to_world
+render_geometric_labels = _simulation.render_geometric_labels
+sample_scene = _simulation.sample_scene
+scene_metadata = _simulation.scene_metadata
+simulate_raw_depth = _simulation.simulate_raw_depth
+surface_height_and_gradient = _simulation.surface_height_and_gradient
+write_sample_arrays = _simulation.write_sample_arrays
 
 
 def parse_args() -> argparse.Namespace:
