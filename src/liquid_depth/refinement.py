@@ -45,6 +45,9 @@ class TorchScriptDepthRefiner:
         input_size: list[int],
         max_depth_m: float,
         preserve_valid_raw: bool = False,
+        depth_encoding: str = "linear",
+        min_depth_m: float = 0.1,
+        warmup: bool = True,
     ) -> None:
         try:
             import torch
@@ -59,6 +62,25 @@ class TorchScriptDepthRefiner:
         self.input_size = tuple(map(int, input_size))
         self.max_depth_m = float(max_depth_m)
         self.preserve_valid_raw = bool(preserve_valid_raw)
+        self.depth_encoding = str(depth_encoding).lower()
+        self.min_depth_m = float(min_depth_m)
+        if self.depth_encoding not in {"linear", "log"}:
+            raise ValueError("depth_encoding must be linear or log")
+        if not 0 < self.min_depth_m < self.max_depth_m:
+            raise ValueError("Expected 0 < min_depth_m < max_depth_m")
+        if warmup:
+            target_width, target_height = self.input_size
+            example = torch.zeros(
+                1,
+                5,
+                target_height,
+                target_width,
+                device=self.device,
+            )
+            with torch.inference_mode():
+                self.model(example)
+            if self.device.type == "cuda":
+                torch.cuda.synchronize()
 
     def _metric_dict_output(
         self,
@@ -113,8 +135,15 @@ class TorchScriptDepthRefiner:
         mean = np.asarray([0.485, 0.456, 0.406], dtype=np.float32)
         std = np.asarray([0.229, 0.224, 0.225], dtype=np.float32)
         rgb = (rgb - mean) / std
+        if self.depth_encoding == "log":
+            encoded_depth = np.log(
+                np.clip(depth_m, self.min_depth_m, self.max_depth_m) / self.min_depth_m
+            ) / np.log(self.max_depth_m / self.min_depth_m)
+            encoded_depth = np.where(valid, encoded_depth, 0.0)
+        else:
+            encoded_depth = depth_m / self.max_depth_m
         normalized_depth = cv2.resize(
-            depth_m / self.max_depth_m,
+            encoded_depth,
             (target_width, target_height),
             interpolation=cv2.INTER_NEAREST,
         )
@@ -126,7 +155,7 @@ class TorchScriptDepthRefiner:
         model_input = np.concatenate(
             (rgb, normalized_depth[..., None], validity[..., None]),
             axis=2,
-        )
+        ).astype(np.float32, copy=False)
         tensor = torch.from_numpy(model_input.transpose(2, 0, 1)).unsqueeze(0).to(self.device)
 
         with torch.inference_mode():
@@ -302,6 +331,9 @@ def make_depth_refiner(
             model["input_size"],
             model["max_depth_m"],
             model.get("preserve_valid_raw", False),
+            model.get("depth_encoding", "linear"),
+            model.get("min_depth_m", 0.1),
+            model.get("warmup", True),
         )
     if backend == "transcg_dfnet":
         model = options["transcg_dfnet"]

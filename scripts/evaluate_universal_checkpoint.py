@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 
@@ -65,7 +65,7 @@ def main() -> None:
     global_metrics = empty_metrics()
     scenarios: defaultdict[str, dict[str, float]] = defaultdict(empty_metrics)
     ranges: defaultdict[str, dict[str, float]] = defaultdict(empty_metrics)
-    confidence_thresholds = (0.25, 0.50, 0.75, 0.90)
+    confidence_thresholds = (0.25, 0.50, 0.75, 0.90, 0.95, 0.98)
     selective = {threshold: empty_metrics() for threshold in confidence_thresholds}
     calibration_squared = 0.0
     calibration_pixels = 0
@@ -78,6 +78,18 @@ def main() -> None:
         }
         for threshold in confidence_thresholds
     }
+    surface_level_by_scenario = defaultdict(
+        lambda: {
+            threshold: {
+                "absolute": 0.0,
+                "relative": 0.0,
+                "within": 0.0,
+                "samples": 0.0,
+            }
+            for threshold in confidence_thresholds
+        }
+    )
+    scenario_sample_counts = Counter(row.get("scenario", "unknown") for row in dataset.rows)
     range_defs = (("0.1-0.3m", 0.1, 0.3), ("0.3-1m", 0.3, 1.0), ("1-3m", 1.0, 3.0), ("3-10m", 3.0, 10.0001))
     latencies: list[float] = []
     offset = 0
@@ -154,6 +166,11 @@ def main() -> None:
                     level_store["relative"] += level_error / max(reference, 1e-6)
                     level_store["within"] += float(level_error <= level_tolerance)
                     level_store["samples"] += 1.0
+                    scenario_level_store = surface_level_by_scenario[scenario][threshold]
+                    scenario_level_store["absolute"] += level_error
+                    scenario_level_store["relative"] += level_error / max(reference, 1e-6)
+                    scenario_level_store["within"] += float(level_error <= level_tolerance)
+                    scenario_level_store["samples"] += 1.0
             offset += inputs.shape[0]
     report = {
         "checkpoint": args.checkpoint.resolve().as_posix(),
@@ -180,6 +197,19 @@ def main() -> None:
                 "within_tolerance_rate": values["within"] / max(values["samples"], 1.0),
             }
             for threshold, values in surface_level.items()
+        },
+        "surface_level_selective_by_scenario": {
+            scenario: {
+                f"confidence>={threshold:.2f}": {
+                    "accepted_frames": int(values["samples"]),
+                    "frame_coverage": values["samples"] / max(scenario_sample_counts[scenario], 1),
+                    "mae_m": values["absolute"] / max(values["samples"], 1.0),
+                    "abs_rel": values["relative"] / max(values["samples"], 1.0),
+                    "within_tolerance_rate": values["within"] / max(values["samples"], 1.0),
+                }
+                for threshold, values in thresholds.items()
+            }
+            for scenario, thresholds in sorted(surface_level_by_scenario.items())
         },
         "latency_ms_per_frame": {
             "mean": sum(latencies) / max(len(latencies), 1),

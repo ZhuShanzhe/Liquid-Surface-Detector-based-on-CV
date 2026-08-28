@@ -120,6 +120,8 @@ clouds, and generated artifacts stay on the server data disk.
 - [Complex-scene implementation and measured latency](docs/complex_scene_optimization.md)
 - [Scene-adaptive routing and 500 ms deployment policy](docs/scene_adaptive_runtime.md)
 - [Complex-scene evaluation protocol](docs/complex_scene_evaluation.md)
+- [Top-view v4 simulation and benchmark results](docs/simulation_results_v2_top.md)
+- [Site few-shot calibration and top-camera deployment](docs/site_few_shot_calibration.md)
 - [Industrial accuracy profile](configs/accuracy_profile_industrial_v1.yaml)
 - [Software copyright and V1.0 productization plan](docs/software_copyright_plan.md)
 - [System readiness](docs/system_readiness.md)

@@ -42,27 +42,52 @@ complex_scene:
   # Optional per-camera defaults. A frame-local scene_context.json overrides these.
   scene_context: {}
   models:
-    # Existing DREDS/DTLD object-pretrained completion model is retained as an
-    # offline candidate. Keep disabled until camera-specific qualification passes.
+    # The v4 top-view model is one shared optional specialist. Keep every route
+    # disabled until it passes camera/container-specific qualification.
     glare:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/multitask-object-pretrain-v1.ts
-        input_size: [640, 360]
-        max_depth_m: 3.0
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        input_size: [320, 180]
+        min_depth_m: 0.1
+        max_depth_m: 10.0
+        depth_encoding: log
+        preserve_valid_raw: false
+        warmup: true
     depth_failure:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/multitask-object-pretrain-v1.ts
-        input_size: [640, 360]
-        max_depth_m: 3.0
-    # Enable after the matching specialist passes scene-stratified validation.
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        input_size: [320, 180]
+        min_depth_m: 0.1
+        max_depth_m: 10.0
+        depth_encoding: log
+        preserve_valid_raw: false
+        warmup: true
     transparent_multilayer:
       enabled: false
+      backend: torchscript
+      torchscript:
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        input_size: [320, 180]
+        min_depth_m: 0.1
+        max_depth_m: 10.0
+        depth_encoding: log
+        preserve_valid_raw: false
+        warmup: true
     low_light:
       enabled: false
+      backend: torchscript
+      torchscript:
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        input_size: [320, 180]
+        min_depth_m: 0.1
+        max_depth_m: 10.0
+        depth_encoding: log
+        preserve_valid_raw: false
+        warmup: true
 
 depth_refinement:
   # identity preserves the validated classical baseline. Switch to torchscript
@@ -71,7 +96,10 @@ depth_refinement:
   torchscript:
     model_path: weights/depth_refiner.ts
     input_size: [640, 360]
+    min_depth_m: 0.1
     max_depth_m: 3.0
+    depth_encoding: linear
+    warmup: true
   transcg_dfnet:
     source_path: /root/autodl-tmp/liquid-depth-data/research/sources/TransCG
     checkpoint_path: /root/autodl-tmp/liquid-depth-data/research/transcg/checkpoints/checkpoint.tar

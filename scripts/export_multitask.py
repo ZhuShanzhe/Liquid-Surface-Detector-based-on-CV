@@ -15,17 +15,34 @@ def main() -> None:
     import torch
 
     from liquid_depth.models import LiquidSurfaceMultiTaskNet
+    from liquid_depth.models.universal import UniversalLiquidSurfaceNet
 
-    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
+    checkpoint = torch.load(
+        args.checkpoint,
+        map_location="cpu",
+        weights_only=True,
+    )
     width, height = map(int, checkpoint["image_size"])
-    model = LiquidSurfaceMultiTaskNet(int(checkpoint["base_channels"]), float(checkpoint["max_depth_m"]))
+    model_family = str(checkpoint.get("model_family", "multitask"))
+    if model_family.startswith("universal_liquid_surface"):
+        model = UniversalLiquidSurfaceNet(
+            int(checkpoint["base_channels"]),
+            float(checkpoint.get("min_depth_m", 0.1)),
+            float(checkpoint["max_depth_m"]),
+            rgb_prior_enabled=bool(checkpoint.get("rgb_prior_enabled", False)),
+        )
+    else:
+        model = LiquidSurfaceMultiTaskNet(
+            int(checkpoint["base_channels"]),
+            float(checkpoint["max_depth_m"]),
+        )
     model.load_state_dict(checkpoint["model"])
     model.eval().to(args.device)
     example = torch.zeros(1, 5, height, width, device=args.device)
     traced = torch.jit.trace(model, example, strict=False)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     torch.jit.save(traced, str(args.output))
-    print(f"Exported {args.output} with input shape [1,5,{height},{width}]")
+    print(f"Exported {args.output} ({model_family}) with input shape [1,5,{height},{width}]")
 
 
 if __name__ == "__main__":
