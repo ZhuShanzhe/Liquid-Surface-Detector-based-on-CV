@@ -1,0 +1,53 @@
+version: 1
+generator: liquid_sim_v1
+
+paths:
+  blender: /root/autodl-tmp/tools/blender/blender-4.2.0-linux-x64/blender
+  output_root: /root/autodl-tmp/liquid-depth-data/synthetic/liquid-sim-v1
+  artifacts_root: /root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v3
+
+camera:
+  modality: active_stereo_proxy
+  width: 640
+  height: 360
+  minimum_distance_m: 0.1
+  maximum_distance_m: 10.0
+
+render:
+  smoke_engine: eevee
+  production_engine: cycles
+  production_samples: 32
+
+campaign:
+  smoke_samples: 40
+  pilot_samples: 2000
+  production_samples: 50000
+  seed: 2026
+  scenarios:
+    - ordinary
+    - transparent
+    - translucent
+    - glare
+    - low_light
+    - depth_failure
+    - multilayer
+    - uneven_surface
+    - floating_objects
+    - compound
+
+training:
+  model_family: universal_liquid_surface_v3
+  depth_encoding: log
+  minimum_depth_m: 0.1
+  maximum_depth_m: 10.0
+  image_size: [320, 180]
+  batch_size: 16
+  tolerance:
+    relative: 0.01
+    absolute_floor_m: 0.003
+
+promotion:
+  require_real_holdout: true
+  require_no_ordinary_regression: true
+  maximum_latency_ms: 500
+  note: Synthetic metrics alone never certify industrial accuracy.
