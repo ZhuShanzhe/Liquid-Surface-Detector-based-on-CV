@@ -27,7 +27,10 @@ def main() -> None:
     parser.add_argument("--resume", type=Path)
     parser.add_argument("--initialize-from", type=Path)
     parser.add_argument("--log-every", type=int, default=100)
+    parser.add_argument("--tolerance-weight", type=float, default=0.0)
     args = parser.parse_args()
+    if args.tolerance_weight < 0:
+        parser.error("--tolerance-weight must be non-negative")
     if args.resume and args.initialize_from:
         parser.error("--resume and --initialize-from are mutually exclusive")
 
@@ -91,10 +94,11 @@ def main() -> None:
         persistent_workers=args.workers > 0,
     )
     model = LiquidSurfaceMultiTaskNet(base_channels, max_depth_m).to(device)
-    criterion = MultiTaskLoss()
+    criterion = MultiTaskLoss(tolerance_weight=args.tolerance_weight)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     best_rmse = float("inf")
+    best_tolerance_rate = float("-inf")
     start_epoch = 1
     initial_checkpoint: str | None = None
     metrics_path = output_dir / "metrics.jsonl"
@@ -109,6 +113,9 @@ def main() -> None:
                 f"Resume checkpoint was scheduled for {saved_total_epochs} epochs, not {args.epochs}"
             )
         best_rmse = float(state.get("best_rmse", float("inf")))
+        best_tolerance_rate = float(
+            state.get("best_tolerance_rate", float("-inf"))
+        )
         start_epoch = int(state["epoch"]) + 1
         initial_checkpoint = state.get("initial_checkpoint")
     elif args.initialize_from:
@@ -144,7 +151,8 @@ def main() -> None:
         scheduler.step()
 
         model.eval()
-        squared_error = absolute_error = valid_count = intersection = union = 0.0
+        squared_error = absolute_error = valid_count = 0.0
+        within_tolerance = intersection = union = 0.0
         with torch.inference_mode():
             for inputs, target in val_loader:
                 inputs, target = inputs.to(device, non_blocking=True), _move(target, device)
@@ -153,6 +161,13 @@ def main() -> None:
                 error = prediction["depth_m"] - target["depth_m"]
                 squared_error += float((error[valid] ** 2).sum())
                 absolute_error += float(error[valid].abs().sum())
+                tolerance = torch.maximum(
+                    target["depth_m"] * 0.01,
+                    torch.full_like(target["depth_m"], 0.003),
+                )
+                within_tolerance += int(
+                    ((error.abs() <= tolerance) & valid).sum()
+                )
                 valid_count += int(valid.sum())
                 predicted_mask = prediction["mask_logits"].sigmoid() >= 0.5
                 target_mask = target["mask"] > 0
@@ -163,15 +178,24 @@ def main() -> None:
             "train_loss": running / max(len(train_loader), 1),
             "val_depth_rmse_m": (squared_error / max(valid_count, 1)) ** 0.5,
             "val_depth_mae_m": absolute_error / max(valid_count, 1),
+            "val_within_tolerance_rate": (
+                within_tolerance / max(valid_count, 1)
+            ),
             "val_mask_iou": intersection / max(union, 1),
             "learning_rate": scheduler.get_last_lr()[0],
         }
         print(json.dumps(metrics))
         with metrics_path.open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(metrics) + "\n")
-        improved = metrics["val_depth_rmse_m"] < best_rmse
-        if improved:
-            best_rmse = metrics["val_depth_rmse_m"]
+        improved = (
+            metrics["val_within_tolerance_rate"] > best_tolerance_rate
+            if args.tolerance_weight > 0
+            else metrics["val_depth_rmse_m"] < best_rmse
+        )
+        best_rmse = min(best_rmse, metrics["val_depth_rmse_m"])
+        best_tolerance_rate = max(
+            best_tolerance_rate, metrics["val_within_tolerance_rate"]
+        )
         checkpoint = {
             "model": model.state_dict(),
             "optimizer": optimizer.state_dict(),
@@ -179,11 +203,18 @@ def main() -> None:
             "epoch": epoch,
             "total_epochs": args.epochs,
             "best_rmse": best_rmse,
+            "best_tolerance_rate": best_tolerance_rate,
+            "selection_metric": (
+                "val_within_tolerance_rate"
+                if args.tolerance_weight > 0
+                else "val_depth_rmse_m"
+            ),
             "metrics": metrics,
             "image_size": image_size,
             "base_channels": base_channels,
             "max_depth_m": max_depth_m,
             "initial_checkpoint": initial_checkpoint,
+            "tolerance_weight": args.tolerance_weight,
             "input_contract": "RGB ImageNet-normalized + depth/max_depth_m + validity",
         }
         torch.save(checkpoint, output_dir / "latest.pth")

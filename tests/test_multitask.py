@@ -36,6 +36,10 @@ def test_multitask_network_contract_and_loss():
         "expected_plane_normal": torch.tensor([0.0, 0.0, -1.0]).view(1, 3, 1, 1),
     }
     losses = MultiTaskLoss()(prediction, target)
+    precision_losses = MultiTaskLoss(tolerance_weight=0.25)(
+        prediction, target
+    )
+    assert precision_losses["tolerance"] >= 0
     assert torch.isfinite(losses["total"])
     losses["total"].backward()
 
@@ -55,3 +59,10 @@ def test_multitask_torchscript_uses_metric_refiner_contract(tmp_path):
     assert result.confidence.shape == raw_depth.shape
     assert np.all(np.isfinite(result.depth_m))
     assert cv2.countNonZero((result.confidence > 0).astype(np.uint8)) > 0
+
+    fused = TorchScriptDepthRefiner(path, [32, 32], 3.0, True).predict(
+        rgb, raw_depth
+    )
+    assert fused.backend == "torchscript_multitask_preserve_valid"
+    np.testing.assert_allclose(fused.depth_m, 1.0)
+    np.testing.assert_allclose(fused.confidence, 1.0)

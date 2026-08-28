@@ -113,14 +113,25 @@ class DepthMetricAccumulator:
         }
 
 
+def select_depth_channel(value: np.ndarray) -> np.ndarray:
+    """Select the channel containing actual depth from multi-channel EXR."""
+
+    if value.ndim != 3:
+        return value
+    counts = [
+        int((np.isfinite(value[..., index]) & (value[..., index] > 0)).sum())
+        for index in range(value.shape[2])
+    ]
+    return value[..., int(np.argmax(counts))]
+
 def _array(path: Path) -> np.ndarray:
     if path.suffix.lower() == ".npy":
         return np.load(path)
     value = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
     if value is None:
         raise FileNotFoundError(path)
-    if path.suffix.lower() == ".exr" and value.ndim == 3:
-        value = value[..., 0]
+    if path.suffix.lower() == ".exr":
+        value = select_depth_channel(value)
     return value
 
 
@@ -148,9 +159,11 @@ def evaluate_depth_manifest(manifest: str | Path) -> dict:
     groups: dict[str, DepthMetricAccumulator] = defaultdict(DepthMetricAccumulator)
     groups["overall"] = DepthMetricAccumulator()
     for row in rows:
-        scale = float(row["depth_scale_to_m"]) if row.get("depth_scale_to_m") else None
-        target = _meters(_array(_resolve(root, row, "target_depth_path")), scale)
-        prediction = _meters(_array(_resolve(root, row, "prediction_path")), scale)
+        legacy_scale = float(row["depth_scale_to_m"]) if row.get("depth_scale_to_m") else None
+        target_scale = float(row["target_depth_scale_to_m"]) if row.get("target_depth_scale_to_m") else legacy_scale
+        prediction_scale = float(row["prediction_depth_scale_to_m"]) if row.get("prediction_depth_scale_to_m") else legacy_scale
+        target = _meters(_array(_resolve(root, row, "target_depth_path")), target_scale)
+        prediction = _meters(_array(_resolve(root, row, "prediction_path")), prediction_scale)
         mask = _array(_resolve(root, row, "mask_path"))
         if mask.ndim == 3:
             mask = np.any(mask[..., :3] != 0, axis=2).astype(np.uint8)
@@ -163,6 +176,9 @@ def evaluate_depth_manifest(manifest: str | Path) -> dict:
         confidence = _array(_resolve(root, row, "confidence_path")) if row.get("confidence_path") else None
         names = {"overall", f"scenario:{row.get('scenario', 'unspecified') or 'unspecified'}"}
         names.update(f"difficulty:{tag}" for tag in parse_tags(row.get("difficulty_tags", "ordinary")))
+        dataset = row.get("dataset", "").strip()
+        if dataset:
+            names.add(f"dataset:{dataset}")
         for name in names:
             groups[name].update(target, prediction, mask, confidence)
     return {name: accumulator.finalize() for name, accumulator in sorted(groups.items())}

@@ -44,6 +44,7 @@ class TorchScriptDepthRefiner:
         model_path: Path,
         input_size: list[int],
         max_depth_m: float,
+        preserve_valid_raw: bool = False,
     ) -> None:
         try:
             import torch
@@ -57,6 +58,7 @@ class TorchScriptDepthRefiner:
         ).eval()
         self.input_size = tuple(map(int, input_size))
         self.max_depth_m = float(max_depth_m)
+        self.preserve_valid_raw = bool(preserve_valid_raw)
 
     def _metric_dict_output(
         self,
@@ -132,7 +134,13 @@ class TorchScriptDepthRefiner:
         if isinstance(output, dict):
             metric = self._metric_dict_output(output, width, height)
             if metric is not None:
-                return metric
+                if not self.preserve_valid_raw:
+                    return metric
+                return RefinedDepth(
+                    np.where(valid, depth_m, metric.depth_m).astype(np.float32),
+                    np.where(valid, 1.0, metric.confidence).astype(np.float32),
+                    f"{metric.backend}_preserve_valid",
+                )
             output = output.get("out", next(iter(output.values())))
         if isinstance(output, (tuple, list)):
             output = output[0]
@@ -293,6 +301,7 @@ def make_depth_refiner(
             path,
             model["input_size"],
             model["max_depth_m"],
+            model.get("preserve_valid_raw", False),
         )
     if backend == "transcg_dfnet":
         model = options["transcg_dfnet"]

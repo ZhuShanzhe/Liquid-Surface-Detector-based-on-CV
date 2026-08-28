@@ -1,6 +1,14 @@
 import numpy as np
 
-from liquid_depth.depth_evaluation import DepthMetricAccumulator
+from liquid_depth.depth_evaluation import DepthMetricAccumulator, select_depth_channel
+
+
+def test_select_depth_channel_uses_channel_with_positive_values():
+    value = np.zeros((3, 4, 3), dtype=np.float32)
+    value[..., 2] = 1.5
+    selected = select_depth_channel(value)
+    assert selected.shape == (3, 4)
+    assert np.all(selected == 1.5)
 
 
 def test_depth_metrics_report_coverage_error_boundary_and_confidence():

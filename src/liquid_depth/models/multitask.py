@@ -78,9 +78,19 @@ class MultiTaskLoss(nn.Module):
         normal_weight: float = 0.5,
         gradient_weight: float = 0.25,
         physics_weight: float = 0.25,
+        tolerance_weight: float = 0.0,
+        relative_tolerance: float = 0.01,
+        absolute_tolerance_floor_m: float = 0.003,
     ) -> None:
         super().__init__()
-        self.weights = (mask_weight, depth_weight, normal_weight, gradient_weight, physics_weight)
+        self.weights = (
+            mask_weight, depth_weight, normal_weight, gradient_weight,
+            physics_weight, tolerance_weight,
+        )
+        self.relative_tolerance = float(relative_tolerance)
+        self.absolute_tolerance_floor_m = float(
+            absolute_tolerance_floor_m
+        )
 
     @staticmethod
     def _masked_mean(values: torch.Tensor, valid: torch.Tensor) -> torch.Tensor:
@@ -99,6 +109,16 @@ class MultiTaskLoss(nn.Module):
         depth_error = (prediction["depth_m"] - target["depth_m"]).abs()
         depth_nll = depth_error * torch.exp(-prediction["log_variance"]) + prediction["log_variance"]
         depth_loss = self._masked_mean(depth_nll, valid)
+        tolerance = torch.maximum(
+            target["depth_m"] * self.relative_tolerance,
+            torch.full_like(
+                target["depth_m"], self.absolute_tolerance_floor_m
+            ),
+        )
+        tolerance_loss = self._masked_mean(
+            F.relu(depth_error - tolerance) / tolerance.clamp_min(1e-6),
+            valid,
+        )
         horizontal = prediction["depth_m"][..., :, 1:] - prediction["depth_m"][..., :, :-1]
         target_horizontal = target["depth_m"][..., :, 1:] - target["depth_m"][..., :, :-1]
         horizontal_valid = valid[..., :, 1:] * valid[..., :, :-1]
@@ -120,12 +140,17 @@ class MultiTaskLoss(nn.Module):
             plane_cosine = 1.0 - (prediction["normal"] * expected_normal).sum(dim=1, keepdim=True).abs()
             physics_loss = self._masked_mean(plane_cosine, valid)
 
-        wm, wd, wn, wg, wp = self.weights
-        total = wm * mask_loss + wd * depth_loss + wn * normal_loss + wg * gradient_loss + wp * physics_loss
+        wm, wd, wn, wg, wp, wt = self.weights
+        total = (
+            wm * mask_loss + wd * depth_loss + wn * normal_loss
+            + wg * gradient_loss + wp * physics_loss
+            + wt * tolerance_loss
+        )
         return {
             "total": total,
             "mask": mask_loss,
             "depth_nll": depth_loss,
+            "tolerance": tolerance_loss,
             "normal": normal_loss,
             "gradient": gradient_loss,
             "physics": physics_loss,

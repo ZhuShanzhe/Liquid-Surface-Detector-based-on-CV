@@ -15,7 +15,7 @@ import cv2
 import numpy as np
 
 from liquid_depth.config import load_config
-from liquid_depth.depth_evaluation import evaluate_depth_manifest
+from liquid_depth.depth_evaluation import evaluate_depth_manifest, select_depth_channel
 from liquid_depth.refinement import make_depth_refiner
 
 
@@ -25,8 +25,8 @@ def read_array(path: Path, flags: int = cv2.IMREAD_UNCHANGED) -> np.ndarray:
     value = cv2.imread(str(path), flags)
     if value is None:
         raise FileNotFoundError(path)
-    if path.suffix.lower() == ".exr" and value.ndim == 3:
-        value = value[..., 0]
+    if path.suffix.lower() == ".exr":
+        value = select_depth_channel(value)
     return value
 
 
@@ -52,6 +52,7 @@ def main() -> None:
     )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--model-path", type=Path)
+    parser.add_argument("--preserve-valid-raw", action="store_true")
     parser.add_argument("--limit", type=int)
     args = parser.parse_args()
 
@@ -76,6 +77,10 @@ def main() -> None:
 
     config = load_config(args.config)
     config["depth_refinement"]["backend"] = args.backend
+    if args.preserve_valid_raw:
+        config["depth_refinement"]["torchscript"][
+            "preserve_valid_raw"
+        ] = True
     if args.model_path:
         config["depth_refinement"]["torchscript"]["model_path"] = (
             args.model_path.resolve().as_posix()
@@ -134,7 +139,9 @@ def main() -> None:
                     or row.get("scenario", "unspecified")
                 ),
                 "difficulty_tags": row.get("difficulty_tags", "ordinary"),
-                "depth_scale_to_m": row.get("depth_scale_to_m", ""),
+                "dataset": row.get("dataset", "unspecified"),
+                "target_depth_scale_to_m": row.get("depth_scale_to_m", ""),
+                "prediction_depth_scale_to_m": "1.0",
             }
         )
         if failure:

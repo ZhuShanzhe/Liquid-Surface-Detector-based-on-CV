@@ -105,3 +105,24 @@ the liquid mask. This rejects a dense but spatially compact reflection patch tha
 could otherwise produce a numerically stable false plane. Frames with no usable
 depth now produce a normal rejected result with
 `insufficient_liquid_depth_support`; they no longer abort a batch.
+
+
+## 2026-08-28 glare specialist v1 decision
+
+The 12-epoch glare specialist was evaluated on 521 metric RGB-D records after
+fixing two evaluation-contract defects: multi-channel EXR depth selection and
+independent unit scales for targets and metric predictions. Both the identity
+reference and candidate completed with zero failed frames.
+
+| glare route | MAE | RMSE | prediction coverage | within-tolerance coverage | median latency |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| sensor identity | 21.84 mm | 158.72 mm | 0.434 | 0.163 | 7.69 ms |
+| learned replacement | 20.09 mm | 30.24 mm | 1.000 | 0.191 | 22.09 ms |
+| preserve-valid fusion | 19.19 mm | 29.04 mm | 1.000 | 0.249 | 23.45 ms |
+
+Preserve-valid fusion also avoided regression on the transparent-general and
+low-light guard buckets, but the candidate still failed the 10 mm MAE and 0.70
+within-tolerance-coverage gates. It remains disabled. The next experiment adds
+a normalized tolerance-exceedance loss and fine-tunes from this checkpoint.
+These object-depth benchmarks qualify restoration behavior; a liquid-specific
+plane/height holdout is still required before any industrial claim.
