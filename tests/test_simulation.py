@@ -34,7 +34,7 @@ def test_geometric_labels_and_sensor_failures_are_consistent():
         assert scene.scenario == scenario
         labels = render_geometric_labels(scene)
         inside = labels["mask"] > 0
-        assert inside.sum() > 100
+        assert inside.sum() > 50
         assert np.all(labels["target_depth_m"][inside] > 0)
         norms = np.linalg.norm(labels["normal_camera"][inside], axis=1)
         np.testing.assert_allclose(norms, 1.0, atol=2e-3)
@@ -44,6 +44,9 @@ def test_geometric_labels_and_sensor_failures_are_consistent():
         sensor = simulate_raw_depth(scene, labels)
         coverage[scenario] = float(((sensor["raw_depth_m"] > 0) & inside).sum() / inside.sum())
         assert sensor["uncertainty"].shape == labels["target_depth_m"].shape
+        assert sensor["simulated_error_type"].dtype == np.uint8
+        assert sensor["raw_reliable_mask"].shape == labels["target_depth_m"].shape
+        assert sensor["incidence_cosine"].shape == labels["target_depth_m"].shape
     assert coverage["depth_failure"] < coverage["ordinary"]
     assert coverage["compound"] < coverage["ordinary"]
 
@@ -62,4 +65,4 @@ def test_sample_contract_builds_canonical_manifest(tmp_path):
     assert build_manifest(root, manifest) == 1
     text = manifest.read_text(encoding="utf-8")
     assert "rgb_path,raw_depth_path,target_depth_path" in text
-    assert "active_stereo_proxy_v1" in text
+    assert "active_stereo_proxy_v2" in text

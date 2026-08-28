@@ -1,13 +1,16 @@
-version: 1
-generator: liquid_sim_v1
+version: 2
+generator: liquid_sim_v2
 
 paths:
   blender: /root/autodl-tmp/tools/blender/blender-4.2.0-linux-x64/blender
-  output_root: /root/autodl-tmp/liquid-depth-data/synthetic/liquid-sim-v1
-  artifacts_root: /root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v3
+  output_root: /root/autodl-tmp/liquid-depth-data/synthetic/liquid-sim-v2
+  artifacts_root: /root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v4
 
 camera:
-  modality: active_stereo_proxy
+  modalities: [active_stereo_proxy, structured_light_proxy, tof_proxy]
+  profile: industrial_top
+  primary_elevation_deg: [60, 87]
+  stress_elevation_deg: [42, 60]
   width: 640
   height: 360
   minimum_distance_m: 0.1
@@ -35,8 +38,10 @@ campaign:
     - floating_objects
     - compound
 
+  container_shapes: [cylindrical, elliptical, rounded_rect, wide_tank, tapered]
+
 training:
-  model_family: universal_liquid_surface_v3
+  model_family: universal_liquid_surface_v4
   depth_encoding: log
   minimum_depth_m: 0.1
   maximum_depth_m: 10.0

@@ -22,6 +22,7 @@ class UniversalLiquidSurfaceNet(nn.Module):
         base_channels: int = 32,
         min_depth_m: float = 0.1,
         max_depth_m: float = 10.0,
+        rgb_prior_enabled: bool = False,
     ) -> None:
         super().__init__()
         if not 0 < min_depth_m < max_depth_m:
@@ -30,6 +31,14 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.min_depth_m = float(min_depth_m)
         self.max_depth_m = float(max_depth_m)
         self.log_depth_span = float(math.log(max_depth_m / min_depth_m))
+        self.rgb_prior_enabled = bool(rgb_prior_enabled)
+        if self.rgb_prior_enabled:
+            self.rgb_prior = nn.Sequential(ConvBlock(3, c), nn.Conv2d(c, c, 1))
+            self.rgb_prior_scale = nn.Parameter(torch.tensor(-2.0))
+        else:
+            self.rgb_prior = None
+            self.register_parameter("rgb_prior_scale", None)
+
         self.enc1 = ConvBlock(5, c)
         self.enc2 = ConvBlock(c, c * 2)
         self.enc3 = ConvBlock(c * 2, c * 4)
@@ -53,6 +62,10 @@ class UniversalLiquidSurfaceNet(nn.Module):
         if inputs.ndim != 4 or inputs.shape[1] != 5:
             raise ValueError("Expected BCHW normalized RGB, log-depth, validity")
         e1 = self.enc1(inputs)
+        if self.rgb_prior is not None:
+            missing_depth = 1.0 - inputs[:, 4:5].clamp(0.0, 1.0)
+            gate = torch.sigmoid(self.rgb_prior_scale) * (0.2 + 0.8 * missing_depth)
+            e1 = e1 + gate * self.rgb_prior(inputs[:, :3])
         e2 = self.enc2(self.pool(e1))
         e3 = self.enc3(self.pool(e2))
         features = self.bottleneck(self.pool(e3))
@@ -77,10 +90,13 @@ class UniversalMultiTaskLoss(nn.Module):
         *,
         relative_weight: float = 1.0,
         tolerance_weight: float = 0.5,
+        uncertainty_weight: float = 0.2,
     ) -> None:
         super().__init__()
         self.base = MultiTaskLoss(tolerance_weight=tolerance_weight)
         self.relative_weight = float(relative_weight)
+
+        self.uncertainty_weight = float(uncertainty_weight)
 
     def forward(
         self,
@@ -95,5 +111,20 @@ class UniversalMultiTaskLoss(nn.Module):
         ).abs()
         relative = (log_error * valid).sum() / valid.sum().clamp_min(1.0)
         losses["relative_log"] = relative
-        losses["total"] = losses["total"] + self.relative_weight * relative
+        depth_error = (prediction["depth_m"] - target["depth_m"]).abs()
+        tolerance = torch.maximum(
+            target["depth_m"] * 0.01,
+            torch.full_like(target["depth_m"], 0.003),
+        )
+        reliable = (depth_error.detach() <= tolerance).float()
+        calibration_map = F.binary_cross_entropy_with_logits(
+            -prediction["log_variance"], reliable, reduction="none"
+        )
+        calibration = (calibration_map * valid).sum() / valid.sum().clamp_min(1.0)
+        losses["uncertainty_calibration"] = calibration
+        losses["total"] = (
+            losses["total"]
+            + self.relative_weight * relative
+            + self.uncertainty_weight * calibration
+        )
         return losses

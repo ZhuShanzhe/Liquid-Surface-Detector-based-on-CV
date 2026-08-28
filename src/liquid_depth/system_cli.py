@@ -373,23 +373,68 @@ def _calibrate_output(args) -> None:
     system = make_product_system(args.profile, device=args.device)
     predicted, known, records = [], [], []
     root = args.samples.parent
+    holdout_roles = {"validation", "holdout", "test"}
     for row in rows:
         frame = Path(row["frame_dir"]).expanduser()
         if not frame.is_absolute():
             frame = root / frame
+        role = row.get("role", "calibration").strip().lower() or "calibration"
         result = system.measure(frame, apply_output_calibration=False)
         record = {
             "frame_dir": str(frame.resolve()),
             "known_depth_mm": float(row["known_depth_mm"]),
+            "role": role,
             "accepted": result["accepted"],
             "predicted_depth_m": result["raw_geometry_level_m"],
             "rejection_reasons": result["rejection_reasons"],
         }
         records.append(record)
-        if result["accepted"] and result["raw_geometry_level_m"] is not None:
+        if result["accepted"] and result["raw_geometry_level_m"] is not None and role not in holdout_roles:
             predicted.append(float(result["raw_geometry_level_m"]))
             known.append(float(row["known_depth_mm"]) / 1000.0)
     calibration = fit_output_calibration(predicted, known)
+
+    for record in records:
+        raw_depth = record["predicted_depth_m"]
+        if not record["accepted"] or raw_depth is None:
+            continue
+        known_depth_m = float(record["known_depth_mm"]) / 1000.0
+        calibrated = calibration["scale"] * float(raw_depth) + calibration["offset_m"]
+        absolute_error = abs(calibrated - known_depth_m)
+        tolerance = max(0.003, 0.01 * known_depth_m)
+        record.update(
+            {
+                "calibrated_depth_m": calibrated,
+                "absolute_error_m": absolute_error,
+                "tolerance_m": tolerance,
+                "within_tolerance": absolute_error <= tolerance,
+            }
+        )
+
+    holdout = [
+        record for record in records if record["role"] in holdout_roles and "absolute_error_m" in record
+    ]
+    if holdout:
+        errors = np.asarray(
+            [record["absolute_error_m"] for record in holdout],
+            dtype=np.float64,
+        )
+        holdout_report = {
+            "samples": len(holdout),
+            "mae_m": float(errors.mean()),
+            "rmse_m": float(np.sqrt(np.mean(errors**2))),
+            "max_abs_error_m": float(errors.max()),
+            "within_tolerance_rate": float(np.mean([record["within_tolerance"] for record in holdout])),
+        }
+    else:
+        holdout_report = {
+            "samples": 0,
+            "status": "not_provided",
+            "minimum_recommended": 2,
+        }
+    calibration["holdout_validation"] = holdout_report
+    calibration["validation_status"] = "holdout_validated" if len(holdout) >= 2 else "loocv_only"
+
     profile = load_system_profile(args.profile)
     profile["output_calibration"] = {**calibration, "status": "verified"}
     save_system_profile(args.profile, profile)

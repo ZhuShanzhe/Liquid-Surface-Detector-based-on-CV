@@ -25,6 +25,7 @@ sys.modules[_spec.name] = _simulation
 _spec.loader.exec_module(_simulation)
 build_manifest = _simulation.build_manifest
 camera_to_world = _simulation.camera_to_world
+container_perimeter_point = _simulation.container_perimeter_point
 render_geometric_labels = _simulation.render_geometric_labels
 sample_scene = _simulation.sample_scene
 scene_metadata = _simulation.scene_metadata
@@ -44,6 +45,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--height", type=int, default=360)
     parser.add_argument("--min-distance-m", type=float, default=0.1)
     parser.add_argument("--max-distance-m", type=float, default=10.0)
+    parser.add_argument("--scenario-profile", choices=("balanced", "hard"), default="balanced")
+    parser.add_argument("--camera-profile", choices=("general", "industrial_top", "near_vertical"), default="industrial_top")
     parser.add_argument("--engine", choices=("eevee", "cycles"), default="eevee")
     parser.add_argument("--render-samples", type=int, default=32)
     parser.add_argument("--overwrite", action="store_true")
@@ -100,21 +103,20 @@ def principled_material(
 
 def create_container(scene):
     segments = 128
-    rx, ry = scene.surface_radius_x_m, scene.surface_radius_y_m
     thickness = scene.wall_thickness_m
-    outer_rx, outer_ry = rx + thickness, ry + thickness
     z_bottom, z_top = scene.container_bottom_z_m, scene.container_rim_z_m
     vertices: list[tuple[float, float, float]] = []
-    for ring_rx, ring_ry, z in (
-        (outer_rx, outer_ry, z_bottom),
-        (outer_rx, outer_ry, z_top),
-        (rx, ry, z_bottom + thickness),
-        (rx, ry, z_top),
-    ):
-        vertices.extend(
-            (ring_rx * math.cos(2 * math.pi * i / segments), ring_ry * math.sin(2 * math.pi * i / segments), z)
-            for i in range(segments)
-        )
+    rings = (
+        (True, z_bottom),
+        (True, z_top),
+        (False, z_bottom + thickness),
+        (False, z_top),
+    )
+    for outer, z in rings:
+        for index in range(segments):
+            angle = 2.0 * math.pi * index / segments
+            x, y = container_perimeter_point(scene, angle, z, outer=outer)
+            vertices.append((x, y, z))
     faces = []
     ob, ot, ib, it = (0, segments, 2 * segments, 3 * segments)
     for i in range(segments):
@@ -154,8 +156,9 @@ def create_liquid(scene):
         radius = ring / rings
         for i in range(segments):
             angle = 2 * math.pi * i / segments
-            x = scene.surface_radius_x_m * radius * math.cos(angle)
-            y = scene.surface_radius_y_m * radius * math.sin(angle)
+            boundary_x, boundary_y = container_perimeter_point(scene, angle, 0.0)
+            x = radius * boundary_x
+            y = radius * boundary_y
             z = float(surface_height_and_gradient(scene, np.array(x), np.array(y))[0])
             vertices.append((x, y, z))
     faces = []
@@ -169,17 +172,13 @@ def create_liquid(scene):
             faces.extend(((inner + i, outer + i, outer + j), (inner + i, outer + j, inner + j)))
     top_outer = 1 + (rings - 1) * segments
     bottom_start = len(vertices)
+    bottom_z = scene.container_bottom_z_m + scene.wall_thickness_m
     for i in range(segments):
         angle = 2 * math.pi * i / segments
-        vertices.append(
-            (
-                scene.surface_radius_x_m * math.cos(angle),
-                scene.surface_radius_y_m * math.sin(angle),
-                scene.container_bottom_z_m + scene.wall_thickness_m,
-            )
-        )
+        x, y = container_perimeter_point(scene, angle, bottom_z)
+        vertices.append((x, y, bottom_z))
     bottom_center = len(vertices)
-    vertices.append((0.0, 0.0, scene.container_bottom_z_m + scene.wall_thickness_m))
+    vertices.append((0.0, 0.0, bottom_z))
     for i in range(segments):
         j = (i + 1) % segments
         faces.append((top_outer + i, bottom_start + i, bottom_start + j, top_outer + j))
@@ -342,6 +341,8 @@ def generate_one(args: argparse.Namespace, index: int) -> None:
         height=args.height,
         min_distance_m=args.min_distance_m,
         max_distance_m=args.max_distance_m,
+        scenario_profile=args.scenario_profile,
+        camera_profile=args.camera_profile,
     )
     rng = random.Random(args.seed + index * 104729)
     clear_scene()

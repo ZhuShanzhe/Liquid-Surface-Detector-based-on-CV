@@ -74,6 +74,8 @@ def test_temporal_filter_rejects_large_jump_without_moving_state():
     assert first.accepted and second.accepted
     assert not rejected.accepted
     assert rejected.reason == "temporal_innovation_too_large"
+    assert rejected.recovered
+    assert rejected.hold_frames == 1
     assert rejected.value == second.value
 
 

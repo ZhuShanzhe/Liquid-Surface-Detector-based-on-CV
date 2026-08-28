@@ -218,6 +218,8 @@ class LiquidDepthSystem:
                 gate_sigma=float(options.get("gate_sigma", 3.5)),
                 max_jump=float(options.get("max_jump_m", 0.02)),
                 min_confidence=float(options.get("min_confidence", 0.2)),
+                max_hold_frames=int(options.get("max_hold_frames", 3)),
+                hold_confidence_decay=float(options.get("hold_confidence_decay", 0.65)),
             )
 
     def _load_model(self, device: str | None) -> None:
@@ -424,6 +426,8 @@ class LiquidDepthSystem:
                 "confidence": temporal.confidence,
                 "innovation_m": temporal.innovation,
                 "rejection_reason": temporal.reason,
+                "recovered": temporal.recovered,
+                "hold_frames": temporal.hold_frames,
             }
             if accepted and not temporal.accepted:
                 reasons.append(temporal.reason or "temporal_rejection")

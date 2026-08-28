@@ -118,11 +118,7 @@ def infer_frame(
         meniscus_width_px=int(geometry.get("meniscus_width_px", geometry["liquid_erode_px"])),
     )
     support_config = config.get("surface_support", {})
-    support_options = {
-        key: value
-        for key, value in support_config.items()
-        if key != "enabled"
-    }
+    support_options = {key: value for key, value in support_config.items() if key != "enabled"}
     try:
         fit = _fit(
             frame,
@@ -140,18 +136,14 @@ def infer_frame(
             **support_options,
         )
         primary_reason = (
-            "liquid_surface_mask_empty"
-            if mask_area == 0
-            else "insufficient_liquid_depth_support"
+            "liquid_surface_mask_empty" if mask_area == 0 else "insufficient_liquid_depth_support"
         )
         rejection_reasons = [
             primary_reason,
             *planar_support.rejection_reasons,
         ]
         if not scene_decision.result_allowed:
-            rejection_reasons.append(
-                "complex_model_required_but_unavailable"
-            )
+            rejection_reasons.append("complex_model_required_but_unavailable")
         inference_total_ms = (perf_counter() - started) * 1000.0
         latency_budget_ms = scene_decision.latency_budget_ms
         latency_within_budget = inference_total_ms <= latency_budget_ms
@@ -164,15 +156,9 @@ def infer_frame(
             rejection_reasons.append("latency_budget_exceeded")
         rejection_reasons = list(dict.fromkeys(rejection_reasons))
         mean_segmentation_confidence = (
-            float(segmentation_confidence[mask_pixels].mean())
-            if np.any(mask_pixels)
-            else 0.0
+            float(segmentation_confidence[mask_pixels].mean()) if np.any(mask_pixels) else 0.0
         )
-        mean_depth_confidence = (
-            float(refined.confidence[mask_pixels].mean())
-            if np.any(mask_pixels)
-            else 0.0
-        )
+        mean_depth_confidence = float(refined.confidence[mask_pixels].mean()) if np.any(mask_pixels) else 0.0
         result = {
             "frame_id": frame.frame_id,
             "accepted": False,
@@ -191,9 +177,7 @@ def infer_frame(
                 "depth_refinement_ms": depth_refinement_ms,
                 "budget_ms": latency_budget_ms,
                 "within_budget": latency_within_budget,
-                "budget_scope": (
-                    "frame_load_excluded_artifact_serialization_excluded"
-                ),
+                "budget_scope": ("frame_load_excluded_artifact_serialization_excluded"),
             },
             "interior_mask_area_px": int((interior_mask > 0).sum()),
             "meniscus_mask_area_px": int((meniscus_mask > 0).sum()),
@@ -206,9 +190,7 @@ def infer_frame(
             "liquid_depth_filtered": None,
             "liquid_depth": None,
             "liquid_depth_unit": config["output"]["depth_unit"],
-            "calibration_scale_per_meter": config["output"][
-                "calibration_scale_per_meter"
-            ],
+            "calibration_scale_per_meter": config["output"]["calibration_scale_per_meter"],
             "temporal": None,
             "liquid_plane": None,
         }
@@ -300,6 +282,8 @@ def infer_frame(
             "confidence": temporal.confidence,
             "innovation": temporal.innovation,
             "rejection_reason": temporal.reason,
+            "recovered": temporal.recovered,
+            "hold_frames": temporal.hold_frames,
         }
         accepted = accepted and temporal.accepted
         final_confidence = min(final_confidence, temporal.confidence)

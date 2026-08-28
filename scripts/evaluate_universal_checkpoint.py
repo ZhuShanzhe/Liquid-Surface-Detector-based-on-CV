@@ -25,7 +25,7 @@ def summarize(values: dict[str, float]) -> dict[str, float]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Evaluate a universal v3 checkpoint by scenario and range")
+    parser = argparse.ArgumentParser(description="Evaluate a universal checkpoint by scenario and range")
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--manifest", required=True)
     parser.add_argument("--split", default="test")
@@ -54,7 +54,10 @@ def main() -> None:
     )
     loader = DataLoader(dataset, args.batch_size, num_workers=args.workers, pin_memory=True)
     model = UniversalLiquidSurfaceNet(
-        int(checkpoint["base_channels"]), minimum, maximum
+        int(checkpoint["base_channels"]),
+        minimum,
+        maximum,
+        rgb_prior_enabled=bool(checkpoint.get("rgb_prior_enabled", False)),
     )
     model.load_state_dict(checkpoint["model"])
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -62,6 +65,10 @@ def main() -> None:
     global_metrics = empty_metrics()
     scenarios: defaultdict[str, dict[str, float]] = defaultdict(empty_metrics)
     ranges: defaultdict[str, dict[str, float]] = defaultdict(empty_metrics)
+    confidence_thresholds = (0.25, 0.50, 0.75, 0.90)
+    selective = {threshold: empty_metrics() for threshold in confidence_thresholds}
+    calibration_squared = 0.0
+    calibration_pixels = 0
     range_defs = (("0.1-0.3m", 0.1, 0.3), ("0.3-1m", 0.3, 1.0), ("1-3m", 1.0, 3.0), ("3-10m", 3.0, 10.0001))
     latencies: list[float] = []
     offset = 0
@@ -80,6 +87,10 @@ def main() -> None:
             truth = target["depth_m"]
             absolute = (prediction["depth_m"] - truth).abs()
             tolerance = torch.maximum(truth * 0.01, torch.full_like(truth, 0.003))
+            confidence = prediction["confidence"]
+            reliable = (absolute <= tolerance).float()
+            calibration_squared += float(((confidence - reliable) ** 2)[valid].sum())
+            calibration_pixels += int(valid.sum())
 
             def accumulate(store, selected):
                 count = int(selected.sum())
@@ -93,6 +104,8 @@ def main() -> None:
                 store["pixels"] += count
 
             accumulate(global_metrics, valid)
+            for threshold in confidence_thresholds:
+                accumulate(selective[threshold], valid & (confidence >= threshold))
             for name, low, high in range_defs:
                 accumulate(ranges[name], valid & (truth >= low) & (truth < high))
             for batch_index in range(inputs.shape[0]):
@@ -119,6 +132,14 @@ def main() -> None:
         "global": summarize(global_metrics),
         "by_scenario": {name: summarize(values) for name, values in sorted(scenarios.items())},
         "by_range": {name: summarize(values) for name, values in ranges.items()},
+        "selective_rejection": {
+            f"confidence>={threshold:.2f}": {
+                **summarize(values),
+                "coverage": values["pixels"] / max(global_metrics["pixels"], 1.0),
+            }
+            for threshold, values in selective.items()
+        },
+        "confidence_brier_score": calibration_squared / max(calibration_pixels, 1),
         "latency_ms_per_frame": {
             "mean": sum(latencies) / max(len(latencies), 1),
             "max_batch_mean": max(latencies, default=0.0),

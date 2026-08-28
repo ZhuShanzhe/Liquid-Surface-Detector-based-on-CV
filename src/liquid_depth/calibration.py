@@ -334,15 +334,64 @@ def fit_output_calibration(
         raise ValueError("Output calibration contains non-finite values")
     if float(np.ptp(known)) < 0.02:
         raise ValueError("Known calibration depths must span at least 20 mm")
-    design = np.column_stack((predicted, np.ones_like(predicted)))
-    scale, offset = np.linalg.lstsq(design, known, rcond=None)[0]
+    scale, offset, weights = _fit_robust_affine(predicted, known)
     error = scale * predicted + offset - known
+    loo_error = []
+    for held_out in range(len(predicted)):
+        selected = np.arange(len(predicted)) != held_out
+        loo_scale, loo_offset, _ = _fit_robust_affine(predicted[selected], known[selected])
+        loo_error.append(loo_scale * predicted[held_out] + loo_offset - known[held_out])
+    loo_error_array = np.asarray(loo_error, dtype=np.float64)
     return {
         "scale": float(scale),
         "offset_m": float(offset),
         "samples": len(predicted),
+        "recommended_samples_met": len(predicted) >= 5,
         "known_span_m": float(np.ptp(known)),
+        "robust_inliers": int(np.count_nonzero(weights >= 0.5)),
         "mae_m": float(np.mean(np.abs(error))),
         "rmse_m": float(np.sqrt(np.mean(error**2))),
         "max_abs_error_m": float(np.max(np.abs(error))),
+        "loocv_mae_m": float(np.mean(np.abs(loo_error_array))),
+        "loocv_rmse_m": float(np.sqrt(np.mean(loo_error_array**2))),
+        "loocv_max_abs_error_m": float(np.max(np.abs(loo_error_array))),
     }
+
+
+def _fit_robust_affine(
+    predicted: np.ndarray,
+    known: np.ndarray,
+) -> tuple[float, float, np.ndarray]:
+    """Fit known = scale * predicted + offset with Huber reweighting."""
+    design = np.column_stack((predicted, np.ones_like(predicted)))
+    weights = np.ones(len(predicted), dtype=np.float64)
+    pairwise_slopes = [
+        (known[j] - known[i]) / (predicted[j] - predicted[i])
+        for i in range(len(predicted))
+        for j in range(i + 1, len(predicted))
+        if abs(predicted[j] - predicted[i]) > 1e-12
+    ]
+    if pairwise_slopes:
+        initial_scale = float(np.median(pairwise_slopes))
+        parameters = np.asarray([initial_scale, np.median(known - initial_scale * predicted)])
+    else:
+        parameters = np.linalg.lstsq(design, known, rcond=None)[0]
+    for _ in range(20):
+        residual = design @ parameters - known
+        centered = residual - np.median(residual)
+        robust_sigma = 1.4826 * np.median(np.abs(centered))
+        if robust_sigma < 1e-9:
+            break
+        cutoff = 1.5 * robust_sigma
+        weights = np.minimum(
+            1.0,
+            cutoff / np.maximum(np.abs(centered), 1e-12),
+        )
+        weighted_design = design * np.sqrt(weights)[:, None]
+        weighted_known = known * np.sqrt(weights)
+        updated = np.linalg.lstsq(weighted_design, weighted_known, rcond=None)[0]
+        if np.max(np.abs(updated - parameters)) < 1e-10:
+            parameters = updated
+            break
+        parameters = updated
+    return float(parameters[0]), float(parameters[1]), weights

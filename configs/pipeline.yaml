@@ -152,3 +152,6 @@ temporal:
   gate_sigma: 3.5
   max_jump: 2.0
   min_confidence: 0.20
+  # Rejected frames expose decayed prediction-only diagnostics, never fresh valid output.
+  max_hold_frames: 3
+  hold_confidence_decay: 0.65

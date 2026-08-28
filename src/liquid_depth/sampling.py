@@ -9,6 +9,11 @@ DIFFICULTY_TAGS = (
     "glare",
     "saturated_highlight",
     "container_edge",
+    "depth_failure",
+    "multilayer",
+    "low_light",
+    "nonplanar_surface",
+    "compound",
 )
 
 
@@ -21,13 +26,23 @@ def parse_tags(value: str | Iterable[str]) -> tuple[str, ...]:
 
 
 def balanced_sample_weights(
-    rows: Iterable[Mapping[str, object]], tag_column: str = "difficulty_tags"
+    rows: Iterable[Mapping[str, object]],
+    tag_column: str = "difficulty_tags",
+    priority_multipliers: Mapping[str, float] | None = None,
 ) -> list[float]:
     rows = list(rows)
     parsed = [parse_tags(str(row.get(tag_column, "ordinary"))) or ("ordinary",) for row in rows]
     counts = Counter(tag for tags in parsed for tag in tags)
     if not rows:
         return []
-    raw = [max(1.0 / counts[tag] for tag in tags) for tags in parsed]
+    multipliers = {
+        str(tag).strip().lower(): max(float(value), 0.0)
+        for tag, value in (priority_multipliers or {}).items()
+    }
+    raw = [
+        max(1.0 / counts[tag] for tag in tags)
+        * max((multipliers.get(tag, 1.0) for tag in tags), default=1.0)
+        for tags in parsed
+    ]
     mean = sum(raw) / len(raw)
     return [weight / mean for weight in raw]

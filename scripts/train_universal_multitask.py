@@ -20,6 +20,17 @@ def move_target(target: dict, device):
     return {name: value.to(device, non_blocking=True) for name, value in target.items()}
 
 
+def parse_priority_multipliers(value: str) -> dict[str, float]:
+    result: dict[str, float] = {}
+    for item in value.split(","):
+        item = item.strip()
+        if not item:
+            continue
+        tag, raw_value = item.split("=", maxsplit=1)
+        result[tag.strip().lower()] = float(raw_value)
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Train the universal 0.1-10 m RGB-D liquid model")
     parser.add_argument("--manifest", required=True)
@@ -37,6 +48,11 @@ def main() -> None:
     parser.add_argument("--initialize-from", type=Path)
     parser.add_argument("--relative-weight", type=float, default=1.0)
     parser.add_argument("--tolerance-weight", type=float, default=0.5)
+    parser.add_argument("--uncertainty-weight", type=float, default=0.2)
+    parser.add_argument("--rgb-prior", action="store_true")
+    parser.add_argument(
+        "--difficulty-boosts", default="depth_failure=3,compound=2,multilayer=1.5,low_light=1.5,glare=1.25"
+    )
     parser.add_argument("--log-every", type=int, default=100)
     args = parser.parse_args()
     if args.resume and args.initialize_from:
@@ -76,7 +92,10 @@ def main() -> None:
         min_depth_m=args.min_depth_m,
         max_depth_m=args.max_depth_m,
     )
-    weights = torch.as_tensor(balanced_sample_weights(train_set.rows), dtype=torch.double)
+    priority_multipliers = parse_priority_multipliers(args.difficulty_boosts)
+    weights = torch.as_tensor(
+        balanced_sample_weights(train_set.rows, priority_multipliers=priority_multipliers), dtype=torch.double
+    )
     sampler = WeightedRandomSampler(weights, num_samples=len(weights), replacement=True)
     train_loader = DataLoader(
         train_set,
@@ -94,11 +113,15 @@ def main() -> None:
         persistent_workers=args.workers > 0,
     )
     model = UniversalLiquidSurfaceNet(
-        args.base_channels, args.min_depth_m, args.max_depth_m
+        args.base_channels,
+        args.min_depth_m,
+        args.max_depth_m,
+        rgb_prior_enabled=args.rgb_prior,
     ).to(device)
     criterion = UniversalMultiTaskLoss(
         relative_weight=args.relative_weight,
         tolerance_weight=args.tolerance_weight,
+        uncertainty_weight=args.uncertainty_weight,
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
@@ -108,7 +131,15 @@ def main() -> None:
     source_path = args.resume or args.initialize_from
     if source_path:
         state = torch.load(source_path, map_location="cpu", weights_only=False)
-        model.load_state_dict(state["model"], strict=True)
+        if args.rgb_prior:
+            incompatible = model.load_state_dict(state["model"], strict=False)
+            invalid_missing = [name for name in incompatible.missing_keys if not name.startswith("rgb_prior")]
+            if invalid_missing or incompatible.unexpected_keys:
+                raise RuntimeError(
+                    f"Incompatible initialization: missing={invalid_missing}, unexpected={incompatible.unexpected_keys}"
+                )
+        else:
+            model.load_state_dict(state["model"], strict=True)
         initial_checkpoint = source_path.resolve().as_posix()
         if args.resume:
             optimizer.load_state_dict(state["optimizer"])
@@ -212,7 +243,10 @@ def main() -> None:
             "min_depth_m": args.min_depth_m,
             "max_depth_m": args.max_depth_m,
             "depth_encoding": "log",
-            "model_family": "universal_liquid_surface_v3",
+            "model_family": "universal_liquid_surface_v4",
+            "rgb_prior_enabled": args.rgb_prior,
+            "uncertainty_weight": args.uncertainty_weight,
+            "difficulty_boosts": priority_multipliers,
             "initial_checkpoint": initial_checkpoint,
             "input_contract": "RGB ImageNet-normalized + log-depth[0.1,10m] + validity",
         }

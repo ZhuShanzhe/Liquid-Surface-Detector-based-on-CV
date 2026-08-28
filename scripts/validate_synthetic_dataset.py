@@ -30,6 +30,10 @@ def main() -> None:
     scenario_counts: Counter[str] = Counter()
     split_counts: Counter[str] = Counter()
     range_counts: Counter[str] = Counter()
+    container_counts: Counter[str] = Counter()
+    sensor_counts: Counter[str] = Counter()
+    camera_profile_counts: Counter[str] = Counter()
+    camera_elevations_deg: list[float] = []
     coverage: defaultdict[str, list[float]] = defaultdict(list)
     target_depths: list[float] = []
     for row_index, row in enumerate(rows):
@@ -68,6 +72,16 @@ def main() -> None:
             scenario = row.get("scenario", "unknown")
             scenario_counts[scenario] += 1
             split_counts[row["split"]] += 1
+            sensor_counts[row.get("sensor_model", "unknown")] += 1
+            metadata_value = row.get("metadata_path", "")
+            if metadata_value:
+                metadata = json.loads(resolve(root, metadata_value).read_text(encoding="utf-8"))
+                container_counts[metadata.get("container_shape", "unknown")] += 1
+                camera_profile_counts[metadata.get("camera_profile", "unknown")] += 1
+                position = np.asarray(metadata["camera_position_m"], dtype=np.float64)
+                camera_elevations_deg.append(
+                    float(np.degrees(np.arcsin(position[2] / np.linalg.norm(position))))
+                )
             valid_raw = (raw > 0) & inside
             coverage[scenario].append(float(valid_raw.sum() / inside.sum()))
             median_depth = float(np.median(valid_target))
@@ -92,6 +106,16 @@ def main() -> None:
         "scenario_counts": dict(sorted(scenario_counts.items())),
         "split_counts": dict(sorted(split_counts.items())),
         "range_counts": dict(range_counts),
+        "container_shape_counts": dict(sorted(container_counts.items())),
+        "sensor_model_counts": dict(sorted(sensor_counts.items())),
+        "camera_profile_counts": dict(sorted(camera_profile_counts.items())),
+        "camera_elevation_deg": {
+            "minimum": float(np.min(camera_elevations_deg)) if camera_elevations_deg else None,
+            "p10": float(np.percentile(camera_elevations_deg, 10)) if camera_elevations_deg else None,
+            "median": float(np.median(camera_elevations_deg)) if camera_elevations_deg else None,
+            "p90": float(np.percentile(camera_elevations_deg, 90)) if camera_elevations_deg else None,
+            "maximum": float(np.max(camera_elevations_deg)) if camera_elevations_deg else None,
+        },
         "median_surface_depth_m": float(np.median(target_depths)) if target_depths else None,
         "scenario_raw_coverage": {
             name: {

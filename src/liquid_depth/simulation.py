@@ -23,6 +23,44 @@ SCENARIOS = (
     "compound",
 )
 
+CONTAINER_SHAPES = (
+    "cylindrical",
+    "elliptical",
+    "rounded_rect",
+    "wide_tank",
+    "tapered",
+)
+
+SENSOR_FAMILIES = ("active_stereo", "structured_light", "tof")
+CAMERA_PROFILES = (
+    "general",
+    "industrial_top",
+    "near_vertical",
+)
+
+SCENARIO_PROFILES = {
+    "balanced": SCENARIOS,
+    "hard": (
+        "ordinary",
+        "transparent",
+        "translucent",
+        "glare",
+        "glare",
+        "low_light",
+        "low_light",
+        "depth_failure",
+        "depth_failure",
+        "depth_failure",
+        "multilayer",
+        "multilayer",
+        "uneven_surface",
+        "floating_objects",
+        "compound",
+        "compound",
+        "compound",
+    ),
+}
+
 
 @dataclass(frozen=True)
 class SyntheticScene:
@@ -36,6 +74,13 @@ class SyntheticScene:
     horizontal_fov_deg: float
     camera_position_m: tuple[float, float, float]
     camera_target_m: tuple[float, float, float]
+    scenario_profile: str
+    container_shape: str
+    camera_profile: str
+    container_exponent: float
+    container_taper_ratio: float
+    container_material: str
+    sensor_family: str
     surface_radius_x_m: float
     surface_radius_y_m: float
     container_bottom_z_m: float
@@ -89,13 +134,28 @@ def sample_scene(
     height: int = 360,
     min_distance_m: float = 0.1,
     max_distance_m: float = 10.0,
+    scenario_profile: str = "balanced",
+    camera_profile: str = "general",
 ) -> SyntheticScene:
     if not 0 < min_distance_m < max_distance_m:
         raise ValueError("Expected 0 < min_distance_m < max_distance_m")
+    if scenario_profile not in SCENARIO_PROFILES:
+        choices = ", ".join(sorted(SCENARIO_PROFILES))
+        raise ValueError(f"Unknown scenario profile {scenario_profile!r}; expected {choices}")
     rng = np.random.default_rng(seed + index * 104729)
-    scenario = SCENARIOS[index % len(SCENARIOS)]
+    if camera_profile not in CAMERA_PROFILES:
+        choices = ", ".join(CAMERA_PROFILES)
+        raise ValueError(f"Unknown camera profile {camera_profile!r}; expected {choices}")
+    schedule = SCENARIO_PROFILES[scenario_profile]
+    scenario = schedule[index % len(schedule)]
     distance = float(np.exp(rng.uniform(np.log(min_distance_m), np.log(max_distance_m))))
-    elevation = math.radians(float(rng.uniform(12.0, 58.0)))
+    if camera_profile == "near_vertical":
+        elevation_deg = float(rng.uniform(72.0, 88.5))
+    elif camera_profile == "industrial_top":
+        elevation_deg = float(rng.uniform(42.0, 60.0) if index % 7 == 0 else rng.uniform(60.0, 87.0))
+    else:
+        elevation_deg = float(rng.uniform(12.0, 58.0))
+    elevation = math.radians(elevation_deg)
     azimuth = float(rng.uniform(-math.pi, math.pi))
     camera_position = (
         distance * math.cos(elevation) * math.cos(azimuth),
@@ -110,7 +170,27 @@ def sample_scene(
             2.5,
         )
     )
-    radius_y = float(radius_x * rng.uniform(0.65, 1.25))
+    container_shape = CONTAINER_SHAPES[index % len(CONTAINER_SHAPES)]
+    if container_shape == "cylindrical":
+        radius_y = radius_x
+        exponent = 2.0
+        taper_ratio = 1.0
+    elif container_shape == "elliptical":
+        radius_y = float(radius_x * rng.uniform(0.55, 1.35))
+        exponent = 2.0
+        taper_ratio = 1.0
+    elif container_shape == "rounded_rect":
+        radius_y = float(radius_x * rng.uniform(0.65, 1.35))
+        exponent = float(rng.uniform(4.0, 8.0))
+        taper_ratio = 1.0
+    elif container_shape == "wide_tank":
+        radius_y = float(radius_x * rng.uniform(0.28, 0.55))
+        exponent = float(rng.uniform(3.0, 6.0))
+        taper_ratio = float(rng.uniform(0.92, 1.08))
+    else:
+        radius_y = float(radius_x * rng.uniform(0.65, 1.20))
+        exponent = float(rng.uniform(2.0, 4.5))
+        taper_ratio = float(rng.uniform(0.62, 1.38))
     fill_depth = float(np.clip(radius_x * rng.uniform(0.8, 2.8), 0.04, 4.0))
     rim_height = float(np.clip(radius_x * rng.uniform(0.12, 0.45), 0.008, 0.6))
     wall_thickness = float(np.clip(radius_x * rng.uniform(0.015, 0.05), 0.0015, 0.025))
@@ -131,6 +211,8 @@ def sample_scene(
     light_level = float(rng.uniform(0.05, 0.22) if dark else rng.uniform(0.7, 1.4))
     exposure = float(rng.uniform(-3.0, -1.2) if dark else rng.uniform(-0.3, 0.7))
     floating_count = int(rng.integers(4, 18)) if scenario in {"floating_objects", "compound"} else 0
+    container_material = ("glass", "acrylic", "coated_glass")[index % 3]
+    sensor_family = SENSOR_FAMILIES[(index // len(CONTAINER_SHAPES)) % len(SENSOR_FAMILIES)]
     return SyntheticScene(
         index=index,
         seed=seed,
@@ -142,6 +224,13 @@ def sample_scene(
         horizontal_fov_deg=fov,
         camera_position_m=tuple(map(float, camera_position)),
         camera_target_m=(0.0, 0.0, 0.0),
+        scenario_profile=scenario_profile,
+        container_shape=container_shape,
+        container_exponent=exponent,
+        camera_profile=camera_profile,
+        container_taper_ratio=taper_ratio,
+        container_material=container_material,
+        sensor_family=sensor_family,
         surface_radius_x_m=radius_x,
         surface_radius_y_m=radius_y,
         container_bottom_z_m=-fill_depth,
@@ -190,6 +279,47 @@ def camera_intrinsics(scene: SyntheticScene) -> np.ndarray:
             (0.0, 0.0, 1.0),
         ),
         dtype=np.float64,
+    )
+def container_scale_at_z(scene: SyntheticScene, z: np.ndarray | float) -> np.ndarray:
+    span = max(scene.container_rim_z_m - scene.container_bottom_z_m, 1e-6)
+    alpha = np.clip((np.asarray(z) - scene.container_bottom_z_m) / span, 0.0, 1.0)
+    return 1.0 + (scene.container_taper_ratio - 1.0) * alpha
+
+
+def container_implicit(
+    scene: SyntheticScene,
+    x: np.ndarray,
+    y: np.ndarray,
+    z: np.ndarray | float,
+    *,
+    outer: bool = False,
+) -> np.ndarray:
+    scale = container_scale_at_z(scene, z)
+    thickness = scene.wall_thickness_m if outer else 0.0
+    radius_x = scene.surface_radius_x_m * scale + thickness
+    radius_y = scene.surface_radius_y_m * scale + thickness
+    exponent = scene.container_exponent
+    return (np.abs(x) / np.maximum(radius_x, 1e-6)) ** exponent + (
+        np.abs(y) / np.maximum(radius_y, 1e-6)
+    ) ** exponent
+
+
+def container_perimeter_point(
+    scene: SyntheticScene,
+    angle: float,
+    z: float,
+    *,
+    outer: bool = False,
+) -> tuple[float, float]:
+    exponent = scene.container_exponent
+    cosine, sine = math.cos(angle), math.sin(angle)
+    scale = float(container_scale_at_z(scene, z))
+    thickness = scene.wall_thickness_m if outer else 0.0
+    return (
+        (scene.surface_radius_x_m * scale + thickness)
+        * math.copysign(abs(cosine) ** (2.0 / exponent), cosine),
+        (scene.surface_radius_y_m * scale + thickness)
+        * math.copysign(abs(sine) ** (2.0 / exponent), sine),
     )
 
 
@@ -268,11 +398,15 @@ def render_geometric_labels(scene: SyntheticScene) -> dict[str, np.ndarray]:
         t -= (points[..., 2] - height) / np.where(np.abs(derivative) > 1e-8, derivative, np.nan)
     points = origin + t[..., None] * directions
     height, grad_x, grad_y = surface_height_and_gradient(scene, points[..., 0], points[..., 1])
-    ellipse = (
-        (points[..., 0] / scene.surface_radius_x_m) ** 2
-        + (points[..., 1] / scene.surface_radius_y_m) ** 2
+    footprint = container_implicit(
+        scene, points[..., 0], points[..., 1], points[..., 2]
     )
-    mask = np.isfinite(t) & (t > 0.0) & (ellipse <= 1.0) & (np.abs(points[..., 2] - height) < 1e-4)
+    mask = (
+        np.isfinite(t)
+        & (t > 0.0)
+        & (footprint <= 1.0)
+        & (np.abs(points[..., 2] - height) < 1e-4)
+    )
     camera_points = points @ world_to_camera[:3, :3].T + world_to_camera[:3, 3]
     target_depth = np.where(mask, -camera_points[..., 2], 0.0).astype(np.float32)
     normals_world = np.stack((-grad_x, -grad_y, np.ones_like(grad_x)), axis=-1)
@@ -301,19 +435,63 @@ def _coarse_noise(rng: np.random.Generator, height: int, width: int, scale: int 
     return np.repeat(np.repeat(coarse, scale, axis=0), scale, axis=1)[:height, :width]
 
 
-def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> dict[str, np.ndarray]:
+
+def _mask_edge(mask: np.ndarray, radius: int = 2) -> np.ndarray:
+    interior = mask.copy()
+    for shift in range(1, radius + 1):
+        interior &= np.roll(mask, shift, axis=0)
+        interior &= np.roll(mask, -shift, axis=0)
+        interior &= np.roll(mask, shift, axis=1)
+        interior &= np.roll(mask, -shift, axis=1)
+    return mask & ~interior
+
+
+def simulate_raw_depth(
+    scene: SyntheticScene, labels: dict[str, np.ndarray]
+) -> dict[str, np.ndarray]:
+    """Physics-guided RGB-D corruption proxy with structured failures and echoes."""
     rng = np.random.default_rng(scene.seed + scene.index * 130363 + 17)
     target = labels["target_depth_m"]
     mask = labels["mask"] > 0
     raw = np.where(mask, target, 0.0).astype(np.float32)
-    sigma = 0.0007 + 0.0012 * target * target
+    _, directions_world, transform = _camera_rays(scene)
+    camera_directions = directions_world @ transform[:3, :3]
+    view_directions = -camera_directions
+    incidence = np.abs(
+        np.sum(labels["normal_camera"] * view_directions, axis=-1)
+    ).astype(np.float32)
+    incidence = np.clip(incidence, 0.05, 1.0)
+    edge = _mask_edge(mask, radius=2)
+
+    noise_parameters = {
+        "active_stereo": (0.0006, 0.0011),
+        "structured_light": (0.0008, 0.0015),
+        "tof": (0.0015, 0.0007),
+    }
+    noise_floor, distance_noise = noise_parameters[scene.sensor_family]
+    if scene.sensor_family == "tof":
+        sigma = noise_floor + distance_noise * target
+    else:
+        sigma = noise_floor + distance_noise * target * target
+    sigma *= 1.0 + 3.0 * (1.0 - incidence) ** 2
     raw[mask] += rng.normal(0.0, sigma[mask]).astype(np.float32)
-    fx, baseline_m = camera_intrinsics(scene)[0, 0], 0.055
-    valid = raw > 0.0
-    disparity = np.zeros_like(raw)
-    disparity[valid] = fx * baseline_m / raw[valid]
-    disparity[valid] += rng.normal(0.0, 0.18, size=int(valid.sum())).astype(np.float32)
-    raw[valid] = fx * baseline_m / np.maximum(np.round(disparity[valid] * 16.0) / 16.0, 1e-3)
+
+    if scene.sensor_family in {"active_stereo", "structured_light"}:
+        fx = camera_intrinsics(scene)[0, 0]
+        baseline_m = 0.055 if scene.sensor_family == "active_stereo" else 0.035
+        valid = raw > 0.0
+        disparity = np.zeros_like(raw)
+        disparity[valid] = fx * baseline_m / raw[valid]
+        disparity_noise = 0.18 if scene.sensor_family == "active_stereo" else 0.26
+        disparity[valid] += rng.normal(
+            0.0, disparity_noise, size=int(valid.sum())
+        ).astype(np.float32)
+        raw[valid] = fx * baseline_m / np.maximum(
+            np.round(disparity[valid] * 16.0) / 16.0, 1e-3
+        )
+    else:
+        raw = np.round(raw * 1000.0) / 1000.0
+
     invalid_ranges = {
         "ordinary": (0.02, 0.10),
         "transparent": (0.25, 0.60),
@@ -327,31 +505,86 @@ def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> 
         "compound": (0.72, 0.98),
     }
     low, high = invalid_ranges[scene.scenario]
-    probability = float(rng.uniform(low, high))
-    structure = 0.65 * _coarse_noise(rng, scene.height, scene.width) + 0.35 * rng.random(target.shape)
-    dropout = mask & (structure < probability)
+    base_probability = float(rng.uniform(low, high))
+    probability = (
+        base_probability
+        + 0.30 * (1.0 - incidence)
+        + 0.16 * edge.astype(np.float32)
+        + 0.10 * np.clip(target / 10.0, 0.0, 1.0)
+    )
+    if scene.sensor_family == "structured_light":
+        probability += 0.08
+    structure = (
+        0.55 * _coarse_noise(rng, scene.height, scene.width, scale=32)
+        + 0.25 * _coarse_noise(rng, scene.height, scene.width, scale=11)
+        + 0.20 * rng.random(target.shape)
+    )
+    dropout = mask & (structure < np.clip(probability, 0.0, 0.995))
+
     highlight = np.zeros_like(mask)
     if scene.scenario in {"glare", "compound"}:
         u, v = np.arange(scene.width)[None, :], np.arange(scene.height)[:, None]
-        cx, cy = rng.uniform(0.3, 0.7) * scene.width, rng.uniform(0.25, 0.75) * scene.height
-        rx, ry = rng.uniform(0.05, 0.18) * scene.width, rng.uniform(0.03, 0.15) * scene.height
-        highlight = (((u - cx) / rx) ** 2 + ((v - cy) / ry) ** 2 <= 1.0) & mask
+        for _ in range(int(rng.integers(1, 4))):
+            cx = rng.uniform(0.2, 0.8) * scene.width
+            cy = rng.uniform(0.2, 0.8) * scene.height
+            rx = rng.uniform(0.03, 0.20) * scene.width
+            ry = rng.uniform(0.02, 0.16) * scene.height
+            highlight |= (((u - cx) / rx) ** 2 + ((v - cy) / ry) ** 2 <= 1.0) & mask
         dropout |= highlight
-    wrong_rate = 0.22 if scene.scenario in {"transparent", "multilayer", "compound"} else 0.03
-    wrong_return = mask & ~dropout & (rng.random(target.shape) < wrong_rate)
+
+    wrong_base = (
+        0.24 if scene.scenario in {"transparent", "multilayer", "compound"} else 0.035
+    )
+    if scene.container_material == "coated_glass":
+        wrong_base += 0.08
+    wrong_probability = wrong_base + 0.22 * (1.0 - incidence) + 0.12 * edge
+    wrong_return = mask & ~dropout & (rng.random(target.shape) < wrong_probability)
     far_layer = np.max(labels["layer_depths_m"], axis=0)
     wrong_return &= far_layer > 0
     raw[wrong_return] = far_layer[wrong_return]
+
+    flying = (
+        edge
+        & ~dropout
+        & ~wrong_return
+        & (rng.random(target.shape) < (0.35 + 0.25 * (1.0 - incidence)))
+    )
+    flying_target = np.where(far_layer > target, far_layer, target + 0.03)
+    raw[flying] = rng.uniform(0.2, 0.8) * target[flying] + rng.uniform(
+        0.2, 0.8
+    ) * flying_target[flying]
+
+    biased = mask & ~dropout & ~wrong_return & ~flying
     if scene.scenario in {"translucent", "multilayer", "compound"}:
-        biased = mask & ~dropout & ~wrong_return
         raw[biased] += rng.uniform(0.002, 0.025) * np.maximum(raw[biased], 1.0)
+    if scene.sensor_family == "tof" and scene.scenario in {
+        "transparent",
+        "multilayer",
+        "compound",
+    }:
+        multipath = biased & (rng.random(target.shape) < 0.45)
+        raw[multipath] += rng.uniform(0.01, 0.08) * np.maximum(raw[multipath], 0.5)
+
+    error_type = np.zeros_like(target, dtype=np.uint8)
+    error_type[dropout] = 1
+    error_type[wrong_return] = 2
+    error_type[flying] = 3
+    error_type[highlight] = 4
     raw[dropout] = 0.0
-    raw = np.where(np.isfinite(raw) & (raw > 0.0) & (raw <= 10.5), raw, 0.0).astype(np.float32)
+    out_of_range = mask & (
+        (raw < (0.12 if scene.sensor_family != "tof" else 0.08)) | (raw > 10.5)
+    )
+    error_type[out_of_range] = 5
+    raw[out_of_range] = 0.0
+    raw = np.where(np.isfinite(raw) & (raw > 0.0), raw, 0.0).astype(np.float32)
+
     tolerance = np.maximum(0.003, 0.01 * target)
-    uncertainty = np.ones_like(target, dtype=np.float32)
+    absolute_error = np.abs(raw - target)
     measured = mask & (raw > 0)
+    reliable = measured & (absolute_error <= tolerance)
+    uncertainty = np.ones_like(target, dtype=np.float32)
     uncertainty[measured] = np.clip(
-        np.abs(raw[measured] - target[measured]) / np.maximum(tolerance[measured], 1e-6),
+        absolute_error[measured] / np.maximum(tolerance[measured], 1e-6),
         0.0,
         10.0,
     ) / 10.0
@@ -360,6 +593,9 @@ def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> 
         "uncertainty": uncertainty,
         "simulated_dropout_mask": dropout.astype(np.uint8),
         "simulated_highlight_mask": highlight.astype(np.uint8),
+        "simulated_error_type": error_type,
+        "raw_reliable_mask": reliable.astype(np.uint8),
+        "incidence_cosine": np.where(mask, incidence, 0.0).astype(np.float32),
     }
 
 
@@ -381,10 +617,13 @@ def scene_metadata(scene: SyntheticScene, sample_dir: Path) -> dict[str, object]
                 "layer_valid": "layer_valid.npy",
                 "dropout_mask": "simulated_dropout_mask.npy",
                 "highlight_mask": "simulated_highlight_mask.npy",
+                "error_type": "simulated_error_type.npy",
+                "raw_reliable": "raw_reliable_mask.npy",
+                "incidence_cosine": "incidence_cosine.npy",
             },
             "sample_dir": sample_dir.name,
-            "generator_version": "liquid_sim_v1",
-            "sensor_model": "active_stereo_proxy_v1",
+            "generator_version": "liquid_sim_v2",
+            "sensor_model": f"{scene.sensor_family}_proxy_v2",
         }
     )
     return metadata
@@ -404,6 +643,9 @@ def write_sample_arrays(
         "uncertainty.npy": sensor["uncertainty"],
         "simulated_dropout_mask.npy": sensor["simulated_dropout_mask"],
         "simulated_highlight_mask.npy": sensor["simulated_highlight_mask"],
+        "simulated_error_type.npy": sensor["simulated_error_type"],
+        "raw_reliable_mask.npy": sensor["raw_reliable_mask"],
+        "incidence_cosine.npy": sensor["incidence_cosine"],
     }
     for name, value in files.items():
         np.save(sample_dir / name, value)
