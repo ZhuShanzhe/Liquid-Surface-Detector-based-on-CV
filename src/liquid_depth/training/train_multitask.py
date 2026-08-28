@@ -19,9 +19,9 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=80)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--learning-rate", type=float, default=3e-4)
-    parser.add_argument("--image-size", default="640,360", help="width,height")
-    parser.add_argument("--max-depth-m", type=float, default=3.0)
-    parser.add_argument("--base-channels", type=int, default=32)
+    parser.add_argument("--image-size", help="width,height; inherited from checkpoint when omitted")
+    parser.add_argument("--max-depth-m", type=float)
+    parser.add_argument("--base-channels", type=int)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--resume", type=Path)
@@ -46,11 +46,33 @@ def main() -> None:
     if not torch.cuda.is_available():
         raise SystemExit("CUDA is required for the configured training workflow")
     device = torch.device("cuda")
-    image_size = tuple(map(int, args.image_size.split(",")))
+    source_checkpoint = args.resume or args.initialize_from
+    source_state = (
+        torch.load(
+            source_checkpoint,
+            map_location="cpu",
+            weights_only=False,
+        )
+        if source_checkpoint
+        else None
+    )
+    saved_image_size = source_state.get("image_size") if source_state else None
+    image_size_text = args.image_size or (
+        ",".join(map(str, saved_image_size))
+        if saved_image_size
+        else "640,360"
+    )
+    image_size = tuple(map(int, image_size_text.split(",")))
+    base_channels = args.base_channels or int(
+        source_state.get("base_channels", 32) if source_state else 32
+    )
+    max_depth_m = args.max_depth_m or float(
+        source_state.get("max_depth_m", 3.0) if source_state else 3.0
+    )
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    train_set = MultiTaskDataset(args.manifest, "train", image_size, args.max_depth_m, augment=True)
-    val_set = MultiTaskDataset(args.manifest, "val", image_size, args.max_depth_m, augment=False)
+    train_set = MultiTaskDataset(args.manifest, "train", image_size, max_depth_m, augment=True)
+    val_set = MultiTaskDataset(args.manifest, "val", image_size, max_depth_m, augment=False)
     weights = torch.as_tensor(balanced_sample_weights(train_set.rows), dtype=torch.double)
     sampler = WeightedRandomSampler(weights, num_samples=len(weights), replacement=True)
     train_loader = DataLoader(
@@ -68,7 +90,7 @@ def main() -> None:
         pin_memory=True,
         persistent_workers=args.workers > 0,
     )
-    model = LiquidSurfaceMultiTaskNet(args.base_channels, args.max_depth_m).to(device)
+    model = LiquidSurfaceMultiTaskNet(base_channels, max_depth_m).to(device)
     criterion = MultiTaskLoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
@@ -77,7 +99,7 @@ def main() -> None:
     initial_checkpoint: str | None = None
     metrics_path = output_dir / "metrics.jsonl"
     if args.resume:
-        state = torch.load(args.resume, map_location="cpu", weights_only=False)
+        state = source_state
         model.load_state_dict(state["model"], strict=True)
         optimizer.load_state_dict(state["optimizer"])
         scheduler.load_state_dict(state["scheduler"])
@@ -90,11 +112,7 @@ def main() -> None:
         start_epoch = int(state["epoch"]) + 1
         initial_checkpoint = state.get("initial_checkpoint")
     elif args.initialize_from:
-        state = torch.load(
-            args.initialize_from,
-            map_location="cpu",
-            weights_only=False,
-        )
+        state = source_state
         model.load_state_dict(state["model"], strict=True)
         initial_checkpoint = args.initialize_from.resolve().as_posix()
 
@@ -163,8 +181,8 @@ def main() -> None:
             "best_rmse": best_rmse,
             "metrics": metrics,
             "image_size": image_size,
-            "base_channels": args.base_channels,
-            "max_depth_m": args.max_depth_m,
+            "base_channels": base_channels,
+            "max_depth_m": max_depth_m,
             "initial_checkpoint": initial_checkpoint,
             "input_contract": "RGB ImageNet-normalized + depth/max_depth_m + validity",
         }

@@ -239,7 +239,8 @@ python -m liquid_depth.training.train_multitask \
 ```
 
 Use `--initialize-from` for specialist fine-tuning because it imports model
-weights but starts a new optimizer and scheduler. Use `--resume` only to continue
+weights but starts a new optimizer and scheduler. Image size, base channels, and
+maximum metric depth are inherited from that checkpoint unless explicitly overridden. Use `--resume` only to continue
 the exact same interrupted run. The two options are mutually exclusive.
 
 The augmentation profile is stored per row and is reproducible. Glare forces
