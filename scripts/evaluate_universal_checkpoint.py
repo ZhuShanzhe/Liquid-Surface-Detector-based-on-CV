@@ -69,6 +69,15 @@ def main() -> None:
     selective = {threshold: empty_metrics() for threshold in confidence_thresholds}
     calibration_squared = 0.0
     calibration_pixels = 0
+    surface_level = {
+        threshold: {
+            "absolute": 0.0,
+            "relative": 0.0,
+            "within": 0.0,
+            "samples": 0.0,
+        }
+        for threshold in confidence_thresholds
+    }
     range_defs = (("0.1-0.3m", 0.1, 0.3), ("0.3-1m", 0.3, 1.0), ("1-3m", 1.0, 3.0), ("3-10m", 3.0, 10.0001))
     latencies: list[float] = []
     offset = 0
@@ -108,6 +117,7 @@ def main() -> None:
                 accumulate(selective[threshold], valid & (confidence >= threshold))
             for name, low, high in range_defs:
                 accumulate(ranges[name], valid & (truth >= low) & (truth < high))
+            predicted_surface = prediction["mask_logits"].sigmoid() >= 0.5
             for batch_index in range(inputs.shape[0]):
                 scenario = dataset.rows[offset + batch_index].get("scenario", "unknown")
                 selected = valid[batch_index : batch_index + 1]
@@ -123,6 +133,27 @@ def main() -> None:
                     store["relative"] += float((error / batch_truth[selected].clamp_min(1e-6)).sum())
                     store["within"] += int((error <= batch_tol[selected]).sum())
                     store["pixels"] += count
+                valid_pixels = int(selected.sum())
+                for threshold in confidence_thresholds:
+                    level_selected = (
+                        selected
+                        & predicted_surface[batch_index : batch_index + 1]
+                        & (confidence[batch_index : batch_index + 1] >= threshold)
+                    )
+                    minimum_points = max(64, int(0.01 * valid_pixels))
+                    if int(level_selected.sum()) < minimum_points:
+                        continue
+                    signed_error = (prediction["depth_m"][batch_index : batch_index + 1] - batch_truth)[
+                        level_selected
+                    ]
+                    level_error = float(signed_error.median().abs())
+                    reference = float(batch_truth[level_selected].median())
+                    level_tolerance = max(0.003, 0.01 * reference)
+                    level_store = surface_level[threshold]
+                    level_store["absolute"] += level_error
+                    level_store["relative"] += level_error / max(reference, 1e-6)
+                    level_store["within"] += float(level_error <= level_tolerance)
+                    level_store["samples"] += 1.0
             offset += inputs.shape[0]
     report = {
         "checkpoint": args.checkpoint.resolve().as_posix(),
@@ -140,6 +171,16 @@ def main() -> None:
             for threshold, values in selective.items()
         },
         "confidence_brier_score": calibration_squared / max(calibration_pixels, 1),
+        "surface_level_selective": {
+            f"confidence>={threshold:.2f}": {
+                "accepted_frames": int(values["samples"]),
+                "frame_coverage": values["samples"] / max(len(dataset), 1),
+                "mae_m": values["absolute"] / max(values["samples"], 1.0),
+                "abs_rel": values["relative"] / max(values["samples"], 1.0),
+                "within_tolerance_rate": values["within"] / max(values["samples"], 1.0),
+            }
+            for threshold, values in surface_level.items()
+        },
         "latency_ms_per_frame": {
             "mean": sum(latencies) / max(len(latencies), 1),
             "max_batch_mean": max(latencies, default=0.0),
