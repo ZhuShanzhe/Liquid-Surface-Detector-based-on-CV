@@ -99,8 +99,14 @@ def main() -> None:
             continue
         results.append(result)
         status = "accepted" if result["accepted"] else "rejected:" + ",".join(result["rejection_reasons"])
+        depth = result.get("liquid_depth")
+        depth_text = (
+            "unavailable"
+            if depth is None
+            else f"{float(depth):.3f} {result['liquid_depth_unit']}"
+        )
         print(
-            f"{frame.name}: {result['liquid_depth']:.3f} {result['liquid_depth_unit']} "
+            f"{frame.name}: {depth_text} "
             f"confidence={result['confidence']:.3f} ({status})"
         )
     rejection_counts = Counter(reason for item in results for reason in item["rejection_reasons"])

@@ -30,6 +30,9 @@ class DepthMetricAccumulator:
     error_squared_sum_for_confidence: float = 0.0
     confidence_squared_sum: float = 0.0
     confidence_error_product_sum: float = 0.0
+    within_tolerance_count: int = 0
+    relative_tolerance: float = 0.01
+    absolute_tolerance_floor_m: float = 0.003
 
     def update(
         self,
@@ -46,8 +49,16 @@ class DepthMetricAccumulator:
         self.target_count += int(target_valid.sum())
         self.prediction_count += int(evaluated.sum())
         errors = prediction_m[evaluated] - target_m[evaluated]
+        absolute_errors = np.abs(errors)
+        tolerance = np.maximum(
+            self.absolute_tolerance_floor_m,
+            self.relative_tolerance * target_m[evaluated],
+        )
         self.error_count += int(errors.size)
-        self.absolute_error_sum += float(np.abs(errors).sum())
+        self.within_tolerance_count += int(
+            (absolute_errors <= tolerance).sum()
+        )
+        self.absolute_error_sum += float(absolute_errors.sum())
         self.squared_error_sum += float((errors**2).sum())
 
         boundary = cv2.morphologyEx(
@@ -61,7 +72,7 @@ class DepthMetricAccumulator:
             if confidence.shape != target_m.shape:
                 raise ValueError("Confidence shape must match target depth")
             conf = np.clip(confidence[evaluated].astype(np.float64), 0.0, 1.0)
-            absolute = np.abs(errors.astype(np.float64))
+            absolute = absolute_errors.astype(np.float64)
             self.confidence_count += int(conf.size)
             self.confidence_sum += float(conf.sum())
             self.error_sum_for_confidence += float(absolute.sum())
@@ -87,6 +98,14 @@ class DepthMetricAccumulator:
             "prediction_coverage": self.prediction_count / max(self.target_count, 1),
             "depth_mae_m": self.absolute_error_sum / count,
             "depth_rmse_m": math.sqrt(self.squared_error_sum / count),
+            "within_tolerance_rate": self.within_tolerance_count / count,
+            "within_tolerance_coverage": (
+                self.within_tolerance_count / max(self.target_count, 1)
+            ),
+            "relative_tolerance": self.relative_tolerance,
+            "absolute_tolerance_floor_m": (
+                self.absolute_tolerance_floor_m
+            ),
             "boundary_depth_rmse_m": math.sqrt(
                 self.boundary_squared_error_sum / max(self.boundary_error_count, 1)
             ),

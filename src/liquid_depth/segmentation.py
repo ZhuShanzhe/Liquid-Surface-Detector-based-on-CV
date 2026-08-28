@@ -131,7 +131,11 @@ def overlay_mask(rgb_bgr: np.ndarray, mask: np.ndarray) -> np.ndarray:
     result = rgb_bgr.copy()
     blue = np.zeros_like(result)
     blue[:] = (255, 0, 0)
-    result[mask > 0] = cv2.addWeighted(result[mask > 0], 0.6, blue[mask > 0], 0.4, 0)
+    active = mask > 0
+    if np.any(active):
+        result[active] = cv2.addWeighted(
+            result[active], 0.6, blue[active], 0.4, 0
+        )
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cv2.drawContours(result, contours, -1, (0, 0, 255), 2)
     return result

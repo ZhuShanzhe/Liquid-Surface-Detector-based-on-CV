@@ -19,7 +19,7 @@ Build the deterministic cross-dataset manifest:
 
 ```bash
 python scripts/build_scene_evaluation_manifest.py \
-  --multitask-manifest /root/autodl-tmp/liquid-depth-data/research/manifests/research_multitask_v1.csv \
+  --multitask-manifest /root/autodl-tmp/liquid-depth-data/research/manifests/research_multitask.csv \
   --trade-manifest /root/autodl-tmp/liquid-depth-data/research/manifests/trade_real_v1.csv \
   --layereddepth-root /root/autodl-tmp/liquid-depth-data/research/layereddepth \
   --output /root/autodl-tmp/liquid-depth-artifacts/evaluation/scene_eval_v1.csv \
@@ -65,3 +65,43 @@ It is not promoted for automatic production routing. Depth-failure, low-light, a
 transparent/multi-layer specialists remain disabled until their independent gates
 pass. The pilot median model latency was 19.8 ms on the RTX 5090, well below the
 500 ms budget; accuracy, not latency, is the blocker.
+
+
+## Industrial tolerance and automatic promotion
+
+The metric evaluator now reports two complementary acceptance metrics using the
+project engineering tolerance
+
+```text
+T(z) = max(0.003 m, 0.01 * z)
+```
+
+where `z` is metric target depth. `within_tolerance_rate` is conditional on
+positive predictions, while `within_tolerance_coverage` is relative to all target
+pixels and therefore penalizes both missing and inaccurate predictions. Neither
+may be reported without ordinary prediction coverage.
+
+After a candidate is exported and evaluated under the same manifest, apply the
+promotion gate:
+
+```bash
+python scripts/assess_specialist_promotion.py \
+  --baseline /path/to/identity/summary.json \
+  --candidate /path/to/candidate/summary.json \
+  --scenario glare \
+  --max-mae-m 0.010 \
+  --min-coverage 0.80 \
+  --min-within-tolerance-coverage 0.70 \
+  --min-mae-improvement-fraction 0.10 \
+  --guard-scenario ordinary \
+  --output /path/to/promotion.json
+```
+
+The command exits with status 2 when any accuracy, coverage, failure-rate,
+latency, or no-regression gate fails. A failed report must not enable the model.
+
+The plane path also checks the convex-hull area of accepted inliers relative to
+the liquid mask. This rejects a dense but spatially compact reflection patch that
+could otherwise produce a numerically stable false plane. Frames with no usable
+depth now produce a normal rejected result with
+`insufficient_liquid_depth_support`; they no longer abort a batch.

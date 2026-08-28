@@ -112,13 +112,14 @@ geometry:
 surface_support:
   # Enables rejection of compact accidental patches while accepting a spatially
   # distributed partial plane when floating material or glare hides some surface.
-  enabled: false
+  enabled: true
   horizontal_tiles: 6
   vertical_tiles: 4
   min_points_per_tile: 3
   min_tile_coverage: 0.30
   min_horizontal_span_ratio: 0.45
   min_vertical_span_ratio: 0.25
+  min_convex_hull_coverage_ratio: 0.12
   min_fit_inlier_ratio: 0.25
 
 bottom:

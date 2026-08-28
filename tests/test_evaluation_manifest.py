@@ -37,6 +37,7 @@ def test_difficulty_buckets_are_independent_and_contract_aware():
         _signals(),
         multi_layer=True,
     ) == ("transparent_multilayer",)
+    assert difficulty_buckets(_signals()) == ("ordinary",)
 
 
 def test_thresholds_match_runtime_boundary_semantics():

@@ -54,11 +54,16 @@ def test_partial_planar_support_accepts_distributed_points_and_rejects_cluster()
     accepted = assess_planar_support(mask, distributed, fit_inlier_ratio=0.55)
     assert accepted.accepted
     assert accepted.state in {"stable_planar", "partial_planar"}
+    assert accepted.convex_hull_coverage_ratio >= 0.12
 
     clustered = np.column_stack((np.arange(70, 82), np.full(12, 50)))
     rejected = assess_planar_support(mask, clustered, fit_inlier_ratio=0.8)
     assert not rejected.accepted
     assert "insufficient_planar_horizontal_span" in rejected.rejection_reasons
+    assert (
+        "insufficient_planar_convex_hull_coverage"
+        in rejected.rejection_reasons
+    )
 
 
 def test_layer_head_and_set_likelihood_are_differentiable_and_permutation_invariant():

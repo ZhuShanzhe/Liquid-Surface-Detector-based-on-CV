@@ -3,6 +3,7 @@ import numpy as np
 from liquid_depth.geometry import split_surface_mask
 from liquid_depth.quality import assess_quality
 from liquid_depth.sampling import balanced_sample_weights
+from liquid_depth.segmentation import overlay_mask
 from liquid_depth.temporal import RobustKalmanFilter
 
 
@@ -91,3 +92,9 @@ def test_balanced_sampling_upweights_rare_difficult_cases():
     weights = balanced_sample_weights(rows)
     assert weights[-1] > weights[0]
     assert np.isclose(np.mean(weights), 1.0)
+
+
+def test_empty_mask_overlay_preserves_rgb():
+    rgb = np.full((12, 16, 3), 80, dtype=np.uint8)
+    mask = np.zeros((12, 16), dtype=np.uint8)
+    np.testing.assert_array_equal(overlay_mask(rgb, mask), rgb)

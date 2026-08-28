@@ -52,7 +52,8 @@ def difficulty_buckets(
         or signals.raw_depth_valid_ratio < limits.raw_depth_valid_ratio_below
     ):
         buckets.add("depth_failure")
-    return tuple(sorted(buckets))
+    # Keep an ordinary-scene holdout as the no-regression guard.
+    return tuple(sorted(buckets)) if buckets else ("ordinary",)
 
 
 def stable_fraction(key: str, seed: int = 2026) -> float:

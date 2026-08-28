@@ -17,6 +17,7 @@ class PlanarSupportAssessment:
     tile_coverage: float
     horizontal_span_ratio: float
     vertical_span_ratio: float
+    convex_hull_coverage_ratio: float
     rejection_reasons: tuple[str, ...]
 
     def to_dict(self) -> dict[str, Any]:
@@ -28,6 +29,7 @@ class PlanarSupportAssessment:
             "tile_coverage": self.tile_coverage,
             "horizontal_span_ratio": self.horizontal_span_ratio,
             "vertical_span_ratio": self.vertical_span_ratio,
+            "convex_hull_coverage_ratio": self.convex_hull_coverage_ratio,
             "rejection_reasons": list(self.rejection_reasons),
         }
 
@@ -43,6 +45,7 @@ def assess_planar_support(
     min_tile_coverage: float = 0.30,
     min_horizontal_span_ratio: float = 0.45,
     min_vertical_span_ratio: float = 0.25,
+    min_convex_hull_coverage_ratio: float = 0.12,
     min_fit_inlier_ratio: float = 0.25,
 ) -> PlanarSupportAssessment:
     """Accept a distributed partial plane and reject a compact accidental patch.
@@ -62,7 +65,17 @@ def assess_planar_support(
         raise ValueError("tile counts and min_points_per_tile must be positive")
     locations = np.argwhere(mask)
     if len(locations) == 0:
-        return PlanarSupportAssessment(False, "missing_surface", 0, 0, 0.0, 0.0, 0.0, ("surface_mask_empty",))
+        return PlanarSupportAssessment(
+            False,
+            "missing_surface",
+            0,
+            0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            ("surface_mask_empty",),
+        )
 
     y0, x0 = locations.min(axis=0)
     y1, x1 = locations.max(axis=0) + 1
@@ -88,6 +101,16 @@ def assess_planar_support(
     surface_tiles = int(surface_tile_mask.sum())
     occupied_tiles = int(occupied.sum())
     tile_coverage = occupied_tiles / max(surface_tiles, 1)
+    hull_coverage = 0.0
+    if len(pixels) >= 3:
+        import cv2
+
+        hull = cv2.convexHull(
+            pixels.astype(np.float32).reshape(-1, 1, 2)
+        )
+        hull_area = float(cv2.contourArea(hull))
+        hull_coverage = hull_area / max(float(mask.sum()), 1.0)
+    hull_coverage = float(np.clip(hull_coverage, 0.0, 1.0))
 
     reasons: list[str] = []
     if fit_inlier_ratio < min_fit_inlier_ratio:
@@ -98,6 +121,8 @@ def assess_planar_support(
         reasons.append("insufficient_planar_horizontal_span")
     if vertical_span < min_vertical_span_ratio:
         reasons.append("insufficient_planar_vertical_span")
+    if hull_coverage < min_convex_hull_coverage_ratio:
+        reasons.append("insufficient_planar_convex_hull_coverage")
     accepted = not reasons
     state = "stable_planar"
     if accepted and (fit_inlier_ratio < 0.6 or tile_coverage < 0.6):
@@ -112,5 +137,6 @@ def assess_planar_support(
         float(tile_coverage),
         float(np.clip(horizontal_span, 0.0, 1.0)),
         float(np.clip(vertical_span, 0.0, 1.0)),
+        hull_coverage,
         tuple(reasons),
     )

@@ -223,7 +223,7 @@ depth-failure, or low-light profiles:
 
 ```bash
 python scripts/build_specialist_training_manifest.py \
-  --input /root/autodl-tmp/liquid-depth-data/research/manifests/research_multitask_v1.csv \
+  --input /root/autodl-tmp/liquid-depth-data/research/manifests/research_multitask.csv \
   --output /root/autodl-tmp/liquid-depth-data/research/manifests/specialist_glare_depth_v1.csv \
   --profiles standard,glare,depth_failure
 ```
