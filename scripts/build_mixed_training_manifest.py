@@ -9,7 +9,6 @@ import random
 from collections import defaultdict
 from pathlib import Path
 
-
 PATH_COLUMNS = (
     "rgb_path",
     "raw_depth_path",
