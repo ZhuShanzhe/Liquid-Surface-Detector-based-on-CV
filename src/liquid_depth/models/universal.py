@@ -54,9 +54,7 @@ class UniversalLiquidSurfaceNet(nn.Module):
 
     @staticmethod
     def _up(inputs: torch.Tensor, skip: torch.Tensor) -> torch.Tensor:
-        return F.interpolate(
-            inputs, size=skip.shape[-2:], mode="bilinear", align_corners=False
-        )
+        return F.interpolate(inputs, size=skip.shape[-2:], mode="bilinear", align_corners=False)
 
     def forward(self, inputs: torch.Tensor) -> dict[str, torch.Tensor]:
         if inputs.ndim != 4 or inputs.shape[1] != 5:
@@ -91,12 +89,14 @@ class UniversalMultiTaskLoss(nn.Module):
         relative_weight: float = 1.0,
         tolerance_weight: float = 0.5,
         uncertainty_weight: float = 0.2,
+        surface_level_weight: float = 0.5,
     ) -> None:
         super().__init__()
         self.base = MultiTaskLoss(tolerance_weight=tolerance_weight)
         self.relative_weight = float(relative_weight)
 
         self.uncertainty_weight = float(uncertainty_weight)
+        self.surface_level_weight = float(surface_level_weight)
 
     def forward(
         self,
@@ -106,8 +106,7 @@ class UniversalMultiTaskLoss(nn.Module):
         losses = self.base(prediction, target)
         valid = target["valid"].float()
         log_error = (
-            torch.log(prediction["depth_m"].clamp_min(1e-4))
-            - torch.log(target["depth_m"].clamp_min(1e-4))
+            torch.log(prediction["depth_m"].clamp_min(1e-4)) - torch.log(target["depth_m"].clamp_min(1e-4))
         ).abs()
         relative = (log_error * valid).sum() / valid.sum().clamp_min(1.0)
         losses["relative_log"] = relative
@@ -122,9 +121,23 @@ class UniversalMultiTaskLoss(nn.Module):
         )
         calibration = (calibration_map * valid).sum() / valid.sum().clamp_min(1.0)
         losses["uncertainty_calibration"] = calibration
+        flattened_valid = valid.flatten(1)
+        per_sample_count = flattened_valid.sum(dim=1).clamp_min(1.0)
+        predicted_level = (torch.log(prediction["depth_m"].clamp_min(1e-4)).flatten(1) * flattened_valid).sum(
+            dim=1
+        ) / per_sample_count
+        target_level = (torch.log(target["depth_m"].clamp_min(1e-4)).flatten(1) * flattened_valid).sum(
+            dim=1
+        ) / per_sample_count
+        has_support = (flattened_valid.sum(dim=1) > 0).float()
+        surface_level = (
+            (predicted_level - target_level).abs() * has_support
+        ).sum() / has_support.sum().clamp_min(1.0)
+        losses["surface_level"] = surface_level
         losses["total"] = (
             losses["total"]
             + self.relative_weight * relative
             + self.uncertainty_weight * calibration
+            + self.surface_level_weight * surface_level
         )
         return losses
