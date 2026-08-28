@@ -372,6 +372,7 @@ def _calibrate_output(args) -> None:
         raise ValueError("Samples CSV requires frame_dir,known_depth_mm")
     system = make_product_system(args.profile, device=args.device)
     predicted, known, records = [], [], []
+    calibration_groups: dict[str, list[tuple[float, float]]] = {}
     root = args.samples.parent
     holdout_roles = {"validation", "holdout", "test"}
     for row in rows:
@@ -379,10 +380,13 @@ def _calibrate_output(args) -> None:
         if not frame.is_absolute():
             frame = root / frame
         role = row.get("role", "calibration").strip().lower() or "calibration"
+        known_depth_mm = float(row["known_depth_mm"])
+        level_id = row.get("level_id", "").strip() or f"{known_depth_mm:.6f}"
         result = system.measure(frame, apply_output_calibration=False)
         record = {
             "frame_dir": str(frame.resolve()),
-            "known_depth_mm": float(row["known_depth_mm"]),
+            "known_depth_mm": known_depth_mm,
+            "level_id": level_id,
             "role": role,
             "accepted": result["accepted"],
             "predicted_depth_m": result["raw_geometry_level_m"],
@@ -390,9 +394,29 @@ def _calibrate_output(args) -> None:
         }
         records.append(record)
         if result["accepted"] and result["raw_geometry_level_m"] is not None and role not in holdout_roles:
-            predicted.append(float(result["raw_geometry_level_m"]))
-            known.append(float(row["known_depth_mm"]) / 1000.0)
+            calibration_groups.setdefault(level_id, []).append(
+                (
+                    float(result["raw_geometry_level_m"]),
+                    known_depth_mm / 1000.0,
+                )
+            )
+    calibration_levels = []
+    for level_id, samples in sorted(calibration_groups.items()):
+        sample_array = np.asarray(samples, dtype=np.float64)
+        predicted_level = float(np.median(sample_array[:, 0]))
+        known_level = float(np.median(sample_array[:, 1]))
+        predicted.append(predicted_level)
+        known.append(known_level)
+        calibration_levels.append(
+            {
+                "level_id": level_id,
+                "accepted_frames": len(samples),
+                "predicted_median_m": predicted_level,
+                "known_depth_m": known_level,
+            }
+        )
     calibration = fit_output_calibration(predicted, known)
+    calibration["levels"] = calibration_levels
 
     for record in records:
         raw_depth = record["predicted_depth_m"]
