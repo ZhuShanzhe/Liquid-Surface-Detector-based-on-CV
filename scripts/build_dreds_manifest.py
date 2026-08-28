@@ -61,6 +61,8 @@ def main() -> None:
                 {
                     "frame_id": f"{sequence.name}_{frame_id}",
                     "sequence_id": sequence.name,
+                    "split": split,
+                    "dataset": "dreds_std",
                     "rgb_path": str(color),
                     "raw_depth_path": str(raw_depth),
                     "target_depth_path": str(target_depth),
