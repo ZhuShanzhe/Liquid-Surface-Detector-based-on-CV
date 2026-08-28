@@ -175,7 +175,14 @@ def main() -> None:
                 )
         scheduler.step()
         model.eval()
-        totals = {"sq": 0.0, "abs": 0.0, "rel": 0.0, "tol": 0, "n": 0}
+        totals = {
+            "sq": 0.0,
+            "abs": 0.0,
+            "rel": 0.0,
+            "tol": 0,
+            "brier": 0.0,
+            "n": 0,
+        }
         bins = {name: {"abs": 0.0, "rel": 0.0, "tol": 0, "n": 0} for name, _, _ in RANGE_BINS}
         intersection = union = 0
         with torch.inference_mode():
@@ -191,7 +198,9 @@ def main() -> None:
                 totals["sq"] += float((error[valid] ** 2).sum())
                 totals["abs"] += float(abs_error[valid].sum())
                 totals["rel"] += float((abs_error[valid] / truth[valid].clamp_min(1e-6)).sum())
-                totals["tol"] += int(((abs_error <= tolerance) & valid).sum())
+                reliable = (abs_error <= tolerance).float()
+                totals["tol"] += int((reliable.bool() & valid).sum())
+                totals["brier"] += float(((prediction["confidence"] - reliable) ** 2)[valid].sum())
                 totals["n"] += int(valid.sum())
                 for name, low, high in RANGE_BINS:
                     selected = valid & (truth >= low) & (truth < high)
@@ -211,6 +220,7 @@ def main() -> None:
             "val_depth_mae_m": totals["abs"] / count,
             "val_abs_rel": totals["rel"] / count,
             "val_within_tolerance_rate": totals["tol"] / count,
+            "val_confidence_brier_score": totals["brier"] / count,
             "val_mask_iou": intersection / max(union, 1),
             "range_metrics": {
                 name: {
@@ -223,7 +233,11 @@ def main() -> None:
             },
             "learning_rate": scheduler.get_last_lr()[0],
         }
-        score = metrics["val_within_tolerance_rate"] - 0.1 * metrics["val_abs_rel"]
+        score = (
+            metrics["val_within_tolerance_rate"]
+            - 0.1 * metrics["val_abs_rel"]
+            - 0.05 * metrics["val_confidence_brier_score"]
+        )
         metrics["selection_score"] = score
         print(json.dumps(metrics), flush=True)
         with metrics_path.open("a", encoding="utf-8") as stream:
