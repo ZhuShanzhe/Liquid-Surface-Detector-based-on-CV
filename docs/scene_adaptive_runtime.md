@@ -54,11 +54,13 @@ scene names may share one checkpoint; it is loaded once.
 
 Current server status:
 
-- `glare` and `depth_failure` use the existing object-pretrained metric
-  depth-completion TorchScript model in the offline plane pipeline;
+- the existing object-pretrained metric depth-completion TorchScript model is
+  retained for offline comparison, but both `glare` and `depth_failure` are
+  disabled in the production configuration;
+- the first scene-stratified pilot improved glare conditional MAE and coverage,
+  but depth-failure, low-light, and general-transparent results failed their gates;
 - `transparent_multilayer` is disabled until SeeGroup/LayeredDepth distillation and
   metric validation pass;
-- `low_light` is disabled until real dark-scene validation exists;
 - newly generated product profiles contain empty specialist slots. The main product
   checkpoint remains active, and complex scenes are explicitly rejected until a qualified
   product specialist checkpoint is added.

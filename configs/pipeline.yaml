@@ -42,17 +42,17 @@ complex_scene:
   # Optional per-camera defaults. A frame-local scene_context.json overrides these.
   scene_context: {}
   models:
-    # Existing DREDS/DTLD object-pretrained completion model: useful for glare and
-    # sensor holes, but it is not a true multi-layer SeeGroup replacement.
+    # Existing DREDS/DTLD object-pretrained completion model is retained as an
+    # offline candidate. Keep disabled until camera-specific qualification passes.
     glare:
-      enabled: true
+      enabled: false
       backend: torchscript
       torchscript:
         model_path: /root/autodl-tmp/liquid-depth-artifacts/models/multitask-object-pretrain-v1.ts
         input_size: [640, 360]
         max_depth_m: 3.0
     depth_failure:
-      enabled: true
+      enabled: false
       backend: torchscript
       torchscript:
         model_path: /root/autodl-tmp/liquid-depth-artifacts/models/multitask-object-pretrain-v1.ts

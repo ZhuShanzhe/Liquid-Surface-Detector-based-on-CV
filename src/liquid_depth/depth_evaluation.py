@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import csv
 import math
+import os
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
+
+os.environ.setdefault("OPENCV_IO_ENABLE_OPENEXR", "1")
 
 import cv2
 import numpy as np
@@ -130,6 +133,14 @@ def evaluate_depth_manifest(manifest: str | Path) -> dict:
         target = _meters(_array(_resolve(root, row, "target_depth_path")), scale)
         prediction = _meters(_array(_resolve(root, row, "prediction_path")), scale)
         mask = _array(_resolve(root, row, "mask_path"))
+        if mask.ndim == 3:
+            mask = np.any(mask[..., :3] != 0, axis=2).astype(np.uint8)
+        if mask.shape != target.shape:
+            mask = cv2.resize(
+                mask,
+                (target.shape[1], target.shape[0]),
+                interpolation=cv2.INTER_NEAREST,
+            )
         confidence = _array(_resolve(root, row, "confidence_path")) if row.get("confidence_path") else None
         names = {"overall", f"scenario:{row.get('scenario', 'unspecified') or 'unspecified'}"}
         names.update(f"difficulty:{tag}" for tag in parse_tags(row.get("difficulty_tags", "ordinary")))

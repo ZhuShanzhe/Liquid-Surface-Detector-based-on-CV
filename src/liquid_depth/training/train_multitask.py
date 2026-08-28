@@ -25,8 +25,11 @@ def main() -> None:
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--resume", type=Path)
+    parser.add_argument("--initialize-from", type=Path)
     parser.add_argument("--log-every", type=int, default=100)
     args = parser.parse_args()
+    if args.resume and args.initialize_from:
+        parser.error("--resume and --initialize-from are mutually exclusive")
 
     import torch
     from torch.utils.data import DataLoader, WeightedRandomSampler
@@ -71,6 +74,7 @@ def main() -> None:
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     best_rmse = float("inf")
     start_epoch = 1
+    initial_checkpoint: str | None = None
     metrics_path = output_dir / "metrics.jsonl"
     if args.resume:
         state = torch.load(args.resume, map_location="cpu", weights_only=False)
@@ -84,6 +88,15 @@ def main() -> None:
             )
         best_rmse = float(state.get("best_rmse", float("inf")))
         start_epoch = int(state["epoch"]) + 1
+        initial_checkpoint = state.get("initial_checkpoint")
+    elif args.initialize_from:
+        state = torch.load(
+            args.initialize_from,
+            map_location="cpu",
+            weights_only=False,
+        )
+        model.load_state_dict(state["model"], strict=True)
+        initial_checkpoint = args.initialize_from.resolve().as_posix()
 
     for epoch in range(start_epoch, args.epochs + 1):
         model.train()
@@ -152,6 +165,7 @@ def main() -> None:
             "image_size": image_size,
             "base_channels": args.base_channels,
             "max_depth_m": args.max_depth_m,
+            "initial_checkpoint": initial_checkpoint,
             "input_contract": "RGB ImageNet-normalized + depth/max_depth_m + validity",
         }
         torch.save(checkpoint, output_dir / "latest.pth")

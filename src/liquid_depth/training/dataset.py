@@ -101,14 +101,49 @@ def _truthy(value: object) -> bool:
 
 
 def _complex_scene_augment(
-    rgb: np.ndarray, raw_depth: np.ndarray, mask: np.ndarray
+    rgb: np.ndarray,
+    raw_depth: np.ndarray,
+    mask: np.ndarray,
+    profile: str = "mixed",
 ) -> tuple[np.ndarray, np.ndarray]:
+    profile = str(profile).strip().lower() or "mixed"
+    if profile not in {
+        "standard",
+        "mixed",
+        "glare",
+        "depth_failure",
+        "low_light",
+    }:
+        raise ValueError(f"Unsupported augmentation profile: {profile}")
     image = rgb.astype(np.float32)
+    if profile == "standard":
+        if np.random.random() < 0.7:
+            image = (
+                image * np.random.uniform(0.9, 1.1)
+                + np.random.uniform(-8.0, 8.0)
+            )
+        return np.clip(image, 0.0, 255.0).astype(np.uint8), raw_depth
+    if profile == "low_light":
+        gamma = np.random.uniform(1.6, 3.0)
+        image = (np.clip(image / 255.0, 0.0, 1.0) ** gamma) * 255.0
+        image *= np.random.uniform(0.35, 0.70)
+        image += np.random.normal(
+            0.0,
+            np.random.uniform(3.0, 12.0),
+            image.shape,
+        )
+        return np.clip(image, 0.0, 255.0).astype(np.uint8), raw_depth
+    if profile == "depth_failure":
+        inside = mask > 0
+        probability = np.random.uniform(0.35, 0.75)
+        dropout = (np.random.random(mask.shape) < probability) & inside
+        raw_depth[dropout] = 0.0
+        return rgb.copy(), raw_depth
     if np.random.random() < 0.8:
         gain = np.random.uniform(0.65, 1.35)
         bias = np.random.uniform(-20.0, 20.0)
         image = image * gain + bias
-    if np.random.random() < 0.45:
+    if profile == "glare" or np.random.random() < 0.45:
         height, width = mask.shape
         locations = np.argwhere(mask > 0)
         if locations.size:
@@ -133,7 +168,7 @@ def _complex_scene_augment(
         softness = cv2.GaussianBlur(highlight, (0, 0), sigmaX=max(1.0, min(axes) / 2.0))
         alpha = softness.astype(np.float32)[..., None] / 255.0 * np.random.uniform(0.7, 1.0)
         image = image * (1.0 - alpha) + 255.0 * alpha
-        if np.random.random() < 0.8:
+        if profile == "glare" or np.random.random() < 0.8:
             raw_depth[highlight > 0] = 0.0
     if np.random.random() < 0.3:
         image += np.random.normal(0.0, np.random.uniform(2.0, 10.0), image.shape)
@@ -231,7 +266,12 @@ class MultiTaskDataset:
             normal = normal[:, ::-1].copy()
             normal[..., 0] *= -1.0
         if self.augment:
-            rgb, raw_depth = _complex_scene_augment(rgb, raw_depth, mask)
+            rgb, raw_depth = _complex_scene_augment(
+                rgb,
+                raw_depth,
+                mask,
+                row.get("augmentation_profile", "mixed"),
+            )
 
         normal /= np.maximum(np.linalg.norm(normal, axis=2, keepdims=True), 1e-6)
         mask = (mask > 0).astype(np.float32)
