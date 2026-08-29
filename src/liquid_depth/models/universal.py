@@ -90,6 +90,7 @@ class UniversalMultiTaskLoss(nn.Module):
         tolerance_weight: float = 0.5,
         uncertainty_weight: float = 0.2,
         surface_level_weight: float = 0.5,
+        surface_absolute_weight: float = 0.0,
     ) -> None:
         super().__init__()
         self.base = MultiTaskLoss(tolerance_weight=tolerance_weight)
@@ -97,6 +98,7 @@ class UniversalMultiTaskLoss(nn.Module):
 
         self.uncertainty_weight = float(uncertainty_weight)
         self.surface_level_weight = float(surface_level_weight)
+        self.surface_absolute_weight = float(surface_absolute_weight)
 
     def forward(
         self,
@@ -134,10 +136,21 @@ class UniversalMultiTaskLoss(nn.Module):
             (predicted_level - target_level).abs() * has_support
         ).sum() / has_support.sum().clamp_min(1.0)
         losses["surface_level"] = surface_level
+        predicted_linear_level = (
+            prediction["depth_m"].flatten(1) * flattened_valid
+        ).sum(dim=1) / per_sample_count
+        target_linear_level = (
+            target["depth_m"].flatten(1) * flattened_valid
+        ).sum(dim=1) / per_sample_count
+        surface_absolute = (
+            (predicted_linear_level - target_linear_level).abs() * has_support
+        ).sum() / has_support.sum().clamp_min(1.0)
+        losses["surface_absolute_m"] = surface_absolute
         losses["total"] = (
             losses["total"]
             + self.relative_weight * relative
             + self.uncertainty_weight * calibration
             + self.surface_level_weight * surface_level
+            + self.surface_absolute_weight * surface_absolute
         )
         return losses

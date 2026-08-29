@@ -401,7 +401,18 @@ def _calibrate_output(args) -> None:
                 )
             )
     calibration_levels = []
+    minimum_accepted_frames_per_level = 2
+    excluded_levels = []
     for level_id, samples in sorted(calibration_groups.items()):
+        if len(samples) < minimum_accepted_frames_per_level:
+            excluded_levels.append(
+                {
+                    "level_id": level_id,
+                    "accepted_frames": len(samples),
+                    "reason": "insufficient_accepted_frames",
+                }
+            )
+            continue
         sample_array = np.asarray(samples, dtype=np.float64)
         predicted_level = float(np.median(sample_array[:, 0]))
         known_level = float(np.median(sample_array[:, 1]))
@@ -417,6 +428,8 @@ def _calibrate_output(args) -> None:
         )
     calibration = fit_output_calibration(predicted, known)
     calibration["levels"] = calibration_levels
+    calibration["minimum_accepted_frames_per_level"] = minimum_accepted_frames_per_level
+    calibration["excluded_levels"] = excluded_levels
 
     for record in records:
         raw_depth = record["predicted_depth_m"]

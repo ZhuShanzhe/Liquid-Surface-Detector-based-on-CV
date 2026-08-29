@@ -23,4 +23,5 @@ def test_universal_model_forward_and_loss():
     assert torch.isfinite(losses["total"])
     assert losses["relative_log"] >= 0
     assert losses["surface_level"] >= 0
+    assert losses["surface_absolute_m"] >= 0
     assert torch.isfinite(losses["uncertainty_calibration"])

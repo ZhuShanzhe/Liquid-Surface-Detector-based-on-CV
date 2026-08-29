@@ -42,13 +42,13 @@ complex_scene:
   # Optional per-camera defaults. A frame-local scene_context.json overrides these.
   scene_context: {}
   models:
-    # The v4 top-view model is one shared optional specialist. Keep every route
-    # disabled until it passes camera/container-specific qualification.
+    # v5 serves glare/depth-failure/low-light; v4 remains the transparent specialist.
+    # Keep every route disabled until camera/container-specific qualification.
     glare:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v5-calibration-aware.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0
@@ -59,7 +59,7 @@ complex_scene:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v5-calibration-aware.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0
@@ -81,7 +81,7 @@ complex_scene:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v5-calibration-aware.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0

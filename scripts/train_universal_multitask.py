@@ -50,6 +50,7 @@ def main() -> None:
     parser.add_argument("--tolerance-weight", type=float, default=0.5)
     parser.add_argument("--uncertainty-weight", type=float, default=0.2)
     parser.add_argument("--surface-level-weight", type=float, default=0.5)
+    parser.add_argument("--surface-absolute-weight", type=float, default=0.0)
     parser.add_argument("--rgb-prior", action="store_true")
     parser.add_argument(
         "--difficulty-boosts", default="depth_failure=3,compound=2,multilayer=1.5,low_light=1.5,glare=1.25"
@@ -124,6 +125,7 @@ def main() -> None:
         tolerance_weight=args.tolerance_weight,
         uncertainty_weight=args.uncertainty_weight,
         surface_level_weight=args.surface_level_weight,
+        surface_absolute_weight=args.surface_absolute_weight,
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
@@ -259,10 +261,15 @@ def main() -> None:
             "min_depth_m": args.min_depth_m,
             "max_depth_m": args.max_depth_m,
             "depth_encoding": "log",
-            "model_family": "universal_liquid_surface_v4",
+            "model_family": (
+                "universal_liquid_surface_v5_calibration_aware"
+                if args.surface_absolute_weight > 0
+                else "universal_liquid_surface_v4"
+            ),
             "rgb_prior_enabled": args.rgb_prior,
             "uncertainty_weight": args.uncertainty_weight,
             "surface_level_weight": args.surface_level_weight,
+            "surface_absolute_weight": args.surface_absolute_weight,
             "difficulty_boosts": priority_multipliers,
             "initial_checkpoint": initial_checkpoint,
             "input_contract": "RGB ImageNet-normalized + log-depth[0.1,10m] + validity",
