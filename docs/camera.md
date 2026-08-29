@@ -28,6 +28,14 @@ ros2 service call /rgbd_frame_saver/save std_srvs/srv/Trigger
 The cloud GPU server cannot directly see a USB camera attached to another computer. Upload recorded frame directories,
 or run the inference component on the camera machine after exporting a trained TorchScript model.
 
+## No-USB virtual camera
+
+Use `scripts/run_virtual_rgbd_camera.py` to replay synthetic RGB-D samples in the
+same capture-directory format as the ROS node. Use
+`scripts/test_no_usb_deployment.py` for the full capture-to-inference software
+qualification. Scope, measured V5 results, and hardware limitations are documented
+in [no_usb_deployment_test.md](no_usb_deployment_test.md).
+
 ## Per-camera depth qualification
 
 Before deployment, run the five-distance diffuse-plane protocol described in
