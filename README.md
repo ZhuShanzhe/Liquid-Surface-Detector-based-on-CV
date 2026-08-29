@@ -123,6 +123,7 @@ clouds, and generated artifacts stay on the server data disk.
 - [Top-view v4 simulation and benchmark results](docs/simulation_results_v2_top.md)
 - [Site few-shot calibration and top-camera deployment](docs/site_few_shot_calibration.md)
 - [Market-camera system-error calibration simulation](docs/site_calibration_simulation_results.md)
+- [Five-distance physical-camera qualification](docs/camera_plane_qualification.md)
 - [Industrial accuracy profile](configs/accuracy_profile_industrial_v1.yaml)
 - [Software copyright and V1.0 productization plan](docs/software_copyright_plan.md)
 - [System readiness](docs/system_readiness.md)

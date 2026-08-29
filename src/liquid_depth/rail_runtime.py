@@ -13,6 +13,7 @@ from .io import load_frame, write_json
 from .rail_calibration import intersect_curve_with_rail, rail_depth_from_y
 from .scenario_policy import ComplexScenePolicy, load_scene_context, measure_scene_signals
 from .system_runtime import (
+    _camera_depth_correction,
     _depth_input,
     _fixed_crop,
     load_system_profile,
@@ -67,6 +68,9 @@ class RailLiquidDepthSystem:
         self.depth_scale_to_m = float(self.profile["camera"].get("depth_scale_to_m", 0.001))
         if self.depth_scale_to_m <= 0:
             raise ValueError("camera.depth_scale_to_m must be positive")
+        self.depth_correction_scale, self.depth_correction_offset_m = _camera_depth_correction(
+            self.profile["camera"]
+        )
         measurement = self.profile["measurement"]
         self.reference_bgr = None
         if measurement.get("reference_image_path"):
@@ -147,6 +151,8 @@ class RailLiquidDepthSystem:
             input_size,
             self.depth_scale_to_m,
             max_depth_m,
+            self.depth_correction_scale,
+            self.depth_correction_offset_m,
         )
         pose_features = np.zeros(12, dtype=np.float32)
         with torch.inference_mode():

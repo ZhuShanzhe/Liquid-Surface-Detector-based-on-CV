@@ -28,3 +28,9 @@ ros2 service call /rgbd_frame_saver/save std_srvs/srv/Trigger
 The cloud GPU server cannot directly see a USB camera attached to another computer. Upload recorded frame directories,
 or run the inference component on the camera machine after exporting a trained TorchScript model.
 
+## Per-camera depth qualification
+
+Before deployment, run the five-distance diffuse-plane protocol described in
+[camera_plane_qualification.md](camera_plane_qualification.md). It generates an
+independent holdout report and an optional verified depth correction.
+

@@ -49,12 +49,24 @@ def resolve_profile_path(profile: dict[str, Any], value: str | Path) -> Path:
     return Path(profile["_profile_path"]).parent / path
 
 
+def _camera_depth_correction(camera: dict[str, Any]) -> tuple[float, float]:
+    correction = camera.get("depth_correction", {})
+    if correction.get("status") != "verified":
+        return 1.0, 0.0
+    scale = float(correction.get("scale", 1.0))
+    offset_m = float(correction.get("offset_m", 0.0))
+    if scale <= 0 or not np.isfinite(scale + offset_m):
+        raise ValueError("Verified camera.depth_correction must contain a positive finite scale")
+    return scale, offset_m
+
+
 def validate_system_profile(profile: dict[str, Any]) -> None:
     required = {"camera", "container", "perception", "pose"}
     missing = required - set(profile)
     if missing:
         raise ValueError("System profile missing: " + ", ".join(sorted(missing)))
     CameraCalibration.from_dict(profile["camera"])
+    _camera_depth_correction(profile["camera"])
     container = profile["container"]
     for key in ("model_path", "level_axis", "level_origin_m"):
         if key not in container:
@@ -107,7 +119,11 @@ def _depth_input(
     image_size: tuple[int, int],
     depth_scale_to_m: float,
     max_depth_m: float,
+    depth_correction_scale: float = 1.0,
+    depth_correction_offset_m: float = 0.0,
 ) -> np.ndarray:
+    if depth_correction_scale <= 0 or not np.isfinite(depth_correction_scale + depth_correction_offset_m):
+        raise ValueError("Depth correction must contain a positive finite scale")
     x0, y0, x1, y1 = crop
     width, height = image_size
     rgb = cv2.resize(
@@ -121,7 +137,12 @@ def _depth_input(
         interpolation=cv2.INTER_NEAREST,
     ).astype(np.float32)
     depth *= depth_scale_to_m
-    depth = np.where(np.isfinite(depth) & (depth > 0), depth, 0.0)
+    source_valid = np.isfinite(depth) & (depth > 0)
+    depth = np.where(
+        source_valid,
+        depth_correction_scale * depth + depth_correction_offset_m,
+        0.0,
+    )
     valid = ((depth > 0) & (depth <= max_depth_m)).astype(np.float32)
     rgb_unit = cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
     rgb_normalized = (rgb_unit - np.array([0.485, 0.456, 0.406], np.float32)) / np.array(
@@ -198,6 +219,9 @@ class LiquidDepthSystem:
         self.depth_scale_to_m = float(self.profile["camera"].get("depth_scale_to_m", 0.001))
         if self.depth_scale_to_m <= 0:
             raise ValueError("camera.depth_scale_to_m must be positive")
+        self.depth_correction_scale, self.depth_correction_offset_m = _camera_depth_correction(
+            self.profile["camera"]
+        )
         self._load_model(device)
         specialist_device = device or self.profile["perception"].get("device", "cuda")
         self.complex_models = load_contact_specialists(
@@ -298,6 +322,8 @@ class LiquidDepthSystem:
             input_size,
             self.depth_scale_to_m,
             max_depth_m,
+            self.depth_correction_scale,
+            self.depth_correction_offset_m,
         )
         rotation_features = pose.rotation_m2c.reshape(-1)
         pose_features = np.concatenate((rotation_features, pose.translation_m2c_m / 2.0)).astype(np.float32)

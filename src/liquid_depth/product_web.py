@@ -140,6 +140,7 @@ def create_rail_profile(payload: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
             **camera.to_dict(),
             "depth_scale_to_m": float(payload.get("depth_scale_to_m", payload.get("depth_scale", 0.001))),
             "depth_registered_to_color": True,
+            "depth_correction": {"scale": 1.0, "offset_m": 0.0, "status": "not_verified"},
         },
         "perception": {
             "checkpoint_path": str(checkpoint),

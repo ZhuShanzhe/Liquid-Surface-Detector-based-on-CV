@@ -298,6 +298,7 @@ def _setup(args) -> None:
             **calibration.to_dict(),
             "depth_scale_to_m": depth_scale,
             "depth_registered_to_color": True,
+            "depth_correction": {"scale": 1.0, "offset_m": 0.0, "status": "not_verified"},
         },
         "container": {
             "model_path": str(args.container_model.expanduser().resolve()),
