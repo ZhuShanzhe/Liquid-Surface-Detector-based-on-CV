@@ -88,4 +88,3 @@ Before an industrial release:
    traceable physical measurements.
 5. Keep `deployment_ready=false` until both the model accuracy gate and hardware
    qualification pass.
-
