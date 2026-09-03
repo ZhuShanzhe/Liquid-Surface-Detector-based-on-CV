@@ -46,3 +46,43 @@ def balanced_sample_weights(
     ]
     mean = sum(raw) / len(raw)
     return [weight / mean for weight in raw]
+
+
+def scenario_severity_sample_weights(
+    rows: Iterable[Mapping[str, object]],
+    *,
+    priority_multipliers: Mapping[str, float] | None = None,
+) -> list[float]:
+    """Balance scene families, then corruption severity within each family."""
+
+    rows = list(rows)
+    if not rows:
+        return []
+    parsed = [parse_tags(str(row.get("difficulty_tags", ""))) for row in rows]
+    scenarios = [str(row.get("scenario", "ordinary")).strip().lower() for row in rows]
+    severities = [
+        next((tag for tag in tags if tag.startswith("severity_")), "severity_unknown")
+        for tags in parsed
+    ]
+    groups = list(zip(scenarios, severities, strict=True))
+    group_counts = Counter(groups)
+    severity_counts = Counter()
+    for scenario, _ in set(groups):
+        severity_counts[scenario] += 1
+    multipliers = {
+        str(tag).strip().lower(): max(float(value), 0.0)
+        for tag, value in (priority_multipliers or {}).items()
+    }
+    raw = []
+    for scenario, severity, tags in zip(
+        scenarios, severities, parsed, strict=True
+    ):
+        scenario_priority = multipliers.get(scenario, 1.0)
+        tag_priority = max(
+            (multipliers.get(tag, 1.0) for tag in tags if tag != scenario),
+            default=1.0,
+        )
+        denominator = severity_counts[scenario] * group_counts[(scenario, severity)]
+        raw.append(scenario_priority * tag_priority / denominator)
+    mean = sum(raw) / len(raw)
+    return [weight / mean for weight in raw]

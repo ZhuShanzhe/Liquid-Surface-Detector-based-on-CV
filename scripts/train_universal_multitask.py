@@ -58,6 +58,11 @@ def main() -> None:
     parser.add_argument(
         "--difficulty-boosts", default="depth_failure=3,compound=2,multilayer=1.5,low_light=1.5,glare=1.25"
     )
+    parser.add_argument(
+        "--sampling-mode",
+        choices=("scenario_severity", "difficulty_tags"),
+        default="scenario_severity",
+    )
     parser.add_argument("--log-every", type=int, default=100)
     args = parser.parse_args()
     if args.resume and args.initialize_from:
@@ -67,7 +72,10 @@ def main() -> None:
     from torch.utils.data import DataLoader, WeightedRandomSampler
 
     from liquid_depth.models.universal import UniversalLiquidSurfaceNet, UniversalMultiTaskLoss
-    from liquid_depth.sampling import balanced_sample_weights
+    from liquid_depth.sampling import (
+        balanced_sample_weights,
+        scenario_severity_sample_weights,
+    )
     from liquid_depth.training.universal_dataset import UniversalMultiTaskDataset
 
     random.seed(args.seed)
@@ -98,8 +106,14 @@ def main() -> None:
         max_depth_m=args.max_depth_m,
     )
     priority_multipliers = parse_priority_multipliers(args.difficulty_boosts)
+    weight_function = (
+        scenario_severity_sample_weights
+        if args.sampling_mode == "scenario_severity"
+        else balanced_sample_weights
+    )
     weights = torch.as_tensor(
-        balanced_sample_weights(train_set.rows, priority_multipliers=priority_multipliers), dtype=torch.double
+        weight_function(train_set.rows, priority_multipliers=priority_multipliers),
+        dtype=torch.double,
     )
     sampler = WeightedRandomSampler(weights, num_samples=len(weights), replacement=True)
     train_loader = DataLoader(
@@ -287,6 +301,7 @@ def main() -> None:
             "confidence_absolute_floor_m": args.confidence_absolute_floor_m,
             "confidence_only_epochs": args.confidence_only_epochs,
             "difficulty_boosts": priority_multipliers,
+            "sampling_mode": args.sampling_mode,
             "initial_checkpoint": initial_checkpoint,
             "input_contract": "RGB ImageNet-normalized + log-depth[0.1,10m] + validity",
         }

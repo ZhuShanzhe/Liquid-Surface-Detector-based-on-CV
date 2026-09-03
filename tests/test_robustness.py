@@ -2,7 +2,10 @@ import numpy as np
 
 from liquid_depth.geometry import split_surface_mask
 from liquid_depth.quality import assess_quality
-from liquid_depth.sampling import balanced_sample_weights
+from liquid_depth.sampling import (
+    balanced_sample_weights,
+    scenario_severity_sample_weights,
+)
 from liquid_depth.segmentation import overlay_mask
 from liquid_depth.temporal import RobustKalmanFilter
 
@@ -94,6 +97,40 @@ def test_balanced_sampling_upweights_rare_difficult_cases():
     weights = balanced_sample_weights(rows)
     assert weights[-1] > weights[0]
     assert np.isclose(np.mean(weights), 1.0)
+
+
+def test_scenario_severity_sampling_balances_each_stratum():
+    rows = [
+        {
+            "scenario": "ordinary",
+            "difficulty_tags": "severity_low",
+        }
+        for _ in range(20)
+    ]
+    rows += [
+        {
+            "scenario": "ordinary",
+            "difficulty_tags": "severity_extreme",
+        }
+        for _ in range(5)
+    ]
+    rows += [
+        {
+            "scenario": "depth_failure",
+            "difficulty_tags": "severity_extreme;large_depth_failure",
+        }
+        for _ in range(2)
+    ]
+    weights = scenario_severity_sample_weights(rows)
+    totals = {}
+    for row, weight in zip(rows, weights, strict=True):
+        key = (row["scenario"], row["difficulty_tags"].split(";")[0])
+        totals[key] = totals.get(key, 0.0) + weight
+    assert np.isclose(
+        totals[("ordinary", "severity_low")],
+        totals[("ordinary", "severity_extreme")],
+    )
+    assert np.isclose(sum(weights) / len(weights), 1.0)
 
 
 def test_empty_mask_overlay_preserves_rgb():
