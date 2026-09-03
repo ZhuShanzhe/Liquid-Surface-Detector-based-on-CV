@@ -55,6 +55,14 @@ def test_infer_rejects_missing_liquid_depth_without_aborting(tmp_path):
             "enforce_latency_budget": True,
             "missing_model_policy": "reject",
         },
+        "confidence_policy": {
+            "enabled": True,
+            "require_qualified": True,
+            "default_threshold": 0.9,
+            "thresholds": {
+                "ordinary": {"threshold": 0.9, "qualified": False},
+            },
+        },
         "geometry": {
             "liquid_erode_px": 0,
             "meniscus_width_px": 0,
@@ -81,4 +89,6 @@ def test_infer_rejects_missing_liquid_depth_without_aborting(tmp_path):
     assert not result["accepted"]
     assert result["liquid_depth"] is None
     assert "insufficient_liquid_depth_support" in result["rejection_reasons"]
+    assert "scenario_confidence_not_qualified" in result["rejection_reasons"]
+    assert not result["confidence_gate"]["result_allowed"]
     assert (tmp_path / "output" / "depth_result.json").is_file()

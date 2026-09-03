@@ -40,11 +40,26 @@ def _load_report(path: str) -> dict[str, Any]:
     return value
 
 
+def depth_failure_confidence_group(scenario: str, valid_ratio: float | None) -> str:
+    if scenario not in {"depth_failure", "compound"} or valid_ratio is None:
+        return scenario
+    if valid_ratio < 0.10:
+        severity = "extreme"
+    elif valid_ratio < 0.25:
+        severity = "severe"
+    elif valid_ratio < 0.45:
+        severity = "large"
+    else:
+        severity = "partial"
+    return f"{scenario}:{severity}"
+
+
 def infer_confidence_scenario(
     model_variant: str | None,
     triggers: tuple[str, ...] | list[str],
     context: dict[str, Any] | None = None,
     route_map: dict[str, str] | None = None,
+    raw_depth_valid_ratio: float | None = None,
 ) -> str:
     context = context or {}
     explicit = context.get("confidence_scenario") or context.get("scenario")
@@ -55,15 +70,12 @@ def infer_confidence_scenario(
         (
             bool(trigger_set & {"operator_transparent_or_multilayer_scene"}),
             bool(trigger_set & {"operator_glare_scene", "saturated_highlight"}),
-            bool(
-                trigger_set
-                & {"operator_low_light_scene", "low_light", "large_dark_region"}
-            ),
+            bool(trigger_set & {"operator_low_light_scene", "low_light", "large_dark_region"}),
             bool(trigger_set & {"raw_depth_valid_ratio_low"}),
         )
     )
     if complex_groups >= 2:
-        return "compound"
+        return depth_failure_confidence_group("compound", raw_depth_valid_ratio)
     mapping = {
         "transparent_multilayer": "multilayer",
         "glare": "glare",
@@ -71,7 +83,8 @@ def infer_confidence_scenario(
         "depth_failure": "depth_failure",
     }
     mapping.update(route_map or {})
-    return mapping.get(str(model_variant), "ordinary")
+    scenario = mapping.get(str(model_variant), "ordinary")
+    return depth_failure_confidence_group(scenario, raw_depth_valid_ratio)
 
 
 def select_confidence_gate(
@@ -80,17 +93,15 @@ def select_confidence_gate(
     model_variant: str | None,
     triggers: tuple[str, ...] | list[str] = (),
     context: dict[str, Any] | None = None,
+    raw_depth_valid_ratio: float | None = None,
 ) -> ConfidenceGate:
     config = config or {}
     enabled = bool(config.get("enabled", False))
     default = float(config.get("default_threshold", 0.0))
     if not 0.0 <= default <= 1.0:
         raise ValueError("confidence_policy.default_threshold must be within [0, 1]")
-    route_map = {
-        str(key): str(value)
-        for key, value in config.get("route_to_scenario", {}).items()
-    }
-    scenario = infer_confidence_scenario(model_variant, triggers, context, route_map)
+    route_map = {str(key): str(value) for key, value in config.get("route_to_scenario", {}).items()}
+    scenario = infer_confidence_scenario(model_variant, triggers, context, route_map, raw_depth_valid_ratio)
     require_qualified = bool(config.get("require_qualified", True))
     source = "config"
     policy: dict[str, Any] = config.get("thresholds", {})
@@ -99,7 +110,11 @@ def select_confidence_gate(
         resolved = str(Path(report_path).expanduser().resolve())
         policy = _load_report(resolved)["policy"]
         source = str(Path(report_path))
-    entry = policy.get(scenario, {}) if isinstance(policy, dict) else {}
+    entry = policy.get(scenario) if isinstance(policy, dict) else None
+    if entry is None and ":" in scenario and isinstance(policy, dict):
+        entry = policy.get(scenario.split(":", maxsplit=1)[0])
+    if entry is None:
+        entry = {}
     if isinstance(entry, (int, float)):
         threshold = float(entry)
         qualified = True

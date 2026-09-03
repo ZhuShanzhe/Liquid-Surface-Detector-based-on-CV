@@ -117,6 +117,7 @@ def infer_frame(
         model_variant=scene_decision.model_variant,
         triggers=scene_decision.triggers,
         context=scene_context,
+        raw_depth_valid_ratio=signals.raw_depth_valid_ratio,
     )
     base_min_confidence = float(config["geometry"].get("min_depth_confidence", 0.0))
     fit_min_confidence = max(

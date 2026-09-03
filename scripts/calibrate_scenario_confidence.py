@@ -8,6 +8,8 @@ from pathlib import Path
 
 import numpy as np
 
+from liquid_depth.confidence_policy import depth_failure_confidence_group
+
 
 def _threshold_grid(value: str) -> list[float]:
     parts = [item.strip() for item in value.split(",") if item.strip()]
@@ -101,7 +103,7 @@ def _evaluate_split(
     stores: defaultdict[str, dict[float, dict[str, float]]] = defaultdict(
         lambda: {threshold: _empty() for threshold in thresholds}
     )
-    scenario_counts = Counter(row.get("scenario", "unknown") for row in dataset.rows)
+    scenario_counts = Counter()
     offset = 0
     with torch.inference_mode():
         for inputs, target in loader:
@@ -111,9 +113,15 @@ def _evaluate_split(
             depth = prediction["depth_m"].cpu().numpy()
             truth = target["depth_m"].numpy()
             truth_valid = target["valid"].numpy() > 0
+            input_validity = inputs[:, 4:5].numpy() > 0.5
             for batch_index in range(inputs.shape[0]):
-                scenario = dataset.rows[offset + batch_index].get("scenario", "unknown")
+                raw_scenario = dataset.rows[offset + batch_index].get("scenario", "unknown")
                 valid_count = int(truth_valid[batch_index].sum())
+                raw_valid_ratio = float(
+                    (input_validity[batch_index] & truth_valid[batch_index]).sum() / max(valid_count, 1)
+                )
+                scenario = depth_failure_confidence_group(raw_scenario, raw_valid_ratio)
+                scenario_counts[scenario] += 1
                 minimum_points = max(64, int(0.01 * max(valid_count, 1)))
                 for threshold in thresholds:
                     store = stores[scenario][threshold]
@@ -198,11 +206,14 @@ def _apply_policy(
         selected[scenario] = {
             "threshold": choice["threshold"],
             "calibration_qualified": choice["qualified"],
+            "runtime_enabled": choice["qualified"],
             "metrics": metrics,
         }
         if metrics is None:
             continue
         totals["frames"] += metrics["frames"]
+        if not choice["qualified"]:
+            continue
         totals["accepted"] += metrics["accepted_frames"]
         totals["evaluable"] += metrics["evaluable_frames"]
         if metrics["evaluable_frames"]:
@@ -267,9 +278,17 @@ def main() -> None:
         absolute_floor_m=args.absolute_floor_m,
     )
     report = {
-        "schema_version": 1,
+        "schema_version": 2,
         "checkpoint": args.checkpoint.resolve().as_posix(),
         "manifest": args.manifest.resolve().as_posix(),
+        "grouping": {
+            "default": "scenario",
+            "depth_failure_and_compound": (
+                "observed raw-depth valid ratio: partial>=0.45, "
+                "large=0.25-0.45, severe=0.10-0.25, extreme<0.10"
+            ),
+        },
+        "runtime_rejects_unqualified": True,
         "quality_profile": {
             "relative_tolerance": args.relative_tolerance,
             "absolute_floor_m": args.absolute_floor_m,

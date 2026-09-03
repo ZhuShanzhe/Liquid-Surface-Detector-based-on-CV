@@ -50,6 +50,36 @@ def test_embedded_threshold_and_qualification_gate():
     assert not failed.result_allowed
 
 
+def test_depth_failure_uses_observed_validity_band_and_base_fallback():
+    config = {
+        "enabled": True,
+        "require_qualified": True,
+        "thresholds": {
+            "depth_failure": {"threshold": 0.70, "qualified": False},
+            "depth_failure:extreme": {"threshold": 0.55, "qualified": True},
+        },
+    }
+    extreme = select_confidence_gate(
+        config,
+        model_variant="depth_failure",
+        triggers=("raw_depth_valid_ratio_low",),
+        raw_depth_valid_ratio=0.04,
+    )
+    assert extreme.scenario == "depth_failure:extreme"
+    assert extreme.threshold == 0.55
+    assert extreme.result_allowed
+
+    severe = select_confidence_gate(
+        config,
+        model_variant="depth_failure",
+        triggers=("raw_depth_valid_ratio_low",),
+        raw_depth_valid_ratio=0.20,
+    )
+    assert severe.scenario == "depth_failure:severe"
+    assert severe.threshold == 0.70
+    assert not severe.result_allowed
+
+
 def test_loads_calibration_report(tmp_path):
     report = tmp_path / "confidence.json"
     report.write_text(
