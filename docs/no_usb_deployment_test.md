@@ -37,7 +37,7 @@ python scripts/test_no_usb_deployment.py \
   --capture-output /artifacts/no-usb/captures \
   --checkpoint /artifacts/training/best.pth \
   --model /artifacts/models/universal-liquid.ts \
-  --confidence-threshold 0.90 \
+  --confidence-report /artifacts/evaluation/scenario-confidence.json \
   --report /artifacts/no-usb/report.json
 ```
 
@@ -77,6 +77,33 @@ frames with enough valid raw depth. It is an oracle diagnostic, not a deployable
 baseline. Final liquid height still requires verified camera depth correction,
 bottom/reference geometry, and site calibration.
 
+## V6 scenario-calibrated result
+
+The V6 replay used the same 84-frame no-USB protocol, but loaded the held-out
+scenario calibration report instead of a global confidence threshold. The report is:
+
+`/root/autodl-tmp/liquid-depth-artifacts/evaluation/no-usb-v6-v3-policy-final/report.json`
+
+| Gate or metric | Result |
+|---|---:|
+| Capture-contract failures | 0 / 84 |
+| Software capture-to-inference path | Pass |
+| Inference p95 | 1.45 ms |
+| Frames within 500 ms | 100% |
+| Scenario-qualified accepted coverage | 54.76% |
+| Accepted-frame surface-depth MAE | 3.77 cm |
+| Accepted-frame surface-depth AbsRel | 2.14% |
+| Within max(5 mm, 2%) tolerance | 56.52% |
+| Configured synthetic quality profile | Pass |
+| Hardware validated | No |
+| Deployment ready | No |
+
+The replay explicitly rejected multilayer, compound, severe, and extreme
+depth-failure routes because those routes were not qualified by the held-out
+calibration split. Partial and large depth failure use separate thresholds.
+The quality profile is configurable and is no longer hard-coded to a 1% gate.
+A profile pass remains synthetic evidence only; `deployment_ready` stays false
+until the target camera and site pass physical validation.
 ## Required physical-camera acceptance
 
 Before an industrial release:

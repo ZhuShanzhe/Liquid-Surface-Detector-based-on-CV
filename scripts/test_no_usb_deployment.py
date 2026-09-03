@@ -10,6 +10,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from liquid_depth.confidence_policy import depth_failure_confidence_group
 from liquid_depth.io import load_frame
 from liquid_depth.virtual_camera import prepare_universal_camera_input, replay_manifest
 
@@ -29,7 +30,34 @@ def _mask(path: Path) -> np.ndarray:
     return value != 0
 
 
-def _summary(errors: list[float], truths: list[float]) -> dict:
+def _confidence_entry(
+    scenario: str,
+    raw_valid_ratio: float,
+    default_threshold: float,
+    policy: dict | None,
+) -> tuple[str, float, bool]:
+    group = depth_failure_confidence_group(scenario, raw_valid_ratio)
+    if policy is None:
+        return group, default_threshold, True
+    entry = policy.get(group)
+    if entry is None and ":" in group:
+        entry = policy.get(group.split(":", maxsplit=1)[0])
+    if isinstance(entry, (int, float)):
+        return group, float(entry), True
+    if isinstance(entry, dict):
+        return group, float(entry.get("threshold", default_threshold)), bool(
+            entry.get("qualified", False)
+        )
+    return group, default_threshold, False
+
+
+def _summary(
+    errors: list[float],
+    truths: list[float],
+    *,
+    relative_tolerance: float,
+    absolute_floor_m: float,
+) -> dict:
     if not errors:
         return {
             "accepted_frames": 0,
@@ -41,7 +69,7 @@ def _summary(errors: list[float], truths: list[float]) -> dict:
     error = np.asarray(errors, dtype=np.float64)
     truth = np.asarray(truths, dtype=np.float64)
     absolute = np.abs(error)
-    tolerance = np.maximum(0.003, 0.01 * truth)
+    tolerance = np.maximum(absolute_floor_m, relative_tolerance * truth)
     return {
         "accepted_frames": len(errors),
         "mae_m": float(absolute.mean()),
@@ -63,8 +91,48 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--confidence-threshold", type=float, default=0.90)
+    parser.add_argument("--confidence-report", type=Path)
+    parser.add_argument("--relative-tolerance", type=float)
+    parser.add_argument("--absolute-floor-m", type=float)
+    parser.add_argument("--minimum-coverage", type=float)
+    parser.add_argument("--maximum-abs-rel", type=float)
+    parser.add_argument("--minimum-within-tolerance-rate", type=float)
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
+    calibration_report: dict = {}
+    if args.confidence_report is not None:
+        calibration_report = json.loads(
+            args.confidence_report.read_text(encoding="utf-8")
+        )
+    confidence_policy = calibration_report.get("policy")
+    if confidence_policy is not None and not isinstance(confidence_policy, dict):
+        raise TypeError("confidence report policy must be an object")
+    profile = calibration_report.get("quality_profile", {})
+    relative_tolerance = float(
+        args.relative_tolerance
+        if args.relative_tolerance is not None
+        else profile.get("relative_tolerance", 0.02)
+    )
+    absolute_floor_m = float(
+        args.absolute_floor_m
+        if args.absolute_floor_m is not None
+        else profile.get("absolute_floor_m", 0.005)
+    )
+    minimum_coverage = float(
+        args.minimum_coverage
+        if args.minimum_coverage is not None
+        else profile.get("minimum_coverage", 0.30)
+    )
+    maximum_abs_rel = float(
+        args.maximum_abs_rel
+        if args.maximum_abs_rel is not None
+        else profile.get("maximum_abs_rel", 0.03)
+    )
+    minimum_within_tolerance_rate = float(
+        args.minimum_within_tolerance_rate
+        if args.minimum_within_tolerance_rate is not None
+        else profile.get("minimum_within_tolerance_rate", 0.50)
+    )
 
     import torch
 
@@ -152,19 +220,29 @@ def main() -> None:
             raw_error = raw_estimate - raw_truth
             raw_errors.append(raw_error)
             raw_truths.append(raw_truth)
+        raw_valid_ratio = float(raw_selected.sum()) / max(int(truth_valid.sum()), 1)
+        scenario = str(provenance["scenario"])
+        confidence_group, confidence_threshold, confidence_qualified = (
+            _confidence_entry(
+                scenario,
+                raw_valid_ratio,
+                args.confidence_threshold,
+                confidence_policy,
+            )
+        )
 
         mask = prediction["mask_logits"].sigmoid()[0, 0].cpu().numpy() >= 0.5
         confidence = prediction["confidence"][0, 0].cpu().numpy()
         predicted_depth = prediction["depth_m"][0, 0].cpu().numpy()
         selected = (
             mask
-            & (confidence >= args.confidence_threshold)
+            & (confidence >= confidence_threshold)
             & np.isfinite(predicted_depth)
             & (predicted_depth >= min_depth_m)
             & (predicted_depth <= max_depth_m)
         )
         minimum_points = max(64, int(0.01 * width * height))
-        deployment_accepted = int(selected.sum()) >= minimum_points
+        deployment_accepted = confidence_qualified and int(selected.sum()) >= minimum_points
         evaluation_selected = selected & truth_valid
         error = None
         truth_level = None
@@ -174,7 +252,6 @@ def main() -> None:
             error = estimate - truth_level
             model_errors.append(error)
             model_truths.append(truth_level)
-            scenario = str(provenance["scenario"])
             scenario_errors[scenario].append(error)
             scenario_truths[scenario].append(truth_level)
 
@@ -182,6 +259,19 @@ def main() -> None:
             {
                 "frame_id": frame.frame_id,
                 "scenario": provenance["scenario"],
+                "confidence_scenario": confidence_group,
+                "confidence_threshold": confidence_threshold,
+                "confidence_qualified": confidence_qualified,
+                "raw_depth_valid_ratio": raw_valid_ratio,
+                "rejection_reason": (
+                    None
+                    if deployment_accepted
+                    else (
+                        "scenario_confidence_not_qualified"
+                        if not confidence_qualified
+                        else "scenario_confidence_support_insufficient"
+                    )
+                ),
                 "deployment_accepted": deployment_accepted,
                 "selected_points": int(selected.sum()),
                 "evaluation_points": int(evaluation_selected.sum()),
@@ -203,16 +293,20 @@ def main() -> None:
         )
 
     latency = np.asarray(latencies, dtype=np.float64)
-    restored_summary = _summary(model_errors, model_truths)
+    summary_kwargs = {
+        "relative_tolerance": relative_tolerance,
+        "absolute_floor_m": absolute_floor_m,
+    }
+    restored_summary = _summary(model_errors, model_truths, **summary_kwargs)
     capture_contract_pass = all(
         all(record["capture_contract"].values()) for record in records
     )
     latency_pass = bool(np.percentile(latency, 95) <= 500.0)
-    coverage_pass = len(model_errors) / max(len(captures), 1) >= 0.80
+    coverage_pass = len(model_errors) / max(len(captures), 1) >= minimum_coverage
     accuracy_pass = bool(
         restored_summary["abs_rel"] is not None
-        and restored_summary["abs_rel"] <= 0.01
-        and restored_summary["within_tolerance_rate"] >= 0.90
+        and restored_summary["abs_rel"] <= maximum_abs_rel
+        and restored_summary["within_tolerance_rate"] >= minimum_within_tolerance_rate
     )
     software_path_pass = capture_contract_pass and latency_pass
     report = {
@@ -236,20 +330,38 @@ def main() -> None:
         "checkpoint": args.checkpoint.resolve().as_posix(),
         "model": args.model.resolve().as_posix(),
         "manifest": args.manifest.resolve().as_posix(),
+        "confidence_report": (
+            args.confidence_report.resolve().as_posix()
+            if args.confidence_report is not None
+            else None
+        ),
+        "quality_profile": {
+            "relative_tolerance": relative_tolerance,
+            "absolute_floor_m": absolute_floor_m,
+            "minimum_coverage": minimum_coverage,
+            "maximum_abs_rel": maximum_abs_rel,
+            "minimum_within_tolerance_rate": minimum_within_tolerance_rate,
+        },
         "frames": len(captures),
         "accepted_coverage": len(model_errors) / max(len(captures), 1),
-        "raw_sensor_surface_oracle_mask": _summary(raw_errors, raw_truths),
+        "raw_sensor_surface_oracle_mask": _summary(
+            raw_errors,
+            raw_truths,
+            **summary_kwargs,
+        ),
         "restored_surface": restored_summary,
         "qualification": {
             "capture_contract_pass": capture_contract_pass,
             "latency_p95_under_500ms_pass": latency_pass,
-            "accepted_coverage_at_least_80pct_pass": coverage_pass,
-            "accuracy_absrel_1pct_and_pass_rate_90pct_pass": accuracy_pass,
+            "accepted_coverage_profile_pass": coverage_pass,
+            "accuracy_profile_pass": accuracy_pass,
             "software_path_pass": software_path_pass,
             "deployment_ready": False,
         },
         "by_scenario": {
-            scenario: _summary(errors, scenario_truths[scenario])
+            scenario: _summary(
+                errors, scenario_truths[scenario], **summary_kwargs
+            )
             for scenario, errors in sorted(scenario_errors.items())
         },
         "latency_ms": {
