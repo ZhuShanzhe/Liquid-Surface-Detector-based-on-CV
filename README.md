@@ -121,6 +121,7 @@ clouds, and generated artifacts stay on the server data disk.
 - [Scene-adaptive routing and 500 ms deployment policy](docs/scene_adaptive_runtime.md)
 - [Complex-scene evaluation protocol](docs/complex_scene_evaluation.md)
 - [Top-view v4 simulation and benchmark results](docs/simulation_results_v2_top.md)
+- [V6 scenario confidence and depth-failure results](docs/simulation_results_v3_confidence.md)
 - [Site few-shot calibration and top-camera deployment](docs/site_few_shot_calibration.md)
 - [Market-camera system-error calibration simulation](docs/site_calibration_simulation_results.md)
 - [Five-distance physical-camera qualification](docs/camera_plane_qualification.md)

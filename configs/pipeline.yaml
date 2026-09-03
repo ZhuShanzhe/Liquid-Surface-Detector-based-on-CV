@@ -42,13 +42,13 @@ complex_scene:
   # Optional per-camera defaults. A frame-local scene_context.json overrides these.
   scene_context: {}
   models:
-    # v5 serves glare/depth-failure/low-light; v4 remains the transparent specialist.
+    # v6 is the current synthetic-qualified candidate; keep routes off until hardware validation.
     # Keep every route disabled until camera/container-specific qualification.
     glare:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v5-calibration-aware.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v6-v3-calibration.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0
@@ -59,7 +59,7 @@ complex_scene:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v5-calibration-aware.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v6-v3-calibration.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0
@@ -70,7 +70,7 @@ complex_scene:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v4-top-dreds-ft.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v6-v3-calibration.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0
@@ -81,7 +81,7 @@ complex_scene:
       enabled: false
       backend: torchscript
       torchscript:
-        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v5-calibration-aware.ts
+        model_path: /root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v6-v3-calibration.ts
         input_size: [320, 180]
         min_depth_m: 0.1
         max_depth_m: 10.0
@@ -90,10 +90,10 @@ complex_scene:
         warmup: true
 
 # Per-pixel confidence is calibrated independently for each scene family.
-# Keep disabled until the selected checkpoint has a held-out calibration report.
+# The report below is synthetic-only; keep disabled until target-camera qualification.
 confidence_policy:
   enabled: false
-  calibration_report: null
+  calibration_report: /root/autodl-tmp/liquid-depth-artifacts/evaluation/scenario-confidence-v6-v3-calibration.json
   require_qualified: true
   default_threshold: 0.95
   route_to_scenario:

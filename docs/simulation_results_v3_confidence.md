@@ -1,0 +1,73 @@
+# V6 场景置信度与大面积深度失效仿真结果
+
+更新时间：2026-09-04
+
+## 1. 本阶段结论
+
+V6 已完成面向顶部安装 RGB-D 相机的 12,000 帧多样化仿真、置信度专训、场景均衡联合微调、独立测试、分场景阈值校准和 TorchScript 导出。模型覆盖 0.1–10 m，不按量程拆成互不兼容的模型；量程分段只用于诊断。
+
+本阶段采用 `max(5 mm, 2%)` 作为置信度监督和仿真资格判定的严格容差，不把 1% 作为固定死线。软件著作权登记本身没有精度门槛；这里的指标用于工程质量控制，不能替代目标相机的现场计量验收。
+
+## 2. 数据和训练
+
+正式仿真集共 12,000 帧：
+
+- 训练 9,604 帧、验证 1,200 帧、独立测试 1,196 帧。
+- 场景包含 ordinary、transparent、translucent、multilayer、glare、low_light、floating_objects、uneven_surface、depth_failure 和 compound。
+- 大面积深度失效和复合退化按观测到的原始有效深度比例分为 partial（≥45%）、large（25%–45%）、severe（10%–25%）和 extreme（<10%）。
+- 仿真随机化包含顶部/近顶部视角、容器类型与尺寸、液位、液面扰动、漂浮物、曝光、眩光、透明/半透明材质，以及 active stereo、structured light、ToF 的空洞和错误回波代理。
+- 训练使用场景—严重度均衡采样，防止普通样本或极端空洞样本单方面主导梯度。
+
+复现实验入口：
+
+`bash scripts/run_v6_v3_calibration_pipeline.sh`
+
+## 3. 与 V5 的同集对比
+
+| 指标（独立测试） | V5 | V6 | 变化 |
+| --- | ---: | ---: | ---: |
+| 像素 MAE | 205.21 mm | 188.24 mm | -8.27% |
+| 像素 AbsRel | 9.99% | 8.15% | -18.39% |
+| 严格容差像素通过率 | 23.21% | 27.44% | +4.23 个百分点 |
+| 置信度 Brier（越低越好） | 0.6150 | 0.2147 | -65.09% |
+| 液面掩码 IoU（验证集） | 0.7709 | 0.7937 | +0.0228 |
+
+V6 在 0.1–0.3 m、0.3–1 m、1–3 m、3–10 m 四段的 MAE 均低于 V5。depth_failure 的像素 MAE 从 373.0 mm 小幅变差到 387.9 mm，但 AbsRel 从 16.37% 降到 15.60%；因此该类不能只看全像素恢复，必须依靠可靠点选择、平面拟合和主动拒绝。
+
+## 4. 分场景置信度策略
+
+阈值在验证划分上拟合，以下数字来自完全独立的测试划分。仿真资格条件同时要求覆盖率、可评估率、AbsRel 和严格容差通过率，不满足时运行时禁用该路由。
+
+| 场景路由 | 状态 | 阈值 | 覆盖率 | 液位 AbsRel | 严格容差通过率 |
+| --- | --- | ---: | ---: | ---: | ---: |
+| ordinary | 仿真合格 | 0.315 | 97.0% | 1.43% | 76.9% |
+| transparent | 仿真合格 | 0.300 | 100.0% | 2.58% | 64.9% |
+| translucent | 仿真合格 | 0.300 | 100.0% | 2.37% | 53.6% |
+| glare | 仿真合格 | 0.433 | 79.8% | 2.52% | 59.2% |
+| low_light | 仿真合格 | 0.300 | 97.6% | 2.25% | 68.4% |
+| floating_objects | 仿真合格 | 0.300 | 100.0% | 1.85% | 68.8% |
+| uneven_surface | 仿真合格 | 0.300 | 100.0% | 1.65% | 75.3% |
+| depth_failure:partial | 仿真合格 | 0.300 | 98.2% | 1.30% | 76.8% |
+| depth_failure:large | 仿真合格 | 0.448 | 90.9% | 2.13% | 55.0% |
+| depth_failure:severe/extreme | 禁用 | 分别 0.463/0.492 | — | — | — |
+| multilayer | 禁用 | 0.507 | — | — | — |
+| compound（全部强度） | 禁用 | 0.344–0.537 | — | — | — |
+
+只统计启用路由时，整体输出覆盖率为 62.79%，可评估输出率为 98.67%，液位 MAE 为 37.80 mm、AbsRel 为 2.07%，严格容差通过率为 66.67%。这是一种“宁可拒绝，也不伪报高置信度”的安全策略。
+
+## 5. 部署边界
+
+- 本报告仅证明仿真域内的改进；`synthetic_only=true`、`hardware_qualified=false`。
+- 生产配置继续默认关闭该置信度策略。只有用目标相机完成现场独立验证后，才能开启对应场景路由。
+- severe/extreme 深度失效、多层透明以及复合退化仍是后续算法重点；当前应明确拒绝，不应输出最终液深。
+- 固定机位推荐 5–8 个已知液位做尺度/偏置标定，并保留至少 2 个液位只做验收。相机或容器明显移动后重新标定；持续移动场景需要 CAD 和实时位姿。
+- 工业验收需按量程与场景同时报告 MAE、AbsRel、严格容差通过率、覆盖率、拒绝率、最大误差和端到端 P95 延时。
+
+## 6. 产物
+
+- 训练权重：`/root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v6-v3-balanced-full/best.pth`
+- 独立测试：`/root/autodl-tmp/liquid-depth-artifacts/evaluation/universal-v6-v3-calibration-test.json`
+- 置信度策略：`/root/autodl-tmp/liquid-depth-artifacts/evaluation/scenario-confidence-v6-v3-calibration.json`
+- 部署模型：`/root/autodl-tmp/liquid-depth-artifacts/models/universal-liquid-v6-v3-calibration.ts`
+
+TorchScript 已完成 CPU 加载与一次前向冒烟测试，六个输出（掩码、深度、法向、对数方差、置信度 logits、置信度）形状和数值均有效。
