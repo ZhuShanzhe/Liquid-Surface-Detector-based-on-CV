@@ -89,6 +89,20 @@ complex_scene:
         preserve_valid_raw: false
         warmup: true
 
+# Per-pixel confidence is calibrated independently for each scene family.
+# Keep disabled until the selected checkpoint has a held-out calibration report.
+confidence_policy:
+  enabled: false
+  calibration_report: null
+  require_qualified: true
+  default_threshold: 0.95
+  route_to_scenario:
+    glare: glare
+    low_light: low_light
+    depth_failure: depth_failure
+    transparent_multilayer: multilayer
+  thresholds: {}
+
 depth_refinement:
   # identity preserves the validated classical baseline. Switch to torchscript
   # after a transparent/specular RGB-D completion model passes offline evaluation.

@@ -7,6 +7,7 @@ from time import perf_counter
 import cv2
 import numpy as np
 
+from .confidence_policy import select_confidence_gate
 from .geometry import (
     PlaneFit,
     depth_to_meters,
@@ -40,8 +41,14 @@ def _fit(
     erode_key: str,
     depth: np.ndarray | None = None,
     depth_confidence: np.ndarray | None = None,
+    min_depth_confidence: float | None = None,
 ) -> PlaneFit:
     geometry = config["geometry"]
+    minimum_confidence = (
+        float(geometry.get("min_depth_confidence", 0.0))
+        if min_depth_confidence is None
+        else float(min_depth_confidence)
+    )
     return fit_plane_from_mask(
         frame.depth if depth is None else depth,
         mask,
@@ -51,7 +58,7 @@ def _fit(
         max_points=int(geometry["max_points"]),
         seed=int(geometry["seed"]),
         confidence=depth_confidence,
-        min_confidence=float(geometry.get("min_depth_confidence", 0.0)),
+        min_confidence=minimum_confidence,
     )
 
 
@@ -105,6 +112,17 @@ def infer_frame(
     scene_context = dict(config.get("complex_scene", {}).get("scene_context", {}))
     scene_context.update(load_scene_context(frame.source_dir))
     scene_decision = scene_policy.decide(signals, scene_context)
+    confidence_gate = select_confidence_gate(
+        config.get("confidence_policy", {}),
+        model_variant=scene_decision.model_variant,
+        triggers=scene_decision.triggers,
+        context=scene_context,
+    )
+    base_min_confidence = float(config["geometry"].get("min_depth_confidence", 0.0))
+    fit_min_confidence = max(
+        base_min_confidence,
+        confidence_gate.threshold if confidence_gate.enabled else 0.0,
+    )
     active_refiner = depth_refiner
     if scene_decision.activated:
         active_refiner = specialists[scene_decision.model_variant]
@@ -127,6 +145,7 @@ def infer_frame(
             "liquid_erode_px",
             depth=refined.depth_m,
             depth_confidence=refined.confidence,
+            min_depth_confidence=fit_min_confidence,
         )
     except (RuntimeError, ValueError) as error:
         planar_support = assess_planar_support(
@@ -144,6 +163,10 @@ def infer_frame(
         ]
         if not scene_decision.result_allowed:
             rejection_reasons.append("complex_model_required_but_unavailable")
+        if confidence_gate.enabled:
+            rejection_reasons.append("scenario_confidence_support_insufficient")
+        if not confidence_gate.result_allowed:
+            rejection_reasons.append("scenario_confidence_not_qualified")
         inference_total_ms = (perf_counter() - started) * 1000.0
         latency_budget_ms = scene_decision.latency_budget_ms
         latency_within_budget = inference_total_ms <= latency_budget_ms
@@ -172,6 +195,7 @@ def infer_frame(
             "planar_support": planar_support.to_dict(),
             "mask_area_px": mask_area,
             "complex_scene": scene_decision.to_dict(),
+            "confidence_gate": confidence_gate.to_dict(),
             "latency": {
                 "inference_total_ms": inference_total_ms,
                 "depth_refinement_ms": depth_refinement_ms,
@@ -270,6 +294,9 @@ def infer_frame(
     if not scene_decision.result_allowed:
         accepted = False
         rejection_reasons.append("complex_model_required_but_unavailable")
+    if not confidence_gate.result_allowed:
+        accepted = False
+        rejection_reasons.append("scenario_confidence_not_qualified")
 
     temporal_payload: dict | None = None
     if temporal_filter is not None:
@@ -313,6 +340,7 @@ def infer_frame(
         "planar_support": planar_support.to_dict(),
         "mask_area_px": mask_area,
         "complex_scene": scene_decision.to_dict(),
+        "confidence_gate": confidence_gate.to_dict(),
         "latency": {
             "inference_total_ms": inference_total_ms,
             "depth_refinement_ms": depth_refinement_ms,

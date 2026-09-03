@@ -19,7 +19,9 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 import importlib.util
 
-_spec = importlib.util.spec_from_file_location("liquid_simulation", REPO_ROOT / "src/liquid_depth/simulation.py")
+_spec = importlib.util.spec_from_file_location(
+    "liquid_simulation", REPO_ROOT / "src/liquid_depth/simulation.py"
+)
 _simulation = importlib.util.module_from_spec(_spec)
 sys.modules[_spec.name] = _simulation
 _spec.loader.exec_module(_simulation)
@@ -45,8 +47,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--height", type=int, default=360)
     parser.add_argument("--min-distance-m", type=float, default=0.1)
     parser.add_argument("--max-distance-m", type=float, default=10.0)
-    parser.add_argument("--scenario-profile", choices=("balanced", "hard"), default="balanced")
-    parser.add_argument("--camera-profile", choices=("general", "industrial_top", "near_vertical"), default="industrial_top")
+    parser.add_argument("--scenario-profile", choices=("balanced", "hard", "calibration"), default="balanced")
+    parser.add_argument(
+        "--camera-profile", choices=("general", "industrial_top", "near_vertical"), default="industrial_top"
+    )
     parser.add_argument("--engine", choices=("eevee", "cycles"), default="eevee")
     parser.add_argument("--render-samples", type=int, default=32)
     parser.add_argument("--overwrite", action="store_true")
@@ -151,7 +155,9 @@ def create_container(scene):
 
 def create_liquid(scene):
     segments, rings = 128, 20
-    vertices: list[tuple[float, float, float]] = [(0.0, 0.0, float(surface_height_and_gradient(scene, np.array(0.0), np.array(0.0))[0]))]
+    vertices: list[tuple[float, float, float]] = [
+        (0.0, 0.0, float(surface_height_and_gradient(scene, np.array(0.0), np.array(0.0))[0]))
+    ]
     for ring in range(1, rings + 1):
         radius = ring / rings
         for i in range(segments):
@@ -238,7 +244,11 @@ def create_environment(scene, rng: random.Random) -> None:
         angle = rng.uniform(0, 2 * math.pi)
         distance = radius * rng.uniform(2.0, 4.0)
         bpy.ops.mesh.primitive_cube_add(
-            location=(distance * math.cos(angle), distance * math.sin(angle), scene.container_bottom_z_m + radius * rng.uniform(-0.2, 1.2)),
+            location=(
+                distance * math.cos(angle),
+                distance * math.sin(angle),
+                scene.container_bottom_z_m + radius * rng.uniform(-0.2, 1.2),
+            ),
             scale=(radius * rng.uniform(0.15, 0.7),) * 3,
         )
         obj = bpy.context.object
@@ -272,20 +282,31 @@ def create_lighting(scene, rng: random.Random) -> None:
     bpy.context.scene.world = world
     world.use_nodes = True
     world.node_tree.nodes["Background"].inputs["Color"].default_value = (
-        rng.uniform(0.5, 1.0), rng.uniform(0.5, 1.0), rng.uniform(0.5, 1.0), 1.0
+        rng.uniform(0.5, 1.0),
+        rng.uniform(0.5, 1.0),
+        rng.uniform(0.5, 1.0),
+        1.0,
     )
     world.node_tree.nodes["Background"].inputs["Strength"].default_value = 0.08 * scene.light_level
     radius = max(scene.surface_radius_x_m, scene.surface_radius_y_m)
-    count = 3 if scene.scenario in {"glare", "compound"} else 2
+    glare_scene = scene.scenario in {"glare", "compound"}
+    count = 3 if glare_scene else 2
+    glare_gain = 0.7 + 3.3 * scene.corruption_severity if scene.scenario_profile == "calibration" else 1.0
     for index in range(count):
         data = bpy.data.lights.new(f"area_light_{index}", "AREA")
-        data.energy = radius * radius * scene.light_level * (1800.0 if index == 0 and scene.scenario in {"glare", "compound"} else 500.0)
+        primary_glare = index == 0 and glare_scene
+        data.energy = radius * radius * scene.light_level * (1800.0 * glare_gain if primary_glare else 500.0)
         data.shape = "DISK"
-        data.size = radius * (0.25 if index == 0 and scene.scenario in {"glare", "compound"} else rng.uniform(1.0, 3.0))
+        glare_size = max(0.08, 0.38 - 0.27 * scene.corruption_severity)
+        data.size = radius * (glare_size if primary_glare else rng.uniform(1.0, 3.0))
         obj = bpy.data.objects.new(f"area_light_{index}", data)
         bpy.context.collection.objects.link(obj)
         angle = rng.uniform(0, 2 * math.pi)
-        obj.location = (radius * rng.uniform(1.0, 4.0) * math.cos(angle), radius * rng.uniform(1.0, 4.0) * math.sin(angle), radius * rng.uniform(2.0, 6.0))
+        obj.location = (
+            radius * rng.uniform(1.0, 4.0) * math.cos(angle),
+            radius * rng.uniform(1.0, 4.0) * math.sin(angle),
+            radius * rng.uniform(2.0, 6.0),
+        )
         direction = np.asarray((0.0, 0.0, 0.0)) - np.asarray(obj.location)
         obj.rotation_euler = tuple(np.asarray(direction.tolist()))
         obj.rotation_euler = direction_to_euler(direction)

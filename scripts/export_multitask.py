@@ -30,6 +30,7 @@ def main() -> None:
             float(checkpoint.get("min_depth_m", 0.1)),
             float(checkpoint["max_depth_m"]),
             rgb_prior_enabled=bool(checkpoint.get("rgb_prior_enabled", False)),
+            separate_confidence_head=bool(checkpoint.get("separate_confidence_head", False)),
         )
     else:
         model = LiquidSurfaceMultiTaskNet(

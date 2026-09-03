@@ -26,12 +26,7 @@ def _predicted_liquid_level(
     mask = prediction["mask_logits"].sigmoid()[0, 0].cpu().numpy() >= 0.5
     confidence = prediction["confidence"][0, 0].cpu().numpy()
     depth_m = prediction["depth_m"][0, 0].cpu().numpy()
-    selected = (
-        mask
-        & (confidence >= threshold)
-        & np.isfinite(depth_m)
-        & (depth_m > 0)
-    )
+    selected = mask & (confidence >= threshold) & np.isfinite(depth_m) & (depth_m > 0)
     minimum_points = max(64, int(0.01 * width * height))
     selected_points = int(selected.sum())
     mean_confidence = float(confidence[selected].mean()) if selected_points else 0.0
@@ -58,10 +53,7 @@ def _predicted_liquid_level(
     )
     camera_to_world = np.asarray(metadata["camera_to_world"], dtype=np.float64)
     world_z = camera_points @ camera_to_world[2, :3] + camera_to_world[2, 3]
-    inside_bottom_m = (
-        float(metadata["container_bottom_z_m"])
-        + float(metadata["wall_thickness_m"])
-    )
+    inside_bottom_m = float(metadata["container_bottom_z_m"]) + float(metadata["wall_thickness_m"])
     return (
         float(np.median(world_z) - inside_bottom_m),
         mean_confidence,
@@ -99,6 +91,7 @@ def _extract_records(args) -> tuple[list[dict], dict]:
         minimum,
         maximum,
         rgb_prior_enabled=bool(checkpoint.get("rgb_prior_enabled", False)),
+        separate_confidence_head=bool(checkpoint.get("separate_confidence_head", False)),
     )
     model.load_state_dict(checkpoint["model"])
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -120,10 +113,7 @@ def _extract_records(args) -> tuple[list[dict], dict]:
             if not metadata_path.is_absolute():
                 metadata_path = dataset.root / metadata_path
             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-            truth_m = -(
-                float(metadata["container_bottom_z_m"])
-                + float(metadata["wall_thickness_m"])
-            )
+            truth_m = -(float(metadata["container_bottom_z_m"]) + float(metadata["wall_thickness_m"]))
             accepted = level is not None and truth_m > 0
             records.append(
                 {
@@ -133,9 +123,7 @@ def _extract_records(args) -> tuple[list[dict], dict]:
                     "truth_m": truth_m,
                     "predicted_m": level,
                     "error_m": level - truth_m if accepted else None,
-                    "relative_error": (level - truth_m) / truth_m
-                    if accepted
-                    else None,
+                    "relative_error": (level - truth_m) / truth_m if accepted else None,
                     "accepted": accepted,
                     "mean_confidence": confidence,
                     "selected_points": points,
@@ -156,9 +144,7 @@ def _extract_records(args) -> tuple[list[dict], dict]:
             "frame_acceptance": len(accepted) / max(len(values), 1),
             "signed_bias_m": float(errors.mean()) if len(errors) else None,
             "mae_m": float(np.abs(errors).mean()) if len(errors) else None,
-            "median_relative_error": float(np.median(relative))
-            if len(relative)
-            else None,
+            "median_relative_error": float(np.median(relative)) if len(relative) else None,
         }
     return records, {
         "checkpoint": args.checkpoint.resolve().as_posix(),
@@ -227,9 +213,7 @@ def main() -> None:
     simulations = {}
     for profile_name, profile in CAMERA_ERROR_PROFILES.items():
         simulations[profile_name] = {}
-        for strategy_index, (strategy_name, strategy) in enumerate(
-            strategies.items()
-        ):
+        for strategy_index, (strategy_name, strategy) in enumerate(strategies.items()):
             simulations[profile_name][strategy_name] = simulate_site_calibration(
                 records,
                 profile,
@@ -260,9 +244,7 @@ def main() -> None:
                 "site_success_rate": result["site_success_rate"],
                 "mae_m": result["global"]["mae_m"],
                 "abs_rel": result["global"]["abs_rel"],
-                "within_tolerance_rate": result["global"][
-                    "within_tolerance_rate"
-                ],
+                "within_tolerance_rate": result["global"]["within_tolerance_rate"],
                 "level_coverage": result["global"]["level_coverage"],
             }
             for strategy, result in values.items()
@@ -275,4 +257,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

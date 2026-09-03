@@ -50,6 +50,9 @@ def main() -> None:
     parser.add_argument("--tolerance-weight", type=float, default=0.5)
     parser.add_argument("--uncertainty-weight", type=float, default=0.2)
     parser.add_argument("--surface-level-weight", type=float, default=0.5)
+    parser.add_argument("--confidence-relative-tolerance", type=float, default=0.02)
+    parser.add_argument("--confidence-absolute-floor-m", type=float, default=0.005)
+    parser.add_argument("--confidence-only-epochs", type=int, default=0)
     parser.add_argument("--surface-absolute-weight", type=float, default=0.0)
     parser.add_argument("--rgb-prior", action="store_true")
     parser.add_argument(
@@ -119,6 +122,7 @@ def main() -> None:
         args.min_depth_m,
         args.max_depth_m,
         rgb_prior_enabled=args.rgb_prior,
+        separate_confidence_head=True,
     ).to(device)
     criterion = UniversalMultiTaskLoss(
         relative_weight=args.relative_weight,
@@ -126,6 +130,8 @@ def main() -> None:
         uncertainty_weight=args.uncertainty_weight,
         surface_level_weight=args.surface_level_weight,
         surface_absolute_weight=args.surface_absolute_weight,
+        confidence_relative_tolerance=args.confidence_relative_tolerance,
+        confidence_absolute_floor_m=args.confidence_absolute_floor_m,
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
@@ -137,7 +143,11 @@ def main() -> None:
         state = torch.load(source_path, map_location="cpu", weights_only=False)
         if args.rgb_prior:
             incompatible = model.load_state_dict(state["model"], strict=False)
-            invalid_missing = [name for name in incompatible.missing_keys if not name.startswith("rgb_prior")]
+            invalid_missing = [
+                name
+                for name in incompatible.missing_keys
+                if not name.startswith(("rgb_prior", "confidence_head"))
+            ]
             if invalid_missing or incompatible.unexpected_keys:
                 raise RuntimeError(
                     f"Incompatible initialization: missing={invalid_missing}, unexpected={incompatible.unexpected_keys}"
@@ -152,6 +162,9 @@ def main() -> None:
             best_score = float(state.get("best_score", float("-inf")))
 
     for epoch in range(start_epoch, args.epochs + 1):
+        confidence_only = epoch <= args.confidence_only_epochs
+        for name, parameter in model.named_parameters():
+            parameter.requires_grad_(not confidence_only or name.startswith("confidence_head"))
         model.train()
         running = 0.0
         for step, (inputs, target) in enumerate(train_loader, start=1):
@@ -198,7 +211,10 @@ def main() -> None:
                 truth = target["depth_m"]
                 error = prediction["depth_m"] - truth
                 abs_error = error.abs()
-                tolerance = torch.maximum(truth * 0.01, torch.full_like(truth, 0.003))
+                tolerance = torch.maximum(
+                    truth * args.confidence_relative_tolerance,
+                    torch.full_like(truth, args.confidence_absolute_floor_m),
+                )
                 totals["sq"] += float((error[valid] ** 2).sum())
                 totals["abs"] += float(abs_error[valid].sum())
                 totals["rel"] += float((abs_error[valid] / truth[valid].clamp_min(1e-6)).sum())
@@ -261,15 +277,15 @@ def main() -> None:
             "min_depth_m": args.min_depth_m,
             "max_depth_m": args.max_depth_m,
             "depth_encoding": "log",
-            "model_family": (
-                "universal_liquid_surface_v5_calibration_aware"
-                if args.surface_absolute_weight > 0
-                else "universal_liquid_surface_v4"
-            ),
+            "model_family": "universal_liquid_surface_v6_confidence_calibrated",
             "rgb_prior_enabled": args.rgb_prior,
             "uncertainty_weight": args.uncertainty_weight,
             "surface_level_weight": args.surface_level_weight,
             "surface_absolute_weight": args.surface_absolute_weight,
+            "separate_confidence_head": True,
+            "confidence_relative_tolerance": args.confidence_relative_tolerance,
+            "confidence_absolute_floor_m": args.confidence_absolute_floor_m,
+            "confidence_only_epochs": args.confidence_only_epochs,
             "difficulty_boosts": priority_multipliers,
             "initial_checkpoint": initial_checkpoint,
             "input_contract": "RGB ImageNet-normalized + log-depth[0.1,10m] + validity",

@@ -23,6 +23,7 @@ class UniversalLiquidSurfaceNet(nn.Module):
         min_depth_m: float = 0.1,
         max_depth_m: float = 10.0,
         rgb_prior_enabled: bool = False,
+        separate_confidence_head: bool = True,
     ) -> None:
         super().__init__()
         if not 0 < min_depth_m < max_depth_m:
@@ -32,6 +33,7 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.max_depth_m = float(max_depth_m)
         self.log_depth_span = float(math.log(max_depth_m / min_depth_m))
         self.rgb_prior_enabled = bool(rgb_prior_enabled)
+        self.separate_confidence_head = bool(separate_confidence_head)
         if self.rgb_prior_enabled:
             self.rgb_prior = nn.Sequential(ConvBlock(3, c), nn.Conv2d(c, c, 1))
             self.rgb_prior_scale = nn.Parameter(torch.tensor(-2.0))
@@ -51,6 +53,7 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.depth_head = nn.Conv2d(c, 1, 1)
         self.normal_head = nn.Conv2d(c, 3, 1)
         self.log_variance_head = nn.Conv2d(c, 1, 1)
+        self.confidence_head = nn.Conv2d(c, 1, 1) if self.separate_confidence_head else None
 
     @staticmethod
     def _up(inputs: torch.Tensor, skip: torch.Tensor) -> torch.Tensor:
@@ -73,12 +76,16 @@ class UniversalLiquidSurfaceNet(nn.Module):
         depth_unit = torch.sigmoid(self.depth_head(d1))
         depth_m = self.min_depth_m * torch.exp(depth_unit * self.log_depth_span)
         log_variance = self.log_variance_head(d1).clamp(-7.0, 5.0)
+        confidence_logits = (
+            self.confidence_head(d1.detach()) if self.confidence_head is not None else -log_variance
+        )
         return {
             "mask_logits": self.mask_head(d1),
             "depth_m": depth_m,
             "normal": F.normalize(self.normal_head(d1), dim=1, eps=1e-6),
             "log_variance": log_variance,
-            "confidence": torch.sigmoid(-log_variance),
+            "confidence_logits": confidence_logits,
+            "confidence": torch.sigmoid(confidence_logits),
         }
 
 
@@ -91,6 +98,8 @@ class UniversalMultiTaskLoss(nn.Module):
         uncertainty_weight: float = 0.2,
         surface_level_weight: float = 0.5,
         surface_absolute_weight: float = 0.0,
+        confidence_relative_tolerance: float = 0.02,
+        confidence_absolute_floor_m: float = 0.005,
     ) -> None:
         super().__init__()
         self.base = MultiTaskLoss(tolerance_weight=tolerance_weight)
@@ -99,6 +108,9 @@ class UniversalMultiTaskLoss(nn.Module):
         self.uncertainty_weight = float(uncertainty_weight)
         self.surface_level_weight = float(surface_level_weight)
         self.surface_absolute_weight = float(surface_absolute_weight)
+
+        self.confidence_relative_tolerance = float(confidence_relative_tolerance)
+        self.confidence_absolute_floor_m = float(confidence_absolute_floor_m)
 
     def forward(
         self,
@@ -114,12 +126,12 @@ class UniversalMultiTaskLoss(nn.Module):
         losses["relative_log"] = relative
         depth_error = (prediction["depth_m"] - target["depth_m"]).abs()
         tolerance = torch.maximum(
-            target["depth_m"] * 0.01,
-            torch.full_like(target["depth_m"], 0.003),
+            target["depth_m"] * self.confidence_relative_tolerance,
+            torch.full_like(target["depth_m"], self.confidence_absolute_floor_m),
         )
         reliable = (depth_error.detach() <= tolerance).float()
         calibration_map = F.binary_cross_entropy_with_logits(
-            -prediction["log_variance"], reliable, reduction="none"
+            prediction["confidence_logits"], reliable, reduction="none"
         )
         calibration = (calibration_map * valid).sum() / valid.sum().clamp_min(1.0)
         losses["uncertainty_calibration"] = calibration
@@ -136,12 +148,10 @@ class UniversalMultiTaskLoss(nn.Module):
             (predicted_level - target_level).abs() * has_support
         ).sum() / has_support.sum().clamp_min(1.0)
         losses["surface_level"] = surface_level
-        predicted_linear_level = (
-            prediction["depth_m"].flatten(1) * flattened_valid
-        ).sum(dim=1) / per_sample_count
-        target_linear_level = (
-            target["depth_m"].flatten(1) * flattened_valid
-        ).sum(dim=1) / per_sample_count
+        predicted_linear_level = (prediction["depth_m"].flatten(1) * flattened_valid).sum(
+            dim=1
+        ) / per_sample_count
+        target_linear_level = (target["depth_m"].flatten(1) * flattened_valid).sum(dim=1) / per_sample_count
         surface_absolute = (
             (predicted_linear_level - target_linear_level).abs() * has_support
         ).sum() / has_support.sum().clamp_min(1.0)

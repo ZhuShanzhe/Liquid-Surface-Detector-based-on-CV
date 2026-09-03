@@ -9,6 +9,8 @@ def test_universal_model_forward_and_loss():
     model = UniversalLiquidSurfaceNet(base_channels=4, min_depth_m=0.1, max_depth_m=10.0)
     inputs = torch.zeros(2, 5, 32, 48)
     output = model(inputs)
+    assert output["confidence_logits"].shape == (2, 1, 32, 48)
+    assert model.confidence_head is not None
     assert output["depth_m"].shape == (2, 1, 32, 48)
     assert torch.all(output["depth_m"] >= 0.1)
     assert torch.all(output["depth_m"] <= 10.0)
@@ -25,3 +27,12 @@ def test_universal_model_forward_and_loss():
     assert losses["surface_level"] >= 0
     assert losses["surface_absolute_m"] >= 0
     assert torch.isfinite(losses["uncertainty_calibration"])
+
+
+def test_universal_model_keeps_legacy_confidence_contract():
+    model = UniversalLiquidSurfaceNet(
+        base_channels=4,
+        separate_confidence_head=False,
+    )
+    output = model(torch.zeros(1, 5, 16, 16))
+    torch.testing.assert_close(output["confidence"], torch.sigmoid(-output["log_variance"]))

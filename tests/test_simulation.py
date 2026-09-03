@@ -66,3 +66,32 @@ def test_sample_contract_builds_canonical_manifest(tmp_path):
     text = manifest.read_text(encoding="utf-8")
     assert "rgb_path,raw_depth_path,target_depth_path" in text
     assert "active_stereo_proxy_v2" in text
+
+
+def test_calibration_profile_stratifies_failure_severity():
+    scenes = [
+        sample_scene(index, seed=31, width=96, height=54, scenario_profile="calibration")
+        for index in range(320)
+    ]
+    severities = np.asarray([scene.corruption_severity for scene in scenes])
+    assert severities.min() < 0.15
+    assert severities.max() > 0.85
+    tags = {tag for scene in scenes for tag in scene.difficulty_tags}
+    assert {"severity_low", "severity_moderate", "severity_high", "severity_extreme"} <= tags
+    failure_coverages = []
+    for scene in scenes:
+        if scene.scenario == "depth_failure":
+            labels = render_geometric_labels(scene)
+            sensor = simulate_raw_depth(scene, labels)
+            mask = labels["mask"] > 0
+            valid = np.isfinite(sensor["raw_depth_m"]) & (sensor["raw_depth_m"] > 0)
+            failure_coverages.append(
+                (
+                    scene.corruption_severity,
+                    float((valid & mask).sum()) / max(int(mask.sum()), 1),
+                )
+            )
+    low = [coverage for severity, coverage in failure_coverages if severity < 0.3]
+    high = [coverage for severity, coverage in failure_coverages if severity > 0.7]
+    assert low and high
+    assert np.median(high) < np.median(low)

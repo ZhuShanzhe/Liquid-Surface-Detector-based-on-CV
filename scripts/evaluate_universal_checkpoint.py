@@ -58,6 +58,7 @@ def main() -> None:
         minimum,
         maximum,
         rgb_prior_enabled=bool(checkpoint.get("rgb_prior_enabled", False)),
+        separate_confidence_head=bool(checkpoint.get("separate_confidence_head", False)),
     )
     model.load_state_dict(checkpoint["model"])
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

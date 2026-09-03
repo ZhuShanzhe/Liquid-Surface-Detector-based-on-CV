@@ -1,0 +1,70 @@
+version: 3
+generator: liquid_sim_v3
+
+paths:
+  blender: /root/autodl-tmp/tools/blender/blender-4.2.0-linux-x64/blender
+  output_root: /root/autodl-tmp/liquid-depth-data/synthetic/liquid-sim-v3-calibration-top-12000
+  artifacts_root: /root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v6
+
+camera:
+  profile: near_vertical
+  deployment: industrial_top
+  width: 320
+  height: 180
+  minimum_distance_m: 0.1
+  maximum_distance_m: 10.0
+
+campaign:
+  samples: 12000
+  seed: 20260904
+  scenario_profile: calibration
+  severity_strata: [low, moderate, high, extreme]
+  container_shapes:
+    - cylindrical
+    - elliptical
+    - rounded_rect
+    - wide_tank
+    - tapered
+    - rectangular_tank
+    - shallow_tray
+    - deep_vessel
+  focus:
+    - transparent
+    - translucent
+    - glare
+    - low_light
+    - depth_failure
+    - multilayer
+    - compound
+  depth_failure:
+    contiguous_holes: true
+    wrong_returns: true
+    sensor_noise_profiles: [active_stereo_proxy, structured_light_proxy, tof_proxy]
+
+training:
+  model_family: universal_liquid_surface_v6_confidence_calibrated
+  initialization: universal-liquid-v5-calibration-aware
+  image_size: [320, 180]
+  depth_range_m: [0.1, 10.0]
+  confidence_only_epochs: 2
+  joint_finetune_epochs: 6
+  confidence_target:
+    relative_tolerance: 0.02
+    absolute_floor_m: 0.005
+  report_tolerances:
+    - {relative: 0.01, absolute_floor_m: 0.003, label: strict}
+    - {relative: 0.02, absolute_floor_m: 0.005, label: operational}
+
+confidence_policy:
+  per_scenario: true
+  minimum_coverage: 0.30
+  minimum_evaluable_acceptance_rate: 0.90
+  maximum_abs_rel: 0.03
+  minimum_within_tolerance_rate: 0.50
+  reject_unqualified_scenarios: true
+
+promotion:
+  synthetic_only_can_promote_to_hardware: false
+  require_real_holdout: true
+  maximum_latency_ms: 500
+  note: Copyright registration does not imply a numerical metrology certification.
