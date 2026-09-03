@@ -99,6 +99,8 @@
       no_valid_liquid_surface:["未找到可用液面区域","检查容器是否在画面中以及镜头是否被遮挡。"],
       profile_not_found:["尚未完成现场标定","请由调试人员进入“标定向导”生成测量方案。"],
       complex_model_required_but_unavailable:["当前工况需要专用模型","请由算法维护人员配置并验证对应的透明多层、眩光或暗光专用模型；系统已拒绝普通模型结果。"],
+        scenario_confidence_not_qualified:["当前工况尚未通过精度验证","系统已拒绝显示液深；请改善光照、减少遮挡，或联系算法维护人员补充该工况验证。"],
+        scenario_confidence_support_insufficient:["可靠深度点不足","调整相机视角或光照后重试；系统不会使用低置信度点强行计算液深。"],
       latency_budget_exceeded:["测量响应超过 0.5 秒","系统已按实时性要求拒绝本次结果；请检查 GPU 负载或降低专用模型分辨率。"],
       measurement_failed:["本次测量未完成","检查图像源、模型和现场标定状态。"]
     };
