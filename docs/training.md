@@ -52,6 +52,10 @@ Export the best checkpoint to the inference contract:
 
 Configure depth_refinement.backend as torchscript and set the exported model path. The adapter consumes depth_m and confidence (or derives confidence from log_variance) without changing camera acquisition or geometry.
 
+## Ordinary-scene precision route
+
+Use `scripts/run_v7_ordinary_precision_pipeline.sh` for the learned scale/bias, range-balanced sampling, tolerance-overrun, and tail-quantile ablation. The validated ordinary route is built with `scripts/run_v8_ordinary_sensor_anchor_pipeline.sh`; it robustly anchors restored depth to reliable raw RGB-D returns and must not be enabled for transparent, glare, multilayer, or large depth-failure scenes. See `docs/ordinary_scene_precision_v7_v8.md` for independent synthetic results and limitations.
+
 ## Required evaluation
 
 Report metrics globally and by difficulty tag:

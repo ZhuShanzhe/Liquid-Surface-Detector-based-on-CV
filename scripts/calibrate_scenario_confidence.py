@@ -36,6 +36,9 @@ def _model(checkpoint: dict, device):
         level_calibration_enabled=bool(checkpoint.get("level_calibration_enabled", False)),
         calibration_scale_limit=float(checkpoint.get("calibration_scale_limit", 0.05)),
         calibration_bias_limit_m=float(checkpoint.get("calibration_bias_limit_m", 0.02)),
+        robust_depth_anchor_enabled=bool(checkpoint.get("robust_depth_anchor_enabled", False)),
+        robust_anchor_mask_threshold=float(checkpoint.get("robust_anchor_mask_threshold", 0.5)),
+        robust_anchor_bias_limit_m=float(checkpoint.get("robust_anchor_bias_limit_m", 0.25)),
     )
     model.load_state_dict(checkpoint["model"])
     return model.eval().to(device)

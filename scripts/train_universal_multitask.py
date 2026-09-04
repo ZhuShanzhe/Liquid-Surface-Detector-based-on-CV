@@ -78,6 +78,9 @@ def main() -> None:
     parser.add_argument("--level-calibration-head", action="store_true")
     parser.add_argument("--calibration-scale-limit", type=float, default=0.05)
     parser.add_argument("--calibration-bias-limit-m", type=float, default=0.02)
+    parser.add_argument("--robust-depth-anchor", action="store_true")
+    parser.add_argument("--robust-anchor-mask-threshold", type=float, default=0.5)
+    parser.add_argument("--robust-anchor-bias-limit-m", type=float, default=0.25)
     parser.add_argument("--range-balance-strength", type=float, default=0.0)
     parser.add_argument("--range-balance-max-factor", type=float, default=4.0)
     parser.add_argument("--selection-ordinary-weight", type=float, default=0.0)
@@ -180,6 +183,9 @@ def main() -> None:
         level_calibration_enabled=args.level_calibration_head,
         calibration_scale_limit=args.calibration_scale_limit,
         calibration_bias_limit_m=args.calibration_bias_limit_m,
+        robust_depth_anchor_enabled=args.robust_depth_anchor,
+        robust_anchor_mask_threshold=args.robust_anchor_mask_threshold,
+        robust_anchor_bias_limit_m=args.robust_anchor_bias_limit_m,
     ).to(device)
     criterion = UniversalMultiTaskLoss(
         relative_weight=args.relative_weight,
@@ -393,9 +399,13 @@ def main() -> None:
             "max_depth_m": args.max_depth_m,
             "depth_encoding": "log",
             "model_family": (
-                "universal_liquid_surface_v7_ordinary_precision"
-                if args.level_calibration_head
-                else "universal_liquid_surface_v6_confidence_calibrated"
+                "universal_liquid_surface_v8_ordinary_sensor_anchor"
+                if args.robust_depth_anchor
+                else (
+                    "universal_liquid_surface_v7_ordinary_precision"
+                    if args.level_calibration_head
+                    else "universal_liquid_surface_v6_confidence_calibrated"
+                )
             ),
             "rgb_prior_enabled": args.rgb_prior,
             "uncertainty_weight": args.uncertainty_weight,
@@ -409,6 +419,9 @@ def main() -> None:
             "level_calibration_enabled": args.level_calibration_head,
             "calibration_scale_limit": args.calibration_scale_limit,
             "calibration_bias_limit_m": args.calibration_bias_limit_m,
+            "robust_depth_anchor_enabled": args.robust_depth_anchor,
+            "robust_anchor_mask_threshold": args.robust_anchor_mask_threshold,
+            "robust_anchor_bias_limit_m": args.robust_anchor_bias_limit_m,
             "range_balance_strength": args.range_balance_strength,
             "range_balance_max_factor": args.range_balance_max_factor,
             "selection_ordinary_weight": args.selection_ordinary_weight,

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 import torch
 
 from liquid_depth.models.universal import UniversalLiquidSurfaceNet, UniversalMultiTaskLoss
@@ -81,3 +83,27 @@ def test_surface_tail_losses_prioritize_ordinary_samples():
     assert losses["surface_tolerance"] >= 0
     assert losses["surface_quantile_cvar"] >= 0
     assert torch.isfinite(losses["total"])
+
+
+def test_robust_depth_anchor_preserves_reliable_sensor_level():
+    model = UniversalLiquidSurfaceNet(
+        base_channels=4,
+        robust_depth_anchor_enabled=True,
+        robust_anchor_bias_limit_m=10.0,
+    )
+    with torch.no_grad():
+        model.mask_head.weight.zero_()
+        model.mask_head.bias.fill_(10.0)
+    inputs = torch.zeros(2, 5, 32, 48)
+    raw_depth_m = 1.5
+    inputs[:, 3] = math.log(raw_depth_m / 0.1) / math.log(10.0 / 0.1)
+    inputs[:, 4] = 1.0
+
+    prediction = model(inputs)
+
+    medians = prediction["depth_m"].flatten(1).median(dim=1).values
+    assert torch.allclose(medians, torch.full_like(medians, raw_depth_m), atol=1e-5)
+    assert torch.allclose(
+        prediction["robust_anchor_support_ratio"],
+        torch.ones_like(prediction["robust_anchor_support_ratio"]),
+    )

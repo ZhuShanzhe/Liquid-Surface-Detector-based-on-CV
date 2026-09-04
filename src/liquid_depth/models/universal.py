@@ -27,6 +27,9 @@ class UniversalLiquidSurfaceNet(nn.Module):
         level_calibration_enabled: bool = False,
         calibration_scale_limit: float = 0.05,
         calibration_bias_limit_m: float = 0.02,
+        robust_depth_anchor_enabled: bool = False,
+        robust_anchor_mask_threshold: float = 0.5,
+        robust_anchor_bias_limit_m: float = 0.25,
     ) -> None:
         super().__init__()
         if not 0 < min_depth_m < max_depth_m:
@@ -40,10 +43,17 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.level_calibration_enabled = bool(level_calibration_enabled)
         self.calibration_scale_limit = float(calibration_scale_limit)
         self.calibration_bias_limit_m = float(calibration_bias_limit_m)
+        self.robust_depth_anchor_enabled = bool(robust_depth_anchor_enabled)
+        self.robust_anchor_mask_threshold = float(robust_anchor_mask_threshold)
+        self.robust_anchor_bias_limit_m = float(robust_anchor_bias_limit_m)
         if not 0.0 <= self.calibration_scale_limit < 1.0:
             raise ValueError("calibration_scale_limit must be in [0, 1)")
         if self.calibration_bias_limit_m < 0.0:
             raise ValueError("calibration_bias_limit_m must be non-negative")
+        if not 0.0 < self.robust_anchor_mask_threshold < 1.0:
+            raise ValueError("robust_anchor_mask_threshold must be in (0, 1)")
+        if self.robust_anchor_bias_limit_m < 0.0:
+            raise ValueError("robust_anchor_bias_limit_m must be non-negative")
         if self.rgb_prior_enabled:
             self.rgb_prior = nn.Sequential(ConvBlock(3, c), nn.Conv2d(c, c, 1))
             self.rgb_prior_scale = nn.Parameter(torch.tensor(-2.0))
@@ -107,12 +117,38 @@ class UniversalLiquidSurfaceNet(nn.Module):
         depth_m = (
             uncalibrated_depth_m * calibration_scale[:, :, None, None] + calibration_bias_m[:, :, None, None]
         ).clamp(self.min_depth_m, self.max_depth_m)
+        mask_logits = self.mask_head(d1)
+        if self.robust_depth_anchor_enabled:
+            predicted_surface = torch.sigmoid(mask_logits) >= self.robust_anchor_mask_threshold
+            raw_valid = inputs[:, 4:5] > 0.5
+            anchor_support = predicted_surface & raw_valid
+            raw_depth_m = self.min_depth_m * torch.exp(inputs[:, 3:4].clamp(0.0, 1.0) * self.log_depth_span)
+            nan = torch.full_like(raw_depth_m, float("nan"))
+            raw_anchor_m = torch.nanmedian(
+                torch.where(anchor_support, raw_depth_m, nan).flatten(1), dim=1
+            ).values[:, None]
+            predicted_anchor_m = torch.nanmedian(
+                torch.where(anchor_support, depth_m, nan).flatten(1), dim=1
+            ).values[:, None]
+            robust_anchor_support_ratio = anchor_support.flatten(1).sum(dim=1, keepdim=True).to(depth_m) / (
+                predicted_surface.flatten(1).sum(dim=1, keepdim=True).to(depth_m).clamp_min(1.0)
+            )
+            robust_anchor_bias_m = robust_anchor_support_ratio * (raw_anchor_m - predicted_anchor_m)
+            robust_anchor_bias_m = torch.nan_to_num(robust_anchor_bias_m).clamp(
+                -self.robust_anchor_bias_limit_m, self.robust_anchor_bias_limit_m
+            )
+            depth_m = (depth_m + robust_anchor_bias_m[:, :, None, None]).clamp(
+                self.min_depth_m, self.max_depth_m
+            )
+        else:
+            robust_anchor_support_ratio = torch.zeros_like(calibration_scale)
+            robust_anchor_bias_m = torch.zeros_like(calibration_bias_m)
         log_variance = self.log_variance_head(d1).clamp(-7.0, 5.0)
         confidence_logits = (
             self.confidence_head(d1.detach()) if self.confidence_head is not None else -log_variance
         )
         return {
-            "mask_logits": self.mask_head(d1),
+            "mask_logits": mask_logits,
             "depth_m": depth_m,
             "normal": F.normalize(self.normal_head(d1), dim=1, eps=1e-6),
             "log_variance": log_variance,
@@ -120,6 +156,8 @@ class UniversalLiquidSurfaceNet(nn.Module):
             "confidence": torch.sigmoid(confidence_logits),
             "calibration_scale": calibration_scale,
             "calibration_bias_m": calibration_bias_m,
+            "robust_anchor_support_ratio": robust_anchor_support_ratio,
+            "robust_anchor_bias_m": robust_anchor_bias_m,
         }
 
 
