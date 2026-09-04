@@ -36,3 +36,48 @@ def test_universal_model_keeps_legacy_confidence_contract():
     )
     output = model(torch.zeros(1, 5, 16, 16))
     torch.testing.assert_close(output["confidence"], torch.sigmoid(-output["log_variance"]))
+
+
+def test_level_calibration_head_starts_as_identity_and_receives_gradients():
+    torch.manual_seed(7)
+    baseline = UniversalLiquidSurfaceNet(base_channels=4)
+    calibrated = UniversalLiquidSurfaceNet(
+        base_channels=4,
+        level_calibration_enabled=True,
+    )
+    calibrated.load_state_dict(baseline.state_dict(), strict=False)
+    inputs = torch.rand(2, 5, 32, 48)
+    inputs[:, 4] = 1.0
+    baseline_depth = baseline(inputs)["depth_m"]
+    output = calibrated(inputs)
+    torch.testing.assert_close(output["depth_m"], baseline_depth)
+    torch.testing.assert_close(output["calibration_scale"], torch.ones(2, 1))
+    torch.testing.assert_close(output["calibration_bias_m"], torch.zeros(2, 1))
+    output["depth_m"].mean().backward()
+    assert calibrated.level_calibration_head is not None
+    assert calibrated.level_calibration_head[-1].weight.grad is not None
+
+
+def test_surface_tail_losses_prioritize_ordinary_samples():
+    model = UniversalLiquidSurfaceNet(
+        base_channels=4,
+        level_calibration_enabled=True,
+    )
+    inputs = torch.zeros(2, 5, 16, 16)
+    output = model(inputs)
+    target = {
+        "mask": torch.ones(2, 1, 16, 16),
+        "depth_m": torch.stack((torch.ones(1, 16, 16), torch.ones(1, 16, 16) * 2.0)),
+        "normal": torch.nn.functional.normalize(torch.ones(2, 3, 16, 16), dim=1),
+        "valid": torch.ones(2, 1, 16, 16),
+        "normal_valid": torch.ones(2, 1, 16, 16),
+        "ordinary": torch.tensor([1.0, 0.0]),
+    }
+    losses = UniversalMultiTaskLoss(
+        surface_tolerance_weight=1.0,
+        surface_quantile_weight=1.0,
+        ordinary_loss_boost=2.0,
+    )(output, target)
+    assert losses["surface_tolerance"] >= 0
+    assert losses["surface_quantile_cvar"] >= 0
+    assert torch.isfinite(losses["total"])

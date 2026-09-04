@@ -59,6 +59,9 @@ def main() -> None:
         maximum,
         rgb_prior_enabled=bool(checkpoint.get("rgb_prior_enabled", False)),
         separate_confidence_head=bool(checkpoint.get("separate_confidence_head", False)),
+        level_calibration_enabled=bool(checkpoint.get("level_calibration_enabled", False)),
+        calibration_scale_limit=float(checkpoint.get("calibration_scale_limit", 0.05)),
+        calibration_bias_limit_m=float(checkpoint.get("calibration_bias_limit_m", 0.02)),
     )
     model.load_state_dict(checkpoint["model"])
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

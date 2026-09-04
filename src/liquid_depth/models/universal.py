@@ -24,6 +24,9 @@ class UniversalLiquidSurfaceNet(nn.Module):
         max_depth_m: float = 10.0,
         rgb_prior_enabled: bool = False,
         separate_confidence_head: bool = True,
+        level_calibration_enabled: bool = False,
+        calibration_scale_limit: float = 0.05,
+        calibration_bias_limit_m: float = 0.02,
     ) -> None:
         super().__init__()
         if not 0 < min_depth_m < max_depth_m:
@@ -34,6 +37,13 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.log_depth_span = float(math.log(max_depth_m / min_depth_m))
         self.rgb_prior_enabled = bool(rgb_prior_enabled)
         self.separate_confidence_head = bool(separate_confidence_head)
+        self.level_calibration_enabled = bool(level_calibration_enabled)
+        self.calibration_scale_limit = float(calibration_scale_limit)
+        self.calibration_bias_limit_m = float(calibration_bias_limit_m)
+        if not 0.0 <= self.calibration_scale_limit < 1.0:
+            raise ValueError("calibration_scale_limit must be in [0, 1)")
+        if self.calibration_bias_limit_m < 0.0:
+            raise ValueError("calibration_bias_limit_m must be non-negative")
         if self.rgb_prior_enabled:
             self.rgb_prior = nn.Sequential(ConvBlock(3, c), nn.Conv2d(c, c, 1))
             self.rgb_prior_scale = nn.Parameter(torch.tensor(-2.0))
@@ -45,6 +55,18 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.enc2 = ConvBlock(c, c * 2)
         self.enc3 = ConvBlock(c * 2, c * 4)
         self.bottleneck = ConvBlock(c * 4, c * 8)
+        if self.level_calibration_enabled:
+            self.level_calibration_head = nn.Sequential(
+                nn.AdaptiveAvgPool2d(1),
+                nn.Flatten(),
+                nn.Linear(c * 8, c * 2),
+                nn.SiLU(),
+                nn.Linear(c * 2, 2),
+            )
+            nn.init.zeros_(self.level_calibration_head[-1].weight)
+            nn.init.zeros_(self.level_calibration_head[-1].bias)
+        else:
+            self.level_calibration_head = None
         self.pool = nn.MaxPool2d(2)
         self.dec3 = ConvBlock(c * 8 + c * 4, c * 4)
         self.dec2 = ConvBlock(c * 4 + c * 2, c * 2)
@@ -74,7 +96,17 @@ class UniversalLiquidSurfaceNet(nn.Module):
         d2 = self.dec2(torch.cat((self._up(d3, e2), e2), dim=1))
         d1 = self.dec1(torch.cat((self._up(d2, e1), e1), dim=1))
         depth_unit = torch.sigmoid(self.depth_head(d1))
-        depth_m = self.min_depth_m * torch.exp(depth_unit * self.log_depth_span)
+        uncalibrated_depth_m = self.min_depth_m * torch.exp(depth_unit * self.log_depth_span)
+        if self.level_calibration_head is not None:
+            calibration = self.level_calibration_head(features)
+            calibration_scale = 1.0 + self.calibration_scale_limit * torch.tanh(calibration[:, :1])
+            calibration_bias_m = self.calibration_bias_limit_m * torch.tanh(calibration[:, 1:2])
+        else:
+            calibration_scale = torch.ones(inputs.shape[0], 1, device=inputs.device, dtype=inputs.dtype)
+            calibration_bias_m = torch.zeros_like(calibration_scale)
+        depth_m = (
+            uncalibrated_depth_m * calibration_scale[:, :, None, None] + calibration_bias_m[:, :, None, None]
+        ).clamp(self.min_depth_m, self.max_depth_m)
         log_variance = self.log_variance_head(d1).clamp(-7.0, 5.0)
         confidence_logits = (
             self.confidence_head(d1.detach()) if self.confidence_head is not None else -log_variance
@@ -86,6 +118,8 @@ class UniversalLiquidSurfaceNet(nn.Module):
             "log_variance": log_variance,
             "confidence_logits": confidence_logits,
             "confidence": torch.sigmoid(confidence_logits),
+            "calibration_scale": calibration_scale,
+            "calibration_bias_m": calibration_bias_m,
         }
 
 
@@ -98,6 +132,11 @@ class UniversalMultiTaskLoss(nn.Module):
         uncertainty_weight: float = 0.2,
         surface_level_weight: float = 0.5,
         surface_absolute_weight: float = 0.0,
+        surface_tolerance_weight: float = 0.0,
+        surface_quantile_weight: float = 0.0,
+        surface_quantile: float = 0.90,
+        ordinary_loss_boost: float = 0.0,
+        calibration_regularization_weight: float = 0.0,
         confidence_relative_tolerance: float = 0.02,
         confidence_absolute_floor_m: float = 0.005,
     ) -> None:
@@ -108,6 +147,13 @@ class UniversalMultiTaskLoss(nn.Module):
         self.uncertainty_weight = float(uncertainty_weight)
         self.surface_level_weight = float(surface_level_weight)
         self.surface_absolute_weight = float(surface_absolute_weight)
+        self.surface_tolerance_weight = float(surface_tolerance_weight)
+        self.surface_quantile_weight = float(surface_quantile_weight)
+        self.surface_quantile = float(surface_quantile)
+        self.ordinary_loss_boost = float(ordinary_loss_boost)
+        self.calibration_regularization_weight = float(calibration_regularization_weight)
+        if not 0.0 <= self.surface_quantile < 1.0:
+            raise ValueError("surface_quantile must be in [0, 1)")
 
         self.confidence_relative_tolerance = float(confidence_relative_tolerance)
         self.confidence_absolute_floor_m = float(confidence_absolute_floor_m)
@@ -156,11 +202,52 @@ class UniversalMultiTaskLoss(nn.Module):
             (predicted_linear_level - target_linear_level).abs() * has_support
         ).sum() / has_support.sum().clamp_min(1.0)
         losses["surface_absolute_m"] = surface_absolute
+        surface_tolerance_m = torch.maximum(
+            target_linear_level * self.confidence_relative_tolerance,
+            torch.full_like(target_linear_level, self.confidence_absolute_floor_m),
+        )
+        normalized_surface_error = (
+            predicted_linear_level - target_linear_level
+        ).abs() / surface_tolerance_m.clamp_min(1e-6)
+        ordinary = target.get("ordinary")
+        if ordinary is None:
+            ordinary = torch.zeros_like(normalized_surface_error)
+        ordinary = ordinary.reshape(-1).to(normalized_surface_error)
+        sample_priority = 1.0 + self.ordinary_loss_boost * ordinary
+        supported = has_support > 0
+        if bool(supported.any()):
+            priority_denominator = sample_priority[supported].sum().clamp_min(1.0)
+            surface_tolerance = (
+                F.relu(normalized_surface_error[supported] - 1.0) * sample_priority[supported]
+            ).sum() / priority_denominator
+            prioritized_tail = normalized_surface_error[supported] * sample_priority[supported]
+            tail_count = max(
+                1,
+                math.ceil((1.0 - self.surface_quantile) * prioritized_tail.numel()),
+            )
+            surface_quantile_cvar = torch.topk(prioritized_tail, k=tail_count, largest=True).values.mean()
+        else:
+            surface_tolerance = normalized_surface_error.new_zeros(())
+            surface_quantile_cvar = normalized_surface_error.new_zeros(())
+        losses["surface_tolerance"] = surface_tolerance
+        losses["surface_quantile_cvar"] = surface_quantile_cvar
+        calibration_scale = prediction.get("calibration_scale")
+        calibration_bias_m = prediction.get("calibration_bias_m")
+        if calibration_scale is None or calibration_bias_m is None:
+            calibration_regularization = normalized_surface_error.new_zeros(())
+        else:
+            calibration_regularization = (calibration_scale - 1.0).square().mean() + (
+                calibration_bias_m / max(self.confidence_absolute_floor_m, 1e-6)
+            ).square().mean()
+        losses["calibration_regularization"] = calibration_regularization
         losses["total"] = (
             losses["total"]
             + self.relative_weight * relative
             + self.uncertainty_weight * calibration
             + self.surface_level_weight * surface_level
             + self.surface_absolute_weight * surface_absolute
+            + self.surface_tolerance_weight * surface_tolerance
+            + self.surface_quantile_weight * surface_quantile_cvar
+            + self.calibration_regularization_weight * calibration_regularization
         )
         return losses

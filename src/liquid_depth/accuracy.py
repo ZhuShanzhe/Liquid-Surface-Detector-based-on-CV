@@ -10,8 +10,8 @@ import yaml
 def load_accuracy_profile(path: str | Path) -> dict[str, Any]:
     profile_path = Path(path)
     profile = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
-    if not isinstance(profile, dict) or profile.get("version") != 1:
-        raise ValueError("accuracy profile must be a version 1 mapping")
+    if not isinstance(profile, dict) or profile.get("version") not in {1, 2}:
+        raise ValueError("accuracy profile must be a supported version 1 or 2 mapping")
     bands = profile.get("bands")
     if not isinstance(bands, list) or not bands:
         raise ValueError("accuracy profile must contain at least one band")
@@ -82,9 +82,7 @@ def _band_summary(
         "normalized_bias": normalized_bias,
         "within_mae_tolerance_ratio": float(np.mean(absolute_error <= mae_tolerance)),
         "within_p95_tolerance_ratio": float(np.mean(absolute_error <= p95_tolerance)),
-        "passes_error_gate": bool(
-            normalized_mae <= 1.0 and normalized_p95 <= 1.0 and normalized_bias <= 1.0
-        ),
+        "passes_error_gate": bool(normalized_mae <= 1.0 and normalized_p95 <= 1.0 and normalized_bias <= 1.0),
     }
 
 
@@ -138,16 +136,12 @@ def evaluate_accuracy_profile(
             "coverage": float(band_accepted.sum() / max(band_population.sum(), 1)),
         }
         if band_accepted.any():
-            band_report.update(
-                _band_summary(truth[band_accepted], prediction[band_accepted], band[level])
-            )
+            band_report.update(_band_summary(truth[band_accepted], prediction[band_accepted], band[level]))
             all_error_gates_pass &= band_report["passes_error_gate"]
         report["bands"][band["name"]] = band_report
     report["outside_profile_samples"] = int((finite & ~in_profile).sum())
     report["passes_coverage_gate"] = bool(report["coverage"] >= minimum_coverage)
     report["passes_profile"] = bool(
-        report["passes_coverage_gate"]
-        and all_error_gates_pass
-        and report["outside_profile_samples"] == 0
+        report["passes_coverage_gate"] and all_error_gates_pass and report["outside_profile_samples"] == 0
     )
     return report

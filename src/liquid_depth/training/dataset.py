@@ -118,10 +118,7 @@ def _complex_scene_augment(
     image = rgb.astype(np.float32)
     if profile == "standard":
         if np.random.random() < 0.7:
-            image = (
-                image * np.random.uniform(0.9, 1.1)
-                + np.random.uniform(-8.0, 8.0)
-            )
+            image = image * np.random.uniform(0.9, 1.1) + np.random.uniform(-8.0, 8.0)
         return np.clip(image, 0.0, 255.0).astype(np.uint8), raw_depth
     if profile == "low_light":
         gamma = np.random.uniform(1.6, 3.0)
@@ -292,5 +289,6 @@ class MultiTaskDataset:
             "normal": self.torch.from_numpy(normal.transpose(2, 0, 1)).float(),
             "valid": self.torch.from_numpy(valid[None]).float(),
             "normal_valid": self.torch.from_numpy(normal_valid[None]).float(),
+            "ordinary": self.torch.tensor(float(row.get("scenario", "").strip().lower() == "ordinary")),
         }
         return self.torch.from_numpy(inputs.transpose(2, 0, 1)).float(), target
