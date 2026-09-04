@@ -93,6 +93,12 @@ multi-layer, and compound scenes. At the conservative confidence threshold
 - frame output coverage: **69.23%**;
 - evaluable acceptance rate: **99.40%**.
 
+Using at least 64 accepted points and the robust median signed-depth residual as
+a top-view surface-level proxy gives 2.69% AbsRel, 22.66 mm MAE, 53.11%
+tolerance pass rate, and 66.94% frame coverage. This validates the proposed
+"recover reliable points, then reconstruct the surface" direction, but is not a
+substitute for the final camera-coordinate plane fit against a calibrated bottom.
+
 The full unordered ray set achieved 8.61% layer-set AbsRel, 39.51% per-layer
 tolerance recall, 13.74% multi-layer tuple accuracy, and 1.00 layer-count MAE.
 Relative to the first V9 experiment, per-layer recall rose from 30.67% and tuple
@@ -101,9 +107,12 @@ validation run, selected-interface AbsRel fell from 10.66% to 2.92%.
 
 Therefore V9.1 passes the **simulation-candidate** gates for the final selected
 liquid interface. It does not make every optical interface engineering-grade:
-full multi-layer reconstruction remains an auxiliary research output. The route
-stays disabled in production until real RGB-D domain validation, plane-level
-liquid-height evaluation, false-accept testing, and warm P95 latency pass.
+full multi-layer reconstruction remains an auxiliary research output. The resident
+model plus interface selector measured 5.05 ms P95 over 300 RTX 5090 repetitions
+at 320x180, well below the 500 ms budget; this excludes camera I/O, preprocessing,
+plane fitting, and UI. The route stays disabled in production until real RGB-D
+domain validation, final calibrated plane-level height evaluation, false-accept
+testing, and full warm end-to-end P95 latency pass.
 
 Rejection codes are part of the output contract: `0` accepted, `1` metric-prior
 disagreement, and `2` confidence below the configured threshold.

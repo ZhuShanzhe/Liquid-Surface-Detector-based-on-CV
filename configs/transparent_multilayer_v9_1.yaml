@@ -36,6 +36,11 @@ qualification:
   evaluable_acceptance_rate: 0.9939939940
   layer_recall_at_tolerance: 0.3950757273
   multilayer_tuple_accuracy: 0.1374301869
+  surface_level_proxy_abs_rel: 0.0269450947
+  surface_level_proxy_mae_m: 0.0226618158
+  surface_level_proxy_tolerance_pass_rate: 0.5310559006
+  surface_level_proxy_frame_coverage: 0.6694386694
+  model_plus_selector_p95_ms_rtx5090: 5.0512174144
   pending:
     - real_rgbd_domain_validation
     - plane_level_liquid_height_evaluation

@@ -52,6 +52,10 @@ def evaluate(model, loader, device, args):
         "evaluable_frames": 0,
         "output_frames": 0,
         "total_frames": 0,
+        "surface_abs": 0.0,
+        "surface_rel": 0.0,
+        "surface_tol": 0,
+        "surface_n": 0,
     }
     model.eval()
     with torch.inference_mode():
@@ -129,6 +133,26 @@ def evaluate(model, loader, device, args):
             totals["total_frames"] += inputs.shape[0]
             totals["output_frames"] += int(output_frames.sum())
             totals["evaluable_frames"] += int(evaluable_frames.sum())
+            for sample_index in range(inputs.shape[0]):
+                sample_valid = liquid_valid[sample_index]
+                sample_accepted = accepted[sample_index]
+                minimum_points = max(64, int(0.01 * int(sample_valid.sum())))
+                if int(sample_accepted.sum()) < minimum_points:
+                    continue
+                signed_error = (
+                    selected["depth_m"][sample_index]
+                    - liquid_truth[sample_index]
+                )[sample_accepted]
+                reference = float(liquid_truth[sample_index][sample_accepted].median())
+                surface_error = float(signed_error.median().abs())
+                surface_tolerance = max(
+                    args.absolute_tolerance_m,
+                    args.relative_tolerance * reference,
+                )
+                totals["surface_abs"] += surface_error
+                totals["surface_rel"] += surface_error / max(reference, 1e-6)
+                totals["surface_tol"] += int(surface_error <= surface_tolerance)
+                totals["surface_n"] += 1
 
     layer_n = max(totals["layer_n"], 1)
     base_n = max(totals["base_n"], 1)
@@ -153,6 +177,18 @@ def evaluate(model, loader, device, args):
         ),
         "val_evaluable_output_rate": (
             totals["evaluable_frames"] / max(totals["output_frames"], 1)
+        ),
+        "val_surface_level_mae_m": (
+            totals["surface_abs"] / max(totals["surface_n"], 1)
+        ),
+        "val_surface_level_abs_rel": (
+            totals["surface_rel"] / max(totals["surface_n"], 1)
+        ),
+        "val_surface_level_within_tolerance": (
+            totals["surface_tol"] / max(totals["surface_n"], 1)
+        ),
+        "val_surface_level_coverage": (
+            totals["surface_n"] / max(totals["total_frames"], 1)
         ),
     }
 
