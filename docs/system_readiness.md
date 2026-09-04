@@ -1,5 +1,14 @@
 # System readiness checklist
 
+## Product acceptance target adopted on 2026-09-04
+
+- The current AbsRel <= 3%, max(5 mm, 2%) pass rate >= 50%, output coverage >= 30%, and evaluable-output rate >= 90% profile is a simulation-candidate gate only.
+- Standard supported scenes require liquid-level AbsRel <= 1.5%, tolerance pass rate >= 90%, output coverage >= 95%, and evaluable-output rate >= 99%.
+- Difficult supported scenes require liquid-level AbsRel <= 3%, tolerance pass rate >= 75%, output coverage >= 80%, and evaluable-output rate >= 98%.
+- Unsupported or extreme scenes may reject, but the false-accept ratio must be <= 1% and every rejection must have a machine-readable reason.
+- Product reports must also include P95 and maximum error, signed bias, temporal jitter, consecutive-bad-frame count, and recovery time after a scene change.
+- V6 passes the simulation-candidate gate but does not pass the engineering-product gate overall. On the current independent synthetic test, only uneven-surface and partial-depth-failure routes meet every difficult-scene threshold.
+
 ## Complete reusable layers
 
 - Camera: pinned Orbbec ROS 2 driver, synchronized RGB/depth/intrinsics capture, stable frame contract.

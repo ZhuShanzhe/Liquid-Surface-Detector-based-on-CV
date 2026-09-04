@@ -63,6 +63,14 @@ measured liquid depth from camera standoff and uses a hybrid tolerance:
 The product reports MAE, signed bias, RMSE, P95, temporal jitter, accepted coverage, confidence, and rejection
 reason. A result rejected by the quality gate is not counted as a successful measurement.
 
+The project uses a two-tier quality policy. The simulation-candidate gate is AbsRel <= 3%,
+max(5 mm, 2%) pass rate >= 50%, output coverage >= 30%, and evaluable-output rate >= 90%; passing it only
+authorizes continued development. Engineering release requires, for standard scenes, AbsRel <= 1.5%, pass
+rate >= 90%, coverage >= 95%, and evaluable-output rate >= 99%. Difficult supported scenes require AbsRel
+<= 3%, pass rate >= 75%, coverage >= 80%, and evaluable-output rate >= 98%. Unsupported or extreme routes
+must keep false acceptance <= 1% and provide explicit rejection reasons. P95/max error, bias, temporal jitter,
+consecutive-bad-frame count, and recovery time are mandatory release evidence.
+
 The research target is high accuracy, including approximately 1% MAE from 1 to 10 m where the qualified sensor
 configuration supports it. A wider deployment gate is retained for controlled rollout, but no mode may be
 marketed at an accuracy that has not been verified with traceable references across material, lighting,

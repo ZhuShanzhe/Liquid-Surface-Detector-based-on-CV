@@ -1,4 +1,4 @@
-version: 1
+version: 2
 name: industrial_liquid_depth_v1
 measurand: vertical_liquid_depth_m
 reference_range_m: [0.02, 10.0]
@@ -8,7 +8,7 @@ reference_range_m: [0.02, 10.0]
 # application owner must set the maximum permissible error.
 policy:
   minimum_overall_accepted_coverage: 0.95
-  minimum_difficult_accepted_coverage: 0.90
+  minimum_difficult_accepted_coverage: 0.80
   maximum_false_accept_ratio: 0.01
   report_signed_bias: true
   report_temporal_jitter: true
@@ -23,6 +23,64 @@ policy:
     - container_edge
     - illumination
     - temperature_band
+
+# Qualification is intentionally tiered. The simulation gate only decides
+# whether a route is worth retaining for further development. It is not a
+# product-performance claim. Engineering release uses the scene gates below.
+qualification_tiers:
+  simulation_candidate:
+    maximum_liquid_level_abs_rel: 0.03
+    tolerance:
+      absolute_floor_mm: 5.0
+      relative_percent: 2.0
+    minimum_within_tolerance_rate: 0.50
+    minimum_output_coverage: 0.30
+    minimum_evaluable_output_rate: 0.90
+    interpretation: candidate_route_only
+
+  engineering_product:
+    standard_supported:
+      scenarios: [ordinary]
+      maximum_liquid_level_abs_rel: 0.015
+      tolerance:
+        absolute_floor_mm: 5.0
+        relative_percent: 2.0
+      minimum_within_tolerance_rate: 0.90
+      minimum_output_coverage: 0.95
+      minimum_evaluable_output_rate: 0.99
+    difficult_supported:
+      scenarios:
+        - transparent
+        - translucent
+        - glare
+        - low_light
+        - floating_objects
+        - uneven_surface
+        - depth_failure_partial
+        - depth_failure_large
+      maximum_liquid_level_abs_rel: 0.03
+      tolerance:
+        absolute_floor_mm: 5.0
+        relative_percent: 2.0
+      minimum_within_tolerance_rate: 0.75
+      minimum_output_coverage: 0.80
+      minimum_evaluable_output_rate: 0.98
+    unsupported_or_extreme:
+      scenarios:
+        - multilayer
+        - depth_failure_severe
+        - depth_failure_extreme
+        - compound
+      maximum_false_accept_ratio: 0.01
+      require_explicit_rejection_reason: true
+
+  mandatory_tail_and_stability_reports:
+    report_p95_absolute_error: true
+    report_max_absolute_error: true
+    report_signed_bias: true
+    report_temporal_jitter: true
+    report_max_consecutive_bad_frames: true
+    report_recovery_time_after_scene_change: true
 runtime:
   warm_end_to_end_p95_ms_max: 500.0
   enforce_deadline_rejection: true
