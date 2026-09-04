@@ -253,3 +253,16 @@ and random dropout; low light applies exposure, gamma, color, and sensor-noise
 stress. Validation remains clean so augmentation cannot leak into promotion
 metrics. A completed smoke run confirmed checkpoint initialization, one-epoch
 training, validation, and serialization end to end.
+
+
+## Transparent multi-layer V9.1
+
+Run `scripts/run_v9_transparent_multilayer_pipeline.sh` to regenerate the
+analytic V4 ray-layer labels when needed, initialize from the ordinary V8 metric
+checkpoint, train the SeeGroup-inspired recurrent head, and calibrate the liquid
+interface confidence. The standalone evaluator is
+`scripts/evaluate_transparent_multilayer.py`; it reports unordered layer-set
+metrics separately from selected metric liquid-depth metrics. The validated
+synthetic operating point and remaining deployment blockers are recorded in
+`configs/transparent_multilayer_v9_1.yaml` and
+`docs/transparent_multilayer_v9.md`.

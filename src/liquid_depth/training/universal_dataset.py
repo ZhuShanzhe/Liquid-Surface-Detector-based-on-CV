@@ -28,14 +28,16 @@ class UniversalMultiTaskDataset(MultiTaskDataset):
         raw_depth_m = inputs[3].clamp(0.0, 1.0) * self.universal_max_depth_m
         validity = inputs[4] > 0
         encoded = torch.log(
-            raw_depth_m.clamp(
-                self.universal_min_depth_m, self.universal_max_depth_m
-            )
+            raw_depth_m.clamp(self.universal_min_depth_m, self.universal_max_depth_m)
             / self.universal_min_depth_m
         ) / math.log(self.universal_max_depth_m / self.universal_min_depth_m)
         inputs[3] = torch.where(validity, encoded, torch.zeros_like(encoded))
-        target["valid"] *= (
-            target["depth_m"] >= self.universal_min_depth_m
-        ).float()
+        target["valid"] *= (target["depth_m"] >= self.universal_min_depth_m).float()
         target["normal_valid"] *= target["valid"]
+        if "layer_depths_m" in target:
+            layer_range_valid = (
+                (target["layer_depths_m"] >= self.universal_min_depth_m)
+                & (target["layer_depths_m"] <= self.universal_max_depth_m)
+            ).float()
+            target["layer_valid"] *= layer_range_valid
         return inputs, target

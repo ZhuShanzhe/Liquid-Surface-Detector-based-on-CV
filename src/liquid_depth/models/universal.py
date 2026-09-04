@@ -6,6 +6,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+from .layered import RayLayerHead
 from .multitask import ConvBlock, MultiTaskLoss
 
 
@@ -30,6 +31,8 @@ class UniversalLiquidSurfaceNet(nn.Module):
         robust_depth_anchor_enabled: bool = False,
         robust_anchor_mask_threshold: float = 0.5,
         robust_anchor_bias_limit_m: float = 0.25,
+        num_ray_layers: int = 0,
+        ray_layer_hidden_channels: int = 32,
     ) -> None:
         super().__init__()
         if not 0 < min_depth_m < max_depth_m:
@@ -86,6 +89,17 @@ class UniversalLiquidSurfaceNet(nn.Module):
         self.normal_head = nn.Conv2d(c, 3, 1)
         self.log_variance_head = nn.Conv2d(c, 1, 1)
         self.confidence_head = nn.Conv2d(c, 1, 1) if self.separate_confidence_head else None
+        self.ray_layer_head = (
+            RayLayerHead(
+                c,
+                num_layers=num_ray_layers,
+                min_depth_m=self.min_depth_m,
+                max_depth_m=self.max_depth_m,
+                hidden_channels=ray_layer_hidden_channels,
+            )
+            if num_ray_layers > 0
+            else None
+        )
 
     @staticmethod
     def _up(inputs: torch.Tensor, skip: torch.Tensor) -> torch.Tensor:
@@ -147,7 +161,7 @@ class UniversalLiquidSurfaceNet(nn.Module):
         confidence_logits = (
             self.confidence_head(d1.detach()) if self.confidence_head is not None else -log_variance
         )
-        return {
+        result = {
             "mask_logits": mask_logits,
             "depth_m": depth_m,
             "normal": F.normalize(self.normal_head(d1), dim=1, eps=1e-6),
@@ -159,6 +173,9 @@ class UniversalLiquidSurfaceNet(nn.Module):
             "robust_anchor_support_ratio": robust_anchor_support_ratio,
             "robust_anchor_bias_m": robust_anchor_bias_m,
         }
+        if self.ray_layer_head is not None:
+            result.update(self.ray_layer_head(d1, metric_prior_m=depth_m))
+        return result
 
 
 class UniversalMultiTaskLoss(nn.Module):

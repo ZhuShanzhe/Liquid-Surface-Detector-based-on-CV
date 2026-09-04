@@ -59,8 +59,9 @@ Current server status:
   disabled in the production configuration;
 - the first scene-stratified pilot improved glare conditional MAE and coverage,
   but depth-failure, low-light, and general-transparent results failed their gates;
-- `transparent_multilayer` is disabled until SeeGroup/LayeredDepth distillation and
-  metric validation pass;
+- `transparent_multilayer` V9.1 passes the synthetic candidate gate for selected
+  liquid-interface depth at confidence 0.50, but remains disabled until real-camera
+  domain, false-accept, plane-level height, and warm-latency qualification pass;
 - newly generated product profiles contain empty specialist slots. The main product
   checkpoint remains active, and complex scenes are explicitly rejected until a qualified
   product specialist checkpoint is added.

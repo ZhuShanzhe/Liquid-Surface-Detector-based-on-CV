@@ -450,16 +450,100 @@ def _elliptical_wall_layers(
     safe_a = np.where(np.abs(a) > 1e-12, a, np.nan)
     roots = np.stack(((-b - sqrt_disc) / (2.0 * safe_a), (-b + sqrt_disc) / (2.0 * safe_a)))
     layers = np.full_like(roots, np.nan, dtype=np.float32)
-    for layer_index, t in enumerate(roots):
+    for layer_index, initial_t in enumerate(roots):
+        t = initial_t.copy()
+        # The quadratic is only an initialization. Refine against the actual
+        # tapered superellipse so rectangular, rounded, and tapered vessels do
+        # not inherit circular-wall labels.
+        for _ in range(6):
+            points = origin + t[..., None] * directions
+            value = (
+                container_implicit(
+                    scene,
+                    points[..., 0],
+                    points[..., 1],
+                    points[..., 2],
+                    outer=True,
+                )
+                - 1.0
+            )
+            epsilon = np.maximum(np.abs(t) * 1e-4, 1e-5)
+            forward = origin + (t + epsilon)[..., None] * directions
+            backward = origin + (t - epsilon)[..., None] * directions
+            derivative = (
+                container_implicit(
+                    scene,
+                    forward[..., 0],
+                    forward[..., 1],
+                    forward[..., 2],
+                    outer=True,
+                )
+                - container_implicit(
+                    scene,
+                    backward[..., 0],
+                    backward[..., 1],
+                    backward[..., 2],
+                    outer=True,
+                )
+            ) / (2.0 * epsilon)
+            t -= value / np.where(
+                np.abs(derivative) > 1e-9,
+                derivative,
+                np.nan,
+            )
         points = origin + t[..., None] * directions
+        residual = np.abs(
+            container_implicit(
+                scene,
+                points[..., 0],
+                points[..., 1],
+                points[..., 2],
+                outer=True,
+            )
+            - 1.0
+        )
         inside_height = (points[..., 2] >= scene.container_bottom_z_m) & (
             points[..., 2] <= scene.container_rim_z_m
         )
         camera_points = points @ world_to_camera[:3, :3].T + world_to_camera[:3, 3]
         depth = -camera_points[..., 2]
-        valid = (discriminant >= 0.0) & (t > 0.0) & inside_height & (depth > 0.0)
+        valid = (
+            (discriminant >= 0.0)
+            & np.isfinite(t)
+            & (t > 0.0)
+            & inside_height
+            & (residual < 1e-3)
+            & (depth > 0.0)
+        )
         layers[layer_index] = np.where(valid, depth, np.nan)
     return layers
+
+
+def _horizontal_container_layer(
+    scene: SyntheticScene,
+    origin: np.ndarray,
+    directions: np.ndarray,
+    world_to_camera: np.ndarray,
+    z_m: float,
+) -> np.ndarray:
+    """Return an analytic container-interior layer for every intersecting ray."""
+
+    dz = directions[..., 2]
+    t = np.where(np.abs(dz) > 1e-9, (z_m - origin[2]) / dz, np.nan)
+    points = origin + t[..., None] * directions
+    inside = (
+        container_implicit(
+            scene,
+            points[..., 0],
+            points[..., 1],
+            z_m,
+        )
+        <= 1.0
+    )
+    camera_points = points @ world_to_camera[:3, :3].T + world_to_camera[:3, 3]
+    depth = -camera_points[..., 2]
+    valid = np.isfinite(t) & (t > 0.0) & inside & (depth > 0.0)
+    return np.where(valid, depth, np.nan).astype(np.float32)
 
 
 def render_geometric_labels(scene: SyntheticScene) -> dict[str, np.ndarray]:
@@ -483,7 +567,21 @@ def render_geometric_labels(scene: SyntheticScene) -> dict[str, np.ndarray]:
     normals_camera = normals_world @ world_to_camera[:3, :3].T
     normals_camera = np.where(mask[..., None], normals_camera, 0.0).astype(np.float32)
     wall_layers = _elliptical_wall_layers(scene, origin, directions, world_to_camera)
-    candidates = np.concatenate((wall_layers, np.where(mask, target_depth, np.nan)[None]), axis=0)
+    bottom_layer = _horizontal_container_layer(
+        scene,
+        origin,
+        directions,
+        world_to_camera,
+        scene.container_bottom_z_m + scene.wall_thickness_m,
+    )
+    candidates = np.concatenate(
+        (
+            wall_layers,
+            np.where(mask, target_depth, np.nan)[None],
+            bottom_layer[None],
+        ),
+        axis=0,
+    )
     candidates.sort(axis=0)
     layer_depths = np.zeros((4, scene.height, scene.width), dtype=np.float32)
     layer_valid = np.zeros_like(layer_depths, dtype=np.uint8)
@@ -722,9 +820,7 @@ def scene_metadata(scene: SyntheticScene, sample_dir: Path) -> dict[str, object]
                 "incidence_cosine": "incidence_cosine.npy",
             },
             "sample_dir": sample_dir.name,
-            "generator_version": "liquid_sim_v3"
-            if scene.scenario_profile == "calibration"
-            else "liquid_sim_v2",
+            "generator_version": "liquid_sim_v4_multilayer",
             "sensor_model": f"{scene.sensor_family}_proxy_{'v3' if scene.scenario_profile == 'calibration' else 'v2'}",
         }
     )

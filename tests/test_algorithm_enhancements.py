@@ -10,6 +10,7 @@ from liquid_depth.models.layered import (
     PermutationInvariantLayerLoss,
     RayLayerHead,
     select_layer_by_metric_prior,
+    select_liquid_interface,
 )
 from liquid_depth.surface_support import assess_planar_support
 
@@ -60,10 +61,7 @@ def test_partial_planar_support_accepts_distributed_points_and_rejects_cluster()
     rejected = assess_planar_support(mask, clustered, fit_inlier_ratio=0.8)
     assert not rejected.accepted
     assert "insufficient_planar_horizontal_span" in rejected.rejection_reasons
-    assert (
-        "insufficient_planar_convex_hull_coverage"
-        in rejected.rejection_reasons
-    )
+    assert "insufficient_planar_convex_hull_coverage" in rejected.rejection_reasons
 
 
 def test_layer_head_and_set_likelihood_are_differentiable_and_permutation_invariant():
@@ -72,7 +70,9 @@ def test_layer_head_and_set_likelihood_are_differentiable_and_permutation_invari
     features = torch.randn(2, 8, 6, 8, requires_grad=True)
     prediction = head(features)
     assert prediction["layer_depths_m"].shape == (2, 4, 6, 8)
-    assert torch.all(prediction["layer_depths_m"][:, 1:] >= prediction["layer_depths_m"][:, :-1])
+    assert torch.all(
+        prediction["layer_depths_sorted_m"][:, 1:] >= prediction["layer_depths_sorted_m"][:, :-1]
+    )
 
     target = torch.stack(
         (
@@ -86,7 +86,8 @@ def test_layer_head_and_set_likelihood_are_differentiable_and_permutation_invari
     criterion = PermutationInvariantLayerLoss()
     first = criterion(prediction, target, valid)
     second = criterion(prediction, target[:, [2, 0, 1]], valid[:, [2, 0, 1]])
-    torch.testing.assert_close(first["set_likelihood"], second["set_likelihood"])
+    torch.testing.assert_close(first["set_intensity"], second["set_intensity"])
+    torch.testing.assert_close(first["total"], second["total"])
     first["total"].backward()
     assert torch.isfinite(features.grad).all()
 
@@ -109,3 +110,34 @@ def test_metric_prior_selects_supported_layer_and_rejects_large_deviation():
         maximum_deviation_m=0.2,
     )
     assert not rejected["accepted"].item()
+
+
+def test_liquid_interface_reports_explicit_rejection_codes():
+    prediction = {
+        "layer_depths_m": torch.tensor([[[[1.0]], [[2.0]]]]),
+        "liquid_interface_probability": torch.tensor([[[[0.9]], [[0.1]]]]),
+        "layer_confidence": torch.tensor([[[[0.81]], [[0.81]]]]),
+    }
+    accepted = select_liquid_interface(
+        prediction,
+        torch.tensor([[[[1.0]]]]),
+        confidence_threshold=0.5,
+    )
+    assert accepted["accepted"].item()
+    assert accepted["rejection_code"].item() == 0
+
+    low_confidence = select_liquid_interface(
+        prediction,
+        torch.tensor([[[[1.0]]]]),
+        confidence_threshold=0.95,
+    )
+    assert not low_confidence["accepted"].item()
+    assert low_confidence["rejection_code"].item() == 2
+
+    disagreement = select_liquid_interface(
+        prediction,
+        torch.tensor([[[[5.0]]]]),
+        confidence_threshold=0.0,
+    )
+    assert not disagreement["accepted"].item()
+    assert disagreement["rejection_code"].item() == 1

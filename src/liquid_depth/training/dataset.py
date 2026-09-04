@@ -51,6 +51,11 @@ class SegmentationDataset:
 def _read_array(path: Path, flags: int = cv2.IMREAD_UNCHANGED) -> np.ndarray:
     if path.suffix.lower() == ".npy":
         return np.load(path)
+    if path.suffix.lower() == ".npz":
+        with np.load(path) as archive:
+            if len(archive.files) != 1:
+                raise ValueError(f"Expected one array in {path}, got {archive.files}")
+            return archive[archive.files[0]]
     value = cv2.imread(str(path), flags)
     if value is None:
         raise FileNotFoundError(path)
@@ -85,6 +90,20 @@ def _binary_mask(mask: np.ndarray) -> np.ndarray:
         # Ignore alpha: TODD stores instance ids in RGB with an opaque alpha channel.
         mask = np.any(mask[..., :3] != 0, axis=2)
     return (mask != 0).astype(np.float32)
+
+
+def _layer_stack(value: np.ndarray) -> np.ndarray:
+    """Canonicalize a multi-layer depth/validity tensor to KxHxW."""
+
+    if value.ndim == 2:
+        return value[None]
+    if value.ndim != 3:
+        raise ValueError(f"Layer tensor must be HxW, KxHxW, or HxWxK: {value.shape}")
+    if value.shape[0] <= 8:
+        return value
+    if value.shape[2] <= 8:
+        return value.transpose(2, 0, 1)
+    raise ValueError(f"Could not identify layer axis for tensor {value.shape}")
 
 
 def _normal_from_depth(depth_m: np.ndarray) -> np.ndarray:
@@ -227,6 +246,18 @@ class MultiTaskDataset:
         mask = _binary_mask(_read_array(self._path(row["mask_path"])))
         normal_value = row.get("normal_path", "").strip()
         normal = _read_array(self._path(normal_value)) if normal_value else None
+        layer_depths_value = row.get("layer_depths_path", "").strip()
+        layer_valid_value = row.get("layer_valid_path", "").strip()
+        layer_depths = (
+            _layer_stack(_read_array(self._path(layer_depths_value))) if layer_depths_value else None
+        )
+        layer_valid = _layer_stack(_read_array(self._path(layer_valid_value))) if layer_valid_value else None
+        if layer_depths is not None and layer_valid is None:
+            layer_valid = layer_depths > 0
+        if layer_valid is not None and layer_depths is None:
+            raise ValueError("layer_valid_path requires layer_depths_path")
+        if layer_depths is not None and layer_valid.shape != layer_depths.shape:
+            raise ValueError(f"Layer depth/valid shapes differ: {layer_depths.shape} vs {layer_valid.shape}")
         if normal is not None:
             if normal.ndim != 3 or normal.shape[2] < 3:
                 raise ValueError(f"Normal map must be HxWx3: {self._path(normal_value)}")
@@ -237,6 +268,9 @@ class MultiTaskDataset:
         declared_scale = float(row["depth_scale_to_m"]) if row.get("depth_scale_to_m") else None
         raw_depth = _depth_meters(raw_depth, declared_scale)
         target_depth = _depth_meters(target_depth, declared_scale)
+        if layer_depths is not None:
+            layer_depths = _depth_meters(layer_depths, declared_scale)
+            layer_valid = (layer_valid > 0).astype(np.float32)
         if normal is not None:
             if normal.dtype == np.uint8:
                 normal = normal.astype(np.float32) / 127.5 - 1.0
@@ -248,6 +282,16 @@ class MultiTaskDataset:
         raw_depth = cv2.resize(raw_depth, (width, height), interpolation=cv2.INTER_NEAREST)
         target_depth = cv2.resize(target_depth, (width, height), interpolation=cv2.INTER_NEAREST)
         mask = cv2.resize(mask, (width, height), interpolation=cv2.INTER_NEAREST)
+        if layer_depths is not None:
+            layer_depths = np.stack(
+                [
+                    cv2.resize(layer, (width, height), interpolation=cv2.INTER_NEAREST)
+                    for layer in layer_depths
+                ]
+            )
+            layer_valid = np.stack(
+                [cv2.resize(layer, (width, height), interpolation=cv2.INTER_NEAREST) for layer in layer_valid]
+            )
         normal = (
             cv2.resize(normal, (width, height), interpolation=cv2.INTER_LINEAR)
             if normal is not None
@@ -261,6 +305,9 @@ class MultiTaskDataset:
             target_depth = target_depth[:, ::-1].copy()
             mask = mask[:, ::-1].copy()
             normal = normal[:, ::-1].copy()
+            if layer_depths is not None:
+                layer_depths = layer_depths[:, :, ::-1].copy()
+                layer_valid = layer_valid[:, :, ::-1].copy()
             normal[..., 0] *= -1.0
         if self.augment:
             rgb, raw_depth = _complex_scene_augment(
@@ -291,4 +338,10 @@ class MultiTaskDataset:
             "normal_valid": self.torch.from_numpy(normal_valid[None]).float(),
             "ordinary": self.torch.tensor(float(row.get("scenario", "").strip().lower() == "ordinary")),
         }
+        if layer_depths is not None:
+            valid_layers = (
+                (layer_valid > 0) & (layer_depths > 0) & (layer_depths <= self.max_depth_m)
+            ).astype(np.float32)
+            target["layer_depths_m"] = self.torch.from_numpy(layer_depths).float()
+            target["layer_valid"] = self.torch.from_numpy(valid_layers).float()
         return self.torch.from_numpy(inputs.transpose(2, 0, 1)).float(), target

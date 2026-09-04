@@ -3,7 +3,9 @@
 from .layered import (
     PermutationInvariantLayerLoss,
     RayLayerHead,
+    canonicalize_layer_set,
     select_layer_by_metric_prior,
+    select_liquid_interface,
 )
 from .multitask import LiquidSurfaceMultiTaskNet, MultiTaskLoss
 
@@ -12,5 +14,7 @@ __all__ = [
     "MultiTaskLoss",
     "PermutationInvariantLayerLoss",
     "RayLayerHead",
+    "canonicalize_layer_set",
     "select_layer_by_metric_prior",
+    "select_liquid_interface",
 ]

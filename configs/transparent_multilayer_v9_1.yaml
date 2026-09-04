@@ -1,0 +1,43 @@
+version: 1
+name: transparent_multilayer_v9_1
+model_family: universal_rgbd_self_grouping_multilayer_v9_1
+operating_range_m: [0.1, 10.0]
+num_ray_layers: 4
+route_scope: [transparent, translucent, multilayer, compound]
+
+training:
+  manifest: /root/autodl-tmp/liquid-depth-data/synthetic/liquid-sim-v3-calibration-top-12000/manifest_multilayer_v4_refined.csv
+  initialize_from: /root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v8-ordinary-sensor-anchor/best.pth
+  output_dir: /root/autodl-tmp/liquid-depth-artifacts/training/universal-liquid-v9-1-transparent-multilayer
+  image_size: [320, 180]
+  epochs: 10
+  head_only_epochs: 4
+  backbone_learning_rate_scale: 0.05
+
+selection:
+  confidence_threshold: 0.50
+  metric_prior_relative_tolerance: 0.008
+  metric_prior_absolute_floor_m: 0.02
+  rejection_multiplier: 3.0
+  rejection_codes:
+    0: accepted
+    1: metric_prior_disagreement
+    2: confidence_below_threshold
+
+qualification:
+  status: synthetic_candidate_only
+  production_enabled: false
+  validation_split_samples: 481
+  selected_liquid_abs_rel: 0.0291744251
+  selected_liquid_mae_m: 0.0158561096
+  tolerance_pass_rate: 0.5375881774
+  accepted_pixel_coverage: 0.5209454277
+  frame_output_coverage: 0.6923076923
+  evaluable_acceptance_rate: 0.9939939940
+  layer_recall_at_tolerance: 0.3950757273
+  multilayer_tuple_accuracy: 0.1374301869
+  pending:
+    - real_rgbd_domain_validation
+    - plane_level_liquid_height_evaluation
+    - false_accept_evaluation
+    - warm_end_to_end_p95_latency
