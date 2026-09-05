@@ -7,7 +7,10 @@ import numpy as np
 
 
 class RGBContourWitness:
-    def __init__(self):
+    def __init__(self, *, calibration_error_m=0.001):
+        if not np.isfinite(calibration_error_m) or calibration_error_m < 0:
+            raise ValueError("Invalid metric annotation error allowance")
+        self.calibration_error_m = float(calibration_error_m)
         self.ready = False
 
     def _project_mask(self, level, matrix, pose, shape):
@@ -92,16 +95,32 @@ class RGBContourWitness:
         self.minimum_iou = max(0.65, score - 0.12)
         self.ready = True
 
-    def estimate(self, rgb_bgr, matrix, camera_to_world_cv):
+    def estimate(self, rgb_bgr, matrix, camera_to_world_cv, *, resolution_checks=False):
         if not self.ready:
             return {"available": False, "reason": "rgb_reference_not_calibrated"}
         mask = self._segment(rgb_bgr, matrix, camera_to_world_cv)
         value, score, sigma, boundary = self._fit(mask, matrix, camera_to_world_cv)
         available = score >= self.minimum_iou and not boundary
+        error_bound = None
+        resolution_boundary = False
+        if resolution_checks and available:
+            # One-pixel contour ambiguity, plus fit plateau and a 1 mm
+            # calibration annotation allowance. This is not a statistical CI.
+            bounds = [2 * sigma]
+            for operation in (cv2.erode, cv2.dilate):
+                perturbed = operation(mask, np.ones((3, 3), np.uint8))
+                alternative, _, _, edge = self._fit(perturbed, matrix, camera_to_world_cv)
+                bounds.append(abs(alternative - value))
+                resolution_boundary |= edge
+            error_bound = float(max(bounds) + self.calibration_error_m)
+            available = available and not resolution_boundary
         return {
             "available": available,
             "level_m": value - self.bias if available else None,
             "uncertainty_proxy_m": sigma,
+            "resolution_checked": resolution_checks,
+            "error_bound_proxy_m": error_bound,
+            "bound_is_statistically_calibrated": False,
             "iou": score,
             "reason": None if available else "rgb_contour_unobservable",
             "source": "rgb_contour_and_calibrated_vessel",
@@ -124,6 +143,7 @@ class RGBContourWitness:
         )
         return {
             "schema_version": 1,
+            "calibration_error_m": self.calibration_error_m,
             **{key: float(getattr(self, key)) for key in keys},
             "color": self.color.tolist(),
             "spread": self.spread.tolist(),
@@ -133,7 +153,7 @@ class RGBContourWitness:
     def from_dict(cls, payload):
         if payload.get("schema_version") != 1:
             raise ValueError("Unsupported RGB witness calibration")
-        witness = cls()
+        witness = cls(calibration_error_m=payload.get("calibration_error_m", 0.001))
         keys = (
             "rx",
             "ry",

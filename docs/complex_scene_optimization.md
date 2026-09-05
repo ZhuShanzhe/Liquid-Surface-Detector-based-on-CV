@@ -1,5 +1,15 @@
 # Complex-scene algorithm design
 
+## Range control qualification v4 (2026-09-05)
+
+The [range-control ablation](range_controls_v4.md) implements distance noise
+gates, development-fitted range/score support reliability, and strict RGB
+resolution budgeting. True 1280x720 independent RGB is evaluated while the
+main RGB-D network stays unchanged. These remain opt-in controls; strict
+refusal must not silently fall back to a permissive measurement. Near-range
+calibration regressions and distant shallow-liquid observability remain open.
+See the [integration guide](range_controls_v4_usage.md) for activation and prerequisites.
+
 ## Research scope update: range, independent checking and reacquisition
 
 The [v3 range and independent verification report](range_independent_verification_v3.md)

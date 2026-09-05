@@ -71,6 +71,7 @@ class MetricSurfaceMemory:
         max_plane_residual_m=0.012,
         min_model_confidence=0.3,
         max_accepted_step_m=0.015,
+        range_calibration=None,
     ):
         if not 0.0 <= max_memory_fraction < 1.0:
             raise ValueError("max_memory_fraction must be in [0, 1)")
@@ -93,6 +94,7 @@ class MetricSurfaceMemory:
         self.records = []
         self.last_level_m = None
         self.max_accepted_step_m = max_accepted_step_m
+        self.range_calibration = range_calibration
         self.frame = 0
 
     def reset(self, *, clear_reference=True):
@@ -133,6 +135,14 @@ class MetricSurfaceMemory:
         # Erosion suppresses meniscus/wall leakage. No true masks are consulted.
         interior = cv2.erode(mask.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
         valid = interior & (conf >= self.min_model_confidence) & np.isfinite(raw_depth_m) & (raw_depth_m > 0)
+        plane_gate = self.max_plane_residual_m
+        if self.range_calibration is not None:
+            valid, range_diag = self.range_calibration.select(raw_depth_m, interior, conf)
+            diag.update(range_diag)
+            plane_gate = range_diag["plane_gate_m"]
+            if not range_diag["range_calibration_available"]:
+                diag["reasons"] = ["range_calibration_unavailable"]
+                return diag
         yy, xx = np.nonzero(valid)
         if len(xx) > 512:
             take = np.linspace(0, len(xx) - 1, 512).astype(int)
@@ -157,11 +167,17 @@ class MetricSurfaceMemory:
             diag["reasons"] = ["degenerate_surface_fit"]
             return diag
         keep = plane["keep"]
+        diag["plane_residual_m"] = plane["residual_m"]
+        diag["plane_gate_m"] = plane_gate
+        diag["normalized_plane_residual"] = plane["residual_m"] / plane_gate
+        diag["tilt_deg"] = plane["tilt_deg"]
+        inlier_fraction = float(np.mean(keep))
         fresh, pixels = fresh[keep], pixels[keep]
         diag["fresh_inliers"] = len(fresh)
         if (
             len(fresh) < self.min_current_points
-            or plane["residual_m"] > self.max_plane_residual_m
+            or plane["residual_m"] > plane_gate
+            or (self.range_calibration is not None and inlier_fraction < 0.60)
             or plane["tilt_deg"] > 12
         ):
             diag["reasons"] = ["inconsistent_metric_surface"]

@@ -10,11 +10,12 @@ from .surface_memory import MetricSurfaceMemory
 
 
 class VerifiedSurfaceTracker:
-    def __init__(self, *, confirmation_frames=5, memory_options=None):
+    def __init__(self, *, confirmation_frames=5, memory_options=None, strict_rgb=False):
         if confirmation_frames < 2:
             raise ValueError("confirmation_frames must be at least two")
         self.metric = MetricSurfaceMemory(**(memory_options or {}))
         self.confirmation_frames = confirmation_frames
+        self.strict_rgb = strict_rgb
         self.state = "acquiring"
         self.pending = []
 
@@ -63,6 +64,16 @@ class VerifiedSurfaceTracker:
         ):
             return self._reject("invalid_independent_evidence", level, witness)
         gate = max(0.005, 0.02 * max(abs(level), abs(independent)), 2 * uncertainty)
+        if self.strict_rgb:
+            bound = witness.get("error_bound_proxy_m")
+            if not witness.get("resolution_checked") or bound is None or not np.isfinite(bound) or bound < 0:
+                return self._reject("independent_rgb_resolution_unverified", level, witness)
+            # Reserve the RGB error budget instead of widening agreement as
+            # evidence gets less precise. Tolerance uses the lower possible level.
+            tolerance = max(0.005, 0.02 * max(0.0, independent - bound))
+            if bound >= tolerance:
+                return self._reject("independent_rgb_resolution_insufficient", level, witness)
+            gate = tolerance - bound
         if abs(level - independent) > gate:
             return self._reject("depth_rgb_metric_disagreement", level, witness)
         if (

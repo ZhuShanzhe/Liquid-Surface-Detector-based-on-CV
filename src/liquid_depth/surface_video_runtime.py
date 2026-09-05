@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
 import inspect
+import json
+from pathlib import Path
 from time import perf_counter
 
 import cv2
@@ -10,6 +13,7 @@ import numpy as np
 import torch
 
 from .models.universal import UniversalLiquidSurfaceNet
+from .range_calibration import RangeNoiseCalibration
 from .rgb_witness import RGBContourWitness
 from .surface_memory import MetricSurfaceMemory
 from .verified_tracking import VerifiedSurfaceTracker
@@ -55,30 +59,75 @@ class SequencePredictor:
 class UniversalSurfaceVideoSystem:
     """Opt-in top-view route; requires metric bottom, gravity and camera pose."""
 
-    def __init__(self, checkpoint, *, device=None, memory_options=None, rgb_witness=None):
+    def __init__(
+        self,
+        checkpoint,
+        *,
+        device=None,
+        memory_options=None,
+        rgb_witness=None,
+        range_profile=None,
+        sensor_family=None,
+        strict_rgb=False,
+    ):
+        if strict_rgb and rgb_witness is None:
+            raise ValueError("Strict verification requires an independent RGB witness")
         self.predictor = SequencePredictor(checkpoint, device=device)
         self.memory_options = dict(memory_options or {})
+        if range_profile is not None:
+            payload = json.loads(Path(range_profile).read_text())
+            if payload["checkpoint_sha256"] != hashlib.sha256(Path(checkpoint).read_bytes()).hexdigest():
+                raise ValueError("Range confidence profile does not match model weights")
+            if "range_calibration" in self.memory_options:
+                raise ValueError("Specify the range calibration only once")
+            self.memory_options["range_calibration"] = RangeNoiseCalibration(payload, sensor_family)
         self.memory = MetricSurfaceMemory(**self.memory_options)
         self.rgb_witness = rgb_witness
-        self.verified_tracker = VerifiedSurfaceTracker(memory_options=self.memory_options)
+        self.strict_rgb = strict_rgb
+        self.verified_tracker = VerifiedSurfaceTracker(
+            memory_options=self.memory_options, strict_rgb=self.strict_rgb
+        )
 
     def reset_reference(self):
         """Require fresh independent confirmation after operator revalidation."""
         self.memory.reset()
-        self.verified_tracker = VerifiedSurfaceTracker(memory_options=self.memory_options)
+        self.verified_tracker = VerifiedSurfaceTracker(
+            memory_options=self.memory_options, strict_rgb=self.strict_rgb
+        )
 
     def set_rgb_witness(self, witness: RGBContourWitness):
+        if self.strict_rgb and witness is None:
+            raise ValueError("Cannot remove independent witness in strict mode")
         self.rgb_witness = witness
         self.reset_reference()
 
     def process(
-        self, rgb_bgr, raw_depth_m, intrinsics, camera_to_world_cv, bottom_world_m, *, pose_valid=True
+        self,
+        rgb_bgr,
+        raw_depth_m,
+        intrinsics,
+        camera_to_world_cv,
+        bottom_world_m,
+        *,
+        pose_valid=True,
+        witness_frame=None,
     ):
         started = perf_counter()
         prediction = self.predictor.predict(rgb_bgr, raw_depth_m)
         model_ms = (perf_counter() - started) * 1000
         if self.rgb_witness is not None:
-            cue = self.rgb_witness.estimate(rgb_bgr, intrinsics, camera_to_world_cv)
+            if witness_frame is None:
+                cue_rgb, cue_k, cue_pose = rgb_bgr, intrinsics, camera_to_world_cv
+            else:
+                required = {"rgb_bgr", "intrinsics", "camera_to_world_cv", "synchronized"}
+                if not required.issubset(witness_frame) or witness_frame["synchronized"] is not True:
+                    raise ValueError(
+                        "Independent RGB frame requires calibrated geometry and explicit synchronization"
+                    )
+                cue_rgb = witness_frame["rgb_bgr"]
+                cue_k = witness_frame["intrinsics"]
+                cue_pose = witness_frame["camera_to_world_cv"]
+            cue = self.rgb_witness.estimate(cue_rgb, cue_k, cue_pose, resolution_checks=self.strict_rgb)
             result = self.verified_tracker.process(
                 rgb_bgr,
                 raw_depth_m,
@@ -90,6 +139,7 @@ class UniversalSurfaceVideoSystem:
                 witness=cue,
             )
             result["route"] = "experimental_rgb_verified_surface"
+            result["strict_rgb_resolution_control"] = self.strict_rgb
         else:
             result = self.memory.estimate(
                 rgb_bgr,

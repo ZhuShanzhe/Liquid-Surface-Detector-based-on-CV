@@ -40,3 +40,20 @@ def test_invalid_calibration_is_rejected():
     payload["spread"] = [1.0, 0.0, 1.0]
     with pytest.raises(ValueError):
         RGBContourWitness.from_dict(payload)
+
+
+def test_resolution_bound_includes_annotation_error_and_roundtrips():
+    witness, image, k, pose = reference()
+    measured = witness.estimate(image, k, pose, resolution_checks=True)
+    assert measured["available"] and measured["resolution_checked"]
+    assert measured["error_bound_proxy_m"] >= 2 * measured["uncertainty_proxy_m"]
+    assert not measured["bound_is_statistically_calibrated"]
+    witness.calibration_error_m = 0.01
+    restored = RGBContourWitness.from_dict(witness.to_dict())
+    larger = restored.estimate(image, k, pose, resolution_checks=True)
+    assert abs(larger["error_bound_proxy_m"] - measured["error_bound_proxy_m"] - 0.009) < 1e-9
+
+
+def test_invalid_annotation_error_is_rejected():
+    with pytest.raises(ValueError):
+        RGBContourWitness(calibration_error_m=-1)

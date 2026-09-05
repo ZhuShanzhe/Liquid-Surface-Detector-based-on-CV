@@ -75,7 +75,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seeds", type=int, nargs="+", default=[10607, 10709])
+    parser.add_argument("--rgb-scale", type=int, default=1)
+    parser.add_argument(
+        "--cache-static-rgb",
+        action="store_true",
+        help="Only for independent RGB references; repeated raw-depth files are not a sensor sequence",
+    )
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1 :])
+    if args.rgb_scale < 1 or args.rgb_scale > 4:
+        raise ValueError("RGB scale must be 1..4")
     rows = []
     for seed in args.seeds:
         for case, (distance, level) in enumerate(CASES):
@@ -83,8 +91,8 @@ def main():
                 template = gen.sample_scene(
                     3,
                     seed=seed,
-                    width=320,
-                    height=180,
+                    width=320 * args.rgb_scale,
+                    height=180 * args.rgb_scale,
                     min_distance_m=1.0,
                     max_distance_m=1.1,
                     camera_profile="industrial_top",
@@ -114,7 +122,8 @@ def main():
                 )
                 sequence = f"{seed}_d{distance:g}_h{level:g}_{sensor}"
                 for index in range(16):
-                    folder = args.output / sequence / f"{index:04d}"
+                    reference_index = 0 if args.cache_static_rgb else index
+                    folder = args.output / sequence / f"{reference_index:04d}"
                     render(folder, base, 0.0, seed, index)
                     rows.append(
                         {
@@ -150,7 +159,8 @@ def main():
             sequence = f"{seed}_{motion}"
             for index in range(80):
                 shift = 0.04 if motion == "recovery_changed" and index >= 25 else 0.0
-                folder = args.output / sequence / f"{index:04d}"
+                reference_index = (25 if shift else 0) if args.cache_static_rgb else index
+                folder = args.output / sequence / f"{reference_index:04d}"
                 render(folder, base, shift, seed, index)
                 rows.append(
                     {
