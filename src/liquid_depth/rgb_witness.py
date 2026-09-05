@@ -95,7 +95,9 @@ class RGBContourWitness:
         self.minimum_iou = max(0.65, score - 0.12)
         self.ready = True
 
-    def estimate(self, rgb_bgr, matrix, camera_to_world_cv, *, resolution_checks=False):
+    def estimate(self, rgb_bgr, matrix, camera_to_world_cv, *, resolution_checks=False, source_pixel_scale=1):
+        if not np.isfinite(source_pixel_scale) or source_pixel_scale < 1 or source_pixel_scale > 8:
+            raise ValueError("Source pixel scale must be in [1, 8]")
         if not self.ready:
             return {"available": False, "reason": "rgb_reference_not_calibrated"}
         mask = self._segment(rgb_bgr, matrix, camera_to_world_cv)
@@ -108,7 +110,9 @@ class RGBContourWitness:
             # calibration annotation allowance. This is not a statistical CI.
             bounds = [2 * sigma]
             for operation in (cv2.erode, cv2.dilate):
-                perturbed = operation(mask, np.ones((3, 3), np.uint8))
+                radius = int(np.ceil(source_pixel_scale))
+                # SR interpolation must retain the original sampling ambiguity.
+                perturbed = operation(mask, np.ones((2 * radius + 1, 2 * radius + 1), np.uint8))
                 alternative, _, _, edge = self._fit(perturbed, matrix, camera_to_world_cv)
                 bounds.append(abs(alternative - value))
                 resolution_boundary |= edge

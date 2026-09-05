@@ -16,7 +16,8 @@ class Predictor:
 
 
 class Witness:
-    def estimate(self, rgb, k, pose, *, resolution_checks=False):
+    def estimate(self, rgb, k, pose, *, resolution_checks=False, source_pixel_scale=1):
+        self.source_pixel_scale = source_pixel_scale
         self.shape, self.k, self.pose = rgb.shape, k, pose
         return {
             "available": True,

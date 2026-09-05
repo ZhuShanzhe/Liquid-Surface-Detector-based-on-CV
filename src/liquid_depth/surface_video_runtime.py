@@ -15,6 +15,7 @@ import torch
 from .models.universal import UniversalLiquidSurfaceNet
 from .range_calibration import RangeNoiseCalibration
 from .rgb_witness import RGBContourWitness
+from .surface_candidates import SurfaceCandidateEstimator
 from .surface_memory import MetricSurfaceMemory
 from .verified_tracking import VerifiedSurfaceTracker
 
@@ -84,6 +85,7 @@ class UniversalSurfaceVideoSystem:
         self.memory = MetricSurfaceMemory(**self.memory_options)
         self.rgb_witness = rgb_witness
         self.strict_rgb = strict_rgb
+        self._surface_candidate_engines = {}
         self.verified_tracker = VerifiedSurfaceTracker(
             memory_options=self.memory_options, strict_rgb=self.strict_rgb
         )
@@ -91,6 +93,7 @@ class UniversalSurfaceVideoSystem:
     def reset_reference(self):
         """Require fresh independent confirmation after operator revalidation."""
         self.memory.reset()
+        self._surface_candidate_engines = {}
         self.verified_tracker = VerifiedSurfaceTracker(
             memory_options=self.memory_options, strict_rgb=self.strict_rgb
         )
@@ -100,6 +103,49 @@ class UniversalSurfaceVideoSystem:
             raise ValueError("Cannot remove independent witness in strict mode")
         self.rgb_witness = witness
         self.reset_reference()
+
+    def process_surface_candidates(
+        self,
+        rgb_bgr,
+        raw_depth_m,
+        intrinsics,
+        camera_to_world_cv,
+        bottom_world_m,
+        *,
+        area_xy,
+        radii,
+        mode="early",
+        surface_mode="quasistatic",
+        pose_valid=True,
+    ):
+        """Research only: known footprint in the fixed world frame, not trusted output."""
+        started = perf_counter()
+        prediction = self.predictor.predict(rgb_bgr, raw_depth_m)
+        engines = getattr(self, "_surface_candidate_engines", {})
+        self._surface_candidate_engines = engines
+        key = (mode, surface_mode)
+        if key not in engines:
+            engines[key] = SurfaceCandidateEstimator(
+                mode=mode,
+                surface_mode=surface_mode,
+                range_calibration=self.memory_options.get("range_calibration"),
+            )
+        result = engines[key].estimate(
+            rgb_bgr,
+            raw_depth_m,
+            prediction,
+            intrinsics,
+            camera_to_world_cv,
+            bottom_world_m,
+            area_xy,
+            radii,
+            pose_valid=pose_valid,
+        )
+        result["route"] = "experimental_unverified_surface_candidate"
+        result["total_ms"] = (perf_counter() - started) * 1000
+        if result["total_ms"] > 500:
+            result["quality_flags"].append("latency_deadline_exceeded")
+        return result
 
     def process(
         self,
@@ -127,7 +173,13 @@ class UniversalSurfaceVideoSystem:
                 cue_rgb = witness_frame["rgb_bgr"]
                 cue_k = witness_frame["intrinsics"]
                 cue_pose = witness_frame["camera_to_world_cv"]
-            cue = self.rgb_witness.estimate(cue_rgb, cue_k, cue_pose, resolution_checks=self.strict_rgb)
+            cue = self.rgb_witness.estimate(
+                cue_rgb,
+                cue_k,
+                cue_pose,
+                resolution_checks=self.strict_rgb,
+                source_pixel_scale=(witness_frame or {}).get("source_pixel_scale", 1),
+            )
             result = self.verified_tracker.process(
                 rgb_bgr,
                 raw_depth_m,
