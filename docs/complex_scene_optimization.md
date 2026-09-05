@@ -1,5 +1,23 @@
 # Complex-scene algorithm design
 
+## Research scope update: range, independent checking and reacquisition
+
+The [v3 range and independent verification report](range_independent_verification_v3.md)
+supersedes the v2 findings for the new opt-in RGB-verified route. Further recovery
+optimization DURING 95-100% depth failure is out of scope. This route rejects
+raw-depth validity at or below 5% within the predicted surface; work instead
+targets the full 0.1-10 m range, slowly biased echoes, and safe reacquisition
+AFTER measurements return. Camera standoff and liquid depth are separate axes.
+
+The RGB witness requires calibrated vessel geometry and a visible liquid
+boundary. It consumes no depth measurement, but still shares pose/calibration
+assumptions. Five consecutive independently consistent fresh estimates are
+required to re-establish the liquid reference after loss. This does not recover
+an unknown camera pose: camera motion requires separately verified pose or
+operator recalibration. The research YAML records policy; it is not an
+automatically loaded deployment profile. The default operator route remains
+unchanged until broader qualification is complete.
+
 ## Metric video qualification (2026-09-05)
 
 The contact-point test below is only a mechanism check. The separate

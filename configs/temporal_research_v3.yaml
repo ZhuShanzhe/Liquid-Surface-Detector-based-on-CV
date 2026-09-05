@@ -1,0 +1,21 @@
+version: 1
+status: experimental
+severe_depth_failure:
+  predicted_surface_valid_ratio_max: 0.05
+  action: reject
+  optimize_recovery_during_failure: false
+research:
+  camera_standoff_m: [0.1, 0.2, 0.5, 1.0, 2.0, 3.0, 4.0, 6.0, 8.0, 10.0]
+  separate_camera_standoff_from_liquid_depth: true
+  one_model_for_all_ranges: true
+independent_rgb:
+  geometry: calibrated_elliptical_vessel
+  calibration: annotated_initial_rgb_and_known_liquid_depth
+  depth_input_allowed: false
+  statistical_uncertainty_calibrated: false
+reacquisition:
+  fresh_confirmation_frames: 5
+  independent_rgb_agreement_required: true
+  verified_current_pose_required: true
+  retain_pre_loss_height_as_absolute_truth: false
+  accept_recovered_but_inconsistent_echoes: false

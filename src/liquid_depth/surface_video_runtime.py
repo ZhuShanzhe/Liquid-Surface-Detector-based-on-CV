@@ -10,7 +10,9 @@ import numpy as np
 import torch
 
 from .models.universal import UniversalLiquidSurfaceNet
+from .rgb_witness import RGBContourWitness
 from .surface_memory import MetricSurfaceMemory
+from .verified_tracking import VerifiedSurfaceTracker
 
 
 class SequencePredictor:
@@ -53,13 +55,21 @@ class SequencePredictor:
 class UniversalSurfaceVideoSystem:
     """Opt-in top-view route; requires metric bottom, gravity and camera pose."""
 
-    def __init__(self, checkpoint, *, device=None, memory_options=None):
+    def __init__(self, checkpoint, *, device=None, memory_options=None, rgb_witness=None):
         self.predictor = SequencePredictor(checkpoint, device=device)
-        self.memory = MetricSurfaceMemory(**(memory_options or {}))
+        self.memory_options = dict(memory_options or {})
+        self.memory = MetricSurfaceMemory(**self.memory_options)
+        self.rgb_witness = rgb_witness
+        self.verified_tracker = VerifiedSurfaceTracker(memory_options=self.memory_options)
 
     def reset_reference(self):
-        """Call only after validating the new operating point/calibration."""
+        """Require fresh independent confirmation after operator revalidation."""
         self.memory.reset()
+        self.verified_tracker = VerifiedSurfaceTracker(memory_options=self.memory_options)
+
+    def set_rgb_witness(self, witness: RGBContourWitness):
+        self.rgb_witness = witness
+        self.reset_reference()
 
     def process(
         self, rgb_bgr, raw_depth_m, intrinsics, camera_to_world_cv, bottom_world_m, *, pose_valid=True
@@ -67,18 +77,32 @@ class UniversalSurfaceVideoSystem:
         started = perf_counter()
         prediction = self.predictor.predict(rgb_bgr, raw_depth_m)
         model_ms = (perf_counter() - started) * 1000
-        result = self.memory.estimate(
-            rgb_bgr,
-            raw_depth_m,
-            prediction,
-            intrinsics,
-            camera_to_world_cv,
-            bottom_world_m,
-            pose_valid=pose_valid,
-        )
+        if self.rgb_witness is not None:
+            cue = self.rgb_witness.estimate(rgb_bgr, intrinsics, camera_to_world_cv)
+            result = self.verified_tracker.process(
+                rgb_bgr,
+                raw_depth_m,
+                prediction,
+                intrinsics,
+                camera_to_world_cv,
+                bottom_world_m,
+                pose_valid=pose_valid,
+                witness=cue,
+            )
+            result["route"] = "experimental_rgb_verified_surface"
+        else:
+            result = self.memory.estimate(
+                rgb_bgr,
+                raw_depth_m,
+                prediction,
+                intrinsics,
+                camera_to_world_cv,
+                bottom_world_m,
+                pose_valid=pose_valid,
+            )
+            result["route"] = "experimental_metric_surface_memory"
         result["model_ms"] = model_ms
         result["total_ms"] = (perf_counter() - started) * 1000
-        result["route"] = "experimental_metric_surface_memory"
         if result["total_ms"] > 500:
             result["accepted"] = False
             result["level_m"] = None
