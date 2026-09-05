@@ -1,5 +1,16 @@
 # Complex-scene algorithm design
 
+## Metric video qualification (2026-09-05)
+
+The contact-point test below is only a mechanism check. The separate
+[continuous rendered RGB-D evaluation](temporal_depth_failure_v2.md) now
+qualifies learned perception, fresh metric anchors, adaptive surface memory,
+plane fitting and liquid depth together. Its independent scene shows useful
+recovery under partial holes, but severe missing depth and gradual wrong
+echoes remain unsupported. The new `UniversalSurfaceVideoSystem` is an opt-in
+experimental interface; it has not replaced the default operator route.
+Raw sequences and frame-level reports remain on the server.
+
 ## Large-area depth failure: temporal anchor memory
 
 The runtime separates two temporal mechanisms:
