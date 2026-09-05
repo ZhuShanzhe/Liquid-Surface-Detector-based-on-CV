@@ -19,10 +19,14 @@ from generate_range_sequences import render
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--seeds", type=int, nargs="+", default=[11231, 11333])
+    p.add_argument("--fixed-radius", type=float, default=None)
     args = p.parse_args(sys.argv[sys.argv.index("--") + 1 :])
     args.output.mkdir(parents=True, exist_ok=True)
     rows = []
-    for seed in (11231, 11333):
+    if args.fixed_radius is not None and args.fixed_radius <= 0:
+        raise ValueError("Fixed radius must be positive")
+    for seed in args.seeds:
         for distance, level in ((1.0, 0.3), (3.0, 0.1), (6.0, 0.3)):
             base = gen.sample_scene(
                 3,
@@ -35,7 +39,7 @@ def main():
             )
             direction = np.array([0.1, -0.35, 1.1])
             direction /= np.linalg.norm(direction)
-            radius = 0.23 * distance
+            radius = args.fixed_radius if args.fixed_radius is not None else 0.23 * distance
             base = replace(
                 base,
                 scenario="ordinary",

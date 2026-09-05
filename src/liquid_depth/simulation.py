@@ -612,8 +612,15 @@ def _mask_edge(mask: np.ndarray, radius: int = 2) -> np.ndarray:
     return mask & ~interior
 
 
-def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> dict[str, np.ndarray]:
-    """Physics-guided RGB-D corruption proxy with structured failures and echoes."""
+def simulate_raw_depth(
+    scene: SyntheticScene, labels: dict[str, np.ndarray], *, components=None
+) -> dict[str, np.ndarray]:
+    """Optional diagnostic switches; omitted flags preserve the original simulator."""
+    components = dict(components or {})
+    allowed = {"depth_noise", "disparity_noise", "quantization", "range_cutoff"}
+    if not set(components).issubset(allowed) or any(type(v) is not bool for v in components.values()):
+        raise ValueError("Unknown sensor component or non-boolean switch")
+    enabled = lambda name: components.get(name, True)
     rng = np.random.default_rng(scene.seed + scene.index * 130363 + 17)
     target = labels["target_depth_m"]
     mask = labels["mask"] > 0
@@ -636,7 +643,7 @@ def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> 
     else:
         sigma = noise_floor + distance_noise * target * target
     sigma *= 1.0 + 3.0 * (1.0 - incidence) ** 2
-    raw[mask] += rng.normal(0.0, sigma[mask]).astype(np.float32)
+    raw[mask] += rng.normal(0.0, sigma[mask]).astype(np.float32) * enabled("depth_noise")
 
     if scene.sensor_family in {"active_stereo", "structured_light"}:
         fx = camera_intrinsics(scene)[0, 0]
@@ -645,10 +652,16 @@ def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> 
         disparity = np.zeros_like(raw)
         disparity[valid] = fx * baseline_m / raw[valid]
         disparity_noise = 0.18 if scene.sensor_family == "active_stereo" else 0.26
-        disparity[valid] += rng.normal(0.0, disparity_noise, size=int(valid.sum())).astype(np.float32)
-        raw[valid] = fx * baseline_m / np.maximum(np.round(disparity[valid] * 16.0) / 16.0, 1e-3)
+        disparity[valid] += rng.normal(0.0, disparity_noise, size=int(valid.sum())).astype(
+            np.float32
+        ) * enabled("disparity_noise")
+        measured_disparity = disparity[valid]
+        if enabled("quantization"):
+            measured_disparity = np.round(measured_disparity * 16.0) / 16.0
+        raw[valid] = fx * baseline_m / np.maximum(measured_disparity, 1e-3)
     else:
-        raw = np.round(raw * 1000.0) / 1000.0
+        if enabled("quantization"):
+            raw = np.round(raw * 1000.0) / 1000.0
 
     invalid_ranges = {
         "ordinary": (0.02, 0.10),
@@ -769,6 +782,7 @@ def simulate_raw_depth(scene: SyntheticScene, labels: dict[str, np.ndarray]) -> 
     error_type[highlight] = 4
     raw[dropout] = 0.0
     out_of_range = mask & ((raw < (0.12 if scene.sensor_family != "tof" else 0.08)) | (raw > 10.5))
+    out_of_range &= enabled("range_cutoff")
     error_type[out_of_range] = 5
     raw[out_of_range] = 0.0
     raw = np.where(np.isfinite(raw) & (raw > 0.0), raw, 0.0).astype(np.float32)

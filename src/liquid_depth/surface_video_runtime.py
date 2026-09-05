@@ -17,6 +17,7 @@ from .range_calibration import RangeNoiseCalibration
 from .rgb_witness import RGBContourWitness
 from .surface_candidates import SurfaceCandidateEstimator
 from .surface_memory import MetricSurfaceMemory
+from .surface_refinement import RefinedSurfaceEstimator
 from .verified_tracking import VerifiedSurfaceTracker
 
 
@@ -146,6 +147,50 @@ class UniversalSurfaceVideoSystem:
         if result["total_ms"] > 500:
             result["quality_flags"].append("latency_deadline_exceeded")
         return result
+
+    def process_refined_surface(
+        self,
+        rgb_bgr,
+        raw_depth_m,
+        intrinsics,
+        camera_to_world_cv,
+        bottom_world_m,
+        *,
+        area_xy,
+        radii,
+        mode="balanced",
+        stereo_noise=None,
+        max_surface_slope=None,
+        pose_valid=True,
+    ):
+        """Opt-in v6 diagnostics; device noise/slope priors must be supplied explicitly."""
+        started = perf_counter()
+        prediction = self.predictor.predict(rgb_bgr, raw_depth_m)
+        selected = raw_depth_m[prediction["mask"] & np.isfinite(raw_depth_m) & (raw_depth_m > 0)]
+        calibration = self.memory_options.get("range_calibration")
+        sigma = calibration.sigma(float(np.median(selected))) if calibration and selected.size else 0.003
+        engine = RefinedSurfaceEstimator(
+            mode=mode,
+            stereo_noise=stereo_noise,
+            sigma_m=max(0.003, sigma),
+            max_surface_slope=max_surface_slope,
+        )
+        out = engine.estimate(
+            rgb_bgr,
+            raw_depth_m,
+            prediction,
+            intrinsics,
+            camera_to_world_cv,
+            bottom_world_m,
+            area_xy,
+            radii,
+            pose_valid=pose_valid,
+        )
+        out["route"] = "experimental_unverified_surface_refinement_v6"
+        out["total_ms"] = (perf_counter() - started) * 1000
+        if out["total_ms"] > 500:
+            out["quality_flags"].append("latency_deadline_exceeded")
+        return out
 
     def process(
         self,
