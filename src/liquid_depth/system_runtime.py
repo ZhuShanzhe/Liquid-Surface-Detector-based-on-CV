@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 import yaml
 
+from .anchor_memory import TemporalAnchorMemory
 from .calibration import (
     CameraCalibration,
     PoseEstimate,
@@ -234,8 +235,16 @@ class LiquidDepthSystem:
             available_variants=self.complex_models,
         )
         self.temporal_filter = None
+        self.anchor_memory = None
+        self.anchor_memory_activation_ratio = 0.45
         if temporal:
             options = self.profile.get("temporal", {})
+            memory_options = options.get("anchor_memory", {})
+            if memory_options.get("enabled", False):
+                self.anchor_memory = TemporalAnchorMemory.from_config(memory_options)
+                self.anchor_memory_activation_ratio = float(
+                    memory_options.get("activation_valid_ratio_below", 0.45)
+                )
             self.temporal_filter = RobustKalmanFilter(
                 process_variance=float(options.get("process_variance_m2", 1e-6)),
                 measurement_variance=float(options.get("measurement_variance_m2", 2.5e-5)),
@@ -398,6 +407,26 @@ class LiquidDepthSystem:
             pose,
             bundle=specialist if scene_decision.activated else None,
         )
+        raw_curve = curve.copy()
+        raw_point_confidence = point_confidence.copy()
+        memory_fusion = None
+        memory_activated = False
+        if self.anchor_memory is not None:
+            memory_activated = signals.raw_depth_valid_ratio < self.anchor_memory_activation_ratio
+            if memory_activated:
+                memory_fusion = self.anchor_memory.fuse(
+                    frame.rgb_bgr,
+                    curve,
+                    point_confidence,
+                    self.calibration.camera_matrix,
+                    pose.rotation_m2c,
+                    pose.translation_m2c_m,
+                    roi_xyxy=crop,
+                )
+                curve = memory_fusion.points_px
+                point_confidence = memory_fusion.confidences
+            else:
+                self.anchor_memory.advance()
         prediction_ms = (perf_counter() - prediction_started) * 1000.0
         selection = self.profile.get("selection", {})
         geometry = self.profile.get("geometry", {})
@@ -422,6 +451,8 @@ class LiquidDepthSystem:
             },
         )
         reasons = list(estimate.rejection_reasons)
+        if memory_activated and memory_fusion is not None and not memory_fusion.accepted:
+            reasons.extend(memory_fusion.rejection_reasons)
         max_pose_rmse = float(self.profile["pose"].get("max_reprojection_rmse_px", 2.5))
         if pose.reprojection_rmse_px > max_pose_rmse:
             reasons.append("container_pose_reprojection_too_large")
@@ -433,6 +464,23 @@ class LiquidDepthSystem:
         if not scene_decision.result_allowed:
             reasons.append("complex_model_required_but_unavailable")
 
+        committed_anchors = 0
+        if (
+            self.anchor_memory is not None
+            and estimate.accepted
+            and pose.reprojection_rmse_px <= max_pose_rmse
+            and not reasons
+            and (not memory_activated or memory_fusion is None or memory_fusion.accepted)
+        ):
+            committed_anchors = self.anchor_memory.commit(
+                frame.rgb_bgr,
+                raw_curve,
+                raw_point_confidence,
+                self.container_model,
+                self.calibration.camera_matrix,
+                pose.rotation_m2c,
+                pose.translation_m2c_m,
+            )
         accepted = estimate.accepted and not reasons and candidate_m is not None
         confidence = estimate.confidence * float(
             np.exp(-pose.reprojection_rmse_px / max(max_pose_rmse, 1e-6))
@@ -494,6 +542,15 @@ class LiquidDepthSystem:
             "geometry": estimate.to_dict(),
             "output_calibration": {"scale": scale, "offset_m": offset},
             "temporal": temporal_payload,
+            "temporal_anchor_memory": None
+            if self.anchor_memory is None
+            else {
+                "activated": memory_activated,
+                "activation_valid_ratio_below": self.anchor_memory_activation_ratio,
+                "history_frames": self.anchor_memory.history_frames,
+                "committed_current_anchors": committed_anchors,
+                "fusion": None if memory_fusion is None else memory_fusion.to_dict(),
+            },
         }
         if output_dir is not None:
             target = Path(output_dir)

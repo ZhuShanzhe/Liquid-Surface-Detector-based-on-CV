@@ -1,5 +1,51 @@
 # Complex-scene algorithm design
 
+## Large-area depth failure: temporal anchor memory
+
+The runtime separates two temporal mechanisms:
+
+- the scalar robust Kalman filter stabilizes final liquid depth;
+- `TemporalAnchorMemory` stores directly observed, high-confidence contact
+  points and recovers spatial support when raw depth later fails.
+
+The anchor path activates only in video temporal mode and when raw-depth
+validity falls below 0.45 by default. Stored anchors are mapped to container
+coordinates and reprojected with the current pose. Pyramidal Lucas-Kanade
+optical flow supplies a second alignment estimate; contradictory pose and flow
+tracks are rejected.
+
+RGB guidance is a conservative gate rather than an unconstrained generator.
+Lab-color similarity decays historical confidence, so an appearance change
+blocks stale reuse. The observability gate still requires:
+
+- fresh current-frame anchors;
+- enough total anchors and occupied horizontal bins;
+- a bounded memory-derived fraction;
+- valid pose, flow consistency, age decay and RGB similarity.
+
+Only fresh model predictions are committed back to memory, preventing recovered
+points from recursively reinforcing themselves. Runtime output reports
+activation, history size, recovered points, memory fraction, spatial coverage,
+alignment error, RGB similarity and explicit rejection reasons.
+
+### Synthetic qualification
+
+A deterministic 65-frame point-level sequence was used to verify the recovery
+and refusal logic independently of camera hardware:
+
+- with 25% fresh anchors, accepted output increased from 0% without memory to
+  100% with memory; accepted-point mean error was 0.28 px;
+- with 12% fresh anchors, accepted output increased from 0% to 55%; accepted-
+  point mean error was 0.24 px;
+- after a deliberate RGB appearance change, memory acceptance remained 0% and
+  no stale anchors were recovered;
+- CPU fusion latency was 9.3 ms mean and 10.8 ms P95; one scheduling outlier
+  reached 80.5 ms.
+
+These figures qualify the sparse-anchor mechanism, not end-to-end metric liquid
+depth. Simulation sequences and then real RGB-D video must still measure plane
+error, liquid-depth error, coverage, false acceptance and total latency.
+
 ## Scope and conclusion
 
 A ray passing through a transparent vessel may intersect the front wall, liquid
