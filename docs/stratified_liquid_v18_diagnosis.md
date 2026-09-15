@@ -1,3 +1,5 @@
+> Follow-up: see [V18 frozen-model screening](stratified_seegroup_v18_screening.md) for the subsequently completed two-fluid renders and SeeGroup experiments. This page records the preceding analytical audit.
+
 # 顶部相机下多种透明液体分层：V18 前置诊断
 
 ## 结论与任务边界
