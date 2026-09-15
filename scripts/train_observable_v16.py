@@ -146,7 +146,7 @@ def train_depth(args):
         history.append(dict(epoch=epoch,loss=float(np.mean(losses)),score=current,best_epoch=best_epoch,seconds=time.time()-start,summary={m:r['summary'] for m,r in reports.items()}))
         save(out/'history.json',history);print('DEPTH',args.route,epoch,current,best_epoch,round(time.time()-start,1),flush=True)
     save(out/'frozen.json',dict(checkpoint_sha256=digest(out/'best.pth'),locator_sha256=digest(OUT/'locator.pth'),best_epoch=best_epoch,score=best,input_keys=['rgb','raw_depth_m'],route=args.route))
-    
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--stage',choices=['locator','depth','test'],required=True);ap.add_argument('--route',choices=['full','gated'],default='gated')
     ap.add_argument('--manifest',default=str(DEV));args=ap.parse_args()
