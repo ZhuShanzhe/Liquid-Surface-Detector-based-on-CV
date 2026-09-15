@@ -1,0 +1,25 @@
+version: 18
+stage: diagnosis_only
+task: stratified_transparent_liquids_overhead
+frozen_single_liquid_reference: c8819910f9061319ebfd8e9c037f59d2f71f64fb
+initial_scope:
+  liquid_count: [1, 2]
+  state: stable_immiscible_layers
+  camera: overhead
+  container_walls: nuisance_not_target
+  targets: [free_surface, internal_liquid_interface, layer_thickness]
+inference_inputs:
+  required: [rgb, raw_depth, acquired_sdk_unit_and_registration]
+  forbidden_ground_truth: [layer_count, interface_depths, layer_thickness, refractive_indices, bottom_height, camera_pose, material_identity]
+  optional_only_after_acquisition_pipeline: [controlled_light_sequence, observed_reference_pattern, calibrated_additional_view]
+offline_diagnostic_axes:
+  thickness_mm: [1, 2, 5, 10, 20, 50]
+  refractive_index_contrast: [0, 0.005, 0.01, 0.03, 0.10]
+  note: Simulation parameters, never inference inputs; not a generated dataset yet.
+evaluation:
+  assignment: one_to_one_active_prediction_matching_plus_semantic_identity
+  metrics: [interface_recall, interface_precision, layer_count_error, complete_set_accuracy, interface_mae, interface_p95, thickness_mae, thickness_p95, false_accept_rate, coverage]
+  thickness_error_report_bins_mm: [1, 2, 5]
+  acceptance_standard: not_established
+  split_groups: [container_identity, liquid_pair, capture_sequence]
+production_enabled: false
