@@ -54,6 +54,10 @@ def test_factory_reprojection_zbuffer_uses_nearest_color_depth():
     rgb=np.zeros((3,3,3),np.uint8);raw=np.array([[2.,1.]],np.float32)
     camera={'depth_alignment':'native','depth_scale_to_m':1.,'depth_resolution':[2,1],'color_resolution':[3,3],
             'depth_camera_matrix':[[100,0,0],[0,100,0],[0,0,1]],'color_camera_matrix':[[1,0,0],[0,1,0],[0,0,1]],
-            'depth_to_color_rotation':np.eye(3).tolist(),'depth_to_color_translation_m':[0,0,.5]}
+            'depth_to_color_rotation':np.eye(3).tolist(),'depth_to_color_translation_m':[0,0,.5],'depth_distortion':[0,0,0,0,0],'color_distortion':[0,0,0,0,0]}
     _,depth=prepare_observation(rgb,raw,camera)
     assert depth[0,0]==1.5 and np.count_nonzero(depth)==1
+
+    import pytest
+    del camera["depth_distortion"]
+    with pytest.raises(KeyError):prepare_observation(rgb,raw,camera)
