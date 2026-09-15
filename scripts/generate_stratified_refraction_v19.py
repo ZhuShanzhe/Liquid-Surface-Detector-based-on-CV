@@ -27,7 +27,7 @@ def diffuse(name,color):
     p=m.node_tree.nodes.get('Principled BSDF');p.inputs['Base Color'].default_value=(*color,1);p.inputs['Roughness'].default_value=.6
     return m
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--count',type=int,default=96);p.add_argument('--samples',type=int,default=32);p.add_argument('--device',choices=['CPU','GPU'],default='GPU');p.add_argument('--seed',type=int,default=19001);p.add_argument('--split',default='development');a=p.parse_args(sys.argv[sys.argv.index('--')+1:])
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--count',type=int,default=96);p.add_argument('--samples',type=int,default=32);p.add_argument('--device',choices=['CPU','GPU'],default='GPU');p.add_argument('--seed',type=int,default=19001);p.add_argument('--split',default='development');p.add_argument('--exposure',type=float,default=0.);p.add_argument('--auto-exposure',action='store_true');a=p.parse_args(sys.argv[sys.argv.index('--')+1:])
     a.output.mkdir(parents=True,exist_ok=False);rows=[];start=time.time()
     for i in range(a.count):
         group=('single','index_matched','weak','strong')[i%4];j=i//4
@@ -49,7 +49,7 @@ def main():
         scene.cycles.max_bounces=16;scene.cycles.transmission_bounces=12;scene.cycles.glossy_bounces=8;scene.cycles.seed=a.seed+j
         scene.render.resolution_x=320;scene.render.resolution_y=180;scene.render.resolution_percentage=100
         scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGB';scene.render.image_settings.color_depth='16'
-        scene.view_settings.view_transform='Standard';scene.view_settings.look='None';scene.view_settings.exposure=0;scene.view_settings.gamma=1
+        scene.view_settings.view_transform='Standard';scene.view_settings.look='None';scene.view_settings.exposure=a.exposure;scene.view_settings.gamma=1
         scene.world.use_nodes=True;scene.world.node_tree.nodes.get('Background').inputs[0].default_value=(.5,.55,.6,1)
         scene.world.node_tree.nodes.get('Background').inputs[1].default_value=.5
         x,y=.14,.09
@@ -74,7 +74,23 @@ def main():
         bpy.ops.object.camera_add(location=(0,0,distance));camera=bpy.context.object;camera.rotation_euler=(0,0,0)
         camera.data.type='PERSP';camera.data.lens=31.1769145;camera.data.sensor_width=36;camera.data.sensor_fit='HORIZONTAL';camera.data.clip_start=.01;scene.camera=camera
         # Blender camera local -Z points vertically down with zero rotation.
-        folder=a.output/f'{i:03d}';folder.mkdir();scene.render.filepath=str(folder/'rgb.png')
+        folder=a.output/f'{i:03d}';folder.mkdir()
+        exposure_previews=0
+        if a.auto_exposure:
+            dielectric=[ob for ob in bpy.data.objects if ob.type=='MESH' and any(any(n.type=='BSDF_GLASS' for n in mat.node_tree.nodes) for mat in ob.data.materials if mat and mat.use_nodes)]
+            for ob in dielectric:ob.hide_render=True
+            scene.render.filepath=str(folder/'empty_rgb.png')
+            for preview in range(6):
+                bpy.ops.render.render(write_still=True);exposure_previews+=1
+                loaded=bpy.data.images.load(scene.render.filepath,check_existing=False)
+                pixels=np.asarray(loaded.pixels[:],dtype=np.float32).reshape(180,320,4)
+                probe=pixels[54:126,96:224,:3]
+                clipped=float((probe.max(2)>=.995).mean())
+                bpy.data.images.remove(loaded)
+                if clipped<=.001:break
+                scene.view_settings.exposure-=1.
+            for ob in dielectric:ob.hide_render=False
+        scene.render.filepath=str(folder/'rgb.png')
         bpy.ops.render.render(write_still=True)
         f=320/(2*math.tan(math.radians(60)/2))
         u,v=np.meshgrid((np.arange(320)+.5-160)/f,(np.arange(180)+.5-90)/f)
@@ -112,7 +128,7 @@ def main():
         camera_info=dict(width=320,height=180,fx=f,fy=f,cx=160,cy=90,depth_scale_to_m=1,depth_alignment='color',sensor_model='nondispersive_coaxial_tof_proxy')
         (folder/'camera.json').write_text(json.dumps(camera_info,indent=2))
 
-        meta=dict(id=i,pair=j,split=a.split,total_depth_m=total,sensor_sigma=sensor_sigma,drop=drop,return_gain=return_gain,texture_scale=texture_scale,seed=a.seed,group=group,thickness_m=t if group!='single' else None,camera_distance_m=distance,pattern=pattern,n_upper=n1,n_lower=n2,true_liquid_interfaces=1 if group=='single' else 2,render_engine=scene.render.engine,render_device=a.device,samples=a.samples,adaptive_sampling=False,denoising=False,transmission_bounces=scene.cycles.transmission_bounces,shared_interface_count=0 if group=='single' else 1,shared_interface_ior=None if group=='single' else n2/n1,raw_proxy='nondispersive_coaxial_single_path_tof_like_not_device_calibrated',raw_event_weights=weights.tolist(),camera=dict(width=320,height=180,fx=f,fy=f,cx=160,cy=90,depth_scale_to_m=1,depth_alignment='color'),assumptions='flat lossless media; side boundary air; opaque base; no glass shell; opaque rim; no dispersion/absorption/multipath sensor response')
+        meta=dict(id=i,pair=j,split=a.split,total_depth_m=total,sensor_sigma=sensor_sigma,drop=drop,return_gain=return_gain,texture_scale=texture_scale,seed=a.seed,group=group,thickness_m=t if group!='single' else None,camera_distance_m=distance,pattern=pattern,n_upper=n1,n_lower=n2,true_liquid_interfaces=1 if group=='single' else 2,render_engine=scene.render.engine,render_device=a.device,exposure=scene.view_settings.exposure,exposure_previews=exposure_previews,samples=a.samples,adaptive_sampling=False,denoising=False,transmission_bounces=scene.cycles.transmission_bounces,shared_interface_count=0 if group=='single' else 1,shared_interface_ior=None if group=='single' else n2/n1,raw_proxy='nondispersive_coaxial_single_path_tof_like_not_device_calibrated',raw_event_weights=weights.tolist(),camera=dict(width=320,height=180,fx=f,fy=f,cx=160,cy=90,depth_scale_to_m=1,depth_alignment='color'),assumptions='flat lossless media; side boundary air; opaque base; no glass shell; opaque rim; no dispersion/absorption/multipath sensor response')
         (folder/'scene.json').write_text(json.dumps(meta,indent=2));rows.append(meta)
         print('REFERENCE_AND_LIQUID',i+1,a.count,group,round(time.time()-start,1),flush=True)
     (a.output/'manifest.json').write_text(json.dumps(rows,indent=2))

@@ -79,3 +79,21 @@ def test_large_thickness_ambiguity_is_not_hidden_by_reference_fit():
     r=dict(top_depth_m=.3,profile=[dict(n_upper=1.5,n_lower=1.33,thickness_m=.02,raw_loss=1.,photo_error=0.,chromatic_error=0.),dict(n_upper=1.49,n_lower=1.34,thickness_m=.05,raw_loss=2.,photo_error=0.,chromatic_error=0.)])
     q=qualify_profile(r)
     assert not q['accepted'] and q['thickness_m'] is None
+
+
+def test_saturated_empty_reference_is_rejected_before_claiming_measurement():
+    from liquid_depth.refraction_calibration_v19 import apply_reference_quality
+    image=np.ones((80,120,3),np.float32);z=np.full((80,120),.4)
+    result=apply_reference_quality(dict(accepted=True,thickness_m=.02,internal_depth_m=.3),image,z,{})
+    assert not result['accepted'] and result['thickness_m'] is None
+    assert result['status']=='reference_requires_exposure_adjustment'
+
+def test_exposure_quality_is_measured_from_reference_pixels():
+    from liquid_depth.refraction_calibration_v19 import assess_reference
+    image=np.full((80,120,3),.5,np.float32);z=np.full((80,120),.4)
+    result=assess_reference(image,z,{})
+    assert result['usable'] and result['saturated_fraction']==0
+
+def test_reference_quality_rejects_invalid_intensity_encoding():
+    from liquid_depth.refraction_calibration_v19 import assess_reference
+    with pytest.raises(ValueError):assess_reference(np.full((80,120,3),255.),np.full((80,120),.4),{})

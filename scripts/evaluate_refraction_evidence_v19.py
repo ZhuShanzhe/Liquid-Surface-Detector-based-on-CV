@@ -5,6 +5,7 @@ from pathlib import Path
 from collections import Counter
 import cv2,numpy as np
 from liquid_depth.refraction_evidence_v19 import add_chromatic_evidence,qualify_profile
+from liquid_depth.refraction_calibration_v19 import apply_reference_quality
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--data',type=Path,required=True);p.add_argument('--results',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--stress',action='store_true');a=p.parse_args()
@@ -16,6 +17,7 @@ def main():
   rgb=cv2.cvtColor(cv2.imread(str(folder/'rgb.png')),cv2.COLOR_BGR2RGB).astype(np.float32)/255
   empty=cv2.cvtColor(cv2.imread(str(folder/'empty_rgb.png')),cv2.COLOR_BGR2RGB).astype(np.float32)/255
   start=time.perf_counter();q=qualify_profile(add_chromatic_evidence(r,rgb,empty,np.load(folder/'observation.npz')['empty_raw'],camera),weight=30000.,contrast_floor=.02)
+  q=apply_reference_quality(q,empty,np.load(folder/'observation.npz')['empty_raw'],camera)
   q['evidence_ms']=(time.perf_counter()-start)*1000
   for key in ['thickness_error_mm','internal_error_mm','both5mm','truth_in_profile_range']:q.pop(key,None)
   if not a.stress and q['accepted'] and q['group']!='single':

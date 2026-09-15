@@ -47,3 +47,10 @@ export PYTHONPATH="$PWD/src"
 7. summarize_refraction_v19.py：汇总表格与图。
 
 完整的种子、冻结参数和源文件哈希见交付包中的 frozen-before-heldout.json、evidence-frozen.json、delivery.json。
+
+
+## 参考曝光质检
+
+默认入口检查空容器可用底面区域的饱和比例：任一颜色通道达到 0.995 的像素比例超过 1% 时，返回 reference_requires_exposure_adjustment，正式测量为空。标定阶段调整曝光并获得合格参考后，应锁定同一曝光采集液体。
+
+仿真采集脚本支持 --auto-exposure --exposure -2：仅根据空容器预览逐档调整，再以同一设置采集参考和液体。该流程没有使用液体标签；真实相机 SDK 的曝光控制仍需设备联调。

@@ -5,6 +5,7 @@ from pathlib import Path
 import cv2,numpy as np
 from liquid_depth.refraction_inverse_v19 import estimate_layers
 from liquid_depth.refraction_evidence_v19 import add_chromatic_evidence,qualify_profile
+from liquid_depth.refraction_calibration_v19 import apply_reference_quality
 
 def image(path):
  x=cv2.imread(str(path))
@@ -23,6 +24,7 @@ def main():
  result=estimate_layers(rgb,depth(a.raw,a.raw_key),empty,empty_z,camera,use_rgb=not a.raw_only)
  if not a.geometry_only:
   result=qualify_profile(result,weight=0.,channel='photo_error') if a.raw_only else qualify_profile(add_chromatic_evidence(result,rgb,empty,empty_z,camera))
+ if not a.geometry_only and not a.raw_only:result=apply_reference_quality(result,empty,empty_z,camera)
  result['result_scope']='geometry_under_declared_single_path_tof_proxy'
  result['liquid_identity_verified']=False
  result['note']='Geometric acceptance is not proof that a stable return is a physical liquid interface. Real camera qualification is required.'
