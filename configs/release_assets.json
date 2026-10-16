@@ -1,0 +1,28 @@
+{
+  "release": "formal-20261016",
+  "kind": "project_trained_optional_floating_highest_only",
+  "sklearn_version": "1.9.0",
+  "joblib_version": "1.5.3",
+  "models": {
+    "pixel_checkpoint": {
+      "path": "assets/models/v8/pixel_best.pt",
+      "bytes": 494269,
+      "sha256": "bddcae7adbee12461ba1677fc32ac4bae95ea1927082c2290b464fa2e600197a"
+    },
+    "previous_verifier_checkpoint": {
+      "path": "assets/models/v8/region_verifier.joblib",
+      "bytes": 371336,
+      "sha256": "d9c74fd5de2e28a92502890711dcf1254f9af8341db57895766a21815083cc74"
+    },
+    "apex_checkpoint": {
+      "path": "assets/models/v8/apex_verifier.joblib",
+      "bytes": 175932,
+      "sha256": "96971b6485cb9578aa533627fea789eca167061484db105a7c0fa31a1bca3c51"
+    },
+    "model_checkpoint": {
+      "path": "assets/models/v8/instance_rank.joblib",
+      "bytes": 756303,
+      "sha256": "da7ad76369716acfd8a02a59e8d6b23134fde2c7e5a78484e0f9d89176cecbb6"
+    }
+  }
+}

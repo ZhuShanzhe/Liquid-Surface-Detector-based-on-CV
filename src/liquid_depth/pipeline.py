@@ -163,7 +163,7 @@ def infer_frame(
             *planar_support.rejection_reasons,
         ]
         if not scene_decision.result_allowed:
-            rejection_reasons.append("complex_model_required_but_unavailable")
+            rejection_reasons.extend(scene_decision.rejection_reasons())
         if confidence_gate.enabled:
             rejection_reasons.append("scenario_confidence_support_insufficient")
         if not confidence_gate.result_allowed:
@@ -294,7 +294,7 @@ def infer_frame(
     filtered_depth: float | None = None
     if not scene_decision.result_allowed:
         accepted = False
-        rejection_reasons.append("complex_model_required_but_unavailable")
+        rejection_reasons.extend(scene_decision.rejection_reasons())
     if not confidence_gate.result_allowed:
         accepted = False
         rejection_reasons.append("scenario_confidence_not_qualified")

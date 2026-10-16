@@ -1,6 +1,12 @@
 version: 2
 name: industrial_liquid_depth_v1
 measurand: vertical_liquid_depth_m
+metric_contract_version: 3
+# All relative errors and tolerances below use bottom-referenced liquid depth H,
+# never camera standoff Z. Infer from predicted support, not GT-mask intersection.
+# Report frame coverage, evaluable/accepted rate, and good/all-frame coverage.
+# Old scenario-confidence V6/V8 reports use an axial proxy and are NOT qualified
+# liquid-height certificates. See docs/liquid_height_reassessment_v21.md.
 reference_range_m: [0.02, 10.0]
 
 # These are project engineering requirements, not accuracy values prescribed by

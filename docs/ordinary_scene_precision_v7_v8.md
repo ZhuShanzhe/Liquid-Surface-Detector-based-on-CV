@@ -1,5 +1,14 @@
 # Ordinary-scene liquid-level precision: V7 and V8
 
+## Correction on 2026-10-11
+
+The historical “liquid-level” table below actually measures the difference of
+camera-axial depth medians on GT-overlapping selected pixels. Its relative-error
+denominator is camera depth, not bottom-referenced liquid depth. The former
+ordinary “Pass” is withdrawn as a liquid-height qualification claim. Preserve
+these numbers only as axial-depth diagnostics. The authoritative bottom-referenced
+re-evaluation is [Liquid height reassessment](liquid_height_reassessment_v21.md).
+
 ## Acceptance target
 
 The engineering-product gate for ordinary scenes is: liquid-level AbsRel <= 1.5%, within `max(5 mm, 2%)` >= 90%, output coverage >= 95%, and evaluable accepted outputs >= 99%. All numbers below are from the independent synthetic test split and are not hardware qualification claims.

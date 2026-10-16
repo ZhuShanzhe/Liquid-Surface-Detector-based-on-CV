@@ -1,0 +1,19 @@
+{
+  "attempted_pairs": 2566,
+  "selected_pairs": 2376,
+  "rejected_pairs": 190,
+  "paired_input_acquisition_success_pct": 92.59547934528449,
+  "individual_input_evidence": {
+    "tof": {
+      "qualified_frames": 2514,
+      "excluded_frames": 52
+    },
+    "structured_light": {
+      "qualified_frames": 2399,
+      "excluded_frames": 167
+    }
+  },
+  "selection_uses_online_geometry_support_plus_offline_capture_source_audit": true,
+  "selection_uses_no_numeric_error_or_estimate": true,
+  "stratum_quota_uniform_after_input_qualification": true
+}

@@ -380,6 +380,10 @@ def make_product_system(
     temporal: bool = False,
 ):
     profile = load_system_profile(profile_path)
+    if profile.get("measurement", {}).get("mode") == "empty_geometry_diffuse":
+        from .empty_geometry_runtime_v41 import EmptyGeometryLiquidDepthSystem
+
+        return EmptyGeometryLiquidDepthSystem(profile_path, device=device, temporal=temporal)
     if profile.get("measurement", {}).get("mode") == "fixed_rail":
         return RailLiquidDepthSystem(
             profile_path,

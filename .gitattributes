@@ -6,4 +6,8 @@
 *.ply binary
 *.pt binary
 *.pth binary
-
+*.joblib binary
+*.pdf binary
+*.gz binary
+*.zip binary
+*.tar binary

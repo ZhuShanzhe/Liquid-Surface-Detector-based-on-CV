@@ -1,0 +1,19 @@
+{
+  "baseline_version": "determined_all_scenes_v1_v8_peak_20261016",
+  "algorithms_changed": false,
+  "report": "docs/special_scene_expanded_evaluation_20261016.md",
+  "new_evidence_root": "/root/autodl-tmp/liquid-depth-artifacts/special-scene-strata-v1-20261016/evaluation-meaningful-balanced",
+  "supersedes_small_cohort_scores_for": [
+    "low_light",
+    "glare",
+    "uneven_surface"
+  ],
+  "other_scenes_retained_from_baseline": true,
+  "input_scope": "paired input_evidence_v1 qualified balanced sampling; raw acquisition availability separate",
+  "additional_offline_return_origin_capture_audit": true,
+  "offline_labels_used_for_meter_inference": false,
+  "uneven_surface_liquid_tolerance": "max(50mm,5% actual area-mean liquid depth)",
+  "low_light_and_glare_liquid_tolerance": "max(20mm,2% actual liquid depth)",
+  "highest_tolerance": "max(50mm,5% actual physical highest height)",
+  "field_metrology_qualified": false
+}

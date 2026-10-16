@@ -1,0 +1,13 @@
+{
+  "entry": "liquid_depth.float_evidence_v3.OptionalFloatMeterV3",
+  "default_visual_mode": "off",
+  "available_modes": ["off", "auto"],
+  "pixel_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/pixel-model/best.pt",
+  "verifier_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/region-model/verifier.joblib",
+  "liquid_estimator": "frozen_symmetric_geometry_v1_no_visual_override",
+  "highest_fallback": "legacy_geometric_peak_without_rejecting_numeric_frames",
+  "operator_opt_in_required": true,
+  "original_metric_depth_pixels_only": true,
+  "transparent_translucent": "use_preserved_five_prior_refraction_route_not_this_auxiliary",
+  "research_only_not_field_qualification": true
+}

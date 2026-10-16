@@ -1,0 +1,70 @@
+{
+  "release": "formal-20261016",
+  "algorithm": "determined_all_scenes_v1_v8_peak_20261016",
+  "regression": {
+    "passed": 729,
+    "warnings": 14,
+    "exit": 0
+  },
+  "portable_cli_scenes": 8,
+  "independent_recount": {
+    "frames": 15870,
+    "strata": 966,
+    "quantity_groups": 1168,
+    "all_metrics_match": true
+  },
+  "pdf_visual_review": {
+    "system_pages": 71,
+    "history_pages": 4,
+    "page_boundary_violations": 0,
+    "method": "Poppler PNG contact sheets plus full-page review and pdfplumber page-boundary audit"
+  },
+  "publication_changes": "portable asset path wrapper, own small model copies, README, code index, reports and recount; no frozen algorithm modifications",
+  "frozen_source_hashes_unchanged": {
+    "files": 125,
+    "all_match": true
+  },
+  "binary_model_index_hashes_match": true,
+  "publication_whitespace_check_passed": true,
+  "legacy_whitespace_notes": "9 existing historical paths have generated SVG trailing spaces or final blank lines; retained unchanged to preserve frozen hashes; not an algorithm defect",
+  "pdf_sha256": {
+    "2026-10-16_development_history.pdf": "5d5870ec8e4079621d9ca2912856c29d17670eb801f7046dc802536fce9ada0b",
+    "2026-10-16_system_and_scenario_evaluation.pdf": "c305459e73e4aa6543b942250004fa3b4c45d066a840f913c4887d1a9f51bac9"
+  },
+  "evidence_sha256": {
+    "README.md": "8e946931595f1e1240040215f3f023b202d0714c7d5cb38a17c87e93178cdaf4",
+    "current_predictions_20261016.jsonl.gz": "fa286a89fda3f0e868f52476612b142950edff3d6e49b379f3c88bbd35c61dc4",
+    "environment.json": "54e376f6be06fe35eb17439e62f27913b0aabec5f1770aaba07336d8f4d33653",
+    "portable_cli_smoke_20261016.json": "bc25adea5431aadc992c9777d9ddc49a705b9b913be5a0dc0c47594c192987c1",
+    "pytest_20261016.log": "f83c2e2286e6e3e5c52cf8b039e2fb84129022c4810a09a433370129d17deff4",
+    "runtime-modules.json": "d13632c0a3ecae8f8fc867039ae9fdf1a6c7787e4415333882ae1f215e777d7e",
+    "scene_metrics_20261016.json": "e99b332ebf6567e43c2e6bd2fc98d9cb55914caade33e4314fec724b610e739f",
+    "source_manifest.json": "fd60b209a28d77c249693f7d4f91696288e20b308c452a1d55a6ed78064ba85e",
+    "special_scene_capture-eligibility-summary.json": "b761fd8fbfab6841038257a7b68f3b96df1784dce4c604f6f5745ab5d8d07db6",
+    "special_scene_final-quality-audit.json": "0e26059cac3f93542afa63d2ad490bd3e3b1c22807dfbabd947f1d37f4934107",
+    "special_scene_manifest.json": "5b6d596ddd0b11caa11b1ae9b19467a9b4a98fa4c4d8fd7feed526594a2912e9",
+    "special_scene_protocol.lock.json": "094c7d1d010de5cc57886e855896536eb4428f23744c9bc83c28087f667b6a9c",
+    "special_scene_stratified-summary.json": "56ac3cf1deb30712b5dd2ece3e65d5e7c242a2290199945370c734ff7277b225"
+  },
+  "resource_manifest_sha256": "846d226afe44f7d5ae8411f4a43a59335c1bbf5e028dc684d99039037d9a51e3",
+  "backup": {
+    "directory": "/root/autodl-tmp/liquid-depth-artifacts/publication-20261016",
+    "old_progress_files": 11,
+    "verified": {
+      "files": 11,
+      "all_hashes_verified": true
+    },
+    "archives": {
+      "branches-before-publication.bundle": "3b8d72f8f2bbf62331e578e9c3b8654dd605a8ab54968e08659d9036c4e4ef4c",
+      "pre-publication-source.tar.gz": "6068edfce9de82d7a116a295bede41b062ed0490b84e42ee9b99328537b4bbfd",
+      "previous-progress-records.zip": "faf4f7c6e651b6bfb9b3bff8f4943b566b621a32f0930af5e4dae038b8c80b05",
+      "publication-inputs.tar.gz": "48f8883f680815ce09c663d0c3db40f9a30cc7a1a2e6e339865910c86c279bd3"
+    }
+  },
+  "scope_notes": [
+    "different evaluation cohorts are not pooled into one overall accuracy",
+    "transparent image proxy is not a ToF or dedicated phase structured-light qualification",
+    "only new special-scene cohort has the physical-origin capture audit",
+    "simulated results do not constitute real-device industrial metrology certification"
+  ]
+}

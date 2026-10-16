@@ -1,0 +1,15 @@
+{
+  "active_development_entry": "liquid_depth.hybrid_scene_meter_v2.HybridSceneMeterV2",
+  "determined_geometric_backup": "/root/autodl-tmp/liquid-depth-archives/determined-symmetric-geometry-v1-20261015/manifest.json",
+  "deployment_choice": "/root/autodl-tmp/liquid-depth-artifacts/adaptive-route-v2-20261015/deployment-choice.json",
+  "default_visual_mode": "off",
+  "available_modes": ["off", "auto", "on"],
+  "off_behavior": "frozen symmetric liquid height plus existing geometric highest envelope; no visual predictor execution",
+  "auto_behavior": "validation-selected liquid trust threshold; verified float regions may supply highest height, otherwise geometric peak",
+  "on_behavior": "research diagnostic with lower liquid candidate threshold; not recommended for production",
+  "recommended_optional_trial": "known floating-object scenes; operator opt-in, not universal activation",
+  "liquid_override_current_status": "disabled automatically because validation found no sufficiently safe use region",
+  "transparent_translucent": "unchanged five-prior refraction route; RGB-D auxiliary bypassed",
+  "research_only": true,
+  "all_diagnostic_frames_retained": true
+}

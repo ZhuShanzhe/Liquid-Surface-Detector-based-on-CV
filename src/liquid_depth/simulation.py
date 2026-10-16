@@ -617,7 +617,8 @@ def simulate_raw_depth(
 ) -> dict[str, np.ndarray]:
     """Optional diagnostic switches; omitted flags preserve the original simulator."""
     components = dict(components or {})
-    allowed = {"depth_noise", "disparity_noise", "quantization", "range_cutoff"}
+    allowed = {"depth_noise", "disparity_noise", "quantization", "range_cutoff",
+               "scenario_dropout", "wrong_return", "flying"}
     if not set(components).issubset(allowed) or any(type(v) is not bool for v in components.values()):
         raise ValueError("Unknown sensor component or non-boolean switch")
     enabled = lambda name: components.get(name, True)
@@ -725,6 +726,13 @@ def simulate_raw_depth(
             ) <= 1.0
             dropout |= contiguous_hole & mask
 
+    # Diagnostic switch: retain native noisy/wrong/range-limited returns while
+    # disabling only the scene's synthetic missing-return process. The caller
+    # may then delete existing returns to hit a controlled *actual* loss rate.
+    # The default path remains byte-for-byte behaviorally unchanged.
+    if not enabled("scenario_dropout"):
+        dropout[:] = False
+
     highlight = np.zeros_like(mask)
     if scene.scenario in {"glare", "compound"}:
         u, v = np.arange(scene.width)[None, :], np.arange(scene.height)[:, None]
@@ -758,9 +766,11 @@ def simulate_raw_depth(
     wrong_return = mask & ~dropout & (rng.random(target.shape) < wrong_probability)
     far_layer = np.max(labels["layer_depths_m"], axis=0)
     wrong_return &= far_layer > 0
+    wrong_return &= enabled("wrong_return")
     raw[wrong_return] = far_layer[wrong_return]
 
     flying = edge & ~dropout & ~wrong_return & (rng.random(target.shape) < (0.35 + 0.25 * (1.0 - incidence)))
+    flying &= enabled("flying")
     flying_target = np.where(far_layer > target, far_layer, target + 0.03)
     raw[flying] = rng.uniform(0.2, 0.8) * target[flying] + rng.uniform(0.2, 0.8) * flying_target[flying]
 

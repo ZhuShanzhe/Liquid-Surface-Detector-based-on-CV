@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>空槽几何初始化</title>
+<style>body{margin:0;background:#edf1f4;color:#243746;font:15px "Microsoft YaHei",sans-serif}header{background:#183349;color:#fff;padding:18px 24px;display:flex;justify-content:space-between}header a{color:#fff}main{display:grid;grid-template-columns:minmax(500px,1fr) 370px;gap:18px;padding:20px}section,aside{background:white;padding:20px;border:1px solid #d4dde4;border-radius:5px}h2{font-size:18px;margin:0 0 14px}p{line-height:1.65}.note{background:#fff5df;border-left:4px solid #d99b30;padding:12px;line-height:1.7}.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{padding:10px 14px;border:1px solid #a8bbc9;background:#f7fafc;cursor:pointer;border-radius:3px}button.primary{background:#17699b;color:white;border-color:#17699b}button:disabled{opacity:.5;cursor:not-allowed}label{display:block;margin:12px 0 5px}input:not([type=checkbox]),select{box-sizing:border-box;width:100%;padding:9px;border:1px solid #b8c7d2;background:white}canvas{display:block;width:100%;height:auto;background:#152936}.checks label{display:flex;gap:8px;font-size:13px}.status{white-space:pre-wrap;line-height:1.7;background:#f1f5f8;padding:12px;margin-top:12px;overflow-wrap:anywhere}.status.bad{color:#a02e24}.small{font-size:13px;color:#526777}#count{padding:8px 0}@media(max-width:1000px){main{grid-template-columns:1fr}}</style></head>
+<body><header><b>空槽建模与普通液面调试</b><a href="/">返回工业面板</a></header>
+<main><section><h2>1 载入固定机位空槽图像</h2><div class="note">本入口是普通漫反射平面链路的实验初始化，不会自动替换现有标尺方案。生成模型后仍需独立现场验收；调试液深不是工业控制有效值。</div>
+<div class="row"><button id="load" class="primary">载入最新空槽帧</button><button id="undo">撤销当前工具最后一点</button><button id="clear">清空全部选点</button></div>
+<canvas id="image" width="960" height="600"></canvas><div id="count" class="small">尚未载入图像</div>
+<h2>2 标记底面与实测参照</h2><div class="row"><button data-tool="outline">底面边界</button><button data-tool="anchor">尺度线 两端点</button><button data-tool="check">校核线 两端点</button></div>
+<p class="small">圆形或椭圆底面沿完整边界选6至12点；方槽选4个内底面角点。尺度线与校核线都必须位于底面，校核线不得重复尺度线。底部被遮挡或无可靠深度时，请补拍其他视角或改用已有几何标定。</p>
+<div id="result" class="status">等待空槽图像与实测参数。</div></section>
+<aside><h2>3 输入少量实测参数</h2>
+<label>图像来源目录 留空使用最新帧</label><input id="source" placeholder="由工程人员设置，与主面板采集目录一致">
+<label>容器底面形状</label><select id="shape"><option value="circle">圆形</option><option value="ellipse">椭圆形</option><option value="rectangle">矩形</option></select>
+<label>深度数组单位</label><select id="scale"><option value="0.001">毫米</option><option value="1">米</option></select>
+<label>实际双目基线 mm</label><input id="baseline" type="number" min="0" step="any" placeholder="从相机SDK或标定文件读取">
+<label>容器内部高度 mm</label><input id="wall" type="number" min="0" step="any" placeholder="内部底面至开口">
+<label>尺度依据 二选一</label><select id="anchorMode"><option value="span">底面尺度线实测长度</option><option value="perpendicular_distance">相机光心到底面的垂直距离</option></select>
+<label id="metricLabel">尺度线长度 mm</label><input id="metric" type="number" min="0" step="any">
+<label>独立校核线长度 mm 推荐填写</label><input id="checkLength" type="number" min="0" step="any" placeholder="留空则明确标记未独立校核">
+<div class="checks"><label><input type="checkbox" id="empty">已确认空槽且无残余液体</label><label><input type="checkbox" id="flat">底面水平、平整，侧壁竖直</label><label><input type="checkbox" id="fixed">相机与容器固定，测量期间不移动</label><label><input type="checkbox" id="aligned">输入已去畸变、深度与图像对齐</label></div>
+<div class="row"><button id="preview" class="primary">预览模型与校核结果</button></div>
+<label>保存为新的方案文件 不覆盖旧方案</label><input id="profile" placeholder="/完整路径/新方案名称.yaml">
+<div class="row"><button id="save" disabled>保存实验方案</button><button id="measure" disabled>读取最新帧计算候选液深</button></div>
+<p class="small">黄色为底面模型，绿色为由实测内高推得的开口。请核对与图像是否一致。没有独立重力信息时，朝向由空槽点云估计，并明确记录这一限制。</p>
+</aside></main>
+<script>
+const $=id=>document.getElementById(id),s={frame:null,img:null,tool:'outline',outline:[],anchor:[],check:[],geometry:null,profile:null};
+async function api(path,payload){const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok||!j.ok)throw Error(j.error||'请求失败');return j}
+function status(text,bad=false){$('result').textContent=text;$('result').classList.toggle('bad',bad)}
+function changed(){s.geometry=null;s.profile=null;$('save').disabled=true;$('measure').disabled=true;draw()}
+function draw(){const c=$('image'),g=c.getContext('2d');g.clearRect(0,0,c.width,c.height);if(s.img)g.drawImage(s.img,0,0,c.width,c.height);function line(points,color,closed){if(!points.length)return;g.strokeStyle=color;g.fillStyle=color;g.lineWidth=2;g.beginPath();points.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));if(closed)g.closePath();g.stroke();points.forEach((p,i)=>{g.beginPath();g.arc(...p,4,0,2*Math.PI);g.fill();g.fillText(String(i+1),p[0]+6,p[1]-6)})}line(s.outline,'#ffb94b',true);line(s.anchor,'#53bfff',false);line(s.check,'#e177ff',false);if(s.geometry){line(s.geometry.projected_bottom_outline_px,'#ffdf00',true);line(s.geometry.projected_rim_outline_px,'#39dc7a',true)}$('count').textContent='当前工具：'+({outline:'底面边界',anchor:'尺度线',check:'校核线'}[s.tool])+'　边界 '+s.outline.length+' 点　尺度 '+s.anchor.length+'/2　校核 '+s.check.length+'/2'}
+$('load').onclick=async()=>{s.frame=null;s.img=null;changed();try{const j=await api('/api/load-frame',{path:$('source').value.trim()});s.frame=j;s.outline=[];s.anchor=[];s.check=[];changed();const im=new Image();im.onload=()=>{s.img=im;$('image').width=j.width;$('image').height=j.height;draw()};im.onerror=()=>{s.frame=null;status('空槽图像载入失败，请重新载入。',true)};im.src='/api/frame-image?t='+Date.now();status('已锁定空槽帧：'+j.frame_dir+'\n请标记底面边界及实测参照。')}catch(e){status(e.message,true)}};
+$('image').onclick=e=>{if(!s.img)return;const r=$('image').getBoundingClientRect(),p=[(e.clientX-r.left)*$('image').width/r.width,(e.clientY-r.top)*$('image').height/r.height];if(s.tool!=='outline'&&s[s.tool].length>=2){status('该线已选两个端点，请撤销后重选。',true);return}s[s.tool].push(p);changed()};
+document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>{s.tool=b.dataset.tool;draw()});$('undo').onclick=()=>{s[s.tool].pop();changed()};$('clear').onclick=()=>{s.outline=[];s.anchor=[];s.check=[];changed()};
+$('anchorMode').onchange=()=>{$('metricLabel').textContent=$('anchorMode').value==='span'?'尺度线长度 mm':'光心到底面垂直距离 mm 非斜距';changed()};
+document.querySelectorAll('input,select').forEach(x=>{if(!['source','profile'].includes(x.id))x.addEventListener('input',changed)});
+$('profile').addEventListener('input',()=>{s.profile=null;$('measure').disabled=true});
+function payload(){if(!s.frame)throw Error('先载入空槽帧');const positive=id=>{const n=Number($(id).value)/1000;if(!Number.isFinite(n)||n<=0)throw Error('请填写有效的 '+id);return n};const kind=$('anchorMode').value;const anchor=kind==='span'?{kind,pixels:s.anchor,length_m:positive('metric')}:{kind,distance_m:positive('metric')};const checks=$('checkLength').value.trim()?[{pixels:s.check,length_m:positive('checkLength')}]:[];return{frame_dir:s.frame.frame_dir,depth_scale_to_m:Number($('scale').value),profile_path:$('profile').value.trim(),geometry:{shape:$('shape').value,bottom_outline_px:s.outline,wall_height_m:positive('wall'),baseline_m:positive('baseline'),metric_anchor:anchor,check_spans:checks,confirmed_empty:$('empty').checked,horizontal_flat_bottom:$('flat').checked,fixed_camera:$('fixed').checked,rectified_aligned:$('aligned').checked}}}
+function describe(b){const d=b.internal_dimensions_m,q=b.quality;return'模型尺寸 '+(d.width*1000).toFixed(1)+' × '+(d.length*1000).toFixed(1)+' × '+(d.height*1000).toFixed(1)+' mm\n相机到底面垂直距离 '+b.bottom_plane_camera.perpendicular_distance_m.toFixed(4)+' m\n底面有效点 '+q.bottom_valid_points+'，朝向来源 '+q.normal_source+'\n独立校核线 '+q.independent_dimension_checks.length+' 条\n提示：'+b.warnings.join('；')}
+$('preview').onclick=async()=>{try{const j=await api('/api/preview-empty-geometry',payload());s.geometry=j.geometry;draw();$('save').disabled=false;status(describe(j.geometry)+'\n请核对模型边界，确认后保存实验方案。')}catch(e){status(e.message,true)}};
+$('save').onclick=async()=>{try{const p=payload();if(!p.profile_path)throw Error('请填写新的方案完整路径');const j=await api('/api/calibrate-empty-geometry',p);s.profile=j.profile_path;$('measure').disabled=false;$('save').disabled=true;status(describe(j.geometry)+'\n方案已保存：'+s.profile+'\n可加入液体后读取最新帧调试，未标记为工业有效测量。')}catch(e){status(e.message,true)}};
+$('measure').onclick=async()=>{try{const j=await api('/api/measure',{path:$('source').value.trim(),profile_path:s.profile,temporal:false});const h=j.result.liquid_depth_candidate_m;status('候选液深：'+(h==null?'无法计算':(h*1000).toFixed(2)+' mm')+'\n'+j.result.message)}catch(e){status(e.message,true)}};
+draw();
+</script></body></html>

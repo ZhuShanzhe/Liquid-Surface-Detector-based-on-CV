@@ -1,0 +1,18 @@
+{
+  "active_development_route": "liquid_depth.experimental_scene_meter.ExperimentalSceneMeter",
+  "status": "research_experiment_not_product_qualified",
+  "archived_fallback": "/root/autodl-tmp/liquid-depth-archives/pre-visual-route-20261015/manifest.json",
+  "working_baseline_files_unchanged": true,
+  "semantic_models": {
+    "initial": "/root/autodl-tmp/liquid-depth-artifacts/visual-route-v1-20261015/model-v1/best.pt",
+    "balanced_ablation": "/root/autodl-tmp/liquid-depth-artifacts/visual-route-v1-20261015/model-balanced/best.pt"
+  },
+  "transparent_and_translucent": "preserve calibrated five-prior refraction path; do not apply diffuse-water visual model",
+  "liquid_tolerance": "max(0.020 m, 0.02 * actual bottom-relative liquid depth)",
+  "highest_tolerance": "max(0.050 m, 0.05 * actual highest bottom-relative height)",
+  "retain_all_numeric_estimates": true,
+  "zero_snap_or_clip": false,
+  "exclude_unobservable_from_precision_acceptance": true,
+  "retain_exclusion_counts_and_all_frame_diagnostic_scores": true,
+  "pixel_semantics_not_physical_return_origin": true
+}

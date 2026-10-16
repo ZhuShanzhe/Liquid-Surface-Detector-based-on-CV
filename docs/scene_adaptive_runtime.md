@@ -1,5 +1,131 @@
 # Scene-adaptive runtime and 500 ms deployment policy
 
+## Zero and weak-height research refinement (V32, 2026-10-12)
+
+See [V32 paired independent evaluation](transparent_focus_v32.md). The same
+five prior capture groups and native-image matcher are retained; reference-
+specific monotone cubic calibration and soft robust fusion replace the global
+linear latent response. Actual height remains 0--9 m and camera-to-bottom B
+at most 10 m. No zero snapping, output clipping or confidence/coverage gating
+is introduced in the research evaluation.
+
+On 8016 new groups, zero-height MAE is 5.79 to 4.92 mm (52.95% to 62.67% passes),
+0<H<1 m is 11.17 to 5.74 mm (50.36% to 75.14%), and 2<=H<3 m is 44.49 to
+7.67 mm (57.14% to 100%). The 3504-group uniform subset passes 97.20% versus
+87.99%, with 10.26 versus 23.35 mm MAE. Zero and very shallow translucent cases
+remain weak; the zero MAE improvement cluster interval crosses zero. Maximum
+error increases slightly to 284.67 mm despite improved means and P95.
+
+Single-thread uncached runtime checks preserve predictions exactly and are
+approximately 0.23--0.27 s P95, excluding acquisition, transfer and display.
+They do not certify 500 ms end-to-end timing. Numeric output is not qualified
+coverage; production defaults, safety gates and earlier evidence are unchanged.
+
+## Actual liquid height range (V31, 2026-10-12)
+
+The requested actual bottom-relative liquid height H spans 0--9 m, while the
+camera-to-bottom distance B remains at most 10 m. The two ranges are not
+interchangeable. See [V31 all-frame range validation](transparent_range_v31.md)
+for the frozen five-capture research calibration, independent uniform-height
+test, one-metre strata and uncached processing timing. Zero height has no
+defined AbsRel and is assessed separately in millimetres. Small containers
+below 96 native empty-bottom pixels are no longer an optimization target.
+
+Deep-path attenuation can remove the bottom evidence required by this route;
+such material is audited separately, not silently assigned to the ordinary
+surface route. Numeric diagnostic output is not qualified coverage. The
+research matcher is not promoted to production, and existing default routes,
+safety gates and the 500 ms end-to-end deployment target remain unchanged.
+
+## Finite-bottom small-image validation (V30, 2026-10-11)
+
+See [V30 finite-bottom all-frame test](transparent_finite_v30.md). With five prior
+capture groups, the frozen research recipe produces numeric values for all 1728
+new test groups and passes 65.22%, but MAE increases from the direct-registration
+physical-model control's 19.68 mm to 67.15 mm. Weak responses below 32 pixels cause
+severe inverse-calibration tails. The candidate is not promoted to production.
+At least 96 pixels: 1.38 mm MAE and 96.01% passes; below 32 pixels: 290.17 mm and
+8.33%. These strata do not define a newly validated production routing threshold.
+
+`FiniteBottomRelativeMeter` reproduces the frozen research recipe using fixed
+empty-bottom ROIs and five rectified stereo prior groups. It requires unchanged
+camera/container/texture and known geometry; automatic pose-change detection is
+not provided. A six-frame, 18.75-pixel uncached processing check matches frozen
+predictions exactly and measures 58.09 ms P95 on one CPU thread, excluding prior
+fitting, acquisition, transfer and display. It does not certify end-to-end timing.
+Production defaults and safety gates remain unchanged.
+
+## Empty plus four relative-image priors (V29, 2026-10-11)
+
+See [V29 independent all-frame test](transparent_relative_v29.md). The frozen
+development policy uses one empty and four known liquid heights, with multi-prior
+same-channel bottom-texture tracking and bounded residual calibration. On 864 new
+stereo transparent/mild-translucent samples, MAE falls from 6.674 to 0.691 mm;
+max(5 mm, 2%H) passes rise from 546/864 to 864/864. Strict per-frame 1% passes are
+621/864, not 100%. These are unfiltered research measurements, not qualified
+production coverage. The original baseline is rerun on this same new test set.
+
+`FixedCameraRelativeMeter` is a separate resident research interface using five
+observed stereo image groups, known liquid heights and calibrated geometry. It
+requires a fixed camera/container/bottom texture, visible bottom and common
+rectified intrinsics under the top-view flat geometry assumption. Parallel
+matching does not change the frozen core. Timing smoke tests do not certify
+camera-to-display 500 ms. Infinite-field texture and H/B scattering proxies do
+not validate small finite vessels, pose changes, strong scattering or hardware.
+Production defaults and safety gates remain unchanged.
+
+## Capacity-limited five-prior validation (V28, 2026-10-11)
+
+See [V28 independent all-frame validation](transparent_capacity_v28.md). All five
+known liquid heights stay below the feasible container maximum C, independently
+of camera-to-bottom distance B. The frozen development-selected layout yields
+4.085 mm MAE and 585/720 passes versus 4.142 mm and 587/720 for the capacity-uniform
+baseline; paired improvement intervals cross zero. No layout promotion is made.
+All frames remain in the pass denominator, without confidence/coverage filtering
+or clipping numeric estimates to capacity. Oracle correspondences diagnose
+matching/calibration coupling only and are not deployable measurements. This
+flat-bottom, infinite-field simulation does not qualify finite real vessels,
+material scattering, production accuracy, or 500 ms end-to-end timing. Production
+defaults and safety gates remain unchanged.
+
+## Five-level shallow-liquid calibration research (V27, 2026-10-11)
+
+See [V27 all-frame independent test](transparent_shallow_v27.md). Four five-frame
+known-liquid-height layouts are compared on development data, followed by residual
+pixel/phase-bias candidates. Policy and source are frozen before independent test
+generation. Diagnostic estimates remain unfiltered and unqualified; production
+defaults are unchanged. Simulated high-level priors may be infeasible in a shallow
+real vessel, so capacity-constrained calibration requires separate validation.
+
+## Homogeneous-refraction research update on 2026-10-11 (V26)
+
+See [V26 all-frame comparison](transparent_refinement_v26.md). Bounded empirical
+residual correction, stereo subpixel-bias calibration, and structured-light block
+aggregation are implemented as an independent research route. Neither confidence
+nor coverage filtering is used in these diagnostic tests. V26 does not replace
+production defaults or certify industrial output. The 30-exposure structured-light
+measurement requires acquisition timing in addition to its processing benchmark;
+it is not currently qualified for the 500 ms end-to-end policy.
+
+## Explicit route boundaries added on 2026-10-11 (V25)
+
+See [scene route boundaries](scene_route_boundaries_v25.md). New opt-in
+`measurement_route` separates verified surface returns, homogeneous transparent
+refraction, and multilayer research. Strong-scattering surface candidates are
+excluded from transparent optimization; a surface return must be independently
+verified before using the standard surface route. Old profiles remain
+`legacy_unspecified`; the old RGB/depth trigger is not a material classifier.
+V25's unfiltered diagnostic estimates are research outputs, not production
+confidence-qualified measurements. Production safety gates remain in force.
+
+## Liquid-height qualification correction on 2026-10-11
+
+Historical V6/V8 confidence qualification used an axial camera-depth proxy, not
+bottom-referenced liquid height. Those reports cannot qualify product liquid-depth
+routes. Specialists remain disabled. New metric definitions and per-scene results
+are in [Liquid height reassessment](liquid_height_reassessment_v21.md). V17/V20
+research entries are not automatically connected to the default industrial panel.
+
 ## Outcome
 
 The runtime has three operator-selectable policies:

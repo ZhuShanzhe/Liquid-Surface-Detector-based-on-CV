@@ -10,6 +10,7 @@ import numpy as np
 
 from .geometry import depth_to_meters
 from .illumination import measure_illumination
+from .scene_boundaries import resolve_measurement_route
 
 SUPPORTED_MODES = {"off", "auto", "always"}
 SUPPORTED_MISSING_MODEL_POLICIES = {"reject", "warn_and_use_standard"}
@@ -46,6 +47,13 @@ class ComplexSceneDecision:
     missing_model_policy: str
     latency_budget_ms: float
     signals: SceneSignals
+    measurement_boundary: dict[str, Any] | None = None
+
+    def rejection_reasons(self) -> list[str]:
+        reasons = list((self.measurement_boundary or {}).get("reasons", []))
+        if self.requested and not self.model_available and self.missing_model_policy == "reject":
+            reasons.append("complex_model_required_but_unavailable")
+        return reasons
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -60,6 +68,7 @@ class ComplexSceneDecision:
             "missing_model_policy": self.missing_model_policy,
             "latency_budget_ms": self.latency_budget_ms,
             "signals": self.signals.to_dict(),
+            "measurement_boundary": self.measurement_boundary,
         }
 
 
@@ -143,6 +152,7 @@ class ComplexScenePolicy:
         self.hold_frames = max(0, int(self.config.get("hold_frames", 8)))
         self._remaining_hold_frames = 0
         self._held_variant: str | None = None
+        self._last_measurement_route: str | None = None
 
     @property
     def latency_budget_ms(self) -> float:
@@ -155,7 +165,7 @@ class ComplexScenePolicy:
     ) -> list[str]:
         thresholds = self.config.get("auto", {})
         triggers: list[str] = []
-        if _truthy(
+        if context.get("measurement_route") != "surface" and _truthy(
             context,
             (
                 "transparent_container",
@@ -200,6 +210,12 @@ class ComplexScenePolicy:
         context: dict[str, Any] | None = None,
     ) -> ComplexSceneDecision:
         context = context or {}
+        boundary = resolve_measurement_route(context)
+        explicit_route = context.get("measurement_route")
+        if explicit_route != self._last_measurement_route:
+            self._remaining_hold_frames = 0
+            self._held_variant = None
+        self._last_measurement_route = explicit_route
         force = context.get("force_complex_model")
         triggers: list[str]
         held = False
@@ -233,6 +249,7 @@ class ComplexScenePolicy:
         available = bool(variant and variant in self.available_variants)
         activated = requested and available
         allowed = not (requested and not available and self.missing_model_policy == "reject")
+        allowed = allowed and boundary["allowed"]
         return ComplexSceneDecision(
             mode=self.mode,
             requested=requested,
@@ -245,4 +262,5 @@ class ComplexScenePolicy:
             missing_model_policy=self.missing_model_policy,
             latency_budget_ms=self.latency_budget_ms,
             signals=signals,
+            measurement_boundary=boundary,
         )

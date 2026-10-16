@@ -9,6 +9,9 @@ from pathlib import Path
 import numpy as np
 
 from liquid_depth.confidence_policy import depth_failure_confidence_group
+from liquid_depth.liquid_height_metrics import (
+    HeightCalibration, estimate_height, reference_statistics,
+)
 
 
 def _threshold_grid(value: str) -> list[float]:
@@ -44,7 +47,7 @@ def _model(checkpoint: dict, device):
     return model.eval().to(device)
 
 
-def _empty() -> dict[str, float]:
+def _empty() -> dict:
     return {
         "frames": 0.0,
         "accepted": 0.0,
@@ -52,7 +55,13 @@ def _empty() -> dict[str, float]:
         "absolute": 0.0,
         "relative": 0.0,
         "within": 0.0,
+        "errors_m": [],
     }
+
+
+def _observed_valid_ratio(input_validity, predicted_mask) -> float:
+    """Deployment-observable grouping; never use the annotated target mask."""
+    return float((input_validity & predicted_mask).sum() / max(int(predicted_mask.sum()),1))
 
 
 def _summarize(store: dict[str, float]) -> dict[str, float | int | None]:
@@ -64,10 +73,13 @@ def _summarize(store: dict[str, float]) -> dict[str, float | int | None]:
         "accepted_frames": int(accepted),
         "evaluable_frames": int(evaluable),
         "coverage": accepted / frames,
-        "evaluable_acceptance_rate": evaluable / max(accepted, 1.0),
+        "evaluable_acceptance_rate": evaluable / accepted if accepted else None,
         "mae_m": store["absolute"] / evaluable if evaluable else None,
         "abs_rel": store["relative"] / evaluable if evaluable else None,
-        "within_tolerance_rate": store["within"] / evaluable if evaluable else 0.0,
+        "within_tolerance_rate": store["within"] / evaluable if evaluable else None,
+        "effective_pass_coverage": store["within"] / frames,
+        "p95_m": float(np.percentile(store["errors_m"], 95)) if store["errors_m"] else None,
+        "maximum_m": max(store["errors_m"]) if store["errors_m"] else None,
     }
 
 
@@ -112,44 +124,53 @@ def _evaluate_split(
     scenario_counts = Counter()
     offset = 0
     with torch.inference_mode():
-        for inputs, target in loader:
+        for inputs, _target in loader:
             prediction = model(inputs.to(device, non_blocking=True))
             confidence = prediction["confidence"].cpu().numpy()
             predicted_mask = prediction["mask_logits"].sigmoid().cpu().numpy() >= 0.5
             depth = prediction["depth_m"].cpu().numpy()
-            truth = target["depth_m"].numpy()
-            truth_valid = target["valid"].numpy() > 0
             input_validity = inputs[:, 4:5].numpy() > 0.5
             for batch_index in range(inputs.shape[0]):
-                raw_scenario = dataset.rows[offset + batch_index].get("scenario", "unknown")
-                valid_count = int(truth_valid[batch_index].sum())
-                raw_valid_ratio = float(
-                    (input_validity[batch_index] & truth_valid[batch_index]).sum() / max(valid_count, 1)
-                )
+                row = dataset.rows[offset + batch_index]
+                raw_scenario = row.get("scenario", "unknown")
+                metadata_path = Path(row["metadata_path"])
+                if not metadata_path.is_absolute():
+                    metadata_path = manifest.parent / metadata_path
+                metadata = json.loads(metadata_path.read_text())
+                metadata = metadata.get("scene", metadata)
+                calibration = HeightCalibration.from_simulation(metadata)
+                # Dataset resizing must have matching, pixel-centre-aware K.
+                h, w = depth.shape[-2:]
+                if (w, h) != (metadata["width"], metadata["height"]):
+                    k = calibration.intrinsics.copy()
+                    sx, sy = w / metadata["width"], h / metadata["height"]
+                    k[0, 0] *= sx; k[1, 1] *= sy
+                    k[0, 2] = (k[0, 2] + .5) * sx - .5
+                    k[1, 2] = (k[1, 2] + .5) * sy - .5
+                    calibration = HeightCalibration(k, calibration.camera_to_world_cv,
+                        calibration.bottom_z_m, calibration.radii_m, calibration.footprint_exponent)
+                reference = reference_statistics(metadata, calibration)["mean_m"]
+                raw_valid_ratio = _observed_valid_ratio(input_validity[batch_index],predicted_mask[batch_index])
                 scenario = depth_failure_confidence_group(raw_scenario, raw_valid_ratio)
                 scenario_counts[scenario] += 1
-                minimum_points = max(64, int(0.01 * max(valid_count, 1)))
                 for threshold in thresholds:
                     store = stores[scenario][threshold]
                     store["frames"] += 1.0
-                    selected = predicted_mask[batch_index] & (confidence[batch_index] >= threshold)
-                    if int(selected.sum()) < minimum_points:
+                    result = estimate_height(depth[batch_index, 0], predicted_mask[batch_index, 0],
+                        calibration, confidence[batch_index, 0], threshold)
+                    if not result["accepted"]:
                         continue
                     store["accepted"] += 1.0
-                    overlap = selected & truth_valid[batch_index]
-                    if (
-                        int(overlap.sum()) < minimum_points
-                        or float(overlap.sum()) / max(float(selected.sum()), 1.0) < 0.50
-                    ):
+                    if not np.isfinite(reference) or reference <= 0:
                         continue
-                    estimate = float(np.median(depth[batch_index][overlap]))
-                    reference = float(np.median(truth[batch_index][overlap]))
+                    estimate = result["statistics"]["mean_m"]
                     absolute = abs(estimate - reference)
                     tolerance = max(absolute_floor_m, relative_tolerance * reference)
                     store["evaluable"] += 1.0
                     store["absolute"] += absolute
                     store["relative"] += absolute / max(reference, 1e-6)
                     store["within"] += float(absolute <= tolerance)
+                    store["errors_m"].append(absolute)
             offset += inputs.shape[0]
     result = {
         scenario: {f"{threshold:.6f}": _summarize(store) for threshold, store in values.items()}
@@ -226,6 +247,8 @@ def _apply_policy(
             totals["absolute"] += metrics["mae_m"] * metrics["evaluable_frames"]
             totals["relative"] += metrics["abs_rel"] * metrics["evaluable_frames"]
             totals["within"] += metrics["within_tolerance_rate"] * metrics["evaluable_frames"]
+            # Per-scenario tails cannot be averaged into an overall percentile.
+            # Individual errors are retained only in fit/evaluation working tables.
     return {"overall": _summarize(totals), "by_scenario": selected}
 
 
@@ -240,14 +263,16 @@ def main() -> None:
     parser.add_argument("--thresholds", default="0.30,0.995,48")
     parser.add_argument("--relative-tolerance", type=float, default=0.02)
     parser.add_argument("--absolute-floor-m", type=float, default=0.005)
-    parser.add_argument("--minimum-coverage", type=float, default=0.30)
-    parser.add_argument("--minimum-evaluable-rate", type=float, default=0.90)
+    parser.add_argument("--minimum-coverage", type=float, default=0.80)
+    parser.add_argument("--minimum-evaluable-rate", type=float, default=0.98)
     parser.add_argument("--maximum-abs-rel", type=float, default=0.03)
-    parser.add_argument("--minimum-within-rate", type=float, default=0.50)
+    parser.add_argument("--minimum-within-rate", type=float, default=0.75)
     parser.add_argument("--batch-size", type=int, default=24)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError(args.output)
 
     import torch
 
@@ -266,10 +291,10 @@ def main() -> None:
     policy = {
         scenario: _choose(
             candidates,
-            minimum_coverage=args.minimum_coverage,
-            minimum_evaluable_rate=args.minimum_evaluable_rate,
-            maximum_abs_rel=args.maximum_abs_rel,
-            minimum_within_rate=args.minimum_within_rate,
+            minimum_coverage=max(0.95,args.minimum_coverage) if scenario=="ordinary" else args.minimum_coverage,
+            minimum_evaluable_rate=max(0.99,args.minimum_evaluable_rate) if scenario=="ordinary" else args.minimum_evaluable_rate,
+            maximum_abs_rel=min(0.015,args.maximum_abs_rel) if scenario=="ordinary" else args.maximum_abs_rel,
+            minimum_within_rate=max(0.90,args.minimum_within_rate) if scenario=="ordinary" else args.minimum_within_rate,
         )
         for scenario, candidates in fit.items()
     }
@@ -285,17 +310,26 @@ def main() -> None:
     )
     report = {
         "schema_version": 2,
+        "metric_contract_version": 3,
+        "measurand": "area_mean_vertical_liquid_depth_above_container_bottom_m",
+        "calibration": "ideal_simulation_bottom_pose_intrinsics_fixed_footprint",
+        "acceptance_uses_ground_truth": False,
+        "overall_p95_note": "See new frame-level liquid-height-v21 reports; do not average scenario P95",
         "checkpoint": args.checkpoint.resolve().as_posix(),
         "manifest": args.manifest.resolve().as_posix(),
         "grouping": {
             "default": "scenario",
             "depth_failure_and_compound": (
-                "observed raw-depth valid ratio: partial>=0.45, "
+                "raw-depth valid ratio within predicted liquid mask (no GT): partial>=0.45, "
                 "large=0.25-0.45, severe=0.10-0.25, extreme<0.10"
             ),
         },
         "runtime_rejects_unqualified": True,
         "quality_profile": {
+            "ordinary_constraints": {"minimum_coverage":max(0.95,args.minimum_coverage),
+                                     "minimum_evaluable_acceptance_rate":max(0.99,args.minimum_evaluable_rate),
+                                     "maximum_abs_rel":min(0.015,args.maximum_abs_rel),
+                                     "minimum_within_tolerance_rate":max(0.90,args.minimum_within_rate)},
             "relative_tolerance": args.relative_tolerance,
             "absolute_floor_m": args.absolute_floor_m,
             "minimum_coverage": args.minimum_coverage,
@@ -312,6 +346,8 @@ def main() -> None:
         "evaluation": _apply_policy(evaluation, policy),
         "synthetic_only": True,
         "hardware_qualified": False,
+        "qualification_scope": "validation_candidate_only_not_deployment",
+        "deployment_qualified": False,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

@@ -1,0 +1,11 @@
+{
+  "status": "isolated_experiment_not_default",
+  "default_visual_enabled": false,
+  "visual_scope": "floating_objects_highest_height_only",
+  "temporal_scope": "fixed_camera_short_burst_current_evidence_required",
+  "pixel_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/pixel-model/best.pt",
+  "previous_verifier_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/region-model/verifier.joblib",
+  "apex_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/floating-apex-v5-20261016/apex-verifier.joblib",
+  "v8_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/floating-rank-v8-20261016/model.joblib",
+  "model_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/floating-joint-v9-20261016/model.joblib"
+}

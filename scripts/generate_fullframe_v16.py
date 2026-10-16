@@ -30,7 +30,7 @@ def cast(scene,tree):
         if hit[0] is not None: values[i]=hit[3]*axial[i]
     return values.reshape(scene.height,scene.width)
 
-def context_proxy(scene,raw,target,mask):
+def context_proxy(scene,raw,target,mask,*,front_wall_returns=True):
     objects=[o for o in bpy.context.scene.objects if o.type=='MESH']
     opaque=cast(scene,tree_for([o for o in objects if o.name not in ('liquid_volume','transparent_container')]))
     wall=cast(scene,tree_for([o for o in objects if o.name=='transparent_container']))
@@ -50,7 +50,7 @@ def context_proxy(scene,raw,target,mask):
     noisy[(backing<=0)|drop]=0
     full=np.where(valid_mask,raw,noisy)
     # Front glass returns can also contaminate rays through the liquid.
-    front=valid_mask&firstwall&(wall<target-.002)&(rng.random(raw.shape)<.20)
+    front=valid_mask&firstwall&(wall<target-.002)&(rng.random(raw.shape)<.20) if front_wall_returns else np.zeros_like(mask)
     full[front]=noisy[front]
     full=np.round(full/.001)*.001
     full=np.where(np.isfinite(full)&(full>=.1)&(full<=10),full,0).astype(np.float32)

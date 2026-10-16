@@ -462,7 +462,7 @@ class LiquidDepthSystem:
         offset = float(output.get("offset_m", 0.0)) if apply_output_calibration else 0.0
         candidate_m = None if raw_depth_m is None else scale * raw_depth_m + offset
         if not scene_decision.result_allowed:
-            reasons.append("complex_model_required_but_unavailable")
+            reasons.extend(scene_decision.rejection_reasons())
 
         committed_anchors = 0
         if (

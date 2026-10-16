@@ -295,6 +295,19 @@ class PanelHandler(BaseHTTPRequestHandler):
                     }
                 )
                 return
+            if path in {"/api/preview-empty-geometry", "/api/calibrate-empty-geometry"}:
+                from .empty_geometry_runtime_v41 import preview_empty_geometry, create_empty_geometry_profile
+
+                source = _source_from_payload(payload, self.state.capture_dir)
+                payload["frame_dir"] = str(source)
+                if path == "/api/preview-empty-geometry":
+                    _, _, geometry = preview_empty_geometry(payload)
+                    self._json({"ok": True, "geometry": geometry, "frame_dir": str(source)})
+                else:
+                    profile_path, geometry = create_empty_geometry_profile(payload)
+                    self.state.invalidate_profile(profile_path)
+                    self._json({"ok": True, "profile_path": str(profile_path), "geometry": geometry})
+                return
             if path == "/api/measure":
                 source = _source_from_payload(payload, self.state.capture_dir)
                 profile_path = _safe_profile_path(payload["profile_path"])

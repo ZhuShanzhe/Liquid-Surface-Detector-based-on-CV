@@ -1,0 +1,66 @@
+[
+  {
+    "scene": "floating_objects",
+    "matched_archived_cli": true,
+    "wall_s": 4.209998071193695,
+    "liquid_depth_m": -0.0015803435062280435,
+    "highest_height_m": 0.0008955357216575185,
+    "vision_executed": true
+  },
+  {
+    "scene": "glare",
+    "matched_archived_cli": true,
+    "wall_s": 2.2094273269176483,
+    "liquid_depth_m": -0.000994861941935432,
+    "highest_height_m": 0.0019647252552892347,
+    "vision_executed": false
+  },
+  {
+    "scene": "homogeneous_translucent",
+    "matched_archived_cli": true,
+    "wall_s": 3.234695814549923,
+    "liquid_depth_m": -0.006673019123166015,
+    "highest_height_m": null,
+    "vision_executed": false
+  },
+  {
+    "scene": "homogeneous_transparent",
+    "matched_archived_cli": true,
+    "wall_s": 3.0172251164913177,
+    "liquid_depth_m": -0.0012579761387580043,
+    "highest_height_m": null,
+    "vision_executed": false
+  },
+  {
+    "scene": "low_light",
+    "matched_archived_cli": true,
+    "wall_s": 2.4184468053281307,
+    "liquid_depth_m": 0.0021151930316742895,
+    "highest_height_m": 0.04810351346957576,
+    "vision_executed": false
+  },
+  {
+    "scene": "ordinary_diffuse",
+    "matched_archived_cli": true,
+    "wall_s": 2.2493148148059845,
+    "liquid_depth_m": 0.0037012434724525978,
+    "highest_height_m": 0.08462335139539234,
+    "vision_executed": false
+  },
+  {
+    "scene": "partial_depth_loss",
+    "matched_archived_cli": true,
+    "wall_s": 2.2502243891358376,
+    "liquid_depth_m": 0.0018795977827608112,
+    "highest_height_m": 0.005100246261899391,
+    "vision_executed": false
+  },
+  {
+    "scene": "uneven_surface",
+    "matched_archived_cli": true,
+    "wall_s": 2.20037017762661,
+    "liquid_depth_m": -0.0011721160316477963,
+    "highest_height_m": 0.0008571939192550074,
+    "vision_executed": false
+  }
+]

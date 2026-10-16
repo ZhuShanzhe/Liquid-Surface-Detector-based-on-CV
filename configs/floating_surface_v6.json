@@ -1,0 +1,11 @@
+{
+  "allowed_scene": "floating_objects",
+  "allowed_visual_output": "highest_height_m",
+  "default_visual_enabled": false,
+  "pixel_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/pixel-model/best.pt",
+  "previous_verifier_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/region-model/verifier.joblib",
+  "apex_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/floating-apex-v5-20261016/apex-verifier.joblib",
+  "surface_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/floating-surface-v6-20261016/surface-reliability.joblib",
+  "inferred_surface_samples_are_not_new_measurements": true,
+  "status": "research_experiment_not_default"
+}

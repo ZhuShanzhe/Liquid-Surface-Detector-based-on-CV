@@ -1,0 +1,18 @@
+{
+  "entry": "liquid_depth.floating_peak_only_v4.FloatingPeakOnlyMeter",
+  "cli": "scripts/measure_floating_peak_v4.py",
+  "default_visual_enabled": false,
+  "allowed_visual_scenes": ["floating_objects"],
+  "allowed_visual_outputs": ["highest_height_m"],
+  "liquid_visual_override_allowed": false,
+  "scene_selection": "operator_or_installation_explicit_selection_not_model_or_truth",
+  "model_scope": "opaque_diffuse_liquid_with_floating_solids_fixed_top_view_calibrated_RGBD",
+  "excluded_visual_scenes": ["ordinary_diffuse", "low_light", "glare", "uneven_surface", "partial_depth_loss", "homogeneous_transparent", "homogeneous_translucent"],
+  "excluded_compounds": ["transparent_liquid_with_floating_objects", "severe_lowlight_or_glare_with_floats", "severe_depth_failure_with_floats"],
+  "out_of_scope_behavior": "do_not_load_or_invoke_visual_model_keep_legacy_scene_route",
+  "no_reliable_float_behavior": "keep_legacy_geometric_peak_without_rejecting_liquid_output",
+  "pixel_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/pixel-model/best.pt",
+  "verifier_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/region-model/verifier.joblib",
+  "supersedes_deployment_advice_in": ["docs/adaptive_rgbd_optional_evidence_v2_20261015.md", "docs/small_float_false_positive_tail_v3_20261015.md"],
+  "research_only_not_field_qualification": true
+}

@@ -1,0 +1,18 @@
+{
+  "selected_entry": "liquid_depth.determined_scene_meter.DeterminedSceneMeter",
+  "selected_cli": "scripts/measure_determined.py",
+  "profile": "configs/floating_rank_v8.json",
+  "policy_variant": "selected",
+  "selected_version": "determined_all_scenes_v1_v8_peak_20261016",
+  "visual_backend_version": "V8",
+  "scene_manifest": "configs/determined_scene_routes_v1.json",
+  "future_development_scope": "far_shallow_only",
+  "other_defects": "record_only_no_repairs",
+  "vision_scope": "floating_objects_highest_height_only",
+  "all_other_visual_scene_usage": "disabled_even_if_requested",
+  "default_visual_enabled": false,
+  "historical_experiments_not_application_entries": ["HybridSceneMeterV2", "OptionalFloatMeterV3", "scripts/measure_adaptive_v2.py", "scripts/measure_float_v3.py"],
+  "scope_document": "docs/determined_all_scene_baseline_v1_20261016.md",
+  "selection_reason": "User froze all existing scene algorithms with V8 optional peak vision; subsequent development limited to far shallow",
+  "selection_date": "2026-10-16"
+}

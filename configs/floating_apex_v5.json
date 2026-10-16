@@ -1,0 +1,10 @@
+{
+  "scene": "floating_objects",
+  "visual_output": "highest_height_m",
+  "default_visual_enabled": false,
+  "pixel_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/pixel-model/best.pt",
+  "apex_verifier_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/floating-apex-v5-20261016/apex-verifier.joblib",
+  "previous_verifier_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/float-tail-v3-20261015/region-model/verifier.joblib",
+  "liquid_route": "unchanged_frozen_symmetric_geometry",
+  "status": "experimental_independent_test_complete_not_default_due_tail_and_latency"
+}

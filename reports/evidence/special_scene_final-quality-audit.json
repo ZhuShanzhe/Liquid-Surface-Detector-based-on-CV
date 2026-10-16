@@ -1,0 +1,8 @@
+{
+  "accepted_input_frames_matching_unfiltered_same_input_predictions": 4562,
+  "shared_prediction_tolerance_m": 1e-09,
+  "actual_depth_strata_verified": true,
+  "markdown_relative_links_verified": 6,
+  "markdown_table_rows_verified": 1160,
+  "accepted_direct_origin_and_spatial_evidence_verified": true
+}
