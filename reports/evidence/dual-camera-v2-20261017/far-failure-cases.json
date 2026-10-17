@@ -1,0 +1,3037 @@
+{
+  "ordinary_diffuse|tof": [
+    {
+      "sensor": "tof",
+      "camera_to_bottom_m": 8.07187666306589,
+      "liquid_depth_m": 0.09672413475472563,
+      "highest_height_m": null,
+      "algorithm_ms": null,
+      "case": 17,
+      "repeat": 3,
+      "config_id": null,
+      "sample_id": null,
+      "scene": "ordinary_diffuse",
+      "truth": {
+        "liquid_height_m": 0.07503551814202553
+      },
+      "depth_bin": "0.01-0.1",
+      "level": "all",
+      "loss_bin": "all",
+      "cohort": "legacy_determined_grid",
+      "provenance_file": "evidence\\determined-all-scenes-v1-20261016\\depth-grid\\records.jsonl",
+      "cluster": "legacy_determined_grid:17"
+    },
+    {
+      "sensor": "tof",
+      "camera_to_bottom_m": 8.07187666306589,
+      "liquid_depth_m": 0.09541604817247418,
+      "highest_height_m": null,
+      "algorithm_ms": null,
+      "case": 17,
+      "repeat": 1,
+      "config_id": null,
+      "sample_id": null,
+      "scene": "ordinary_diffuse",
+      "truth": {
+        "liquid_height_m": 0.07503551814202553
+      },
+      "depth_bin": "0.01-0.1",
+      "level": "all",
+      "loss_bin": "all",
+      "cohort": "legacy_determined_grid",
+      "provenance_file": "evidence\\determined-all-scenes-v1-20261016\\depth-grid\\records.jsonl",
+      "cluster": "legacy_determined_grid:17"
+    },
+    {
+      "sensor": "tof",
+      "camera_to_bottom_m": 8.07187666306589,
+      "liquid_depth_m": 0.09491757406323487,
+      "highest_height_m": null,
+      "algorithm_ms": null,
+      "case": 17,
+      "repeat": 0,
+      "config_id": null,
+      "sample_id": null,
+      "scene": "ordinary_diffuse",
+      "truth": {
+        "liquid_height_m": 0.07503551814202553
+      },
+      "depth_bin": "0.01-0.1",
+      "level": "all",
+      "loss_bin": "all",
+      "cohort": "legacy_determined_grid",
+      "provenance_file": "evidence\\determined-all-scenes-v1-20261016\\depth-grid\\records.jsonl",
+      "cluster": "legacy_determined_grid:17"
+    }
+  ],
+  "ordinary_diffuse|structured_light": [
+    {
+      "scene": "ordinary_diffuse",
+      "sensor": "structured_light",
+      "level": "all",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 0,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7537725511401767,
+      "highest_height_m": 0.6211786805137393,
+      "algorithm_ms": 57.45992809534073,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 6566,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9137554180612228,
+          0.919218178607857
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7537725511401767,
+            "score": 6443.156269900799,
+            "support_returns": 7746,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 7847,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9571272307337194,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/structured_light_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/rgb.png"
+    },
+    {
+      "scene": "ordinary_diffuse",
+      "sensor": "structured_light",
+      "level": "all",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 2,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.6369410514959064,
+      "highest_height_m": 0.6239230382964801,
+      "algorithm_ms": 56.88420683145523,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 6675,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9195280582080401,
+          0.9198110388034042
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.6369410514959064,
+            "score": 6578.194297181462,
+            "support_returns": 7901,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 7991,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9413063475002215,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/structured_light_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/rgb.png"
+    },
+    {
+      "scene": "ordinary_diffuse",
+      "sensor": "structured_light",
+      "level": "all",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 3,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.636850528323933,
+      "highest_height_m": 0.6328760741237174,
+      "algorithm_ms": 57.827696204185486,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 6623,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9198720635111926,
+          0.9180826735665537
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.636850528323933,
+            "score": 6515.295201547531,
+            "support_returns": 7835,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 7907,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9413305021461897,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/structured_light_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/rgb.png"
+    }
+  ],
+  "homogeneous_transparent|tof": [
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "tof",
+      "level": "clear",
+      "cluster": "phase_202612078708",
+      "physical_id": "phase_202612078708",
+      "camera_to_bottom_m": 7.736313984246492,
+      "truth": {
+        "liquid_height_m": 0.2715
+      },
+      "repeat": 0,
+      "liquid_depth_m": 0.25142426865654977,
+      "algorithm_ms": 20.584266632795334,
+      "diagnostics": {
+        "support": 133,
+        "model_residual": 0.000883862128396847,
+        "calibration_residual": 0.0014581557486247818,
+        "local_sensitivity_per_m": 0.550771743033374,
+        "residual_to_sensitivity_m": 0.0016047702874678693,
+        "coarse_second_cost": 0.00013715484000166445,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.3038831666770594,
+          0.08707060687660187,
+          0.005484624479880363,
+          5.8353667863995e-17,
+          -0.00010567184028498597
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.13575,
+          6.9232499999999995
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "general",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612078708/tof_test_0.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612078708/tof_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "tof",
+      "level": "clear",
+      "cluster": "phase_202612088518",
+      "physical_id": "phase_202612088518",
+      "camera_to_bottom_m": 9.835405667165547,
+      "truth": {
+        "liquid_height_m": 0.1026068289386559
+      },
+      "repeat": 1,
+      "liquid_depth_m": 0.08273050659112033,
+      "algorithm_ms": 19.69212293624878,
+      "diagnostics": {
+        "support": 129,
+        "model_residual": 0.0003697330725319874,
+        "calibration_residual": 0.0011712710605535778,
+        "local_sensitivity_per_m": 0.8662355519851017,
+        "residual_to_sensitivity_m": 0.00042682740472229703,
+        "coarse_second_cost": 7.39893498527937e-06,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.4738613255077695,
+          0.1028999426655591,
+          0.013217693849283525,
+          0.9999999999578458,
+          0.0007795847356267686
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.9050569078221326
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612088518/tof_test_1.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612088518/tof_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "tof",
+      "level": "clear",
+      "cluster": "phase_202612085563",
+      "physical_id": "phase_202612085563",
+      "camera_to_bottom_m": 9.24820230268846,
+      "truth": {
+        "liquid_height_m": 0.0785518938982075
+      },
+      "repeat": 1,
+      "liquid_depth_m": 0.06196809217703272,
+      "algorithm_ms": 21.111764013767242,
+      "diagnostics": {
+        "support": 129,
+        "model_residual": 0.00040319832483736,
+        "calibration_residual": 0.0014681085078021331,
+        "local_sensitivity_per_m": 0.6559660803279498,
+        "residual_to_sensitivity_m": 0.0006146633750266191,
+        "coarse_second_cost": 2.165321205140423e-06,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.3548771881810606,
+          0.07848336108324283,
+          0.11355682222975169,
+          3.048317890998734e-14,
+          -0.00014187542185464637
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.704599115818396
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612085563/tof_test_1.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612085563/tof_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    }
+  ],
+  "homogeneous_transparent|structured_light": [
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "structured_light",
+      "level": "clear",
+      "cluster": "phase_202612086548",
+      "physical_id": "phase_202612086548",
+      "camera_to_bottom_m": 9.413331611105338,
+      "truth": {
+        "liquid_height_m": 0.09021958822883859
+      },
+      "repeat": 1,
+      "liquid_depth_m": -0.034023531525117716,
+      "algorithm_ms": 41.75932705402374,
+      "diagnostics": {
+        "support": 132,
+        "model_residual": 0.0002568656131194616,
+        "calibration_residual": 0.0005987339216089763,
+        "local_sensitivity_per_m": 0.06464414646986329,
+        "residual_to_sensitivity_m": 0.003973532441010894,
+        "coarse_second_cost": 1.1053416578132057e-07,
+        "extrapolated": true,
+        "outside_container_unclipped": true,
+        "parameters": [
+          1.5999999966827352,
+          0.003102585057624772,
+          4.000615655261396e-16,
+          1.8868533343618538e-12,
+          -0.0019583544140029533
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.8018299019069883
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612086548/structured_light_test_1.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612086548/structured_light_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "structured_light",
+      "level": "clear",
+      "cluster": "phase_202612088518",
+      "physical_id": "phase_202612088518",
+      "camera_to_bottom_m": 9.835405667165547,
+      "truth": {
+        "liquid_height_m": 0.1026068289386559
+      },
+      "repeat": 1,
+      "liquid_depth_m": -0.019804827527178777,
+      "algorithm_ms": 39.081476628780365,
+      "diagnostics": {
+        "support": 128,
+        "model_residual": 0.00025431242535035376,
+        "calibration_residual": 0.0008290766107206773,
+        "local_sensitivity_per_m": 0.04650092997552644,
+        "residual_to_sensitivity_m": 0.005468975039514243,
+        "coarse_second_cost": 8.882452071376382e-08,
+        "extrapolated": true,
+        "outside_container_unclipped": true,
+        "parameters": [
+          1.4179007082942163,
+          2.408929913097506e-11,
+          3.1871102758746763e-11,
+          2.0414103206030458e-11,
+          0.0006589040640527616
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.9050569078221326
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612088518/structured_light_test_1.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612088518/structured_light_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "structured_light",
+      "level": "clear",
+      "cluster": "phase_202612089109",
+      "physical_id": "phase_202612089109",
+      "camera_to_bottom_m": 9.56039870280426,
+      "truth": {
+        "liquid_height_m": 0.410671107967877
+      },
+      "repeat": 2,
+      "liquid_depth_m": 0.28856756399718897,
+      "algorithm_ms": 55.80581724643707,
+      "diagnostics": {
+        "support": 132,
+        "model_residual": 0.00024965538285141907,
+        "calibration_residual": 0.0015125100281608427,
+        "local_sensitivity_per_m": 0.0529096386959787,
+        "residual_to_sensitivity_m": 0.004718523675543331,
+        "coarse_second_cost": 1.031575870336438e-07,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.4487524867866932,
+          6.091956003014033e-15,
+          1.053837145266892e-08,
+          2.52839666226384e-07,
+          -0.004245031279804353
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.871342215935754
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612089109/structured_light_test_2.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612089109/structured_light_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    }
+  ],
+  "homogeneous_translucent|tof": [
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "tof",
+      "level": "medium_extinction",
+      "cluster": "phase_202612279108",
+      "physical_id": "phase_202612279108",
+      "camera_to_bottom_m": 8.025626477365059,
+      "truth": {
+        "liquid_height_m": 0.301
+      },
+      "repeat": 0,
+      "liquid_depth_m": 0.3283413935511168,
+      "algorithm_ms": 20.703621208667755,
+      "diagnostics": {
+        "support": 134,
+        "model_residual": 0.0008771834489853567,
+        "calibration_residual": 0.013198669196187795,
+        "local_sensitivity_per_m": 0.580211219464771,
+        "residual_to_sensitivity_m": 0.001511834689778206,
+        "coarse_second_cost": 0.000209125678468882,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.2950056945235406,
+          0.0524417382969157,
+          0.10881286549290806,
+          0.18039118562477513,
+          -0.0027539991063841064
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.1505,
+          7.6754999999999995
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "general",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612279108/tof_test_0.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612279108/tof_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "tof",
+      "level": "medium_extinction",
+      "cluster": "phase_202612289903",
+      "physical_id": "phase_202612289903",
+      "camera_to_bottom_m": 7.136217965409388,
+      "truth": {
+        "liquid_height_m": 0.3849821823526986
+      },
+      "repeat": 3,
+      "liquid_depth_m": 0.36015608944176924,
+      "algorithm_ms": 20.16303315758705,
+      "diagnostics": {
+        "support": 130,
+        "model_residual": 0.00036609895153329284,
+        "calibration_residual": 0.0015672651108284957,
+        "local_sensitivity_per_m": 0.700416412421726,
+        "residual_to_sensitivity_m": 0.0005226875684815648,
+        "coarse_second_cost": 1.3600428560694035e-06,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.3954457124583142,
+          0.14225009462575477,
+          1.582180033651466e-11,
+          4.752529992640877e-09,
+          -0.001800098939137544
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.44283896158438635
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612289903/tof_test_3.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612289903/tof_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "tof",
+      "level": "medium_extinction",
+      "cluster": "phase_202612287145",
+      "physical_id": "phase_202612287145",
+      "camera_to_bottom_m": 7.435616140875973,
+      "truth": {
+        "liquid_height_m": 0.019736192064393508
+      },
+      "repeat": 0,
+      "liquid_depth_m": -0.001774810442644463,
+      "algorithm_ms": 20.219288766384125,
+      "diagnostics": {
+        "support": 132,
+        "model_residual": 0.00016357630553621243,
+        "calibration_residual": 0.0003829566068103258,
+        "local_sensitivity_per_m": 0.6959437555667236,
+        "residual_to_sensitivity_m": 0.00023504242150000805,
+        "coarse_second_cost": 3.6775012456488392e-06,
+        "extrapolated": true,
+        "outside_container_unclipped": true,
+        "parameters": [
+          1.4343629513432512,
+          0.12969029790311357,
+          0.022755527687604866,
+          0.9996170424544266,
+          -0.0003612272020375817
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          1.0368096032196754
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612287145/tof_test_0.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612287145/tof_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    }
+  ],
+  "homogeneous_translucent|structured_light": [
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "structured_light",
+      "level": "low_extinction",
+      "cluster": "phase_202612179302",
+      "physical_id": "phase_202612179302",
+      "camera_to_bottom_m": 9.078548008925504,
+      "truth": {
+        "liquid_height_m": 0.31575
+      },
+      "repeat": 0,
+      "liquid_depth_m": 0.2096060947715122,
+      "algorithm_ms": 41.92129522562027,
+      "diagnostics": {
+        "support": 131,
+        "model_residual": 0.0011027575727116602,
+        "calibration_residual": 0.000389090811894173,
+        "local_sensitivity_per_m": 0.0701025475350068,
+        "residual_to_sensitivity_m": 0.015730634784149336,
+        "coarse_second_cost": 4.953307669935521e-06,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.4358602303401433,
+          0.10081485550100525,
+          0.025612574995945315,
+          0.10047074948920108,
+          0.0006341504008794715
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.157875,
+          8.051625
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "general",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612179302/structured_light_test_0.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612179302/structured_light_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "structured_light",
+      "level": "medium_extinction",
+      "cluster": "phase_202612288721",
+      "physical_id": "phase_202612288721",
+      "camera_to_bottom_m": 9.134889797312848,
+      "truth": {
+        "liquid_height_m": 0.3550511224152642
+      },
+      "repeat": 2,
+      "liquid_depth_m": 0.4580658713334135,
+      "algorithm_ms": 38.679856806993484,
+      "diagnostics": {
+        "support": 127,
+        "model_residual": 0.0002706974773027457,
+        "calibration_residual": 0.0011259208972561436,
+        "local_sensitivity_per_m": 0.07820328771744402,
+        "residual_to_sensitivity_m": 0.0034614590409651528,
+        "coarse_second_cost": 1.5014149864800186e-07,
+        "extrapolated": false,
+        "outside_container_unclipped": false,
+        "parameters": [
+          1.150000103042154,
+          0.1588052921636516,
+          0.5999999880963663,
+          3.3762608594306576e-13,
+          -0.0005719993863283263
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.7601022448305285
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612288721/structured_light_test_2.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612288721/structured_light_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "structured_light",
+      "level": "low_extinction",
+      "cluster": "phase_202612189900",
+      "physical_id": "phase_202612189900",
+      "camera_to_bottom_m": 8.18834746285419,
+      "truth": {
+        "liquid_height_m": 0.06957056108500952
+      },
+      "repeat": 1,
+      "liquid_depth_m": -0.02963726140816495,
+      "algorithm_ms": 49.73087087273598,
+      "diagnostics": {
+        "support": 129,
+        "model_residual": 0.0002639181836014228,
+        "calibration_residual": 0.0009500651189781866,
+        "local_sensitivity_per_m": 0.07050001412323896,
+        "residual_to_sensitivity_m": 0.0037435195848340586,
+        "coarse_second_cost": 8.275833115148206e-08,
+        "extrapolated": true,
+        "outside_container_unclipped": true,
+        "parameters": [
+          1.452998194985013,
+          1.3792953588149554e-06,
+          0.5213279082081781,
+          0.09238294866996184,
+          -0.0017472401511535863
+        ],
+        "confidence_used_to_reject": false,
+        "optimizer_search_bounds_m": [
+          -0.05,
+          0.6297546757084127
+        ],
+        "constraint_boundary_reached": false
+      },
+      "inference_failure": null,
+      "cohort": "new_dual_raw_phase_holdout_v2",
+      "regime": "far_shallow",
+      "observation_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612189900/structured_light_test_1.npz",
+      "initialization_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/phase-final/phase_202612189900/structured_light_initialization.json",
+      "scope_included": true,
+      "known_heights_budget": 5,
+      "hardware_qualified": false,
+      "simulation_scope": "4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch"
+    }
+  ],
+  "partial_depth_loss|tof": [
+    {
+      "sensor": "tof",
+      "camera_to_bottom_m": 8.07187666306589,
+      "liquid_depth_m": 0.09672413475472563,
+      "highest_height_m": null,
+      "algorithm_ms": null,
+      "case": 17,
+      "repeat": 3,
+      "config_id": null,
+      "sample_id": null,
+      "scene": "partial_depth_loss",
+      "truth": {
+        "liquid_height_m": 0.07503551814202553
+      },
+      "depth_bin": "0.01-0.1",
+      "level": "0-10%",
+      "loss_bin": "0-10%",
+      "cohort": "legacy_determined_grid",
+      "provenance_file": "evidence\\determined-all-scenes-v1-20261016\\depth-grid\\records.jsonl",
+      "cluster": "legacy_determined_grid:17"
+    },
+    {
+      "sensor": "tof",
+      "camera_to_bottom_m": 8.07187666306589,
+      "liquid_depth_m": 0.0966846083566395,
+      "highest_height_m": null,
+      "algorithm_ms": null,
+      "case": 17,
+      "repeat": 3,
+      "config_id": null,
+      "sample_id": null,
+      "scene": "partial_depth_loss",
+      "truth": {
+        "liquid_height_m": 0.07503551814202553
+      },
+      "depth_bin": "0.01-0.1",
+      "level": "10-20%",
+      "loss_bin": "10-20%",
+      "cohort": "legacy_determined_grid",
+      "provenance_file": "evidence\\determined-all-scenes-v1-20261016\\depth-grid\\records.jsonl",
+      "cluster": "legacy_determined_grid:17"
+    },
+    {
+      "sensor": "tof",
+      "camera_to_bottom_m": 8.07187666306589,
+      "liquid_depth_m": 0.09656809194905236,
+      "highest_height_m": null,
+      "algorithm_ms": null,
+      "case": 17,
+      "repeat": 3,
+      "config_id": null,
+      "sample_id": null,
+      "scene": "partial_depth_loss",
+      "truth": {
+        "liquid_height_m": 0.07503551814202553
+      },
+      "depth_bin": "0.01-0.1",
+      "level": "20-30%",
+      "loss_bin": "20-30%",
+      "cohort": "legacy_determined_grid",
+      "provenance_file": "evidence\\determined-all-scenes-v1-20261016\\depth-grid\\records.jsonl",
+      "cluster": "legacy_determined_grid:17"
+    }
+  ],
+  "partial_depth_loss|structured_light": [
+    {
+      "scene": "partial_depth_loss",
+      "sensor": "structured_light",
+      "level": "40-50%",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 3,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7537963879618559,
+      "highest_height_m": 0.6322414403598132,
+      "algorithm_ms": 54.382435977458954,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": 50,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 5642,
+        "occupied_4x4_tiles": 15,
+        "footprint_span_fraction": [
+          0.831940063737515,
+          0.9180826735665537
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7537963879618559,
+            "score": 5551.818263515614,
+            "support_returns": 6685,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 6745,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9477250355165193,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/structured_light_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/rgb.png"
+    },
+    {
+      "scene": "partial_depth_loss",
+      "sensor": "structured_light",
+      "level": "40-50%",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 0,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7537725511401767,
+      "highest_height_m": 0.6211786805137393,
+      "algorithm_ms": 59.245120733976364,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": 40.16097696364141,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 6566,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9137554180612228,
+          0.919218178607857
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7537725511401767,
+            "score": 6443.156269900799,
+            "support_returns": 7746,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 7847,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9571272307337194,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/structured_light_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/rgb.png"
+    },
+    {
+      "scene": "partial_depth_loss",
+      "sensor": "structured_light",
+      "level": "40-50%",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 0,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7537725511401767,
+      "highest_height_m": 0.6211786805137391,
+      "algorithm_ms": 55.167000740766525,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": 45,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 6021,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9137554180612228,
+          0.919218178607857
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7537725511401767,
+            "score": 5917.446476058053,
+            "support_returns": 7112,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 7202,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9560988649467203,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/structured_light_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/ordinary_diffuse_all/rgb.png"
+    }
+  ],
+  "low_light|tof": [
+    {
+      "scene": "low_light",
+      "sensor": "tof",
+      "level": "severe",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 0,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8230175158991033,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8051915487174464,
+      "highest_height_m": 0.8145624144669155,
+      "algorithm_ms": 47.90028929710388,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 3523,
+        "occupied_4x4_tiles": 14,
+        "footprint_span_fraction": [
+          0.9195700807964583,
+          0.9192381026204481
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8051915487174464,
+            "score": 1695.7977317105401,
+            "support_returns": 2606,
+            "tiles": 14,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.016712119529149305,
+            "score": 153.29033239168197,
+            "support_returns": 186,
+            "tiles": 11,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9096057687038779,
+        "flags": [],
+        "selected_returns": 2933,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8217545957747183,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/low_light_severe/tof_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/low_light_severe/rgb.png"
+    },
+    {
+      "scene": "low_light",
+      "sensor": "tof",
+      "level": "moderate",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 0,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8230175158991033,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8053699787560538,
+      "highest_height_m": 0.8145624144669155,
+      "algorithm_ms": 53.22526767849922,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 8748,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9205198758043063,
+          0.9202515649099807
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8053699787560538,
+            "score": 4640.119069687935,
+            "support_returns": 6656,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.01658210733501697,
+            "score": 351.99807070468376,
+            "support_returns": 366,
+            "tiles": 15,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9241402935101067,
+        "flags": [],
+        "selected_returns": 7332,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8225505515292335,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/low_light_moderate/tof_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/low_light_moderate/rgb.png"
+    },
+    {
+      "scene": "low_light",
+      "sensor": "tof",
+      "level": "moderate",
+      "cluster": "dual_far_18",
+      "physical_id": "dual_far_18",
+      "repeat": 2,
+      "camera_to_bottom_m": 7.538647420005706,
+      "truth": {
+        "liquid_height_m": 0.7278471933125329,
+        "highest_height_m": 0.7278471933125331,
+        "lowest_height_m": 0.7278471933125331,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7104902585084565,
+      "highest_height_m": 0.7860948680272924,
+      "algorithm_ms": 48.978399485349655,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 6473,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9204912024159033,
+          0.9043066480182328
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7104902585084565,
+            "score": 2699.648621145453,
+            "support_returns": 3880,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.016465306116049128,
+            "score": 224.84907913343665,
+            "support_returns": 253,
+            "tiles": 13,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9167117241213288,
+        "flags": [],
+        "selected_returns": 4836,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.7273234994801152,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0018/low_light_moderate/tof_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00036.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0018/low_light_moderate/rgb.png"
+    }
+  ],
+  "low_light|structured_light": [
+    {
+      "scene": "low_light",
+      "sensor": "structured_light",
+      "level": "severe",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 2,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8150994671512244,
+      "highest_height_m": null,
+      "algorithm_ms": 38.0777008831501,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 246,
+        "occupied_4x4_tiles": 10,
+        "footprint_span_fraction": [
+          0.8488070346877303,
+          0.8578944846642174
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8150994671512244,
+            "score": 193.0457496656138,
+            "support_returns": 294,
+            "tiles": 10,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 294,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 1.0903062490331026,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/low_light_severe/structured_light_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/low_light_severe/rgb.png"
+    },
+    {
+      "scene": "low_light",
+      "sensor": "structured_light",
+      "level": "severe",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 3,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7855919813847567,
+      "highest_height_m": null,
+      "algorithm_ms": 37.80397027730942,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 274,
+        "occupied_4x4_tiles": 9,
+        "footprint_span_fraction": [
+          0.8802677613289469,
+          0.8192138694623892
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7855919813847567,
+            "score": 206.33418746562404,
+            "support_returns": 317,
+            "tiles": 10,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 322,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 1.051175532555235,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/low_light_severe/structured_light_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/low_light_severe/rgb.png"
+    },
+    {
+      "scene": "low_light",
+      "sensor": "structured_light",
+      "level": "moderate",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 2,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7778298047988557,
+      "highest_height_m": 0.4802311826485876,
+      "algorithm_ms": 49.78622496128082,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 2049,
+        "occupied_4x4_tiles": 15,
+        "footprint_span_fraction": [
+          0.9106584631848126,
+          0.9077983486940648
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7778298047988557,
+            "score": 1988.9690771741077,
+            "support_returns": 2405,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 2421,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9278031295820398,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/low_light_moderate/structured_light_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/low_light_moderate/rgb.png"
+    }
+  ],
+  "glare|tof": [
+    {
+      "scene": "glare",
+      "sensor": "tof",
+      "level": "severe",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 11,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8230175158991033,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8052504564247283,
+      "highest_height_m": 0.8105111688407751,
+      "algorithm_ms": 47.22670465707779,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 564,
+        "occupied_4x4_tiles": 13,
+        "footprint_span_fraction": [
+          0.7911213863648954,
+          0.8916341080950212
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8052504564247283,
+            "score": 287.77825047393026,
+            "support_returns": 463,
+            "tiles": 13,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.01607536800669873,
+            "score": 22.174217904596556,
+            "support_returns": 28,
+            "tiles": 11,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9229468597154971,
+        "flags": [],
+        "selected_returns": 516,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8218684464922887,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/glare_severe/tof_raw_11.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/glare_severe/rgb.png"
+    },
+    {
+      "scene": "glare",
+      "sensor": "tof",
+      "level": "moderate",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 2,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8230175158991033,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8055087429583674,
+      "highest_height_m": 0.8126070298530808,
+      "algorithm_ms": 48.28935116529465,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 3895,
+        "occupied_4x4_tiles": 15,
+        "footprint_span_fraction": [
+          0.9099722703422912,
+          0.9202318335947623
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8055087429583674,
+            "score": 1873.7754050758465,
+            "support_returns": 2789,
+            "tiles": 15,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.016085722908806943,
+            "score": 155.35283238773005,
+            "support_returns": 178,
+            "tiles": 13,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9170910067626585,
+        "flags": [],
+        "selected_returns": 3059,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.822703867545516,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/glare_moderate/tof_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/glare_moderate/rgb.png"
+    },
+    {
+      "scene": "glare",
+      "sensor": "tof",
+      "level": "severe",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 1,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8230175158991033,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8055349403601282,
+      "highest_height_m": 0.8106723862164165,
+      "algorithm_ms": 47.70122095942497,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 738,
+        "occupied_4x4_tiles": 6,
+        "footprint_span_fraction": [
+          0.8086172846739021,
+          0.8009897317951933
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8055349403601282,
+            "score": 245.25303960512,
+            "support_returns": 533,
+            "tiles": 7,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.016412898508187723,
+            "score": 33.72134032614602,
+            "support_returns": 54,
+            "tiles": 7,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.8625038842314025,
+        "flags": [],
+        "selected_returns": 601,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8223287502840311,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/glare_severe/tof_raw_01.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/glare_severe/rgb.png"
+    }
+  ],
+  "glare|structured_light": [
+    {
+      "scene": "glare",
+      "sensor": "structured_light",
+      "level": "mild",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 1,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7803086070287275,
+      "highest_height_m": 0.5663386300104801,
+      "algorithm_ms": 50.86201801896095,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 3249,
+        "occupied_4x4_tiles": 15,
+        "footprint_span_fraction": [
+          0.9171083036065637,
+          0.8864409002747355
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7803086070287275,
+            "score": 3167.8096792395777,
+            "support_returns": 3846,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 3872,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9332594003513206,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/glare_mild/structured_light_raw_01.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/glare_mild/rgb.png"
+    },
+    {
+      "scene": "glare",
+      "sensor": "structured_light",
+      "level": "mild",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 3,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7564420479434837,
+      "highest_height_m": 0.5956457654491804,
+      "algorithm_ms": 53.25601249933243,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4329,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9198720635111926,
+          0.9143346165022044
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7564420479434837,
+            "score": 4305.349547795682,
+            "support_returns": 5183,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 5235,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9558117107015539,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/glare_mild/structured_light_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/glare_mild/rgb.png"
+    },
+    {
+      "scene": "glare",
+      "sensor": "structured_light",
+      "level": "mild",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 0,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.2494713406447627,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7470868907210662,
+      "highest_height_m": 0.5998640034476416,
+      "algorithm_ms": 50.64123123884201,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 3334,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.8645852147657396,
+          0.9151285765157274
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7470868907210662,
+            "score": 3175.0112868087117,
+            "support_returns": 3821,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 3872,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9503889703947695,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/glare_mild/structured_light_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/glare_mild/rgb.png"
+    }
+  ],
+  "uneven_surface|tof": [
+    {
+      "scene": "uneven_surface",
+      "sensor": "tof",
+      "level": "moderate",
+      "cluster": "dual_far_3",
+      "physical_id": "dual_far_3",
+      "repeat": 3,
+      "camera_to_bottom_m": 9.234283115710472,
+      "truth": {
+        "liquid_height_m": 0.45857308835598226,
+        "highest_height_m": 0.5053160518737407,
+        "lowest_height_m": 0.4134411604388817,
+        "wave_peak_to_peak_m": 0.09187489143485905
+      },
+      "liquid_depth_m": 0.4370734383744459,
+      "highest_height_m": 0.5040643006927467,
+      "algorithm_ms": 54.717447608709335,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 12745,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9167422616463439,
+          0.914337766500829
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.4370734383744459,
+            "score": 1825.0091514922992,
+            "support_returns": 3563,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.01170098013731824,
+            "score": 477.276324177701,
+            "support_returns": 495,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.7384800378740922,
+        "flags": [],
+        "selected_returns": 8759,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.45596617236173564,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0003/uneven_surface_moderate/tof_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00006.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0003/uneven_surface_moderate/rgb.png"
+    },
+    {
+      "scene": "uneven_surface",
+      "sensor": "tof",
+      "level": "severe",
+      "cluster": "dual_far_21",
+      "physical_id": "dual_far_21",
+      "repeat": 2,
+      "camera_to_bottom_m": 9.315694474539733,
+      "truth": {
+        "liquid_height_m": 0.7655479567339551,
+        "highest_height_m": 0.8497355879325273,
+        "lowest_height_m": 0.6897450659188222,
+        "wave_peak_to_peak_m": 0.15999052201370512
+      },
+      "liquid_depth_m": 0.7866788580017339,
+      "highest_height_m": 0.8511513995972866,
+      "algorithm_ms": 50.84465444087982,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4993,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9184471693027799,
+          0.9120112105885223
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7866788580017339,
+            "score": 607.0442919655983,
+            "support_returns": 1235,
+            "tiles": 15,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.0007898472252421129,
+            "score": 336.19884189183,
+            "support_returns": 348,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.44617082090793686,
+        "flags": [],
+        "selected_returns": 4067,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8001005176640446,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0021/uneven_surface_severe/tof_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00042.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0021/uneven_surface_severe/rgb.png"
+    },
+    {
+      "scene": "uneven_surface",
+      "sensor": "tof",
+      "level": "moderate",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 2,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8242346699566008,
+        "highest_height_m": 0.8632918142530637,
+        "lowest_height_m": 0.7827456755529717,
+        "wave_peak_to_peak_m": 0.08054613870009197
+      },
+      "liquid_depth_m": 0.8038450738703604,
+      "highest_height_m": 0.8501247430326853,
+      "algorithm_ms": 51.232319325208664,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 9707,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9185302137300673,
+          0.9200603183177796
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8038450738703604,
+            "score": 1783.2922763561364,
+            "support_returns": 3424,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.016674196691736753,
+            "score": 407.76842082868325,
+            "support_returns": 412,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.7713395463911891,
+        "flags": [],
+        "selected_returns": 8193,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8196937714502543,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/uneven_surface_moderate/tof_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/uneven_surface_moderate/rgb.png"
+    }
+  ],
+  "uneven_surface|structured_light": [
+    {
+      "scene": "uneven_surface",
+      "sensor": "structured_light",
+      "level": "mild",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 1,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24941877796581916,
+        "highest_height_m": 0.25820250560126873,
+        "lowest_height_m": 0.2407400459581872,
+        "wave_peak_to_peak_m": 0.017462459643081518
+      },
+      "liquid_depth_m": 0.8048823251571307,
+      "highest_height_m": 0.6109559991861976,
+      "algorithm_ms": 54.80629205703735,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4972,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9083023431996771,
+          0.9175369865268541
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8048823251571307,
+            "score": 4939.951094040387,
+            "support_returns": 5974,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 6018,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9480452434877493,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/uneven_surface_mild/structured_light_raw_01.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/uneven_surface_mild/rgb.png"
+    },
+    {
+      "scene": "uneven_surface",
+      "sensor": "structured_light",
+      "level": "mild",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 0,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24941877796581916,
+        "highest_height_m": 0.25820250560126873,
+        "lowest_height_m": 0.2407400459581872,
+        "wave_peak_to_peak_m": 0.017462459643081518
+      },
+      "liquid_depth_m": 0.7742903776166443,
+      "highest_height_m": 0.605898420533587,
+      "algorithm_ms": 54.49454113841057,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4625,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9184158910121952,
+          0.9168819921998175
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7742903776166443,
+            "score": 4528.533380835066,
+            "support_returns": 5452,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 5516,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9479340049865775,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/uneven_surface_mild/structured_light_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/uneven_surface_mild/rgb.png"
+    },
+    {
+      "scene": "uneven_surface",
+      "sensor": "structured_light",
+      "level": "mild",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 2,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24941877796581916,
+        "highest_height_m": 0.25820250560126873,
+        "lowest_height_m": 0.2407400459581872,
+        "wave_peak_to_peak_m": 0.017462459643081518
+      },
+      "liquid_depth_m": 0.7458832448386499,
+      "highest_height_m": 0.5976971704576567,
+      "algorithm_ms": 54.36430871486664,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 5491,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9200186180582578,
+          0.9126500762487513
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7458832448386499,
+            "score": 5227.722316058499,
+            "support_returns": 6284,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 6357,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9337008037548725,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": false,
+          "allowed": false,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": "scene_not_floating_objects"
+        }
+      },
+      "visual_module_executed": false,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/uneven_surface_mild/structured_light_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/uneven_surface_mild/rgb.png"
+    }
+  ],
+  "floating_objects|tof": [
+    {
+      "scene": "floating_objects",
+      "sensor": "tof",
+      "level": "all",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 2,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8919689587368185,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8053454708274472,
+      "highest_height_m": 0.8741163868735311,
+      "algorithm_ms": 222.2919911146164,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 12281,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9197043127199299,
+          0.920561189592744
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8053454708274472,
+            "score": 6550.752432367173,
+            "support_returns": 9447,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.016459063683003983,
+            "score": 279.76903142843236,
+            "support_returns": 300,
+            "tiles": 15,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9572920768542408,
+        "flags": [],
+        "selected_returns": 10338,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.823071316009564,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": true,
+          "allowed": true,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": null
+        },
+        "floating_peak_auxiliary": {
+          "candidates": [
+            {
+              "height_m": 0.8053454708274472,
+              "score": 6550.752432367173,
+              "support_returns": 9447,
+              "tiles": 16,
+              "interpretation": "nonbottom_candidate"
+            },
+            {
+              "height_m": -0.016459063683003983,
+              "score": 279.76903142843236,
+              "support_returns": 300,
+              "tiles": 15,
+              "interpretation": "bottom_compatible"
+            }
+          ],
+          "relative_score_margin": 0.9572920768542408,
+          "flags": [],
+          "selected_returns": 10338,
+          "semantic_probabilities_are_return_origin_labels": false,
+          "float_components": 0,
+          "raw_float_max_diagnostic_m": null,
+          "fallback_value_m": 0.823071316009564,
+          "eligibility_uses_truth": false,
+          "apex_backend": "instance_risk_rank_v8",
+          "v8_used": false,
+          "v8_policy": {
+            "bypass": "v5",
+            "fallback": "v5"
+          },
+          "original_candidates": 80,
+          "all_candidates": 80,
+          "v8_instances": [],
+          "chosen_bbox": null,
+          "original_metric_pixels_only": true
+        }
+      },
+      "visual_module_executed": true,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/floating_objects_all/tof_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/floating_objects_all/rgb.png"
+    },
+    {
+      "scene": "floating_objects",
+      "sensor": "tof",
+      "level": "all",
+      "cluster": "dual_far_10",
+      "physical_id": "dual_far_10",
+      "repeat": 1,
+      "camera_to_bottom_m": 6.766248979571142,
+      "truth": {
+        "liquid_height_m": 0.8230175158991032,
+        "highest_height_m": 0.8919689587368185,
+        "lowest_height_m": 0.8230175158991033,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.8053678989534268,
+      "highest_height_m": 0.8721374070404417,
+      "algorithm_ms": 237.41647973656654,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 15090,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9185078986545909,
+          0.9197242812585378
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.8053678989534268,
+            "score": 7747.122199531554,
+            "support_returns": 11139,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.0164305722189777,
+            "score": 358.32071372968596,
+            "support_returns": 372,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9537478944437778,
+        "flags": [],
+        "selected_returns": 12187,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.8232118011349217,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": true,
+          "allowed": true,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": null
+        },
+        "floating_peak_auxiliary": {
+          "candidates": [
+            {
+              "height_m": 0.8053678989534268,
+              "score": 7747.122199531554,
+              "support_returns": 11139,
+              "tiles": 16,
+              "interpretation": "nonbottom_candidate"
+            },
+            {
+              "height_m": -0.0164305722189777,
+              "score": 358.32071372968596,
+              "support_returns": 372,
+              "tiles": 16,
+              "interpretation": "bottom_compatible"
+            }
+          ],
+          "relative_score_margin": 0.9537478944437778,
+          "flags": [],
+          "selected_returns": 12187,
+          "semantic_probabilities_are_return_origin_labels": false,
+          "float_components": 0,
+          "raw_float_max_diagnostic_m": null,
+          "fallback_value_m": 0.8232118011349217,
+          "eligibility_uses_truth": false,
+          "apex_backend": "instance_risk_rank_v8",
+          "v8_used": false,
+          "v8_policy": {
+            "bypass": "v5",
+            "fallback": "v5"
+          },
+          "original_candidates": 44,
+          "all_candidates": 44,
+          "v8_instances": [],
+          "chosen_bbox": null,
+          "original_metric_pixels_only": true
+        }
+      },
+      "visual_module_executed": true,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/floating_objects_all/tof_raw_01.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00020.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0010/floating_objects_all/rgb.png"
+    },
+    {
+      "scene": "floating_objects",
+      "sensor": "tof",
+      "level": "all",
+      "cluster": "dual_far_18",
+      "physical_id": "dual_far_18",
+      "repeat": 3,
+      "camera_to_bottom_m": 7.538647420005706,
+      "truth": {
+        "liquid_height_m": 0.7278471933125329,
+        "highest_height_m": 0.7847430975555255,
+        "lowest_height_m": 0.7278471933125331,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7107343190329312,
+      "highest_height_m": 0.7761854677531552,
+      "algorithm_ms": 250.91641768813133,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 15480,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9202881744229121,
+          0.9173609145263387
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7107343190329312,
+            "score": 6739.560721409583,
+            "support_returns": 9568,
+            "tiles": 16,
+            "interpretation": "nonbottom_candidate"
+          },
+          {
+            "height_m": -0.01645294557967425,
+            "score": 364.9023842603319,
+            "support_returns": 370,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 0.9458566515913797,
+        "flags": [],
+        "selected_returns": 10934,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.7282382139677157,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": true,
+          "allowed": true,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": null
+        },
+        "floating_peak_auxiliary": {
+          "candidates": [
+            {
+              "height_m": 0.7107343190329312,
+              "score": 6739.560721409583,
+              "support_returns": 9568,
+              "tiles": 16,
+              "interpretation": "nonbottom_candidate"
+            },
+            {
+              "height_m": -0.01645294557967425,
+              "score": 364.9023842603319,
+              "support_returns": 370,
+              "tiles": 16,
+              "interpretation": "bottom_compatible"
+            }
+          ],
+          "relative_score_margin": 0.9458566515913797,
+          "flags": [],
+          "selected_returns": 10934,
+          "semantic_probabilities_are_return_origin_labels": false,
+          "float_components": 0,
+          "raw_float_max_diagnostic_m": null,
+          "fallback_value_m": 0.7282382139677157,
+          "eligibility_uses_truth": false,
+          "apex_backend": "instance_risk_rank_v8",
+          "v8_used": false,
+          "v8_policy": {
+            "bypass": "v5",
+            "fallback": "v5"
+          },
+          "original_candidates": 63,
+          "all_candidates": 63,
+          "v8_instances": [],
+          "chosen_bbox": null,
+          "original_metric_pixels_only": true
+        }
+      },
+      "visual_module_executed": true,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0018/floating_objects_all/tof_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00036.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0018/floating_objects_all/rgb.png"
+    }
+  ],
+  "floating_objects|structured_light": [
+    {
+      "scene": "floating_objects",
+      "sensor": "structured_light",
+      "level": "all",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 0,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.3518947328809955,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7593658041780404,
+      "highest_height_m": 0.6211786805137391,
+      "algorithm_ms": 410.90087965130806,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4606,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.8967984214784601,
+          0.91862260910767
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7593658041780404,
+            "score": 4521.204844734031,
+            "support_returns": 5423,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 5496,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 1.0521311674821843,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": true,
+          "allowed": true,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": null
+        },
+        "floating_peak_auxiliary": {
+          "candidates": [
+            {
+              "height_m": 0.7593658041780404,
+              "score": 4521.204844734031,
+              "support_returns": 5423,
+              "tiles": 16,
+              "interpretation": "bottom_compatible"
+            }
+          ],
+          "relative_score_margin": 1.0,
+          "flags": [],
+          "selected_returns": 5496,
+          "semantic_probabilities_are_return_origin_labels": false,
+          "float_components": 0,
+          "raw_float_max_diagnostic_m": null,
+          "fallback_value_m": 1.0521311674821843,
+          "eligibility_uses_truth": false,
+          "apex_backend": "instance_risk_rank_v8",
+          "v8_used": false,
+          "v8_policy": {
+            "bypass": "v5",
+            "fallback": "v5"
+          },
+          "original_candidates": 68,
+          "all_candidates": 68,
+          "v8_instances": [],
+          "chosen_bbox": null,
+          "original_metric_pixels_only": true
+        }
+      },
+      "visual_module_executed": true,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/floating_objects_all/structured_light_raw_00.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/floating_objects_all/rgb.png"
+    },
+    {
+      "scene": "floating_objects",
+      "sensor": "structured_light",
+      "level": "all",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 3,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.3518947328809955,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.7590638711034323,
+      "highest_height_m": 0.5753146473722839,
+      "algorithm_ms": 241.94301664829254,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4973,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9198720635111926,
+          0.9173463769381007
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.7590638711034323,
+            "score": 4897.91188991341,
+            "support_returns": 5893,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 5949,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9557707113682647,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": true,
+          "allowed": true,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": null
+        },
+        "floating_peak_auxiliary": {
+          "candidates": [
+            {
+              "height_m": 0.7590638711034323,
+              "score": 4897.91188991341,
+              "support_returns": 5893,
+              "tiles": 16,
+              "interpretation": "bottom_compatible"
+            }
+          ],
+          "relative_score_margin": 1.0,
+          "flags": [],
+          "selected_returns": 5949,
+          "semantic_probabilities_are_return_origin_labels": false,
+          "float_components": 0,
+          "raw_float_max_diagnostic_m": null,
+          "fallback_value_m": 0.9557707113682647,
+          "eligibility_uses_truth": false,
+          "apex_backend": "instance_risk_rank_v8",
+          "v8_used": false,
+          "v8_policy": {
+            "bypass": "v5",
+            "fallback": "v5"
+          },
+          "original_candidates": 68,
+          "all_candidates": 68,
+          "v8_instances": [],
+          "chosen_bbox": null,
+          "original_metric_pixels_only": true
+        }
+      },
+      "visual_module_executed": true,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/floating_objects_all/structured_light_raw_03.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/floating_objects_all/rgb.png"
+    },
+    {
+      "scene": "floating_objects",
+      "sensor": "structured_light",
+      "level": "all",
+      "cluster": "dual_far_13",
+      "physical_id": "dual_far_13",
+      "repeat": 2,
+      "camera_to_bottom_m": 9.930905891990275,
+      "truth": {
+        "liquid_height_m": 0.24947134064476276,
+        "highest_height_m": 0.3518947328809955,
+        "lowest_height_m": 0.2494713406447627,
+        "wave_peak_to_peak_m": 0.0
+      },
+      "liquid_depth_m": 0.6355956656552166,
+      "highest_height_m": 0.621675062233849,
+      "algorithm_ms": 276.4352634549141,
+      "cohort": "new_dual_far_blender_v2",
+      "actual_loss_pct": null,
+      "input_evidence": {
+        "eligible": true,
+        "reasons": [],
+        "interior_returns": 4806,
+        "occupied_4x4_tiles": 16,
+        "footprint_span_fraction": [
+          0.9195280582080401,
+          0.9124298829400843
+        ],
+        "uses_true_liquid_depth": false,
+        "uses_predicted_liquid_depth": false,
+        "uses_offline_semantic_or_origin_labels": false,
+        "policy": "input_evidence_v1"
+      },
+      "scope_included": true,
+      "diagnostics": {
+        "candidates": [
+          {
+            "height_m": 0.6355956656552166,
+            "score": 4752.303576243207,
+            "support_returns": 5694,
+            "tiles": 16,
+            "interpretation": "bottom_compatible"
+          }
+        ],
+        "relative_score_margin": 1.0,
+        "flags": [],
+        "selected_returns": 5753,
+        "semantic_probabilities_are_return_origin_labels": false,
+        "float_components": 0,
+        "raw_float_max_diagnostic_m": null,
+        "fallback_value_m": 0.9396809487862202,
+        "eligibility_uses_truth": false,
+        "highest_source": "legacy_geometric_peak",
+        "floating_peak_policy": {
+          "requested": true,
+          "allowed": true,
+          "allowed_scene": "floating_objects",
+          "allowed_output": "highest_height_m",
+          "liquid_visual_guidance_used": false,
+          "disabled_reason": null
+        },
+        "floating_peak_auxiliary": {
+          "candidates": [
+            {
+              "height_m": 0.6355956656552166,
+              "score": 4752.303576243207,
+              "support_returns": 5694,
+              "tiles": 16,
+              "interpretation": "bottom_compatible"
+            }
+          ],
+          "relative_score_margin": 1.0,
+          "flags": [],
+          "selected_returns": 5753,
+          "semantic_probabilities_are_return_origin_labels": false,
+          "float_components": 0,
+          "raw_float_max_diagnostic_m": null,
+          "fallback_value_m": 0.9396809487862202,
+          "eligibility_uses_truth": false,
+          "apex_backend": "instance_risk_rank_v8",
+          "v8_used": false,
+          "v8_policy": {
+            "bypass": "v5",
+            "fallback": "v5"
+          },
+          "original_candidates": 80,
+          "all_candidates": 80,
+          "v8_instances": [],
+          "chosen_bbox": null,
+          "original_metric_pixels_only": true
+        }
+      },
+      "visual_module_executed": true,
+      "liquid_visual_guidance_used": false,
+      "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/floating_objects_all/structured_light_raw_02.npy",
+      "geometry_path": "/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/far/calibrations/00027.json",
+      "source_rgb_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0013/floating_objects_all/rgb.png"
+    }
+  ]
+}

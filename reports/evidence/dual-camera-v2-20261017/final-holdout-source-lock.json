@@ -1,0 +1,8 @@
+{
+  "src/liquid_depth/phase_refraction_v2.py": "2d957d600abdd2208c3551679569a251a4ead1f8bda30bd43fceb64f7ca5c143",
+  "src/liquid_depth/dual_camera_scene_meter_v2.py": "f555d6ca59cc273ea593f1ea80692634c8b62d7a99c2fe5315fd09b69e7f9031",
+  "scripts/phase_capture_simulator_v2.py": "a28d8f699f13555b0bdc9d35d8817cf853b050d1155c90a95b20fbb099fe1887",
+  "scripts/evaluate_phase_refraction_v2.py": "592533878fe7d40ec895c0d2e45c488d85fafddce10b798894ddde9f14173244",
+  "scripts/dual_camera_protocol_v2.py": "4ea5b6fef28c2a3a784fdc06291a9e27153e9ae57ba21ec080f19905e90751c8",
+  "scripts/measure_dual_camera.py": "f1004bbe205ae1bc191b7b9276e34e7febce5ad52c731353afa6877432bcbb73"
+}

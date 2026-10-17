@@ -1,0 +1,105 @@
+{
+  "metric_groups_checked": 99,
+  "scene_camera_cli_checks": [
+    {
+      "scene": "ordinary_diffuse",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "ordinary_diffuse",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "partial_depth_loss",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "partial_depth_loss",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "low_light",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "low_light",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "glare",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "glare",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "uneven_surface",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "uneven_surface",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": false
+    },
+    {
+      "scene": "floating_objects",
+      "sensor": "tof",
+      "numeric_replay_match": true,
+      "vision_executed": true
+    },
+    {
+      "scene": "floating_objects",
+      "sensor": "structured_light",
+      "numeric_replay_match": true,
+      "vision_executed": true
+    }
+  ],
+  "all_16_matched": true,
+  "final_holdout_source_lock_matches": true,
+  "retained_opaque_route": "unchanged determined V1 backend",
+  "no_active_stereo_or_old_image_proxy_in_current_dataset": true
+}

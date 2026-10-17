@@ -1,0 +1,50 @@
+........................................................................ [  9%]
+........................................................................ [ 19%]
+........................................................................ [ 28%]
+........................................................................ [ 38%]
+........................................................................ [ 47%]
+........................................................................ [ 57%]
+........................................................................ [ 66%]
+........................................................................ [ 76%]
+........................................................................ [ 85%]
+........................................................................ [ 95%]
+..................................                                       [100%]
+=============================== warnings summary ===============================
+tests/test_height_objective.py::test_numpy_torch_estimator_match_and_gradient
+  /root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/tests/test_height_objective.py:17: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+    assert float(result)==pytest.approx(reference['statistics']['mean_m'],abs=1e-6)
+
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+tests/test_universal_refiner_encoding.py::test_torchscript_refiner_applies_universal_log_depth_encoding
+  /root/autodl-tmp/envs/liquid-depth/lib/python3.11/site-packages/torch/jit/_trace.py:1006: DeprecationWarning: `torch.jit.trace` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+tests/test_universal_refiner_encoding.py::test_torchscript_refiner_applies_universal_log_depth_encoding
+tests/test_universal_refiner_encoding.py::test_torchscript_refiner_applies_universal_log_depth_encoding
+  /root/autodl-tmp/envs/liquid-depth/lib/python3.11/site-packages/torch/jit/_trace.py:1145: DeprecationWarning: `torch.jit.trace_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+  /root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/src/liquid_depth/models/multitask.py:54: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+    if inputs.ndim != 4 or inputs.shape[1] != 5:
+
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+  /root/autodl-tmp/envs/liquid-depth/lib/python3.11/site-packages/torch/nn/functional.py:2805: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+    if size_prods == 1:
+
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+tests/test_universal_refiner_encoding.py::test_torchscript_refiner_applies_universal_log_depth_encoding
+  /root/autodl-tmp/envs/liquid-depth/lib/python3.11/site-packages/torch/jit/_serialization.py:89: DeprecationWarning: `torch.jit.save` is deprecated. Please switch to `torch.export`.
+    warnings.warn(
+
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+tests/test_multitask.py::test_multitask_torchscript_uses_metric_refiner_contract
+tests/test_universal_refiner_encoding.py::test_torchscript_refiner_applies_universal_log_depth_encoding
+  /root/autodl-tmp/envs/liquid-depth/lib/python3.11/site-packages/torch/jit/_serialization.py:176: DeprecationWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+754 passed, 14 warnings in 17.09s
