@@ -1,0 +1,50 @@
+{
+  "frames": 5744,
+  "cli_replays": 8,
+  "scene_checks": [
+    {
+      "scene": "ordinary_diffuse",
+      "match": true
+    },
+    {
+      "scene": "partial_depth_loss",
+      "match": true
+    },
+    {
+      "scene": "floating_objects",
+      "match": true
+    },
+    {
+      "scene": "glare",
+      "match": true
+    },
+    {
+      "scene": "low_light",
+      "match": true
+    },
+    {
+      "scene": "uneven_surface",
+      "match": true
+    },
+    {
+      "scene": "homogeneous_transparent",
+      "match": true
+    },
+    {
+      "scene": "homogeneous_translucent",
+      "match": true
+    }
+  ],
+  "phase_rows_replayed": 600,
+  "phase_calibrations_replayed": 150,
+  "phase_max_numerical_difference_m": 0.0,
+  "metric_quantity_groups": 23,
+  "all_match": true,
+  "pytest_result": "747 passed, 14 warnings in 24.73s",
+  "source_sha256": {
+    "src/liquid_depth/tof_scene_meter.py": "ddaf9785c81135b3e4072def92c775341a2c8a247572921a8b4aa0b3c9f6f095",
+    "src/liquid_depth/tof_phase_refraction.py": "b321add608a0cce975cf3c96f8e909df6aafef13b6cef2854b3ef6c2f4bc4020",
+    "scripts/measure_tof.py": "79aab94c7bbeb3b9ef57fb98e4f4e5fd6c960d0523f99f7d526cc3ec6e7518a7",
+    "configs/application_route.json": "7ac084c9f9dd353ddb1e18767a582f56cd7a1216f1c48b21cb307ccb1054eff0"
+  }
+}

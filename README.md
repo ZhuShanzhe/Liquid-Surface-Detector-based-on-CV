@@ -1,41 +1,42 @@
-# RGB-D 液深测量系统
+# ToF RGB-D 液深测量系统
 
-当前版本：`dual_camera_v2_20261017`。正式入口只接受 **ToF / 结构光**，相对容器内底面输出米制液深；不以主动双目或旧左右目图像代理作为当前性能基准。
+当前正式版：`tof_formal_v1_20261017`。开发、公开测量入口及正式性能报告**只支持 ToF**；统一输出相对容器内底面的米制液深。这是项目维护范围决策，不代表所有真实设备类别的普遍排名。
 
-本项目目前是固定机位的可复现仿真研究与软件接口版本，**不是已经完成任意真实相机、USB驱动、工业GUI或计量验收的成品**。场景由操作员明确选择。“已接通路线”与“所有工况精度达标”不是一回事。
+本项目是固定机位、限定物理假设的仿真与软件接口版本，**不是任意真实相机、USB驱动、工业GUI或工业计量验收均已完成的产品**。
 
-## 本轮三份报告
+## 正式报告与历史依据
 
-- [性能报告](reports/2026-10-17_dual_camera_performance.pdf)：封面、目录、场景总表；每场景一张ToF/结构光表，失效/低照/眩光按程度分行；绝对和相对误差区间、延时与输入审核。不按实际液深分层。
-- [正式计算链路](reports/2026-10-17_dual_camera_formal_pipeline.pdf)：封面、目录，按八类场景给结构示意图、模块注释、标定与硬件数据契约。
-- [远距浅液位不足](reports/2026-10-17_far_shallow_limitations.pdf)：封面、目录，全部场景两类相机的远浅总表、分路线原因与具体诊断案例。
+- [ToF 正式性能报告](reports/2026-10-17_tof_performance.pdf)：5744帧，场景总表、各场景独立表、失效/低照/眩光程度分层、绝对及相对误差区间、延时。不按实际液深分层。
+- [ToF 正式计算链路](reports/2026-10-17_tof_formal_pipeline.pdf)：封面、目录、八类场景结构示意图、模块注释、标定与输入契约。
+- [历史双相机性能报告](reports/2026-10-17_dual_camera_performance.pdf)：**原文件原样保留**，记录比较后选择ToF的开发依据；不是当前支持范围。原实现见Git提交 `15bfe99`。
+- [更早开发进展](reports/2026-10-16_development_history.pdf) 与 [历史全场景报告](reports/2026-10-16_system_and_scenario_evaluation.pdf) 是历史记录，不是当前验收报告。
 
-报告统计11,390帧：保留未变更普通类链路的6,813帧ToF/结构光结果，新增远浅3,377帧，新增相位观测1,200帧。所有报告小类至少150帧，每场景每相机远浅至少100帧。旧透明左右目代理不混入；初次相位验证发现定义错误后，旧初测转为开发证据，修正后换独立种子重测。新旧不同采样构成不能直接作为算法提升百分比。
+远距浅液位专题报告已从当前目录删除，其原始帧仍全部进入ToF统计，不通过删除困难帧提高成绩。
 
-## 当前应用边界
+## 场景及应用边界
 
-| 场景 | 输入与标定 | 当前算法 |
+| 场景 | 输入与标定 | 当前计算 |
 |---|---|---|
-| 普通漫反射 | 空槽RGB-D + 内参/轮廓/独立米制锚点 | 冻结对称候选几何 |
-| 部分深度失效 | 同上，限定液面数值空洞0%-50% | 同一几何；不强制拒绝数值输出 |
-| 低照 / 眩光 | 同上，程度固定仿真参数 | 不自动用视觉或提亮替代液深 |
-| 不平整 | 同上 | 代表液深 + V11几何最高包络 |
-| 漂浮物 | 同上，可按需输入RGB | 液深不变；视觉仅最高高度；两类相机沿用V5选定分支 |
-| 均匀透明 / 轻半透明 | 1空槽 + 4已知液深的原始相位组 | ToF光程/混合回波逆解；结构光Snell投影相位逆解 |
+| 普通漫反射 | 空槽RGB-D、内参、轮廓、独立米制锚点 | 冻结对称候选几何 |
+| 部分深度失效 | 同上，液面数值空洞0%-50% | 同一液深几何；不加置信拒绝门槛 |
+| 低照 / 眩光 | 同上 | 不自动以RGB增强替代液深 |
+| 不平整液面 | 同上 | 代表液深与V11最高包络 |
+| 漂浮物 | 同上，可选RGB | 液深不变，视觉仅最高高度；V8 selected的ToF策略沿用V5 |
+| 均匀透明 / 轻半透明 | 1空槽+4已知液深原始相位组，独立几何标定 | AMCW iToF光程与混合回波逆解 |
 
-透明路线需要原始AMCW iToF三频四相相关图，或可控投影器两周期四相条纹图及标定。**普通只导出深度图的ToF/封闭结构光SDK不能直接宣称可启用透明路线**；dToF、多层、强散射、持续移动和超过50%失效不在本版承诺内。当前模拟的35mm短基线结构光在远浅仍明显不足，不能据此承诺商业相机10m工业精度。
+透明链路需要**三频四相原始相关图**，本轮20/30/50MHz；只导出深度图的SDK不能直接启用。脉冲dToF不等于已经支持该相位路线。底部调制须可见、液体性质和机位须稳定；不承诺多层、强散射、持续移动或超过50%深度失效。
 
-透明相位成绩以底部调制仍可见为条件：当前低消光常数模型未标定为850/940nm水的实测光谱，也未验证近红外穿透9m水层。ToF有效群折射率与结构光相折射率作常数近似；现场还必须核查发射波长下的吸收/散射及信号预算。
+仿真消光不是850/940nm实测水光谱，不证明近红外能穿透9m水层；真实部署须核查吸收、散射、信号预算、多径和温漂。
 
-## 指标
+## 性能口径
 
-液深均为内底面相对实际H。普通/透明/半透明/部分失效/低照/眩光/漂浮物液深用 `max(20mm,2%H)`；不平整均值用 `max(50mm,5%H)`；最高高度用 `max(50mm,5%真实最高高度)`。
+从冻结的11390帧比较测试中保留**全部5744帧ToF**，预测与真值不变。未重新训练、未重新挑样，也未声称新的独立测试提升。保留原来源与安装聚类；每个报告小类不少于100帧。
 
-数值覆盖率不等于达标率。空槽不计算相对误差，仍计入绝对误差。新远浅采集按空间支持与离线回波来源审核，不按测量误差选帧；来源标签不进入推理。相位残差和灵敏度只作诊断，不用它们删掉高误差帧。
+液深容差 `max(20mm,2%真实H)`；不平整代表高度和所有最高高度为 `max(50mm,5%真实高度)`。空槽不算相对误差，仍计绝对误差及通过率；数值覆盖率不是准确率。
+
+注意：漂浮物最高高度保留约3.43m孤立异常；液深稳定不等于最高高度安全可靠。算法延时不含完整采集，最高高度尾部可能超过0.5s；报告未隐藏这些限制。
 
 ## 运行
-
-Python3.11；已有服务器验证环境为RTX5090、PyTorch2.11.0+cu128、NumPy2.4.6、SciPy1.17.1、OpenCV4.14.0、scikit-learn1.9.0。
 
 ```bash
 git clone --recurse-submodules https://github.com/ZhuShanzhe/Liquid-Surface-Detector-based-on-CV.git
@@ -44,28 +45,32 @@ python -m pip install -e '.[dev,train,research]'
 python -m pip install scikit-learn==1.9.0 joblib==1.5.3
 PYTHONPATH=src:scripts python -m pytest -q
 
-# 普通类：initialization含sensor_family、kind=empty_geometry、bundle、dry_depth
-PYTHONPATH=src:scripts python scripts/measure_dual_camera.py \
-  --scene ordinary_diffuse --initialization /path/init.json --depth /path/current.npy
+PYTHONPATH=src:scripts python scripts/measure_tof.py \
+  --scene ordinary_diffuse --initialization /path/tof_init.json --depth /path/current.npy
 
-# 透明类：five_phase_priors初始化，当前NPZ含correlations[F,4,H,W]
-PYTHONPATH=src:scripts python scripts/measure_dual_camera.py \
-  --scene homogeneous_transparent --initialization /path/tof_initialization.json \
-  --phase-capture /path/tof_test.npz
+PYTHONPATH=src:scripts python scripts/measure_tof.py \
+  --scene homogeneous_transparent --initialization /path/tof_phase_init.json \
+  --phase-capture /path/current.npz
+
+python scripts/recount_tof.py
 ```
 
-普通初始化的 `sensor_family` 必须为 `tof` 或 `structured_light` 且与bundle一致。相位初始化还包含 `scene`、`profile`、`rays_roi`、五个 `prior_captures` 及五个 `known_heights_m`；第一组H=0，其余四组递增且在容器容量内。模型对象应常驻，避免每帧重新标定。漂浮物最高视觉可加 `--rgb` 与 `--enable-floating-peak-vision`，其他场景不执行此模块。
+初始化JSON的 `sensor_family` 必须为 `tof`，与bundle一致。普通 `kind=empty_geometry`，含 `bundle`、`dry_depth`；透明 `kind=five_phase_priors`，还含 `scene`、`profile`、`rays_roi`、五个 `prior_captures`、五个 `known_heights_m`（0及四个容量内递增非零高度）。NPZ含 `correlations[3,4,H,W]`。
+
+漂浮物最高高度可加 `--rgb` 与 `--enable-floating-peak-vision`，其他场景不调用该视觉模块。长期运行常驻一个 `ToFSceneMeter`，不要每帧重新标定。服务器验证环境：Python3.11、PyTorch2.11.0+cu128、NumPy2.4.6、SciPy1.17.1、OpenCV4.14.0。
 
 ## 代码与复现
 
-- `src/liquid_depth/dual_camera_scene_meter_v2.py`：当前正式双相机门面。
-- `src/liquid_depth/phase_refraction_v2.py`：相位解码、五先验拟合与液深逆解。
-- `scripts/generate_dual_far_v2.py` / `evaluate_dual_far_v2.py`：新容器、RGB、物理底面/浮物与双机制测试。
-- `scripts/phase_capture_simulator_v2.py` / `evaluate_phase_refraction_v2.py`：原始相关/条纹观测、独立正向求解及相位测试。
-- `scripts/summarize_dual_camera_v2.py`：无实际液深分层的统计、聚类区间及配额校验。
-- `scripts/build_dual_camera_reports.py`：三份带封面目录的PDF，需ReportLab及中文字体。
-- `reports/evidence/dual-camera-v2-20261017/`：预测、汇总、审核与代码/输入哈希，原始数据外置。
+- `configs/application_route.json` / `tof_scene_routes.json`：唯一当前入口及场景契约。
+- `src/liquid_depth/tof_scene_meter.py` / `tof_phase_refraction.py`：ToF门面及专用相位逆解，不含投影相位逆解。
+- `scripts/measure_tof.py`：非ToF初始化直接报错，不隐式回退。
+- `generate_tof_far.py` / `evaluate_tof_far.py`：ToF几何采样及输入审核。
+- `tof_phase_simulator.py` / `evaluate_tof_phase.py`：ToF原始相位仿真，前向24层、逆向4层散射积分。
+- `publish_tof_evidence.py` / `recount_tof.py` / `verify_tof_release.py`：证据导出、独立复算与观察回放。
+- `build_tof_reports.py`：两份正式PDF，需ReportLab及中文字体；`PDF_CN_FONT`、`PDF_CN_BOLD_FONT`可指定字体。
+- `reports/evidence/tof-formal-v1-20261017/`：当前预测、指标、验证、哈希。
+- `reports/evidence/dual-camera-v2-20261017/`：仅为历史比较报告审计，不是当前相机入口；源码锁对应提交 `15bfe99`。
 
-服务器原始数据：`/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/`；完整结果与开发证据：`/root/autodl-tmp/liquid-depth-artifacts/dual-camera-v2-20261017/`。不将大数据、环境、凭据或第三方大权重上传Git。可选最高高度小模型位于 `assets/models/v8`，只加载可信来源的PyTorch/joblib文件。
+共享冻结几何源码与更早研究模块保留历史兼容实现以免破坏ToF依赖，**研究脚本不是支持的生产入口**。当前双相机门面、专用投影相位实现、配置及采样入口已撤销，后续不维护另一类相机链路。
 
-旧2026-10-16入口、代码和报告保留为明确版本化的复现依据，不是当前默认应用；旧README见 `docs/archive/README_formal20261016.md`。以后主要处理远浅共性问题，其他场景以本版为防回退基线。
+服务器原观察位于 `/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/`；原目录名保留用于来源核对，不伪造重新采集。切换备份及验证：`/root/autodl-tmp/liquid-depth-artifacts/tof-release-20261017/`。大数据、环境、密码不上传Git；可选小模型在 `assets/models/v8`，仅加载可信文件。

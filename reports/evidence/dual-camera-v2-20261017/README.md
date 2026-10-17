@@ -1,4 +1,6 @@
-# 双相机V2统计与复现证据
+# 历史双相机V2统计与复现证据（非当前入口）
+
+本目录保留，用于开发过程比较与选择ToF的依据。当前正式版见 `../tof-formal-v1-20261017/`。旧源码锁、验证及PDF清单对应提交 `15bfe99`，不是当前文件列表。旧链路与远浅专题已从当前发布目录撤下；性能PDF原样保留。
 
 当前数据仅含 `tof` / `structured_light`。`active_stereo` 与旧 `stereo_IR_image_proxy` 没有重新贴标签混入。
 
@@ -15,7 +17,8 @@
 在新机器只需NumPy即可独立重算数据：
 
 ```bash
-python scripts/recount_dual_camera_v2.py
+git show 15bfe99:scripts/recount_dual_camera_v2.py > /tmp/recount_historical_dual.py
+python /tmp/recount_historical_dual.py --evidence reports/evidence/dual-camera-v2-20261017
 ```
 
 完整源观测位于服务器 `/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/`：`far/` 为新25组安装的Blender RGB/底面/浮物几何和双机制深度代理；`phase-final/` 为最终独立相位观测。`dev-phase/` 与 `phase-holdout/` 是开发数据/初测，不属于最终1200帧。初测发现结构光散射相位定义错误后保留原记录，修正并换独立种子再测，未将初测好帧拼入最终结果。

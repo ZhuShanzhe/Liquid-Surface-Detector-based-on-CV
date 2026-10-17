@@ -1,6 +1,6 @@
 {
-  "version": "dual_camera_v2_20261017",
-  "sensors": ["tof", "structured_light"],
+  "version": "tof_formal_v1_20261017",
+  "sensors": ["tof"],
   "manual_scene_selection": true,
   "scenes": {
     "ordinary_diffuse": {"initialization": "empty_geometry", "input": "aligned_metric_depth", "vision": false},
@@ -9,8 +9,8 @@
     "glare": {"initialization": "empty_geometry", "input": "aligned_metric_depth", "vision": false},
     "uneven_surface": {"initialization": "empty_geometry", "input": "aligned_metric_depth", "vision": false, "additional_output": "highest_height_m"},
     "floating_objects": {"initialization": "empty_geometry", "input": "aligned_metric_depth_optional_rgb", "vision": "optional_highest_only", "additional_output": "highest_height_m"},
-    "homogeneous_transparent": {"initialization": "five_phase_priors", "tof_input": "three_frequency_four_phase_correlations", "structured_light_input": "two_period_four_phase_projector_images", "vision": false},
-    "homogeneous_translucent": {"initialization": "five_phase_priors", "tof_input": "three_frequency_four_phase_correlations", "structured_light_input": "two_period_four_phase_projector_images", "vision": false}
+    "homogeneous_transparent": {"initialization": "five_phase_priors", "input": "three_frequency_four_phase_correlations", "vision": false},
+    "homogeneous_translucent": {"initialization": "five_phase_priors", "input": "three_frequency_four_phase_correlations", "vision": false}
   },
   "metric": "actual_liquid_height_above_inner_bottom_m",
   "prior_budget_phase": "one_empty_plus_four_distinct_known_heights",
@@ -18,8 +18,8 @@
   "highest_tolerance": "max(50mm,5%true_highest_height)",
   "no_zero_snap_or_post_output_clip": true,
   "phase_search_bounds": "[-max(.05,.02*capacity),min(capacity+max(.05,.02*capacity),B-.02)] with boundary flags retained",
-  "phase_scope": "uniform_liquid_fixed_installation_with_bottom_modulation_visible; AMCW_iToF_and_controllable_projector_not_any_depth_only_SDK",
-  "excluded": ["active_stereo", "stereo_IR_image_proxy", "multilayer", "strong_scattering", "continuous_camera_motion", "loss_above_50pct"],
+  "phase_scope": "uniform_liquid_fixed_installation_with_bottom_modulation_visible; AMCW_iToF_raw_correlations_required",
+  "excluded": ["structured_light", "active_stereo", "stereo_IR_image_proxy", "multilayer", "strong_scattering", "continuous_camera_motion", "loss_above_50pct"],
   "minimum_report_cell_frames": 100,
   "hardware_qualified": false
 }

@@ -1,4 +1,4 @@
-"""Fresh Blender RGB, physical floor/float geometry and dual-mechanism holdout."""
+"""Blender RGB, physical floor/float geometry and ToF-only observations."""
 import argparse,json,random,sys
 from dataclasses import replace
 from pathlib import Path
@@ -8,7 +8,7 @@ import generate_synthetic_liquid as gen
 from generate_fullframe_v16 import cast,tree_for
 from generate_other_scenes_v34 import make_scene
 from generate_special_scene_strata_v1 import floor_for
-from dual_camera_protocol_v2 import *
+from tof_protocol import *
 
 
 def capture(root,gid,scenario,level):
@@ -74,8 +74,8 @@ def capture(root,gid,scenario,level):
             np.save(folder/f'{sensor}_raw_{rep:02d}.npy',raw);np.save(folder/f'{sensor}_error_offline_{rep:02d}.npy',sim['simulated_error_type'])
     meta=gen.scene_metadata(scene,folder);meta.update(d,scenario=scenario,level=level,truth=truth,
         interior_bottom_z_m=-d['nominal_liquid_height_m'],physical_peak_method='analytic area mean plus Blender float mesh vertices')
-    (folder/'metadata.json').write_text(json.dumps(meta,indent=2));(folder/'complete.json').write_text(json.dumps({'frames':8}))
-    print('DUAL_FAR_CAPTURE',gid,scenario,level,flush=True)
+    (folder/'metadata.json').write_text(json.dumps(meta,indent=2));(folder/'complete.json').write_text(json.dumps({'frames':len(SENSORS)*REPEATS}))
+    print('TOF_CAPTURE',gid,scenario,level,flush=True)
 
 
 if __name__=='__main__':

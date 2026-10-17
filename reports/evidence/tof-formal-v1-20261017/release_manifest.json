@@ -1,0 +1,40 @@
+{
+  "version": "tof_formal_v1_20261017",
+  "historical_comparison_report_unchanged": true,
+  "source_comparison_commit": "15bfe99",
+  "current_camera_families": [
+    "tof"
+  ],
+  "retired_public_route": true,
+  "far_shallow_pdf_removed": true,
+  "all_5744_tof_frames_retained": true,
+  "exact_pre_cutover_backup": "/root/autodl-tmp/liquid-depth-artifacts/tof-release-20261017/before-cutover.tar.gz",
+  "files": {
+    "README.md": "ca1cb5d2db172871da0b364a15b78a3a33c8f3668d271e942c113e5a4d5e93c9",
+    "configs/application_route.json": "7ac084c9f9dd353ddb1e18767a582f56cd7a1216f1c48b21cb307ccb1054eff0",
+    "configs/tof_scene_routes.json": "2c303f7aeaa39b133a37f9bc53c1e21300a36064dec6191340e828c1c1c64c6c",
+    "reports/2026-10-17_dual_camera_performance.pdf": "749ea127e0c63511d253e205830385db45cf4338239d9edfff4dbe5060431b9c",
+    "reports/2026-10-17_tof_formal_pipeline.pdf": "d9f0967b903558a87f11d0d4efde269c0b35faca9d1da053088cad2088b88330",
+    "reports/2026-10-17_tof_performance.pdf": "4a1732aa666cc58434a9ed54224e3422adaf786901414c7c3427586158a7ba42",
+    "reports/evidence/tof-formal-v1-20261017/README.md": "38e4a5c3f9424cf907484d1cc09ec930790424ed4bea740eee369e31e0ecb59a",
+    "reports/evidence/tof-formal-v1-20261017/current-tof-predictions.jsonl.gz": "e52061c9bbd5e6d18abde48f1362c87fc6d2eca085322a3d1cb9b821163e33da",
+    "reports/evidence/tof-formal-v1-20261017/evaluation-audit.json": "c16904bd7fadef549c4e1b84f3ee88f0376c5325a074dff634ffadb50d94fcb9",
+    "reports/evidence/tof-formal-v1-20261017/metrics.json": "965e103e3cf287c9306017e739d1dfd66e1cabcdea4f33625b6fcfc74bcbf916",
+    "reports/evidence/tof-formal-v1-20261017/pdf-qa.json": "3c0fd2cf3c174f4a0b6ee66297169715c2286c0e8e6aa253e59a8c6e3a70440d",
+    "reports/evidence/tof-formal-v1-20261017/pytest.log": "c2ea138140105cf49ba99958c048238711cda54b156453ea47b873a941d31113",
+    "reports/evidence/tof-formal-v1-20261017/verification.json": "a967d098ca914fc0862cd24724d09bdbfd244632abb465d9bc7f434b64f1e000",
+    "scripts/build_tof_reports.py": "b13e772a6d7934ece35d337b5e74ef33e776f01e210646edf589dfe4b66043ce",
+    "scripts/evaluate_tof_far.py": "f31f8f0a86025617050d61fa1a5a726069011fcc0442097cd9e23a334bd1734c",
+    "scripts/evaluate_tof_phase.py": "68091250b50e36d10890587f71158e61a55cedda31efc182da7ca98546150fda",
+    "scripts/generate_tof_far.py": "21563de9fb97b8dbb2510a7263c7fc3b4e4a0c8820949e3dd0120d6c41b04705",
+    "scripts/measure_tof.py": "79aab94c7bbeb3b9ef57fb98e4f4e5fd6c960d0523f99f7d526cc3ec6e7518a7",
+    "scripts/publish_tof_evidence.py": "12bf63654aa91dd200cc2fe6880f093f593c56e355853226e91ffa888bf94913",
+    "scripts/recount_tof.py": "1ddef458b5cf077457b62826663e4829a85ade8d5c85ef189dd9ef2cac1b823c",
+    "scripts/tof_phase_simulator.py": "d779edc7c9533bc835bade793a5032b9250a21ab697e558e19e67020ac0d2224",
+    "scripts/tof_protocol.py": "e180ed98a92c010ecea277eb52cdd96c2ecb8b63384e021f8374e6077304ecee",
+    "scripts/verify_tof_release.py": "20600ae8eb233555470d752a83fec53dd4e119760b155ae0f67922093cc42c63",
+    "src/liquid_depth/tof_phase_refraction.py": "b321add608a0cce975cf3c96f8e909df6aafef13b6cef2854b3ef6c2f4bc4020",
+    "src/liquid_depth/tof_scene_meter.py": "ddaf9785c81135b3e4072def92c775341a2c8a247572921a8b4aa0b3c9f6f095",
+    "tests/test_tof_release.py": "96eaae6f0e48fcd2ec068a9f97910879a3e22d045c0158cd6c7e4f772ebbd0a4"
+  }
+}

@@ -1,4 +1,4 @@
-"""Five-prior uniform-liquid inversion for raw iToF / projector-camera phases.
+"""Five-prior uniform-liquid inversion for raw AMCW iToF phases only.
 
 No stereo image adapter, test liquid label, event mask or test refractive index is
 accepted by this runtime. This is a bounded physical-family simulator validation,
@@ -9,7 +9,7 @@ import numpy as np
 from scipy.optimize import least_squares, minimize_scalar
 
 C=299792458.
-SENSORS=('tof','structured_light')
+SENSORS=('tof',)
 SCENES=('homogeneous_transparent','homogeneous_translucent')
 
 
@@ -25,46 +25,20 @@ def bottom_map(q,h,n,b):
     return (b-h)*q+h*q/a[...,None]
 
 
-def projector_delta(q,h,n,b,baseline,fx):
-    """Snell camera ray -> bottom hit -> inverse projector ray, flat interface."""
-    target=bottom_map(q,h,n,b)-np.array([baseline,0.])
-    p=target/b
-    for _ in range(7):
-        a=np.sqrt(n*n+(n*n-1)*np.sum(p*p,axis=-1))
-        residual=(b-h)*p+h*p/a[...,None]-target
-        diagonal=b-h+h/a
-        factor=h*(n*n-1)/(a**3)
-        jxx=diagonal-factor*p[...,0]**2;jyy=diagonal-factor*p[...,1]**2
-        jxy=-factor*p[...,0]*p[...,1];det=jxx*jyy-jxy*jxy
-        p-=np.stack(((jyy*residual[...,0]-jxy*residual[...,1])/det,
-                    (jxx*residual[...,1]-jxy*residual[...,0])/det),axis=-1)
-    return fx*(p[...,0]-(q[...,0]-baseline/b))
-
-
 def relative_phasor(sensor,q,h,parameters,profile):
+    if sensor not in SENSORS:raise ValueError('only_tof_supported')
     n,rho,ext,scatter,offset=parameters
-    if sensor=='tof':
-        k=4*np.pi*np.asarray(profile['frequencies_hz'])/C
-        cosa=(1+np.sum(q*q,axis=-1))**-.5
-        cost=np.sqrt(1-(1-cosa*cosa)/(n*n))
-        surface=-h/cosa;bottom=h*(n/cost-1/cosa)
-        ab=np.exp(-2*ext*h/cost);ass=rho*np.ones_like(ab)
-        ph=ab[None]*np.exp(1j*k[:,None]*bottom[None])+ass[None]*np.exp(1j*k[:,None]*surface[None])
-        for t in (.125,.375,.625,.875):
-            amp=scatter*(1-np.exp(-2*ext*h/cost))/4
-            delta=-h/cosa+n*h*t/cost
-            ph+=amp[None]*np.exp(1j*k[:,None]*delta[None])
-        ph*=np.exp(1j*k[:,None]*offset)
-    else:
-        b=profile['bottom_m'];fx=profile['fx_px'];baseline=profile['baseline_m']
-        k=2*np.pi/np.asarray(profile['fringe_periods_px'])
-        delta=projector_delta(q,h,n,b,baseline,fx)
-        surface=-fx*baseline/(b-h)+fx*baseline/b
-        ab=np.exp(-2*ext*h)*np.ones(len(q))
-        ph=ab[None]*np.exp(1j*k[:,None]*delta[None])+rho*np.exp(1j*k[:,None]*surface)
-        # A broad subsurface component has low contrast; residual blur is left as model mismatch.
-        ph+=scatter*(1-np.exp(-2*ext*h))*np.exp(1j*k[:,None]*(delta[None]+surface)/2)
-        ph*=np.exp(1j*k[:,None]*offset)
+    k=4*np.pi*np.asarray(profile['frequencies_hz'])/C
+    cosa=(1+np.sum(q*q,axis=-1))**-.5
+    cost=np.sqrt(1-(1-cosa*cosa)/(n*n))
+    surface=-h/cosa;bottom=h*(n/cost-1/cosa)
+    ab=np.exp(-2*ext*h/cost);ass=rho*np.ones_like(ab)
+    ph=ab[None]*np.exp(1j*k[:,None]*bottom[None])+ass[None]*np.exp(1j*k[:,None]*surface[None])
+    for t in (.125,.375,.625,.875):
+        amp=scatter*(1-np.exp(-2*ext*h/cost))/4
+        delta=-h/cosa+n*h*t/cost
+        ph+=amp[None]*np.exp(1j*k[:,None]*delta[None])
+    ph*=np.exp(1j*k[:,None]*offset)
     return ph
 
 
@@ -87,7 +61,7 @@ class PhasePriorMeter:
 
     @classmethod
     def fit(cls,sensor,scene,profile,ray_coordinates,roi,prior_correlations,known_heights_m):
-        if sensor not in SENSORS:raise ValueError('only_tof_or_structured_light_supported')
+        if sensor not in SENSORS:raise ValueError('only_tof_supported')
         if scene not in SCENES:raise ValueError('uniform_transparent_or_mild_translucent_required')
         known=np.asarray(known_heights_m,float)
         capacity=float(profile['container_max_height_m']);b=float(profile['bottom_m'])
@@ -97,9 +71,9 @@ class PhasePriorMeter:
         if len(prior_correlations)!=5:raise ValueError('five_capture_groups_required')
         decoded=[decode(c) for c in prior_correlations];shape=decoded[0].shape
         if any(z.shape!=shape for z in decoded):raise ValueError('prior_capture_shape_changed')
-        expected=3 if sensor=='tof' else 2
+        expected=3
         if shape[0]!=expected:raise ValueError('wrong_modulation_channel_count')
-        field='frequencies_hz' if sensor=='tof' else 'fringe_periods_px'
+        field='frequencies_hz'
         if len(profile[field])!=expected or np.any(np.asarray(profile[field])<=0):raise ValueError('invalid_sensor_modulation_profile')
         mask=np.asarray(roi,bool)
         q=np.asarray(ray_coordinates,float)
@@ -121,7 +95,7 @@ class PhasePriorMeter:
             value=np.stack([model_feature(sensor,rays,h,v,profile) for h in known])
             diff=value-observations
             return np.r_[diff.real.ravel(),diff.imag.ravel()]
-        off=.015 if sensor=='tof' else .3
+        off=.015
         bounds=([1.15,0.,0.,0.,-off],[1.6,.4,.6,1.,off])
         best=None
         for n in (1.25,1.36,1.49):

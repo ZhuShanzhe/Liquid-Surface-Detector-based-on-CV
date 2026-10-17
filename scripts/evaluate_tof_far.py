@@ -1,4 +1,4 @@
-"""Input-audited new far-shallow scenes through the dual-only public facade."""
+"""Input-audited scene observations through the ToF-only public facade."""
 import argparse,json,time
 from collections import Counter
 from dataclasses import fields,replace
@@ -7,10 +7,10 @@ import cv2,numpy as np,torch
 from evaluate_shared_empty_v45 import install
 from evaluate_uniform_loss_v48 import delete_to_actual_loss
 from special_scene_input_evidence_v1 import assess,assess_capture_origin
-from dual_camera_protocol_v2 import *
+from tof_protocol import *
 from measure_release import validated_profile
 from liquid_depth.simulation import SyntheticScene,simulate_raw_depth
-from liquid_depth.dual_camera_scene_meter_v2 import DualCameraSceneMeter
+from liquid_depth.tof_scene_meter import ToFSceneMeter
 
 
 def main():
@@ -29,7 +29,7 @@ def main():
             item=install(case,a.root/'installations',a.root/'dry',SEED-case*8071+gid*8071,max_annotation_attempts=6,source_slot_stride=1)
             cals.append(item['audit']);bundles.append(item['bundle'])
             (a.out/'calibrations'/f'{case:05d}.json').write_text(json.dumps(item['bundle']))
-            meters.append(DualCameraSceneMeter.from_empty_geometry(item['bundle'],item['dry'],profile_path=profile_path))
+            meters.append(ToFSceneMeter.from_empty_geometry(item['bundle'],item['dry'],profile_path=profile_path))
         for scene,level in CONDITIONS:
             folder=a.root/'observations'/f'{gid:04d}'/f'{scene}_{level}'
             meta=json.loads((folder/'metadata.json').read_text());rgb=cv2.imread(str(folder/'rgb.png'))
@@ -71,23 +71,27 @@ def main():
                             raise RuntimeError('controlled_0_50pct_frame_has_insufficient_capture_evidence')
                         start=time.perf_counter()
                         result=meters[si].measure(output_scene,depth_m=frame,rgb_bgr=rgb,visual_enabled=output_scene=='floating_objects')
-                        row=dict(scene=output_scene,sensor=sensor,level=output_level,cluster=f'dual_far_{gid}',physical_id=f'dual_far_{gid}',
+                        frame_path=folder/f'{sensor}_raw_{rep:02d}.npy'
+                        if actual_loss is not None:
+                            frame_path=folder/f'tof_loss_{actual_loss:.5f}_{rep:02d}.npy'
+                            np.save(frame_path,frame)
+                        row=dict(scene=output_scene,sensor=sensor,level=output_level,cluster=f'tof_far_{gid}',physical_id=f'tof_far_{gid}',
                             repeat=rep,camera_to_bottom_m=meta['camera_to_bottom_m'],truth=meta['truth'],
                             liquid_depth_m=result.get('liquid_depth_m'),highest_height_m=result.get('highest_height_m'),
-                            algorithm_ms=(time.perf_counter()-start)*1000,cohort='new_dual_far_blender_v2',
+                            algorithm_ms=(time.perf_counter()-start)*1000,cohort='new_tof_blender_formal_v1',
                             actual_loss_pct=actual_loss,input_evidence=ev,scope_included=True,diagnostics=result.get('diagnostics',{}),
                             visual_module_executed=result.get('visual_module_executed',False),liquid_visual_guidance_used=result.get('liquid_visual_guidance_used',False),
-                            input_path=str(folder/f'{sensor}_raw_{rep:02d}.npy'),geometry_path=str(a.out/'calibrations'/f'{gid*2+si:05d}.json'),
+                            input_path=str(frame_path),geometry_path=str(a.out/'calibrations'/f'{gid*2+si:05d}.json'),
                             source_rgb_path=str(folder/'rgb.png'))
                         assert not row['liquid_visual_guidance_used']
                         stream.write(json.dumps(row,allow_nan=False)+'\n');stream.flush();rows.append(row)
                 accepted+=1
                 if accepted==REPEATS:break
             if accepted!=REPEATS:raise RuntimeError(f'input_only_quota_not_filled:{gid}:{scene}:{level}')
-        print('DUAL_FAR_EVALUATED',gid,'rows',len(rows),flush=True)
+        print('TOF_EVALUATED',gid,'rows',len(rows),flush=True)
     (a.out/f'capture-attempts-worker-{a.worker}.json').write_text(json.dumps(attempts))
     (a.out/f'calibration-audit-worker-{a.worker}.json').write_text(json.dumps(cals))
-    print('DUAL_FAR_COMPLETE',a.worker,len(rows),flush=True)
+    print('TOF_COMPLETE',a.worker,len(rows),flush=True)
 
 
 if __name__=='__main__':main()

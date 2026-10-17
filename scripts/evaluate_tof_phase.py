@@ -3,9 +3,9 @@ import argparse,json,time
 from concurrent.futures import ProcessPoolExecutor,as_completed
 from pathlib import Path
 import cv2,numpy as np
-from dual_camera_protocol_v2 import SEED
-from phase_capture_simulator_v2 import generate,rays
-from liquid_depth.dual_camera_scene_meter_v2 import DualCameraSceneMeter
+from tof_protocol import SEED
+from tof_phase_simulator import generate,rays
+from liquid_depth.tof_scene_meter import ToFSceneMeter
 
 
 def spec(group,regime,rep,dev=False,seed_base=None):
@@ -17,10 +17,10 @@ def spec(group,regime,rep,dev=False,seed_base=None):
         cap=float(np.linspace(.15,9.,25)[rep]);b=float(r.uniform(cap+.21,min(10.,cap+2.)))
     physical=dict(seed=seed,index=float(r.uniform(1.28,1.5)),extinction=0. if group==0 else float(r.uniform(.012,.05) if group==1 else r.uniform(.055,.12)),
         surface_ratio=float(r.uniform(.025,.13)),scatter_strength=0. if group==0 else float(r.uniform(.08,.35)))
-    profile=dict(bottom_m=b,container_max_height_m=cap,fx_px=470.94,baseline_m=.035,
+    profile=dict(bottom_m=b,container_max_height_m=cap,fx_px=470.94,
         center_q=[float(r.uniform(-.06,.06)),float(r.uniform(-.03,.03))],
-        frequencies_hz=[20e6,30e6,50e6],fringe_periods_px=[8.,13.],
-        sensor_profile='tof_phase3_or_sl_35mm480px_v2',fixed_camera=True)
+        frequencies_hz=[20e6,30e6,50e6],
+        sensor_profile='amcw_itof_phase3_formal_v1',fixed_camera=True)
     return physical,profile
 
 
@@ -37,7 +37,7 @@ def job(args,group,regime,rep):
     if regime:tests=np.array([.02,.12,.5,.98])*profile['container_max_height_m']
     else:tests=np.array([.04,.31,.67,.99])*profile['container_max_height_m']
     allrows=[];calibrations=[]
-    for sensor in ('tof','structured_light'):
+    for sensor in ('tof',):
         priors=[]
         for j,h in enumerate(known):
             capture,roi=generate(sensor,profile,physical,float(h),j)
@@ -48,7 +48,7 @@ def job(args,group,regime,rep):
         (folder/f'{sensor}_initialization.json').write_text(json.dumps(init,indent=2))
         start=time.perf_counter();failure=None
         try:
-            meter=DualCameraSceneMeter.from_phase_priors(sensor=sensor,scene=scene,profile=profile,ray_coordinates=rays(profile),roi=roi,prior_correlations=priors,known_heights_m=labels)
+            meter=ToFSceneMeter.from_phase_priors(sensor=sensor,scene=scene,profile=profile,ray_coordinates=rays(profile),roi=roi,prior_correlations=priors,known_heights_m=labels)
         except ValueError as exc:meter=None;failure=str(exc)
         calibrations.append(dict(cluster=cluster,sensor=sensor,scene=scene,level=level,regime='far_shallow' if regime else 'general',
             calibration_ms=(time.perf_counter()-start)*1000,success=meter is not None,error=failure,
@@ -62,7 +62,7 @@ def job(args,group,regime,rep):
                 camera_to_bottom_m=profile['bottom_m'],truth={'liquid_height_m':float(h)},repeat=j,
                 liquid_depth_m=value['liquid_depth_m'],algorithm_ms=(time.perf_counter()-start)*1000,
                 diagnostics=value['diagnostics'],inference_failure=failure,
-                cohort='new_dual_raw_phase_holdout_v2',regime='far_shallow' if regime else 'general',
+                cohort='new_tof_raw_phase_formal_v1',regime='far_shallow' if regime else 'general',
                 observation_path=str(folder/f'{sensor}_test_{j}.npz'),initialization_path=str(folder/f'{sensor}_initialization.json'),
                 scope_included=True,known_heights_budget=5,hardware_qualified=False,
                 simulation_scope='4phase sensor observations; analytic Snell/optical-transport approximation with noise and forward/inverse mismatch'))
@@ -81,7 +81,7 @@ def main():
     with ProcessPoolExecutor(max_workers=a.workers) as pool:
         futures=[pool.submit(job,a,*s) for s in jobs]
         for f in as_completed(futures):
-            rows+=f.result();print('PHASE_HOLDOUT',len(rows),len(jobs)*8,flush=True)
+            rows+=f.result();print('PHASE_HOLDOUT',len(rows),len(jobs)*4,flush=True)
     (a.out/'records.jsonl').write_text(''.join(json.dumps(r,allow_nan=False)+'\n' for r in rows))
     print('PHASE_COMPLETE',len(rows),flush=True)
 

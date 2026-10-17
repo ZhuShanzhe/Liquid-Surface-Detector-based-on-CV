@@ -1,0 +1,22 @@
+{
+  "2026-10-17_tof_formal_pipeline.pdf": {
+    "pages": 14,
+    "outline_entries": 12,
+    "all_pages_nonblank": true,
+    "no_retired_camera_text": true,
+    "safe_page_bounds": true,
+    "rendered_pages": 14,
+    "visual_review_completed": true,
+    "sha256": "d9f0967b903558a87f11d0d4efde269c0b35faca9d1da053088cad2088b88330"
+  },
+  "2026-10-17_tof_performance.pdf": {
+    "pages": 15,
+    "outline_entries": 13,
+    "all_pages_nonblank": true,
+    "no_retired_camera_text": true,
+    "safe_page_bounds": true,
+    "rendered_pages": 15,
+    "visual_review_completed": true,
+    "sha256": "4a1732aa666cc58434a9ed54224e3422adaf786901414c7c3427586158a7ba42"
+  }
+}

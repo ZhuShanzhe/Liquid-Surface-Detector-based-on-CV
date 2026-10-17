@@ -1,4 +1,4 @@
-"""Portable verification of published dual-camera metrics (NumPy only)."""
+"""Portable independent verification of published ToF metrics (NumPy only)."""
 import argparse,gzip,json
 from pathlib import Path
 import numpy as np
@@ -22,8 +22,9 @@ def independent_metrics(rows,peak):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--evidence',type=Path,default=Path(__file__).resolve().parents[1]/'reports/evidence/dual-camera-v2-20261017');a=p.parse_args()
-    with gzip.open(a.evidence/'current-dual-predictions.jsonl.gz','rt',encoding='utf-8') as f:rows=[json.loads(s) for s in f]
+    p.add_argument('--evidence',type=Path,default=Path(__file__).resolve().parents[1]/'reports/evidence/tof-formal-v1-20261017');a=p.parse_args()
+    with gzip.open(a.evidence/'current-tof-predictions.jsonl.gz','rt',encoding='utf-8') as f:rows=[json.loads(s) for s in f]
+    assert all(r['sensor']=='tof' for r in rows)
     expected=json.loads((a.evidence/'metrics.json').read_text());count=0
     for key,values in expected.items():
         scene,sensor,level,part=key.split('|')

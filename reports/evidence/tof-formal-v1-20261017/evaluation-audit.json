@@ -1,0 +1,44 @@
+{
+  "version": "tof_formal_v1_20261017",
+  "source_commit": "15bfe99c507af2755e32f99a2ba472c67093d352",
+  "total_frames": 5744,
+  "retained_opaque_frames": 3420,
+  "additional_geometry_frames": 1724,
+  "phase_frames": 600,
+  "sensor_families": [
+    "tof"
+  ],
+  "cohorts": {
+    "legacy_determined_grid": 924,
+    "floating_v8_wet_360": 120,
+    "expanded_meaningful_4752": 2376,
+    "new_dual_far_blender_v2": 1724,
+    "new_dual_raw_phase_holdout_v2": 600
+  },
+  "minimum_cell": 200,
+  "report_cells": {
+    "ordinary_diffuse|tof|all|all": 232,
+    "homogeneous_transparent|tof|all|all": 200,
+    "homogeneous_translucent|tof|low_extinction|all": 200,
+    "homogeneous_translucent|tof|medium_extinction|all": 200,
+    "partial_depth_loss|tof|0-10%|all": 256,
+    "partial_depth_loss|tof|10-20%|all": 232,
+    "partial_depth_loss|tof|20-30%|all": 232,
+    "partial_depth_loss|tof|30-40%|all": 232,
+    "partial_depth_loss|tof|40-50%|all": 464,
+    "low_light|tof|mild|all": 364,
+    "low_light|tof|moderate|all": 364,
+    "low_light|tof|severe|all": 364,
+    "glare|tof|mild|all": 364,
+    "glare|tof|moderate|all": 364,
+    "glare|tof|severe|all": 364,
+    "uneven_surface|tof|all|all": 1092,
+    "floating_objects|tof|all|all": 220
+  },
+  "all_tof_rows_retained": true,
+  "predictions_unchanged": true,
+  "no_error_based_filter": true,
+  "new_training_or_new_test_set": false,
+  "source_prediction_sha256": "4a78b757f1bffa198a1f4795a2280ea1aca13e41550f7fb73a9dbadf97a24661",
+  "provenance": "Original cohort IDs, physical observations and inclusion decisions retained; source release in Git history; current artifact is ToF-only subset, not new collection."
+}

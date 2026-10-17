@@ -2,7 +2,7 @@
 import numpy as np
 
 SEED=202610170835
-SENSORS=('tof','structured_light')
+SENSORS=('tof',)
 SCENES=('ordinary_diffuse','homogeneous_transparent','homogeneous_translucent',
         'partial_depth_loss','low_light','glare','uneven_surface','floating_objects')
 FAR_INSTALLATIONS=25
@@ -34,7 +34,7 @@ def condition_settings(scenario,level,d):
 
 
 def protocol():
-    return dict(version='dual_camera_v2_20261017',seed=SEED,sensors=list(SENSORS),
+    return dict(version='tof_formal_v1_20261017',seed=SEED,sensors=list(SENSORS),
         reporting_cell='scene x sensor x severity (no actual-depth strata)',minimum_frames_per_report_cell=100,
         far_shallow='offline grouping B>=6m and0<H<=1m, not an inference input',
         far_new_physical_installations=25,noise_frames_per_condition=4,
@@ -44,4 +44,4 @@ def protocol():
         reuse='unchanged opaque predictions retained and tagged historical; old stereo image proxy excluded, not relabeled',
         inclusion='old cohorts retain recorded protocol; new opaque draw requires raw spatial support and offline direct-liquid source audit; exclude input only, never exclude by prediction error',
         statistical_unit='physical installation clusters, not artificial duplicate frames',
-        camera_scope='ToF/SL parametric depth proxy for opaque scenes; raw4-phase multifrequency iToF and projected-fringe SL observation simulator for uniform refraction; not a commercial device qualification')
+        camera_scope='ToF parametric depth proxy for opaque scenes; raw4-phase multifrequency AMCW iToF simulation for uniform refraction; not a commercial device qualification')
