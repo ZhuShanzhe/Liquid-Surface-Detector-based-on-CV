@@ -1,0 +1,56 @@
+{
+  "all_passed": true,
+  "tests": [
+    {
+      "name": "home",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "name": "javascript",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "name": "css",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "name": "unknown_route",
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "name": "untrusted_host_read",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "name": "missing_request_token",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "name": "cross_origin_mutation",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "name": "bad_height",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "name": "unknown_control",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "name": "unsupported_optical_combination",
+      "status": 400,
+      "expected": 400
+    }
+  ],
+  "frame_ancestors_blocked": true
+}

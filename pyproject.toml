@@ -45,7 +45,7 @@ liquid-depth-panel = "liquid_depth.product_web:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-liquid_depth = ["ui/*.html"]
+liquid_depth = ["ui/*.html", "ui/*.css", "ui/*.js"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

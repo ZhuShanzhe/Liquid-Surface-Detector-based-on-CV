@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "version": "rgbd_mobilenet_router_sim_v4_20261019_outcome_calibrated",
+  "sha256": "c4bbbcf97c44876a4bb593f438d38ec40d5b83b66af61d0ab243be8167798394",
+  "supported_sensor_family": "tof",
+  "status": "experimental_not_default_formal_route",
+  "backbone": "torchvision_MobileNetV3_Small_ImageNet1K_V1",
+  "pretrained_source": "https://download.pytorch.org/models/mobilenet_v3_small-047dcff4.pth",
+  "train_installations": 24,
+  "validation_installations": 6,
+  "diagnostic_installations": 6,
+  "train_frames": 576,
+  "validation_frames": 144,
+  "diagnostic_frames": 144,
+  "external_classification_installations": 12,
+  "external_classification_frames": 288,
+  "calibration_material_confirmation_mandatory": true,
+  "field_qualified": false,
+  "liquid_core_unchanged": true,
+  "visual_highest_only": true,
+  "limitations": [
+    "material_confusion",
+    "small_float_misses",
+    "compound_metric_tail_errors",
+    "cold_start_above_500ms"
+  ]
+}

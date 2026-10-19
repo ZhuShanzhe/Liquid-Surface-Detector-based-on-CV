@@ -33,6 +33,7 @@ checkpoints/
 weights/
 *.pth
 *.pt
+!assets/models/scene_router/scene_head.pt
 *.onnx
 *.engine
 *.npy

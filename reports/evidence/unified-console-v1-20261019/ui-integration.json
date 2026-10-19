@@ -1,0 +1,580 @@
+{
+  "errors": [],
+  "records": [
+    {
+      "name": "ordinary",
+      "status": "ready",
+      "actual": {
+        "liquid_height_m": 0.5999999999999999,
+        "highest_height_m": 0.6,
+        "lowest_height_m": 0.6
+      },
+      "estimate": {
+        "liquid_height_m": 0.599115110056589,
+        "highest_height_m": 0.6857513498250117
+      },
+      "plan": {
+        "material": "ordinary_diffuse",
+        "proposed_material": "ordinary_diffuse",
+        "tags": [
+          "glare",
+          "low_light"
+        ],
+        "modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "frozen_symmetric_liquid",
+          "glare_observation_audit",
+          "low_light_observation_audit"
+        ],
+        "liquid_route": "geometric",
+        "visual_peak": false,
+        "blocked_reasons": [],
+        "warnings": [],
+        "composite": true,
+        "composition_qualification": "experimental_holdout_required",
+        "modifiers_do_not_stack_numerical_corrections": true,
+        "mutually_exclusive_liquid_backends": true,
+        "executed_modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "frozen_symmetric_liquid",
+          "glare_observation_audit",
+          "low_light_observation_audit"
+        ]
+      },
+      "classification": {
+        "material": "ordinary_diffuse",
+        "material_score": 0.8661742210388184,
+        "material_scores": {
+          "ordinary_diffuse": 0.8661742210388184,
+          "homogeneous_transparent": 0.1291508972644806,
+          "homogeneous_translucent": 0.00467492314055562
+        },
+        "material_ambiguous": true,
+        "tag_scores": {
+          "low_light": 0.7951337099075317,
+          "glare": 0.36294886469841003,
+          "uneven_surface": 0.0730927586555481,
+          "floating_objects": 0.0035203108564019203
+        },
+        "tags": [
+          "low_light",
+          "glare"
+        ],
+        "float_peak_recommended": false,
+        "activation_thresholds": {
+          "float_highest": 0.9249999999999998
+        },
+        "model_id": "rgbd_mobilenet_router_sim_v4_20261019_outcome_calibrated",
+        "probabilities_are_metrology_confidence": false
+      },
+      "timing": {
+        "render_ms": 2768.7231935560703,
+        "pipeline_ms": 167.0381799340248,
+        "total_ms": 7103.906694799662
+      },
+      "initialization": {
+        "id": "installation-f024bdd725",
+        "folder": "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/runs/scene-console/installation-f024bdd725",
+        "audit": {
+          "mode": "ideal_simulated_independent_empty_ruler",
+          "bottom_distance_error_mm": 0,
+          "quality": {
+            "bottom_valid_points": 7203,
+            "plane_fit_points": 7203,
+            "bottom_valid_fraction": 1,
+            "spatial_cells8": 60,
+            "inverse_depth_mad_per_m": 0.00009745881066764196,
+            "raw_plane_distance_m": 4.000018039888405,
+            "depth_plane_gravity_disagreement_deg": 0.0034337436570360323,
+            "normal_source": "independent_gravity",
+            "outline_relative_residual_p95": 4.064750035448483e-8,
+            "independent_dimension_checks": [
+              {
+                "measured_m": 0.55,
+                "predicted_m": 0.5499999999999999,
+                "error_m": -1.1102230246251565e-16,
+                "relative_error": 2.0185873175002846e-16
+              }
+            ],
+            "raw_vs_metric_distance_delta_m": -0.000018039888405319005,
+            "camera_axis_tilt_deg": 2.024868297277208
+          }
+        },
+        "material": "ordinary_diffuse",
+        "phase_known_heights_m": [
+          0,
+          0.15000000000000002,
+          0.5249999999999999,
+          0.9750000000000001,
+          1.4249999999999998
+        ],
+        "phase_calibration_precomputed": false,
+        "simulated_ruler_is_exact": true,
+        "current_truth_used_for_measurement": false,
+        "optional_peak_asset_preload_ms": 799.9804019927979,
+        "optional_peak_assets_preloaded": true
+      }
+    },
+    {
+      "name": "float",
+      "status": "ready",
+      "actual": {
+        "liquid_height_m": 0.75,
+        "highest_height_m": 0.7814905904233456,
+        "lowest_height_m": 0.75
+      },
+      "estimate": {
+        "liquid_height_m": 0.7492496322222033,
+        "highest_height_m": 0.838639243205927
+      },
+      "plan": {
+        "material": "ordinary_diffuse",
+        "proposed_material": "ordinary_diffuse",
+        "tags": [
+          "floating_objects",
+          "low_light"
+        ],
+        "modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "frozen_symmetric_liquid",
+          "low_light_observation_audit",
+          "v8_tof_v5_float_highest_only"
+        ],
+        "liquid_route": "geometric",
+        "visual_peak": true,
+        "blocked_reasons": [],
+        "warnings": [],
+        "composite": true,
+        "composition_qualification": "experimental_holdout_required",
+        "modifiers_do_not_stack_numerical_corrections": true,
+        "mutually_exclusive_liquid_backends": true,
+        "executed_modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "frozen_symmetric_liquid",
+          "low_light_observation_audit",
+          "v8_tof_v5_float_highest_only"
+        ]
+      },
+      "classification": {
+        "material": "ordinary_diffuse",
+        "material_score": 0.9737353324890137,
+        "material_scores": {
+          "ordinary_diffuse": 0.9737353324890137,
+          "homogeneous_transparent": 0.019394710659980774,
+          "homogeneous_translucent": 0.00686995591968298
+        },
+        "material_ambiguous": false,
+        "tag_scores": {
+          "low_light": 0.7505761981010437,
+          "glare": 0.006929329596459866,
+          "uneven_surface": 0.14394377171993256,
+          "floating_objects": 0.9946740865707397
+        },
+        "tags": [
+          "low_light",
+          "floating_objects"
+        ],
+        "float_peak_recommended": true,
+        "activation_thresholds": {
+          "float_highest": 0.9249999999999998
+        },
+        "model_id": "rgbd_mobilenet_router_sim_v4_20261019_outcome_calibrated",
+        "probabilities_are_metrology_confidence": false
+      },
+      "timing": {
+        "render_ms": 2448.180239647627,
+        "pipeline_ms": 829.5760340988636,
+        "total_ms": 3299.555331468582
+      },
+      "initialization": {
+        "id": "installation-f024bdd725",
+        "folder": "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/runs/scene-console/installation-f024bdd725",
+        "audit": {
+          "mode": "ideal_simulated_independent_empty_ruler",
+          "bottom_distance_error_mm": 0,
+          "quality": {
+            "bottom_valid_points": 7203,
+            "plane_fit_points": 7203,
+            "bottom_valid_fraction": 1,
+            "spatial_cells8": 60,
+            "inverse_depth_mad_per_m": 0.00009745881066764196,
+            "raw_plane_distance_m": 4.000018039888405,
+            "depth_plane_gravity_disagreement_deg": 0.0034337436570360323,
+            "normal_source": "independent_gravity",
+            "outline_relative_residual_p95": 4.064750035448483e-8,
+            "independent_dimension_checks": [
+              {
+                "measured_m": 0.55,
+                "predicted_m": 0.5499999999999999,
+                "error_m": -1.1102230246251565e-16,
+                "relative_error": 2.0185873175002846e-16
+              }
+            ],
+            "raw_vs_metric_distance_delta_m": -0.000018039888405319005,
+            "camera_axis_tilt_deg": 2.024868297277208
+          }
+        },
+        "material": "ordinary_diffuse",
+        "phase_known_heights_m": [
+          0,
+          0.15000000000000002,
+          0.5249999999999999,
+          0.9750000000000001,
+          1.4249999999999998
+        ],
+        "phase_calibration_precomputed": false,
+        "simulated_ruler_is_exact": true,
+        "current_truth_used_for_measurement": false,
+        "optional_peak_asset_preload_ms": 799.9804019927979,
+        "optional_peak_assets_preloaded": true
+      }
+    },
+    {
+      "name": "compound",
+      "status": "ready",
+      "actual": {
+        "liquid_height_m": 0.5506034954691319,
+        "highest_height_m": 0.6076058402657509,
+        "lowest_height_m": 0.515004527968265
+      },
+      "estimate": {
+        "liquid_height_m": 1.0638486734560542,
+        "highest_height_m": 0.28073602318094765
+      },
+      "plan": {
+        "material": "ordinary_diffuse",
+        "proposed_material": "ordinary_diffuse",
+        "tags": [
+          "floating_objects",
+          "partial_depth_loss"
+        ],
+        "modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "frozen_symmetric_liquid",
+          "partial_depth_loss_observation_audit",
+          "v8_tof_v5_float_highest_only"
+        ],
+        "liquid_route": "geometric",
+        "visual_peak": true,
+        "blocked_reasons": [],
+        "warnings": [
+          "observed_container_loss_above_validated_0_50pct_scope",
+          "highest_below_estimated_liquid_review_required"
+        ],
+        "composite": true,
+        "composition_qualification": "experimental_holdout_required",
+        "modifiers_do_not_stack_numerical_corrections": true,
+        "mutually_exclusive_liquid_backends": true,
+        "executed_modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "frozen_symmetric_liquid",
+          "partial_depth_loss_observation_audit",
+          "v8_tof_v5_float_highest_only"
+        ]
+      },
+      "classification": {
+        "material": "ordinary_diffuse",
+        "material_score": 0.9973047971725464,
+        "material_scores": {
+          "ordinary_diffuse": 0.9973047971725464,
+          "homogeneous_transparent": 0.0022682331036776304,
+          "homogeneous_translucent": 0.00042690697591751814
+        },
+        "material_ambiguous": false,
+        "tag_scores": {
+          "low_light": 0.45817920565605164,
+          "glare": 0.009014599956572056,
+          "uneven_surface": 0.19220192730426788,
+          "floating_objects": 0.9980717897415161
+        },
+        "tags": [
+          "floating_objects"
+        ],
+        "float_peak_recommended": true,
+        "activation_thresholds": {
+          "float_highest": 0.9249999999999998
+        },
+        "model_id": "rgbd_mobilenet_router_sim_v4_20261019_outcome_calibrated",
+        "probabilities_are_metrology_confidence": false
+      },
+      "timing": {
+        "render_ms": 2706.373866647482,
+        "pipeline_ms": 504.47215139865875,
+        "total_ms": 3234.5386296510696
+      },
+      "initialization": {
+        "id": "installation-f024bdd725",
+        "folder": "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/runs/scene-console/installation-f024bdd725",
+        "audit": {
+          "mode": "ideal_simulated_independent_empty_ruler",
+          "bottom_distance_error_mm": 0,
+          "quality": {
+            "bottom_valid_points": 7203,
+            "plane_fit_points": 7203,
+            "bottom_valid_fraction": 1,
+            "spatial_cells8": 60,
+            "inverse_depth_mad_per_m": 0.00009745881066764196,
+            "raw_plane_distance_m": 4.000018039888405,
+            "depth_plane_gravity_disagreement_deg": 0.0034337436570360323,
+            "normal_source": "independent_gravity",
+            "outline_relative_residual_p95": 4.064750035448483e-8,
+            "independent_dimension_checks": [
+              {
+                "measured_m": 0.55,
+                "predicted_m": 0.5499999999999999,
+                "error_m": -1.1102230246251565e-16,
+                "relative_error": 2.0185873175002846e-16
+              }
+            ],
+            "raw_vs_metric_distance_delta_m": -0.000018039888405319005,
+            "camera_axis_tilt_deg": 2.024868297277208
+          }
+        },
+        "material": "ordinary_diffuse",
+        "phase_known_heights_m": [
+          0,
+          0.15000000000000002,
+          0.5249999999999999,
+          0.9750000000000001,
+          1.4249999999999998
+        ],
+        "phase_calibration_precomputed": false,
+        "simulated_ruler_is_exact": true,
+        "current_truth_used_for_measurement": false,
+        "optional_peak_asset_preload_ms": 799.9804019927979,
+        "optional_peak_assets_preloaded": true
+      }
+    },
+    {
+      "name": "transparent",
+      "status": "ready",
+      "actual": {
+        "liquid_height_m": 0.6500000000000001,
+        "highest_height_m": 0.65,
+        "lowest_height_m": 0.65
+      },
+      "estimate": {
+        "liquid_height_m": 0.6484425333542719,
+        "highest_height_m": null
+      },
+      "plan": {
+        "material": "homogeneous_transparent",
+        "proposed_material": "homogeneous_transparent",
+        "tags": [
+          "glare"
+        ],
+        "modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "five_prior_amcw_refraction",
+          "glare_observation_audit"
+        ],
+        "liquid_route": "phase",
+        "visual_peak": false,
+        "blocked_reasons": [],
+        "warnings": [],
+        "composite": false,
+        "composition_qualification": "base_route_simulation_only",
+        "modifiers_do_not_stack_numerical_corrections": true,
+        "mutually_exclusive_liquid_backends": true,
+        "executed_modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "five_prior_amcw_refraction",
+          "glare_observation_audit"
+        ]
+      },
+      "classification": {
+        "material": "homogeneous_transparent",
+        "material_score": 0.999957799911499,
+        "material_scores": {
+          "ordinary_diffuse": 0.000004828122655453626,
+          "homogeneous_transparent": 0.999957799911499,
+          "homogeneous_translucent": 0.000037321882700780407
+        },
+        "material_ambiguous": false,
+        "tag_scores": {
+          "low_light": 0.5125769376754761,
+          "glare": 0.3320832848548889,
+          "uneven_surface": 0.06173360347747803,
+          "floating_objects": 0.0053697736002504826
+        },
+        "tags": [
+          "glare"
+        ],
+        "float_peak_recommended": false,
+        "activation_thresholds": {
+          "float_highest": 0.9249999999999998
+        },
+        "model_id": "rgbd_mobilenet_router_sim_v4_20261019_outcome_calibrated",
+        "probabilities_are_metrology_confidence": false
+      },
+      "timing": {
+        "render_ms": 2194.421920925379,
+        "pipeline_ms": 76.08916610479355,
+        "total_ms": 4561.965510249138
+      },
+      "initialization": {
+        "id": "installation-b91b553396",
+        "folder": "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/runs/scene-console/installation-b91b553396",
+        "audit": {
+          "mode": "ideal_simulated_independent_empty_ruler",
+          "bottom_distance_error_mm": 0,
+          "quality": {
+            "bottom_valid_points": 7203,
+            "plane_fit_points": 7203,
+            "bottom_valid_fraction": 1,
+            "spatial_cells8": 60,
+            "inverse_depth_mad_per_m": 0.00009745881066764196,
+            "raw_plane_distance_m": 4.000018039888405,
+            "depth_plane_gravity_disagreement_deg": 0.0034337436570360323,
+            "normal_source": "independent_gravity",
+            "outline_relative_residual_p95": 4.064750035448483e-8,
+            "independent_dimension_checks": [
+              {
+                "measured_m": 0.55,
+                "predicted_m": 0.5499999999999999,
+                "error_m": -1.1102230246251565e-16,
+                "relative_error": 2.0185873175002846e-16
+              }
+            ],
+            "raw_vs_metric_distance_delta_m": -0.000018039888405319005,
+            "camera_axis_tilt_deg": 2.024868297277208
+          }
+        },
+        "material": "homogeneous_transparent",
+        "phase_known_heights_m": [
+          0,
+          0.15000000000000002,
+          0.5249999999999999,
+          0.9750000000000001,
+          1.4249999999999998
+        ],
+        "phase_calibration_precomputed": true,
+        "simulated_ruler_is_exact": true,
+        "current_truth_used_for_measurement": false,
+        "optional_peak_asset_preload_ms": 0,
+        "optional_peak_assets_preloaded": false
+      }
+    },
+    {
+      "name": "translucent",
+      "status": "ready",
+      "actual": {
+        "liquid_height_m": 0.35,
+        "highest_height_m": 0.35,
+        "lowest_height_m": 0.35
+      },
+      "estimate": {
+        "liquid_height_m": 0.34568179372373214,
+        "highest_height_m": null
+      },
+      "plan": {
+        "material": "homogeneous_translucent",
+        "proposed_material": "homogeneous_translucent",
+        "tags": [
+          "uneven_surface"
+        ],
+        "modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "five_prior_amcw_refraction"
+        ],
+        "liquid_route": "phase",
+        "visual_peak": false,
+        "blocked_reasons": [],
+        "warnings": [
+          "rgbd_nonplanarity_suspected_review_confirmed_scope"
+        ],
+        "composite": false,
+        "composition_qualification": "base_route_simulation_only",
+        "modifiers_do_not_stack_numerical_corrections": true,
+        "mutually_exclusive_liquid_backends": true,
+        "executed_modules": [
+          "empty_container_geometry",
+          "rgb_multilabel_router",
+          "five_prior_amcw_refraction"
+        ]
+      },
+      "classification": {
+        "material": "homogeneous_translucent",
+        "material_score": 0.9912530779838562,
+        "material_scores": {
+          "ordinary_diffuse": 0.00016975498874671757,
+          "homogeneous_transparent": 0.00857716053724289,
+          "homogeneous_translucent": 0.9912530779838562
+        },
+        "material_ambiguous": false,
+        "tag_scores": {
+          "low_light": 0.28392454981803894,
+          "glare": 0.057064738124608994,
+          "uneven_surface": 0.721825361251831,
+          "floating_objects": 0.036923594772815704
+        },
+        "tags": [
+          "uneven_surface"
+        ],
+        "float_peak_recommended": false,
+        "activation_thresholds": {
+          "float_highest": 0.9249999999999998
+        },
+        "model_id": "rgbd_mobilenet_router_sim_v4_20261019_outcome_calibrated",
+        "probabilities_are_metrology_confidence": false
+      },
+      "timing": {
+        "render_ms": 2244.804870337248,
+        "pipeline_ms": 41.751038283109665,
+        "total_ms": 4445.9651336073875
+      },
+      "initialization": {
+        "id": "installation-934d435131",
+        "folder": "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/runs/scene-console/installation-934d435131",
+        "audit": {
+          "mode": "ideal_simulated_independent_empty_ruler",
+          "bottom_distance_error_mm": 0,
+          "quality": {
+            "bottom_valid_points": 7203,
+            "plane_fit_points": 7203,
+            "bottom_valid_fraction": 1,
+            "spatial_cells8": 60,
+            "inverse_depth_mad_per_m": 0.00009745881066764196,
+            "raw_plane_distance_m": 4.000018039888405,
+            "depth_plane_gravity_disagreement_deg": 0.0034337436570360323,
+            "normal_source": "independent_gravity",
+            "outline_relative_residual_p95": 4.064750035448483e-8,
+            "independent_dimension_checks": [
+              {
+                "measured_m": 0.55,
+                "predicted_m": 0.5499999999999999,
+                "error_m": -1.1102230246251565e-16,
+                "relative_error": 2.0185873175002846e-16
+              }
+            ],
+            "raw_vs_metric_distance_delta_m": -0.000018039888405319005,
+            "camera_axis_tilt_deg": 2.024868297277208
+          }
+        },
+        "material": "homogeneous_translucent",
+        "phase_known_heights_m": [
+          0,
+          0.15000000000000002,
+          0.5249999999999999,
+          0.9750000000000001,
+          1.4249999999999998
+        ],
+        "phase_calibration_precomputed": true,
+        "simulated_ruler_is_exact": true,
+        "current_truth_used_for_measurement": false,
+        "optional_peak_asset_preload_ms": 0,
+        "optional_peak_assets_preloaded": false
+      }
+    }
+  ],
+  "boundaryMessage": "透明/半透明与漂浮物或起伏的组合尚未验证，请先选择普通液体，或移除漂浮物与起伏"
+}

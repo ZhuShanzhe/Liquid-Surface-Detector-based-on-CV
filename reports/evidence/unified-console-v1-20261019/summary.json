@@ -1,0 +1,102 @@
+{
+  "version": "unified_tof_console_v1_20261019",
+  "formal_default_route": "tof_formal_v1_20261017_unchanged",
+  "automatic_routing_status": "experimental_not_metrology_qualified",
+  "classification": {
+    "physical_installations": 12,
+    "frames": 288,
+    "seed": 202610192877,
+    "material_accuracy": 0.7743055555555556,
+    "tags": {
+      "low_light": {
+        "tp": 102,
+        "fp": 21,
+        "fn": 6,
+        "precision": 0.8292682926829268,
+        "recall": 0.9444444444444444
+      },
+      "glare": {
+        "tp": 57,
+        "fp": 22,
+        "fn": 15,
+        "precision": 0.7215189873417721,
+        "recall": 0.7916666666666666
+      },
+      "uneven_surface": {
+        "tp": 59,
+        "fp": 6,
+        "fn": 13,
+        "precision": 0.9076923076923077,
+        "recall": 0.8194444444444444
+      },
+      "floating_objects": {
+        "tp": 89,
+        "fp": 2,
+        "fn": 19,
+        "precision": 0.978021978021978,
+        "recall": 0.8240740740740741
+      }
+    },
+    "exact_tag_accuracy": 0.6805555555555556,
+    "scope": "new_independent_Blender_RGBD_classification_only_not_height_qualification",
+    "thresholds_locked_before_test": true
+  },
+  "float_peak_activation": {
+    "threshold": 0.9249999999999998,
+    "mae_m": 0.1914310458065234,
+    "p95_m": 1.2048705533338118,
+    "max_m": 1.279805055683004
+  },
+  "liquid_on_off_exact_equal": true,
+  "diagnostic_test_cohort": {
+    "liquid": {
+      "frames": 96,
+      "outputs": 93,
+      "coverage_pct": 96.875,
+      "mae_mm": 33.877894283780336,
+      "p95_mm": 53.85841926223378,
+      "max_mm": 744.310804373622,
+      "pass_all_pct": 75.0,
+      "absrel_pct": 20.43740006986137,
+      "absolute_bins_pct": [
+        54.166666666666664,
+        20.833333333333332,
+        15.625,
+        3.125,
+        0.0,
+        3.125,
+        0.0
+      ]
+    },
+    "highest": {
+      "frames": 96,
+      "outputs": 93,
+      "coverage_pct": 96.875,
+      "mae_mm": 401.47008878096,
+      "p95_mm": 2011.0523900828339,
+      "max_mm": 7842.211382668743,
+      "pass_all_pct": 48.958333333333336,
+      "absrel_pct": 70.75945896902508,
+      "absolute_bins_pct": [
+        20.833333333333332,
+        14.583333333333334,
+        10.416666666666666,
+        27.083333333333332,
+        9.375,
+        9.375,
+        5.208333333333333
+      ]
+    }
+  },
+  "diagnostic_cohort_is_not_new_independent_v4_final_test": true,
+  "independence_note": "External288 assesses label prediction only, not composite height accuracy; repeated development cohort is diagnostic.",
+  "formal_reports_replaced": false,
+  "failed_spatial_peak_repair_merged": false,
+  "camera_scope": "ToF depth proxy + separate AMCW phase simulation; no hardware qualification",
+  "user_authorized_optional_main_entry": true,
+  "default_formal_route_replaced": false,
+  "frozen_existing_source_files_byte_identical": 153,
+  "regression": "762 passed",
+  "display_only_not_PLC_control": true,
+  "all_factors_metric_qualified": false
+}
