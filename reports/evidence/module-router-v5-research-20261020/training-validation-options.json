@@ -1,0 +1,191 @@
+[
+  {
+    "leaf": 1,
+    "max_features": 0.3,
+    "thresholds": [
+      0.37499999999999994,
+      0.27499999999999997,
+      0.29999999999999993,
+      0.44999999999999996
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.7875,
+      "mean_switch_accuracy": 0.94140625,
+      "macro_f1": 0.9093227796217092,
+      "tags": {
+        "low_light": {
+          "tp": 98,
+          "fp": 2,
+          "fn": 2,
+          "tn": 218,
+          "precision": 0.98,
+          "recall": 0.98,
+          "specificity": 0.990909090909091,
+          "accuracy": 0.9875,
+          "f1": 0.98
+        },
+        "glare": {
+          "tp": 116,
+          "fp": 7,
+          "fn": 4,
+          "tn": 193,
+          "precision": 0.943089430894309,
+          "recall": 0.9666666666666667,
+          "specificity": 0.965,
+          "accuracy": 0.965625,
+          "f1": 0.9547325102880658
+        },
+        "uneven_surface": {
+          "tp": 78,
+          "fp": 1,
+          "fn": 22,
+          "tn": 219,
+          "precision": 0.9873417721518988,
+          "recall": 0.78,
+          "specificity": 0.9954545454545455,
+          "accuracy": 0.928125,
+          "f1": 0.8715083798882681
+        },
+        "floating_objects": {
+          "tp": 91,
+          "fp": 8,
+          "fn": 29,
+          "tn": 192,
+          "precision": 0.9191919191919192,
+          "recall": 0.7583333333333333,
+          "specificity": 0.96,
+          "accuracy": 0.884375,
+          "f1": 0.8310502283105022
+        }
+      }
+    },
+    "objective": 0.9618150836099231
+  },
+  {
+    "leaf": 3,
+    "max_features": 0.5,
+    "thresholds": [
+      0.44999999999999996,
+      0.29999999999999993,
+      0.44999999999999996,
+      0.3999999999999999
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.78125,
+      "mean_switch_accuracy": 0.93984375,
+      "macro_f1": 0.9081193835937782,
+      "tags": {
+        "low_light": {
+          "tp": 98,
+          "fp": 2,
+          "fn": 2,
+          "tn": 218,
+          "precision": 0.98,
+          "recall": 0.98,
+          "specificity": 0.990909090909091,
+          "accuracy": 0.9875,
+          "f1": 0.98
+        },
+        "glare": {
+          "tp": 115,
+          "fp": 7,
+          "fn": 5,
+          "tn": 193,
+          "precision": 0.9426229508196722,
+          "recall": 0.9583333333333334,
+          "specificity": 0.965,
+          "accuracy": 0.9625,
+          "f1": 0.9504132231404959
+        },
+        "uneven_surface": {
+          "tp": 76,
+          "fp": 0,
+          "fn": 24,
+          "tn": 220,
+          "precision": 1.0,
+          "recall": 0.76,
+          "specificity": 1.0,
+          "accuracy": 0.925,
+          "f1": 0.8636363636363636
+        },
+        "floating_objects": {
+          "tp": 96,
+          "fp": 13,
+          "fn": 24,
+          "tn": 187,
+          "precision": 0.8807339449541285,
+          "recall": 0.8,
+          "specificity": 0.935,
+          "accuracy": 0.884375,
+          "f1": 0.8384279475982532
+        }
+      }
+    },
+    "objective": 0.9574679075390667
+  },
+  {
+    "leaf": 8,
+    "max_features": 0.7,
+    "thresholds": [
+      0.4999999999999999,
+      0.3999999999999999,
+      0.3999999999999999,
+      0.3999999999999999
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.775,
+      "mean_switch_accuracy": 0.9390625,
+      "macro_f1": 0.906870272961732,
+      "tags": {
+        "low_light": {
+          "tp": 98,
+          "fp": 2,
+          "fn": 2,
+          "tn": 218,
+          "precision": 0.98,
+          "recall": 0.98,
+          "specificity": 0.990909090909091,
+          "accuracy": 0.9875,
+          "f1": 0.98
+        },
+        "glare": {
+          "tp": 111,
+          "fp": 3,
+          "fn": 9,
+          "tn": 197,
+          "precision": 0.9736842105263158,
+          "recall": 0.925,
+          "specificity": 0.985,
+          "accuracy": 0.9625,
+          "f1": 0.9487179487179487
+        },
+        "uneven_surface": {
+          "tp": 77,
+          "fp": 2,
+          "fn": 23,
+          "tn": 218,
+          "precision": 0.9746835443037974,
+          "recall": 0.77,
+          "specificity": 0.990909090909091,
+          "accuracy": 0.921875,
+          "f1": 0.8603351955307262
+        },
+        "floating_objects": {
+          "tp": 96,
+          "fp": 13,
+          "fn": 24,
+          "tn": 187,
+          "precision": 0.8807339449541285,
+          "recall": 0.8,
+          "specificity": 0.935,
+          "accuracy": 0.884375,
+          "f1": 0.8384279475982532
+        }
+      }
+    },
+    "objective": 0.9510305409442599
+  }
+]

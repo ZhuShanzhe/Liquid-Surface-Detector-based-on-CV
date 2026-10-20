@@ -1,0 +1,258 @@
+[
+  {
+    "family": "extra_trees",
+    "leaf": 1,
+    "max_features": 0.3,
+    "thresholds": [
+      0.5499999999999999,
+      0.5499999999999999,
+      0.22499999999999998,
+      0.35
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.85,
+      "mean_switch_accuracy": 0.96171875,
+      "macro_f1": 0.945043069497218,
+      "tags": {
+        "low_light": {
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 220,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "accuracy": 1.0,
+          "f1": 1.0
+        },
+        "glare": {
+          "tp": 108,
+          "fp": 1,
+          "fn": 12,
+          "tn": 199,
+          "precision": 0.9908256880733946,
+          "recall": 0.9,
+          "specificity": 0.995,
+          "accuracy": 0.959375,
+          "f1": 0.9432314410480349
+        },
+        "uneven_surface": {
+          "tp": 97,
+          "fp": 1,
+          "fn": 3,
+          "tn": 219,
+          "precision": 0.9897959183673469,
+          "recall": 0.97,
+          "specificity": 0.9954545454545455,
+          "accuracy": 0.9875,
+          "f1": 0.9797979797979798
+        },
+        "floating_objects": {
+          "tp": 96,
+          "fp": 8,
+          "fn": 24,
+          "tn": 192,
+          "precision": 0.9230769230769231,
+          "recall": 0.8,
+          "specificity": 0.96,
+          "accuracy": 0.9,
+          "f1": 0.8571428571428571
+        }
+      }
+    },
+    "objective": 1.1517564604245827
+  },
+  {
+    "family": "extra_trees",
+    "leaf": 3,
+    "max_features": 0.5,
+    "thresholds": [
+      0.575,
+      0.32499999999999996,
+      0.19999999999999998,
+      0.42499999999999993
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.8625,
+      "mean_switch_accuracy": 0.96484375,
+      "macro_f1": 0.9488647289789554,
+      "tags": {
+        "low_light": {
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 220,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "accuracy": 1.0,
+          "f1": 1.0
+        },
+        "glare": {
+          "tp": 115,
+          "fp": 8,
+          "fn": 5,
+          "tn": 192,
+          "precision": 0.9349593495934959,
+          "recall": 0.9583333333333334,
+          "specificity": 0.96,
+          "accuracy": 0.959375,
+          "f1": 0.9465020576131687
+        },
+        "uneven_surface": {
+          "tp": 97,
+          "fp": 1,
+          "fn": 3,
+          "tn": 219,
+          "precision": 0.9897959183673469,
+          "recall": 0.97,
+          "specificity": 0.9954545454545455,
+          "accuracy": 0.9875,
+          "f1": 0.9797979797979798
+        },
+        "floating_objects": {
+          "tp": 93,
+          "fp": 1,
+          "fn": 27,
+          "tn": 199,
+          "precision": 0.9893617021276596,
+          "recall": 0.775,
+          "specificity": 0.995,
+          "accuracy": 0.9125,
+          "f1": 0.8691588785046729
+        }
+      }
+    },
+    "objective": 1.1598297093468435
+  },
+  {
+    "family": "extra_trees",
+    "leaf": 8,
+    "max_features": 0.7,
+    "thresholds": [
+      0.6249999999999999,
+      0.6249999999999999,
+      0.24999999999999997,
+      0.29999999999999993
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.8375,
+      "mean_switch_accuracy": 0.95859375,
+      "macro_f1": 0.942425105007643,
+      "tags": {
+        "low_light": {
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 220,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "accuracy": 1.0,
+          "f1": 1.0
+        },
+        "glare": {
+          "tp": 108,
+          "fp": 0,
+          "fn": 12,
+          "tn": 200,
+          "precision": 1.0,
+          "recall": 0.9,
+          "specificity": 1.0,
+          "accuracy": 0.9625,
+          "f1": 0.9473684210526315
+        },
+        "uneven_surface": {
+          "tp": 97,
+          "fp": 2,
+          "fn": 3,
+          "tn": 218,
+          "precision": 0.9797979797979798,
+          "recall": 0.97,
+          "specificity": 0.990909090909091,
+          "accuracy": 0.984375,
+          "f1": 0.9748743718592965
+        },
+        "floating_objects": {
+          "tp": 100,
+          "fp": 16,
+          "fn": 20,
+          "tn": 184,
+          "precision": 0.8620689655172413,
+          "recall": 0.8333333333333334,
+          "specificity": 0.92,
+          "accuracy": 0.8875,
+          "f1": 0.847457627118644
+        }
+      }
+    },
+    "objective": 1.1455304324178133
+  },
+  {
+    "family": "hist_gradient_boosting",
+    "leaf": 15,
+    "max_features": 0,
+    "thresholds": [
+      0.8749999999999999,
+      0.37499999999999994,
+      0.4999999999999999,
+      0.27499999999999997
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.86875,
+      "mean_switch_accuracy": 0.965625,
+      "macro_f1": 0.9520824951306778,
+      "tags": {
+        "low_light": {
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 220,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "accuracy": 1.0,
+          "f1": 1.0
+        },
+        "glare": {
+          "tp": 113,
+          "fp": 0,
+          "fn": 7,
+          "tn": 200,
+          "precision": 1.0,
+          "recall": 0.9416666666666667,
+          "specificity": 1.0,
+          "accuracy": 0.978125,
+          "f1": 0.9699570815450643
+        },
+        "uneven_surface": {
+          "tp": 98,
+          "fp": 1,
+          "fn": 2,
+          "tn": 219,
+          "precision": 0.98989898989899,
+          "recall": 0.98,
+          "specificity": 0.9954545454545455,
+          "accuracy": 0.990625,
+          "f1": 0.9849246231155779
+        },
+        "floating_objects": {
+          "tp": 99,
+          "fp": 13,
+          "fn": 21,
+          "tn": 187,
+          "precision": 0.8839285714285714,
+          "recall": 0.825,
+          "specificity": 0.935,
+          "accuracy": 0.89375,
+          "f1": 0.853448275862069
+        }
+      }
+    },
+    "objective": 1.1765623742696016
+  }
+]

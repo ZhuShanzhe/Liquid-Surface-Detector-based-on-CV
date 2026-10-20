@@ -1,0 +1,2139 @@
+{
+  "summary": {
+    "cpu": {
+      "n": 100,
+      "label_parity_mismatches": 0,
+      "old_classifier_ms": {
+        "median_ms": 13.3574940264225,
+        "p95_ms": 21.415354497730725,
+        "max_ms": 24.82127770781517
+      },
+      "new_classifier_ms": {
+        "median_ms": 452.7509044855833,
+        "p95_ms": 501.8663268536329,
+        "max_ms": 561.8642941117287
+      }
+    },
+    "cuda": {
+      "n": 100,
+      "label_parity_mismatches": 0,
+      "old_classifier_ms": {
+        "median_ms": 8.436296135187149,
+        "p95_ms": 9.083915501832962,
+        "max_ms": 17.92985573410988
+      },
+      "new_classifier_ms": {
+        "median_ms": 352.7616709470749,
+        "p95_ms": 386.2600080668926,
+        "max_ms": 403.0403830111027
+      }
+    }
+  },
+  "records": [
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_00",
+      "device": "cpu",
+      "old_classifier_ms": 12.392904609441757,
+      "new_classifier_ms": 422.7178432047367,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.92189906348536e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.243332505226135,
+      "new_classifier_ms": 450.06924122571945,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.642157627792975e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_02",
+      "device": "cpu",
+      "old_classifier_ms": 13.110071420669556,
+      "new_classifier_ms": 461.27044409513474,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.4704469125302393e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_04",
+      "device": "cpu",
+      "old_classifier_ms": 13.417720794677734,
+      "new_classifier_ms": 460.20981669425964,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.445178332094889e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_08",
+      "device": "cpu",
+      "old_classifier_ms": 13.15750926733017,
+      "new_classifier_ms": 433.07242542505264,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.793620083435982e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_16",
+      "device": "cpu",
+      "old_classifier_ms": 13.211969286203384,
+      "new_classifier_ms": 426.1038601398468,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.561533068017214e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.29905167222023,
+      "new_classifier_ms": 463.6211544275284,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.945670167485263e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_10",
+      "device": "cpu",
+      "old_classifier_ms": 13.774145394563675,
+      "new_classifier_ms": 454.7729976475239,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.3987468778539096e-08
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_12",
+      "device": "cpu",
+      "old_classifier_ms": 12.888036668300629,
+      "new_classifier_ms": 453.188207000494,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.182767972147559e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.173528015613556,
+      "new_classifier_ms": 433.3641193807125,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.195774275992051e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_00",
+      "device": "cpu",
+      "old_classifier_ms": 15.141580253839493,
+      "new_classifier_ms": 482.6302044093609,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.326672684688674e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_01",
+      "device": "cpu",
+      "old_classifier_ms": 14.6406851708889,
+      "new_classifier_ms": 466.3006402552128,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.326672684688674e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_02",
+      "device": "cpu",
+      "old_classifier_ms": 14.90776613354683,
+      "new_classifier_ms": 460.3561609983444,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.018163834506100207
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_04",
+      "device": "cpu",
+      "old_classifier_ms": 15.21274819970131,
+      "new_classifier_ms": 487.50633746385574,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0006322770716241793
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_08",
+      "device": "cpu",
+      "old_classifier_ms": 24.607334285974503,
+      "new_classifier_ms": 479.0744371712208,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.018814470643008e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_16",
+      "device": "cpu",
+      "old_classifier_ms": 13.21040466427803,
+      "new_classifier_ms": 458.7872661650181,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.6653345369377348e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.280190527439117,
+      "new_classifier_ms": 445.7508735358715,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_10",
+      "device": "cpu",
+      "old_classifier_ms": 17.96037331223488,
+      "new_classifier_ms": 438.58999386429787,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 9.077037403548704e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_12",
+      "device": "cpu",
+      "old_classifier_ms": 13.203766196966171,
+      "new_classifier_ms": 471.294604241848,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.474514954580286e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.163629919290543,
+      "new_classifier_ms": 457.4166052043438,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.000987452524812471
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_00",
+      "device": "cpu",
+      "old_classifier_ms": 13.99536058306694,
+      "new_classifier_ms": 486.0011264681816,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.3418766925686896e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_01",
+      "device": "cpu",
+      "old_classifier_ms": 15.19336923956871,
+      "new_classifier_ms": 472.9468487203121,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_02",
+      "device": "cpu",
+      "old_classifier_ms": 24.82127770781517,
+      "new_classifier_ms": 482.83641785383224,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0006357747316331347
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_04",
+      "device": "cpu",
+      "old_classifier_ms": 21.29831165075302,
+      "new_classifier_ms": 487.090390175581,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0035553833945097466
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_08",
+      "device": "cpu",
+      "old_classifier_ms": 14.853782951831818,
+      "new_classifier_ms": 501.6956031322479,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.318364664277155e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_16",
+      "device": "cpu",
+      "old_classifier_ms": 14.049775898456573,
+      "new_classifier_ms": 514.6821402013302,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0004797477460649121
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_09",
+      "device": "cpu",
+      "old_classifier_ms": 14.53956589102745,
+      "new_classifier_ms": 408.2275219261646,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.899301140499232e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_10",
+      "device": "cpu",
+      "old_classifier_ms": 14.041401445865631,
+      "new_classifier_ms": 438.0167946219444,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.92747630051171e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_12",
+      "device": "cpu",
+      "old_classifier_ms": 14.957014471292496,
+      "new_classifier_ms": 505.11007755994797,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.423203068872674e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_24",
+      "device": "cpu",
+      "old_classifier_ms": 15.646342188119888,
+      "new_classifier_ms": 508.507926017046,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.392808007107728e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_00",
+      "device": "cpu",
+      "old_classifier_ms": 14.128543436527252,
+      "new_classifier_ms": 416.8287515640259,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.346844860561694e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.633612543344498,
+      "new_classifier_ms": 442.1701841056347,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.4950865740590933e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_02",
+      "device": "cpu",
+      "old_classifier_ms": 18.51504296064377,
+      "new_classifier_ms": 479.6946570277214,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.002371530707248881
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_04",
+      "device": "cpu",
+      "old_classifier_ms": 14.65507224202156,
+      "new_classifier_ms": 461.75364032387733,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.898059818321144e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_08",
+      "device": "cpu",
+      "old_classifier_ms": 14.523059129714966,
+      "new_classifier_ms": 406.80699422955513,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.284483346386983e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_16",
+      "device": "cpu",
+      "old_classifier_ms": 13.013318181037903,
+      "new_classifier_ms": 395.5356329679489,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.0664888918071765e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.26458528637886,
+      "new_classifier_ms": 438.1893388926983,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 9.486769009248164e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_10",
+      "device": "cpu",
+      "old_classifier_ms": 12.945510447025299,
+      "new_classifier_ms": 444.4233812391758,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0006444807819807608
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_12",
+      "device": "cpu",
+      "old_classifier_ms": 13.018690049648285,
+      "new_classifier_ms": 431.6287375986576,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.2690460541616737e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.084843754768372,
+      "new_classifier_ms": 406.0157909989357,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.607859233063394e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_00",
+      "device": "cpu",
+      "old_classifier_ms": 12.803208082914352,
+      "new_classifier_ms": 423.0211563408375,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0010192117937405376
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.050347566604614,
+      "new_classifier_ms": 395.1529376208782,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00032138643451568505
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_02",
+      "device": "cpu",
+      "old_classifier_ms": 12.845773249864578,
+      "new_classifier_ms": 462.396964430809,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.245004513516506e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_04",
+      "device": "cpu",
+      "old_classifier_ms": 13.129353523254395,
+      "new_classifier_ms": 468.76004338264465,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0026396614978918265
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_08",
+      "device": "cpu",
+      "old_classifier_ms": 14.341577887535095,
+      "new_classifier_ms": 428.3863231539726,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.2343948891935241e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_16",
+      "device": "cpu",
+      "old_classifier_ms": 23.670759052038193,
+      "new_classifier_ms": 435.12387946248055,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0005346108402817396
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_09",
+      "device": "cpu",
+      "old_classifier_ms": 12.982383370399475,
+      "new_classifier_ms": 445.23439556360245,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.825095475294224e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_10",
+      "device": "cpu",
+      "old_classifier_ms": 12.93950155377388,
+      "new_classifier_ms": 457.63280242681503,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.006799405976192552
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_12",
+      "device": "cpu",
+      "old_classifier_ms": 13.058003038167953,
+      "new_classifier_ms": 455.82227408885956,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0021719242082509638
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.335704803466797,
+      "new_classifier_ms": 451.6746886074543,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.7292555070325122e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_00",
+      "device": "cpu",
+      "old_classifier_ms": 13.38937133550644,
+      "new_classifier_ms": 456.8031020462513,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00023515881560082566
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.19897174835205,
+      "new_classifier_ms": 373.2115440070629,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.013602757260512077
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_02",
+      "device": "cpu",
+      "old_classifier_ms": 13.104397803544998,
+      "new_classifier_ms": 451.34180039167404,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0027695710276953583
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_04",
+      "device": "cpu",
+      "old_classifier_ms": 13.48889246582985,
+      "new_classifier_ms": 492.58939921855927,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.013012015404050004
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_08",
+      "device": "cpu",
+      "old_classifier_ms": 13.142060488462448,
+      "new_classifier_ms": 477.93345525860786,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.86497112169604e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_16",
+      "device": "cpu",
+      "old_classifier_ms": 14.338657259941101,
+      "new_classifier_ms": 477.8031036257744,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00022679815949679105
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.32404837012291,
+      "new_classifier_ms": 366.0890832543373,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.016941471195927038
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_10",
+      "device": "cpu",
+      "old_classifier_ms": 12.945324182510376,
+      "new_classifier_ms": 446.25817611813545,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3877787807814457e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_12",
+      "device": "cpu",
+      "old_classifier_ms": 15.720311552286148,
+      "new_classifier_ms": 475.33371299505234,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.9302328752599536e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.429701328277588,
+      "new_classifier_ms": 480.93901202082634,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.003057729515126839
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_00",
+      "device": "cpu",
+      "old_classifier_ms": 12.966625392436981,
+      "new_classifier_ms": 450.7084749639034,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.8091363357702244e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.633251190185547,
+      "new_classifier_ms": 444.3693272769451,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.955997420315084e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_02",
+      "device": "cpu",
+      "old_classifier_ms": 13.160578906536102,
+      "new_classifier_ms": 430.48207834362984,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.5504624330049525e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_04",
+      "device": "cpu",
+      "old_classifier_ms": 13.387162238359451,
+      "new_classifier_ms": 453.5975083708763,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.028007831897827e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_08",
+      "device": "cpu",
+      "old_classifier_ms": 12.958329170942307,
+      "new_classifier_ms": 443.3582089841366,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.6166471146217276e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_16",
+      "device": "cpu",
+      "old_classifier_ms": 13.394355773925781,
+      "new_classifier_ms": 460.63751727342606,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.747415884856382e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.447146862745285,
+      "new_classifier_ms": 431.00349605083466,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.3342206467750537e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_10",
+      "device": "cpu",
+      "old_classifier_ms": 12.680232524871826,
+      "new_classifier_ms": 438.3714720606804,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.336808689942018e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_12",
+      "device": "cpu",
+      "old_classifier_ms": 13.161949813365936,
+      "new_classifier_ms": 456.2959782779217,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.545339884456709e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_24",
+      "device": "cpu",
+      "old_classifier_ms": 14.049824327230453,
+      "new_classifier_ms": 445.9262154996395,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.6958130122368686e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_00",
+      "device": "cpu",
+      "old_classifier_ms": 13.239756226539612,
+      "new_classifier_ms": 409.26603600382805,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0003149866578962968
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_01",
+      "device": "cpu",
+      "old_classifier_ms": 12.902278453111649,
+      "new_classifier_ms": 392.67850667238235,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.637851296924623e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_02",
+      "device": "cpu",
+      "old_classifier_ms": 20.37544548511505,
+      "new_classifier_ms": 426.7117939889431,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.3907210862180763e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_04",
+      "device": "cpu",
+      "old_classifier_ms": 12.946508824825287,
+      "new_classifier_ms": 470.45258805155754,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.555721302951931e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_08",
+      "device": "cpu",
+      "old_classifier_ms": 13.178322464227676,
+      "new_classifier_ms": 415.1516705751419,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.808177680401535e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_16",
+      "device": "cpu",
+      "old_classifier_ms": 13.141244649887085,
+      "new_classifier_ms": 414.5182818174362,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00015113564556028852
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.307284563779831,
+      "new_classifier_ms": 409.4160832464695,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.771947925589885e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_10",
+      "device": "cpu",
+      "old_classifier_ms": 12.720733880996704,
+      "new_classifier_ms": 433.0187477171421,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.7454081453235375e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_12",
+      "device": "cpu",
+      "old_classifier_ms": 23.639168590307236,
+      "new_classifier_ms": 520.3400515019894,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.465088012075348e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.99260014295578,
+      "new_classifier_ms": 427.70281061530113,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.642110295445146e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_00",
+      "device": "cpu",
+      "old_classifier_ms": 13.7234628200531,
+      "new_classifier_ms": 439.7302083671093,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.62637494493532e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.770487159490585,
+      "new_classifier_ms": 395.65522596240044,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.007530670765155199
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_02",
+      "device": "cpu",
+      "old_classifier_ms": 13.460267335176468,
+      "new_classifier_ms": 478.23910415172577,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00017381757417598946
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_04",
+      "device": "cpu",
+      "old_classifier_ms": 14.111362397670746,
+      "new_classifier_ms": 452.8704956173897,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.806255641895632e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_08",
+      "device": "cpu",
+      "old_classifier_ms": 13.379283249378204,
+      "new_classifier_ms": 463.8409987092018,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.8105121581957206e-05
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_16",
+      "device": "cpu",
+      "old_classifier_ms": 13.754032552242279,
+      "new_classifier_ms": 440.70105627179146,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.5612511283791264e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_09",
+      "device": "cpu",
+      "old_classifier_ms": 12.946352362632751,
+      "new_classifier_ms": 433.1405684351921,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.507217523872729e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_10",
+      "device": "cpu",
+      "old_classifier_ms": 24.36840906739235,
+      "new_classifier_ms": 452.63131335377693,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.5236570605778894e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_12",
+      "device": "cpu",
+      "old_classifier_ms": 13.77742737531662,
+      "new_classifier_ms": 470.73234245181084,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.1078660143715169e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.832081109285355,
+      "new_classifier_ms": 468.1825824081898,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00015116634604117607
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_00",
+      "device": "cpu",
+      "old_classifier_ms": 13.228412717580795,
+      "new_classifier_ms": 449.64587315917015,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00010210752332885371
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_01",
+      "device": "cpu",
+      "old_classifier_ms": 13.22074979543686,
+      "new_classifier_ms": 421.3463328778744,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0002529857016913587
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_02",
+      "device": "cpu",
+      "old_classifier_ms": 13.887651264667511,
+      "new_classifier_ms": 465.49293398857117,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0010133829375300564
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_04",
+      "device": "cpu",
+      "old_classifier_ms": 13.294387608766556,
+      "new_classifier_ms": 491.80636182427406,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.608861477543245e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_08",
+      "device": "cpu",
+      "old_classifier_ms": 14.669407159090042,
+      "new_classifier_ms": 468.7432795763016,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0017622663616011919
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_16",
+      "device": "cpu",
+      "old_classifier_ms": 15.103716403245926,
+      "new_classifier_ms": 461.94566413760185,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.00013950384408349366
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_09",
+      "device": "cpu",
+      "old_classifier_ms": 13.026617467403412,
+      "new_classifier_ms": 444.26751136779785,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 0.0013570218019979575
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_10",
+      "device": "cpu",
+      "old_classifier_ms": 12.999225407838821,
+      "new_classifier_ms": 453.5457193851471,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.981555974335137e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_12",
+      "device": "cpu",
+      "old_classifier_ms": 12.97757774591446,
+      "new_classifier_ms": 561.8642941117287,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.94123560250748e-07
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_24",
+      "device": "cpu",
+      "old_classifier_ms": 13.25991377234459,
+      "new_classifier_ms": 460.6506712734699,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.157665346103228e-06
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.041910827159882,
+      "new_classifier_ms": 341.7089357972145,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.2526065174565133e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.643608540296555,
+      "new_classifier_ms": 352.7301251888275,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.0842021724855044e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.358567953109741,
+      "new_classifier_ms": 352.79321670532227,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.047314121155779e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.095279335975647,
+      "new_classifier_ms": 365.9035675227642,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.734723475976807e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_08",
+      "device": "cuda",
+      "old_classifier_ms": 17.92985573410988,
+      "new_classifier_ms": 339.29404616355896,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.574980159653073e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.374366909265518,
+      "new_classifier_ms": 338.5658971965313,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.2526065174565133e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.660990744829178,
+      "new_classifier_ms": 360.3350557386875,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.945670167485263e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.739843964576721,
+      "new_classifier_ms": 382.33885169029236,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.404571325722362e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.524671196937561,
+      "new_classifier_ms": 381.3786543905735,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.336808689942018e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.60350951552391,
+      "new_classifier_ms": 347.5111275911331,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.0503208545953324e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.264310657978058,
+      "new_classifier_ms": 372.45848402380943,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.326672684688674e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.19273293018341,
+      "new_classifier_ms": 361.08798161149025,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.326672684688674e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.547328412532806,
+      "new_classifier_ms": 357.25684463977814,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.220446049250313e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.56802985072136,
+      "new_classifier_ms": 379.4356733560562,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.245004513516506e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.182812482118607,
+      "new_classifier_ms": 358.3168759942055,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.168404344971009e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.537456393241882,
+      "new_classifier_ms": 372.2081556916237,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.6653345369377348e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.179858326911926,
+      "new_classifier_ms": 359.7120828926563,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.345630019903183,
+      "new_classifier_ms": 357.3915511369705,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.4094628242311558e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.306939154863358,
+      "new_classifier_ms": 385.1000927388668,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.474514954580286e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.272547274827957,
+      "new_classifier_ms": 367.3284500837326,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.214306433183765e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.691299706697464,
+      "new_classifier_ms": 378.74860689044,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.3418766925686896e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.47432017326355,
+      "new_classifier_ms": 322.5054442882538,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.345961570739746,
+      "new_classifier_ms": 340.98266810178757,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.806255641895632e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_04",
+      "device": "cuda",
+      "old_classifier_ms": 9.082987904548645,
+      "new_classifier_ms": 386.0197588801384,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.0816681711721685e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.583951741456985,
+      "new_classifier_ms": 390.82474261522293,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.318364664277155e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.737284690141678,
+      "new_classifier_ms": 395.79635113477707,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.688821387764051e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.456580340862274,
+      "new_classifier_ms": 310.8185604214668,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.421010862427522e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.426006883382797,
+      "new_classifier_ms": 340.83007276058197,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 9.75781955236954e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.65108147263527,
+      "new_classifier_ms": 403.0403830111027,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.1102230246251565e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.83311778306961,
+      "new_classifier_ms": 397.43615686893463,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.3881317890172014e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.78780335187912,
+      "new_classifier_ms": 312.96512484550476,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.938893903907228e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.795280009508133,
+      "new_classifier_ms": 324.217114597559,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.70199128985405,
+      "new_classifier_ms": 339.5194076001644,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3877787807814457e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.320823311805725,
+      "new_classifier_ms": 321.06029987335205,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.898059818321144e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.18486139178276,
+      "new_classifier_ms": 311.0569603741169,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.284483346386983e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.745569735765457,
+      "new_classifier_ms": 304.3149337172508,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.1275702593849246e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.264515548944473,
+      "new_classifier_ms": 355.1296032965183,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 9.486769009248164e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.327323943376541,
+      "new_classifier_ms": 348.7170785665512,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.912791094074942e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.785255253314972,
+      "new_classifier_ms": 346.10603004693985,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.2690460541616737e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.768439292907715,
+      "new_classifier_ms": 313.87780234217644,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.607859233063394e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.266177028417587,
+      "new_classifier_ms": 330.4664008319378,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3877787807814457e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.38300958275795,
+      "new_classifier_ms": 307.2565533220768,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.336808689942018e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_02",
+      "device": "cuda",
+      "old_classifier_ms": 7.996413856744766,
+      "new_classifier_ms": 361.26813292503357,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.245004513516506e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.240748196840286,
+      "new_classifier_ms": 373.1886111199856,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.551115123125783e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.265379816293716,
+      "new_classifier_ms": 337.703425437212,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.4568966692773966e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.43137875199318,
+      "new_classifier_ms": 341.1405198276043,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.0657581468206416e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.3763487637043,
+      "new_classifier_ms": 358.70660468935966,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.981555974335137e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.575711399316788,
+      "new_classifier_ms": 357.3186546564102,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.220446049250313e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.25803354382515,
+      "new_classifier_ms": 358.4682457149029,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.8973538018496328e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.518334478139877,
+      "new_classifier_ms": 344.1309370100498,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.928228386300251e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.761294186115265,
+      "new_classifier_ms": 360.59053614735603,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.371692252312041e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.278973400592804,
+      "new_classifier_ms": 267.7759416401386,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.1102230246251565e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.427709341049194,
+      "new_classifier_ms": 351.44833102822304,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.938893903907228e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.653305470943451,
+      "new_classifier_ms": 400.90472996234894,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.551115123125783e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.79010185599327,
+      "new_classifier_ms": 382.34229013323784,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.220446049250313e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_16",
+      "device": "cuda",
+      "old_classifier_ms": 9.207118302583694,
+      "new_classifier_ms": 369.1856190562248,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 8.673617379884035e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.72873142361641,
+      "new_classifier_ms": 276.04228630661964,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.7947076036992655e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_10",
+      "device": "cuda",
+      "old_classifier_ms": 9.073052555322647,
+      "new_classifier_ms": 347.2604788839817,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3877787807814457e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.613348007202148,
+      "new_classifier_ms": 380.50566986203194,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.9302328752599536e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.836232125759125,
+      "new_classifier_ms": 383.26092809438705,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.168404344971009e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.67580994963646,
+      "new_classifier_ms": 370.510283857584,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.1384122811097797e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.446566760540009,
+      "new_classifier_ms": 341.1956690251827,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.168404344971009e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.30138847231865,
+      "new_classifier_ms": 344.07634288072586,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.469446951953614e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.334018290042877,
+      "new_classifier_ms": 374.2385692894459,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.204170427930421e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.677318692207336,
+      "new_classifier_ms": 354.76649180054665,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3823577699190182e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.441321551799774,
+      "new_classifier_ms": 364.1999736428261,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.1141942363467336e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.441213518381119,
+      "new_classifier_ms": 349.8067371547222,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.981555974335137e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.404430001974106,
+      "new_classifier_ms": 365.3434291481972,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.336808689942018e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.402325212955475,
+      "new_classifier_ms": 385.02198457717896,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 9.825582188149884e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_24",
+      "device": "cuda",
+      "old_classifier_ms": 9.011588990688324,
+      "new_classifier_ms": 356.58903419971466,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3823577699190182e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.391737937927246,
+      "new_classifier_ms": 319.55404207110405,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3010426069826053e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.348260074853897,
+      "new_classifier_ms": 299.54318702220917,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.637851296924623e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.158426731824875,
+      "new_classifier_ms": 345.8303101360798,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 5.637851296924623e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.420310914516449,
+      "new_classifier_ms": 365.64111709594727,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.249000902703301e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.723732084035873,
+      "new_classifier_ms": 323.3248442411423,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.792703114739563e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.649438619613647,
+      "new_classifier_ms": 318.52004677057266,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.846030702774449e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.334450423717499,
+      "new_classifier_ms": 334.70306172966957,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.453889935837843e-20
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.228026330471039,
+      "new_classifier_ms": 341.32070094347,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.2536087619363645e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.350033313035965,
+      "new_classifier_ms": 352.06832736730576,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.6940658945086007e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.55574756860733,
+      "new_classifier_ms": 316.44126400351524,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.981555974335137e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.881140500307083,
+      "new_classifier_ms": 335.8171805739403,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.5052130349130266e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.379943668842316,
+      "new_classifier_ms": 295.5835871398449,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.163336342344337e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_02",
+      "device": "cuda",
+      "old_classifier_ms": 7.853787392377853,
+      "new_classifier_ms": 354.7927029430866,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3877787807814457e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.925486356019974,
+      "new_classifier_ms": 376.2321136891842,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.806255641895632e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_08",
+      "device": "cuda",
+      "old_classifier_ms": 9.13238525390625,
+      "new_classifier_ms": 381.86102733016014,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.0328790734103208e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_16",
+      "device": "cuda",
+      "old_classifier_ms": 9.101539850234985,
+      "new_classifier_ms": 347.5172631442547,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.5612511283791264e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.314244449138641,
+      "new_classifier_ms": 328.8864456117153,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.507217523872729e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.05797427892685,
+      "new_classifier_ms": 352.88988053798676,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 3.5236570605778894e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.94579291343689,
+      "new_classifier_ms": 375.98712742328644,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.3552527156068805e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_24",
+      "device": "cuda",
+      "old_classifier_ms": 9.154602885246277,
+      "new_classifier_ms": 369.03446540236473,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.981555974335137e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_00",
+      "device": "cuda",
+      "old_classifier_ms": 8.176136761903763,
+      "new_classifier_ms": 342.21896156668663,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.37257477290143e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_01",
+      "device": "cuda",
+      "old_classifier_ms": 8.237048983573914,
+      "new_classifier_ms": 327.0418047904968,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 7.37257477290143e-18
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_02",
+      "device": "cuda",
+      "old_classifier_ms": 8.366934955120087,
+      "new_classifier_ms": 340.29119461774826,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.214306433183765e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_04",
+      "device": "cuda",
+      "old_classifier_ms": 8.179601281881332,
+      "new_classifier_ms": 375.15949085354805,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.608861477543245e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_08",
+      "device": "cuda",
+      "old_classifier_ms": 8.620113134384155,
+      "new_classifier_ms": 347.7293699979782,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.8041124150158794e-16
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_16",
+      "device": "cuda",
+      "old_classifier_ms": 8.327264338731766,
+      "new_classifier_ms": 347.52198308706284,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 1.0191500421363742e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_09",
+      "device": "cuda",
+      "old_classifier_ms": 8.946169167757034,
+      "new_classifier_ms": 333.82216840982437,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 4.683753385137379e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_10",
+      "device": "cuda",
+      "old_classifier_ms": 8.158378303050995,
+      "new_classifier_ms": 337.863203138113,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.981555974335137e-19
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_12",
+      "device": "cuda",
+      "old_classifier_ms": 8.388206362724304,
+      "new_classifier_ms": 363.69815841317177,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_24",
+      "device": "cuda",
+      "old_classifier_ms": 8.287649601697922,
+      "new_classifier_ms": 358.7394952774048,
+      "label_parity_mismatch": false,
+      "score_max_abs_diff": 6.505213034913027e-19
+    }
+  ],
+  "fast_feature_parity": [
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_00",
+      "feature_max_abs_diff": 1.2516975402832031e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_01",
+      "feature_max_abs_diff": 2.0265579223632812e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_02",
+      "feature_max_abs_diff": 1.1920928955078125e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_04",
+      "feature_max_abs_diff": 1.519918441772461e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_08",
+      "feature_max_abs_diff": 1.3113021850585938e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_16",
+      "feature_max_abs_diff": 1.2516975402832031e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_09",
+      "feature_max_abs_diff": 2.0265579223632812e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_10",
+      "feature_max_abs_diff": 1.1920928955078125e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_12",
+      "feature_max_abs_diff": 1.519918441772461e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0000_24",
+      "feature_max_abs_diff": 1.3113021850585938e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_00",
+      "feature_max_abs_diff": 9.5367431640625e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_01",
+      "feature_max_abs_diff": 2.942979335784912e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_02",
+      "feature_max_abs_diff": 1.4156103134155273e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_04",
+      "feature_max_abs_diff": 9.834766387939453e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_08",
+      "feature_max_abs_diff": 9.5367431640625e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_16",
+      "feature_max_abs_diff": 9.5367431640625e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_09",
+      "feature_max_abs_diff": 2.942979335784912e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_10",
+      "feature_max_abs_diff": 1.4156103134155273e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_12",
+      "feature_max_abs_diff": 9.834766387939453e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0010_24",
+      "feature_max_abs_diff": 9.5367431640625e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_00",
+      "feature_max_abs_diff": 1.4603137969970703e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_01",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_02",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_04",
+      "feature_max_abs_diff": 1.2516975402832031e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_08",
+      "feature_max_abs_diff": 1.4603137969970703e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_16",
+      "feature_max_abs_diff": 1.4603137969970703e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_09",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_10",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_12",
+      "feature_max_abs_diff": 1.2516975402832031e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0020_24",
+      "feature_max_abs_diff": 1.4603137969970703e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_00",
+      "feature_max_abs_diff": 4.3585896492004395e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_01",
+      "feature_max_abs_diff": 3.427267074584961e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_02",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_04",
+      "feature_max_abs_diff": 5.029141902923584e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_08",
+      "feature_max_abs_diff": 4.3585896492004395e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_16",
+      "feature_max_abs_diff": 4.3585896492004395e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_09",
+      "feature_max_abs_diff": 3.427267074584961e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_10",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_12",
+      "feature_max_abs_diff": 5.029141902923584e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0030_24",
+      "feature_max_abs_diff": 4.3585896492004395e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_00",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_01",
+      "feature_max_abs_diff": 8.940696716308594e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_02",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_04",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_08",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_16",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_09",
+      "feature_max_abs_diff": 8.940696716308594e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_10",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_12",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0040_24",
+      "feature_max_abs_diff": 5.960464477539063e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_00",
+      "feature_max_abs_diff": 3.3527612686157227e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_01",
+      "feature_max_abs_diff": 5.21540641784668e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_02",
+      "feature_max_abs_diff": 8.717179298400879e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_04",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_08",
+      "feature_max_abs_diff": 3.129243850708008e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_16",
+      "feature_max_abs_diff": 3.3527612686157227e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_09",
+      "feature_max_abs_diff": 5.21540641784668e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_10",
+      "feature_max_abs_diff": 8.717179298400879e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_12",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0050_24",
+      "feature_max_abs_diff": 3.129243850708008e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_00",
+      "feature_max_abs_diff": 1.385807991027832e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_01",
+      "feature_max_abs_diff": 3.7997961044311523e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_02",
+      "feature_max_abs_diff": 9.08970832824707e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_04",
+      "feature_max_abs_diff": 1.3262033462524414e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_08",
+      "feature_max_abs_diff": 1.385807991027832e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_16",
+      "feature_max_abs_diff": 1.385807991027832e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_09",
+      "feature_max_abs_diff": 3.7997961044311523e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_10",
+      "feature_max_abs_diff": 9.08970832824707e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_12",
+      "feature_max_abs_diff": 1.3262033462524414e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0060_24",
+      "feature_max_abs_diff": 1.385807991027832e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_00",
+      "feature_max_abs_diff": 1.862645149230957e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_01",
+      "feature_max_abs_diff": 7.636845111846924e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_02",
+      "feature_max_abs_diff": 2.3096799850463867e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_04",
+      "feature_max_abs_diff": 1.4901161193847656e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_08",
+      "feature_max_abs_diff": 1.862645149230957e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_16",
+      "feature_max_abs_diff": 1.862645149230957e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_09",
+      "feature_max_abs_diff": 7.543712854385376e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_10",
+      "feature_max_abs_diff": 2.3096799850463867e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_12",
+      "feature_max_abs_diff": 1.4901161193847656e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0070_24",
+      "feature_max_abs_diff": 1.862645149230957e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_00",
+      "feature_max_abs_diff": 2.1457672119140625e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_01",
+      "feature_max_abs_diff": 4.284083843231201e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_02",
+      "feature_max_abs_diff": 1.6689300537109375e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_04",
+      "feature_max_abs_diff": 9.834766387939453e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_08",
+      "feature_max_abs_diff": 2.115964889526367e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_16",
+      "feature_max_abs_diff": 2.1457672119140625e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_09",
+      "feature_max_abs_diff": 1.1920928955078125e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_10",
+      "feature_max_abs_diff": 1.6093254089355469e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_12",
+      "feature_max_abs_diff": 9.238719940185547e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0080_24",
+      "feature_max_abs_diff": 2.115964889526367e-06,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_00",
+      "feature_max_abs_diff": 2.2724270820617676e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_01",
+      "feature_max_abs_diff": 1.6577541828155518e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_02",
+      "feature_max_abs_diff": 6.705522537231445e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_04",
+      "feature_max_abs_diff": 1.9744038581848145e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_08",
+      "feature_max_abs_diff": 2.2724270820617676e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_16",
+      "feature_max_abs_diff": 2.2724270820617676e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_09",
+      "feature_max_abs_diff": 1.6391277313232422e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_10",
+      "feature_max_abs_diff": 6.705522537231445e-08,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_12",
+      "feature_max_abs_diff": 1.9744038581848145e-07,
+      "spatial_max_abs_diff": 0.0
+    },
+    {
+      "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v3/0090_24",
+      "feature_max_abs_diff": 2.2724270820617676e-07,
+      "spatial_max_abs_diff": 0.0
+    }
+  ],
+  "classification_only_not_end_to_end": true,
+  "deterministic_non_error_based_sample": true,
+  "trained_models_unchanged": true
+}

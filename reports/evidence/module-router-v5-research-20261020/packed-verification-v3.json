@@ -1,0 +1,18 @@
+{
+  "frames": 1600,
+  "max_probability_error": 6.106226635438361e-16,
+  "decision_mismatches": 0,
+  "timings": {
+    "sklearn": {
+      "median_ms": 14.228124171495438,
+      "p95_ms": 18.600035458803173,
+      "max_ms": 23.622505366802216
+    },
+    "packed": {
+      "median_ms": 0.6465092301368713,
+      "p95_ms": 0.6833136081695557,
+      "max_ms": 0.8762404322624207
+    }
+  },
+  "parameters_unchanged": true
+}

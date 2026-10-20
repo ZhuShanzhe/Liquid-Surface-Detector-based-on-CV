@@ -17,6 +17,12 @@ pip install -e '.[tof-vision]'
 `UnifiedToFMeter(..., small_float_peak=False)`可回放formal v2最高高度；`ToFSceneMeter.from_empty_geometry`提供同名选项。`compound_repair=False`是更旧几何路径，不能与此混淆。
 原始证据、误差分布、失效诊断与直接串联延时见 [独立测试证据](reports/evidence/small-float-v3-20261020/summary.json)。
 
+### 视觉选路后续研究（未替换正式头）
+
+新选路候选经过三轮研究；最新6248开发帧、320验证帧、独立100安装/1600测试帧。预先选定候选的四开关完整组合正确率88.56%，单开关平均97.00%；漂浮物精确率92.81%、召回率88.17%。均与同帧原头比较，不把物理初始化算作视觉分类成功。
+严格90%组合/漂浮物召回门槛未通过，因此**未覆盖正式分类权重或选路流程**。同最终集的已冻结V2候选达89.69%组合，但也未过漂浮物召回门槛，不据测试集倒选正式版。
+分类延时不等于整链延时，透明材质判断也没有因此获得90%保证。见 [三轮研究与不足](docs/MODULE_ROUTER_RESEARCH_20261020.rst) 和 [研究证据](reports/evidence/module-router-v5-research-20261020/research-summary.json)。
+
 本项目是固定机位、限定物理假设的仿真与软件接口版本，**不是任意真实相机、USB驱动、工业GUI或工业计量验收均已完成的产品**。
 
 ## 模块化统一入口与仿真展示（实验版，2026-10-19）

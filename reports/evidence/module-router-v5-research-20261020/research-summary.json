@@ -1,0 +1,2071 @@
+{
+  "version": "module_router_research_v5_trial3_20261020",
+  "formal_default_replaced": false,
+  "reason": "strict_joint_90pct_and_float_recall_90pct_not_met",
+  "formal_measurement_commit": "f668bdee942e804d9f613a335f431b0d907040e0",
+  "train_frames": 6248,
+  "validation_frames": 320,
+  "test_frames": 1600,
+  "test_installations": 100,
+  "old": {
+    "frames": 1600,
+    "exact_switch_accuracy": 0.3425,
+    "mean_switch_accuracy": 0.7678125,
+    "macro_f1": 0.6092133361914218,
+    "tags": {
+      "low_light": {
+        "tp": 334,
+        "fp": 133,
+        "fn": 166,
+        "tn": 967,
+        "precision": 0.715203426124197,
+        "recall": 0.668,
+        "specificity": 0.8790909090909091,
+        "accuracy": 0.813125,
+        "f1": 0.6907962771458118
+      },
+      "glare": {
+        "tp": 415,
+        "fp": 202,
+        "fn": 185,
+        "tn": 798,
+        "precision": 0.6726094003241491,
+        "recall": 0.6916666666666667,
+        "specificity": 0.798,
+        "accuracy": 0.758125,
+        "f1": 0.6820049301561216
+      },
+      "uneven_surface": {
+        "tp": 411,
+        "fp": 231,
+        "fn": 89,
+        "tn": 869,
+        "precision": 0.6401869158878505,
+        "recall": 0.822,
+        "specificity": 0.79,
+        "accuracy": 0.8,
+        "f1": 0.7197898423817863
+      },
+      "floating_objects": {
+        "tp": 126,
+        "fp": 6,
+        "fn": 474,
+        "tn": 994,
+        "precision": 0.9545454545454546,
+        "recall": 0.21,
+        "specificity": 0.994,
+        "accuracy": 0.7,
+        "f1": 0.3442622950819672
+      }
+    }
+  },
+  "new": {
+    "frames": 1600,
+    "exact_switch_accuracy": 0.885625,
+    "mean_switch_accuracy": 0.97,
+    "macro_f1": 0.9572023702867165,
+    "tags": {
+      "low_light": {
+        "tp": 487,
+        "fp": 5,
+        "fn": 13,
+        "tn": 1095,
+        "precision": 0.9898373983739838,
+        "recall": 0.974,
+        "specificity": 0.9954545454545455,
+        "accuracy": 0.98875,
+        "f1": 0.9818548387096774
+      },
+      "glare": {
+        "tp": 578,
+        "fp": 12,
+        "fn": 22,
+        "tn": 988,
+        "precision": 0.9796610169491525,
+        "recall": 0.9633333333333334,
+        "specificity": 0.988,
+        "accuracy": 0.97875,
+        "f1": 0.9714285714285714
+      },
+      "uneven_surface": {
+        "tp": 473,
+        "fp": 1,
+        "fn": 27,
+        "tn": 1099,
+        "precision": 0.9978902953586498,
+        "recall": 0.946,
+        "specificity": 0.9990909090909091,
+        "accuracy": 0.9825,
+        "f1": 0.971252566735113
+      },
+      "floating_objects": {
+        "tp": 529,
+        "fp": 41,
+        "fn": 71,
+        "tn": 959,
+        "precision": 0.9280701754385965,
+        "recall": 0.8816666666666667,
+        "specificity": 0.959,
+        "accuracy": 0.93,
+        "f1": 0.9042735042735043
+      }
+    }
+  },
+  "exact_95ci_installation_bootstrap": [
+    0.859375,
+    0.910625
+  ],
+  "same_final_test_frozen_model_ablation": {
+    "V1_frozen_features": {
+      "exact": 0.820625,
+      "mean": 0.95203125,
+      "tags": {
+        "low_light": {
+          "accuracy": 0.98625,
+          "precision": 0.9897540983606558,
+          "recall": 0.966,
+          "tp": 483,
+          "fp": 5,
+          "fn": 17,
+          "tn": 1095
+        },
+        "glare": {
+          "accuracy": 0.973125,
+          "precision": 0.9499192245557351,
+          "recall": 0.98,
+          "tp": 588,
+          "fp": 31,
+          "fn": 12,
+          "tn": 969
+        },
+        "uneven_surface": {
+          "accuracy": 0.936875,
+          "precision": 0.9854014598540146,
+          "recall": 0.81,
+          "tp": 405,
+          "fp": 6,
+          "fn": 95,
+          "tn": 1094
+        },
+        "floating_objects": {
+          "accuracy": 0.911875,
+          "precision": 0.9562624254473161,
+          "recall": 0.8016666666666666,
+          "tp": 481,
+          "fp": 22,
+          "fn": 119,
+          "tn": 978
+        }
+      }
+    },
+    "V2_spatial_native_RGB": {
+      "exact": 0.896875,
+      "mean": 0.97328125,
+      "tags": {
+        "low_light": {
+          "accuracy": 0.994375,
+          "precision": 0.9900199600798403,
+          "recall": 0.992,
+          "tp": 496,
+          "fp": 5,
+          "fn": 4,
+          "tn": 1095
+        },
+        "glare": {
+          "accuracy": 0.983125,
+          "precision": 0.9880749574105622,
+          "recall": 0.9666666666666667,
+          "tp": 580,
+          "fp": 7,
+          "fn": 20,
+          "tn": 993
+        },
+        "uneven_surface": {
+          "accuracy": 0.983125,
+          "precision": 0.9958071278825996,
+          "recall": 0.95,
+          "tp": 475,
+          "fp": 2,
+          "fn": 25,
+          "tn": 1098
+        },
+        "floating_objects": {
+          "accuracy": 0.9325,
+          "precision": 0.9408602150537635,
+          "recall": 0.875,
+          "tp": 525,
+          "fp": 33,
+          "fn": 75,
+          "tn": 967
+        }
+      }
+    },
+    "V3_factorial_development": {
+      "exact": 0.885625,
+      "mean": 0.97,
+      "tags": {
+        "low_light": {
+          "accuracy": 0.98875,
+          "precision": 0.9898373983739838,
+          "recall": 0.974,
+          "tp": 487,
+          "fp": 5,
+          "fn": 13,
+          "tn": 1095
+        },
+        "glare": {
+          "accuracy": 0.97875,
+          "precision": 0.9796610169491525,
+          "recall": 0.9633333333333334,
+          "tp": 578,
+          "fp": 12,
+          "fn": 22,
+          "tn": 988
+        },
+        "uneven_surface": {
+          "accuracy": 0.9825,
+          "precision": 0.9978902953586498,
+          "recall": 0.946,
+          "tp": 473,
+          "fp": 1,
+          "fn": 27,
+          "tn": 1099
+        },
+        "floating_objects": {
+          "accuracy": 0.93,
+          "precision": 0.9280701754385965,
+          "recall": 0.8816666666666667,
+          "tp": 529,
+          "fp": 41,
+          "fn": 71,
+          "tn": 959
+        }
+      }
+    }
+  },
+  "per_condition": {
+    "0": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.34,
+        "mean_switch_accuracy": 0.7975,
+        "macro_f1": 0.0,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 13,
+            "fn": 0,
+            "tn": 87,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.87,
+            "accuracy": 0.87,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 34,
+            "fn": 0,
+            "tn": 66,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.66,
+            "accuracy": 0.66,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 34,
+            "fn": 0,
+            "tn": 66,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.66,
+            "accuracy": 0.66,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 1.0,
+        "mean_switch_accuracy": 1.0,
+        "macro_f1": 0.0,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "1": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.46,
+        "mean_switch_accuracy": 0.83,
+        "macro_f1": 0.2159090909090909,
+        "tags": {
+          "low_light": {
+            "tp": 76,
+            "fp": 0,
+            "fn": 24,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.76,
+            "specificity": 0.0,
+            "accuracy": 0.76,
+            "f1": 0.8636363636363636
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 36,
+            "fn": 0,
+            "tn": 64,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.64,
+            "accuracy": 0.64,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 8,
+            "fn": 0,
+            "tn": 92,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.92,
+            "accuracy": 0.92,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.93,
+        "mean_switch_accuracy": 0.9825,
+        "macro_f1": 0.24619289340101522,
+        "tags": {
+          "low_light": {
+            "tp": 97,
+            "fp": 0,
+            "fn": 3,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.97,
+            "specificity": 0.0,
+            "accuracy": 0.97,
+            "f1": 0.9847715736040609
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "2": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.64,
+        "mean_switch_accuracy": 0.9,
+        "macro_f1": 0.24358974358974358,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 12,
+            "fn": 0,
+            "tn": 88,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.88,
+            "accuracy": 0.88,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 95,
+            "fp": 0,
+            "fn": 5,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.95,
+            "specificity": 0.0,
+            "accuracy": 0.95,
+            "f1": 0.9743589743589743
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 23,
+            "fn": 0,
+            "tn": 77,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.77,
+            "accuracy": 0.77,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.97,
+        "mean_switch_accuracy": 0.9925,
+        "macro_f1": 0.24874371859296482,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 99,
+            "fp": 0,
+            "fn": 1,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.99,
+            "specificity": 0.0,
+            "accuracy": 0.99,
+            "f1": 0.9949748743718593
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "3": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.61,
+        "mean_switch_accuracy": 0.8575,
+        "macro_f1": 0.43563728598604945,
+        "tags": {
+          "low_light": {
+            "tp": 66,
+            "fp": 0,
+            "fn": 34,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.66,
+            "specificity": 0.0,
+            "accuracy": 0.66,
+            "f1": 0.7951807228915663
+          },
+          "glare": {
+            "tp": 90,
+            "fp": 0,
+            "fn": 10,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.9,
+            "specificity": 0.0,
+            "accuracy": 0.9,
+            "f1": 0.9473684210526315
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 13,
+            "fn": 0,
+            "tn": 87,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.87,
+            "accuracy": 0.87,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.79,
+        "mean_switch_accuracy": 0.9475,
+        "macro_f1": 0.47847344832269456,
+        "tags": {
+          "low_light": {
+            "tp": 99,
+            "fp": 0,
+            "fn": 1,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.99,
+            "specificity": 0.0,
+            "accuracy": 0.99,
+            "f1": 0.9949748743718593
+          },
+          "glare": {
+            "tp": 85,
+            "fp": 0,
+            "fn": 15,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.85,
+            "specificity": 0.0,
+            "accuracy": 0.85,
+            "f1": 0.918918918918919
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 5,
+            "fn": 0,
+            "tn": 95,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.95,
+            "accuracy": 0.95,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "4": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.91,
+        "mean_switch_accuracy": 0.96,
+        "macro_f1": 0.24093264248704663,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 6,
+            "fn": 0,
+            "tn": 94,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.94,
+            "accuracy": 0.94,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 93,
+            "fp": 0,
+            "fn": 7,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.93,
+            "specificity": 0.0,
+            "accuracy": 0.93,
+            "f1": 0.9637305699481865
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.93,
+        "mean_switch_accuracy": 0.9825,
+        "macro_f1": 0.24874371859296482,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 99,
+            "fp": 0,
+            "fn": 1,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.99,
+            "specificity": 0.0,
+            "accuracy": 0.99,
+            "f1": 0.9949748743718593
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 6,
+            "fn": 0,
+            "tn": 94,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.94,
+            "accuracy": 0.94,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "5": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.05,
+        "mean_switch_accuracy": 0.7175,
+        "macro_f1": 0.32762293626841826,
+        "tags": {
+          "low_light": {
+            "tp": 31,
+            "fp": 0,
+            "fn": 69,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.31,
+            "specificity": 0.0,
+            "accuracy": 0.31,
+            "f1": 0.4732824427480916
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 13,
+            "fn": 0,
+            "tn": 87,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.87,
+            "accuracy": 0.87,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 72,
+            "fp": 0,
+            "fn": 28,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.72,
+            "specificity": 0.0,
+            "accuracy": 0.72,
+            "f1": 0.8372093023255814
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.82,
+        "mean_switch_accuracy": 0.955,
+        "macro_f1": 0.4897826369907588,
+        "tags": {
+          "low_light": {
+            "tp": 97,
+            "fp": 0,
+            "fn": 3,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.97,
+            "specificity": 0.0,
+            "accuracy": 0.97,
+            "f1": 0.9847715736040609
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 98,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.98,
+            "accuracy": 0.98,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 95,
+            "fp": 0,
+            "fn": 5,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.95,
+            "specificity": 0.0,
+            "accuracy": 0.95,
+            "f1": 0.9743589743589743
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 8,
+            "fn": 0,
+            "tn": 92,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.92,
+            "accuracy": 0.92,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "6": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.19,
+        "mean_switch_accuracy": 0.7775,
+        "macro_f1": 0.3646353646353646,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 96,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.96,
+            "accuracy": 0.96,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 43,
+            "fp": 0,
+            "fn": 57,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.43,
+            "specificity": 0.0,
+            "accuracy": 0.43,
+            "f1": 0.6013986013986014
+          },
+          "uneven_surface": {
+            "tp": 75,
+            "fp": 0,
+            "fn": 25,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.75,
+            "specificity": 0.0,
+            "accuracy": 0.75,
+            "f1": 0.8571428571428571
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.77,
+        "mean_switch_accuracy": 0.9375,
+        "macro_f1": 0.48431685273790537,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 98,
+            "fp": 0,
+            "fn": 2,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.98,
+            "specificity": 0.0,
+            "accuracy": 0.98,
+            "f1": 0.98989898989899
+          },
+          "uneven_surface": {
+            "tp": 90,
+            "fp": 0,
+            "fn": 10,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.9,
+            "specificity": 0.0,
+            "accuracy": 0.9,
+            "f1": 0.9473684210526315
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 12,
+            "fn": 0,
+            "tn": 88,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.88,
+            "accuracy": 0.88,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "8": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.18,
+        "mean_switch_accuracy": 0.665,
+        "macro_f1": 0.11538461538461539,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 23,
+            "fn": 0,
+            "tn": 77,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.77,
+            "accuracy": 0.77,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 9,
+            "fn": 0,
+            "tn": 91,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.91,
+            "accuracy": 0.91,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 32,
+            "fn": 0,
+            "tn": 68,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.68,
+            "accuracy": 0.68,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 30,
+            "fp": 0,
+            "fn": 70,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.3,
+            "specificity": 0.0,
+            "accuracy": 0.3,
+            "f1": 0.46153846153846156
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.91,
+        "mean_switch_accuracy": 0.9775,
+        "macro_f1": 0.23821989528795812,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 91,
+            "fp": 0,
+            "fn": 9,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.91,
+            "specificity": 0.0,
+            "accuracy": 0.91,
+            "f1": 0.9528795811518325
+          }
+        }
+      }
+    },
+    "9": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.3,
+        "mean_switch_accuracy": 0.735,
+        "macro_f1": 0.34805034041675265,
+        "tags": {
+          "low_light": {
+            "tp": 85,
+            "fp": 0,
+            "fn": 15,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.85,
+            "specificity": 0.0,
+            "accuracy": 0.85,
+            "f1": 0.918918918918919
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 19,
+            "fn": 0,
+            "tn": 81,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.81,
+            "accuracy": 0.81,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 31,
+            "fp": 0,
+            "fn": 69,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.31,
+            "specificity": 0.0,
+            "accuracy": 0.31,
+            "f1": 0.4732824427480916
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.87,
+        "mean_switch_accuracy": 0.9625,
+        "macro_f1": 0.4830349986641731,
+        "tags": {
+          "low_light": {
+            "tp": 97,
+            "fp": 0,
+            "fn": 3,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.97,
+            "specificity": 0.0,
+            "accuracy": 0.97,
+            "f1": 0.9847715736040609
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 98,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.98,
+            "accuracy": 0.98,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 90,
+            "fp": 0,
+            "fn": 10,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.9,
+            "specificity": 0.0,
+            "accuracy": 0.9,
+            "f1": 0.9473684210526315
+          }
+        }
+      }
+    },
+    "10": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.0,
+        "mean_switch_accuracy": 0.5575,
+        "macro_f1": 0.22783223159334398,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 16,
+            "fn": 0,
+            "tn": 84,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.84,
+            "accuracy": 0.84,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 64,
+            "fp": 0,
+            "fn": 36,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.64,
+            "specificity": 0.0,
+            "accuracy": 0.64,
+            "f1": 0.7804878048780488
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 32,
+            "fn": 0,
+            "tn": 68,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.68,
+            "accuracy": 0.68,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 93,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.07,
+            "specificity": 0.0,
+            "accuracy": 0.07,
+            "f1": 0.1308411214953271
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.91,
+        "mean_switch_accuracy": 0.975,
+        "macro_f1": 0.48967636108001145,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 99,
+            "fp": 0,
+            "fn": 1,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.99,
+            "specificity": 0.0,
+            "accuracy": 0.99,
+            "f1": 0.9949748743718593
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 93,
+            "fp": 0,
+            "fn": 7,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.93,
+            "specificity": 0.0,
+            "accuracy": 0.93,
+            "f1": 0.9637305699481865
+          }
+        }
+      }
+    },
+    "12": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.17,
+        "mean_switch_accuracy": 0.76,
+        "macro_f1": 0.32155322862129143,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 5,
+            "fn": 0,
+            "tn": 95,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.95,
+            "accuracy": 0.95,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 98,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.98,
+            "accuracy": 0.98,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 91,
+            "fp": 0,
+            "fn": 9,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.91,
+            "specificity": 0.0,
+            "accuracy": 0.91,
+            "f1": 0.9528795811518325
+          },
+          "floating_objects": {
+            "tp": 20,
+            "fp": 0,
+            "fn": 80,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.2,
+            "specificity": 0.0,
+            "accuracy": 0.2,
+            "f1": 0.3333333333333333
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.84,
+        "mean_switch_accuracy": 0.96,
+        "macro_f1": 0.47847344832269456,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 99,
+            "fp": 0,
+            "fn": 1,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.99,
+            "specificity": 0.0,
+            "accuracy": 0.99,
+            "f1": 0.9949748743718593
+          },
+          "floating_objects": {
+            "tp": 85,
+            "fp": 0,
+            "fn": 15,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.85,
+            "specificity": 0.0,
+            "accuracy": 0.85,
+            "f1": 0.918918918918919
+          }
+        }
+      }
+    },
+    "14": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.0,
+        "mean_switch_accuracy": 0.53,
+        "macro_f1": 0.36863425925925924,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 96,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.96,
+            "accuracy": 0.96,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 28,
+            "fp": 0,
+            "fn": 72,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.28,
+            "specificity": 0.0,
+            "accuracy": 0.28,
+            "f1": 0.4375
+          },
+          "uneven_surface": {
+            "tp": 80,
+            "fp": 0,
+            "fn": 20,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.8,
+            "specificity": 0.0,
+            "accuracy": 0.8,
+            "f1": 0.8888888888888888
+          },
+          "floating_objects": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 92,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.08,
+            "specificity": 0.0,
+            "accuracy": 0.08,
+            "f1": 0.14814814814814814
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.68,
+        "mean_switch_accuracy": 0.9125,
+        "macro_f1": 0.703417976333411,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 98,
+            "fp": 0,
+            "fn": 2,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.98,
+            "specificity": 0.0,
+            "accuracy": 0.98,
+            "f1": 0.98989898989899
+          },
+          "uneven_surface": {
+            "tp": 90,
+            "fp": 0,
+            "fn": 10,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.9,
+            "specificity": 0.0,
+            "accuracy": 0.9,
+            "f1": 0.9473684210526315
+          },
+          "floating_objects": {
+            "tp": 78,
+            "fp": 0,
+            "fn": 22,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.78,
+            "specificity": 0.0,
+            "accuracy": 0.78,
+            "f1": 0.8764044943820225
+          }
+        }
+      }
+    },
+    "16": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.33,
+        "mean_switch_accuracy": 0.8025,
+        "macro_f1": 0.0,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 16,
+            "fn": 0,
+            "tn": 84,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.84,
+            "accuracy": 0.84,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 36,
+            "fn": 0,
+            "tn": 64,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.64,
+            "accuracy": 0.64,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 27,
+            "fn": 0,
+            "tn": 73,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.73,
+            "accuracy": 0.73,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.95,
+        "mean_switch_accuracy": 0.9875,
+        "macro_f1": 0.0,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 98,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.98,
+            "accuracy": 0.98,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "17": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.46,
+        "mean_switch_accuracy": 0.83,
+        "macro_f1": 0.2159090909090909,
+        "tags": {
+          "low_light": {
+            "tp": 76,
+            "fp": 0,
+            "fn": 24,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.76,
+            "specificity": 0.0,
+            "accuracy": 0.76,
+            "f1": 0.8636363636363636
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 36,
+            "fn": 0,
+            "tn": 64,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.64,
+            "accuracy": 0.64,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 8,
+            "fn": 0,
+            "tn": 92,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.92,
+            "accuracy": 0.92,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.93,
+        "mean_switch_accuracy": 0.9825,
+        "macro_f1": 0.24619289340101522,
+        "tags": {
+          "low_light": {
+            "tp": 97,
+            "fp": 0,
+            "fn": 3,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.97,
+            "specificity": 0.0,
+            "accuracy": 0.97,
+            "f1": 0.9847715736040609
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "18": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.64,
+        "mean_switch_accuracy": 0.9,
+        "macro_f1": 0.24358974358974358,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 12,
+            "fn": 0,
+            "tn": 88,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.88,
+            "accuracy": 0.88,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 95,
+            "fp": 0,
+            "fn": 5,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.95,
+            "specificity": 0.0,
+            "accuracy": 0.95,
+            "f1": 0.9743589743589743
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 23,
+            "fn": 0,
+            "tn": 77,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.77,
+            "accuracy": 0.77,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.97,
+        "mean_switch_accuracy": 0.9925,
+        "macro_f1": 0.24874371859296482,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 99,
+            "fp": 0,
+            "fn": 1,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.99,
+            "specificity": 0.0,
+            "accuracy": 0.99,
+            "f1": 0.9949748743718593
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 99,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.99,
+            "accuracy": 0.99,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "24": {
+      "old": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.2,
+        "mean_switch_accuracy": 0.665,
+        "macro_f1": 0.11538461538461539,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 25,
+            "fn": 0,
+            "tn": 75,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.75,
+            "accuracy": 0.75,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 11,
+            "fn": 0,
+            "tn": 89,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.89,
+            "accuracy": 0.89,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 28,
+            "fn": 0,
+            "tn": 72,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.72,
+            "accuracy": 0.72,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 30,
+            "fp": 0,
+            "fn": 70,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.3,
+            "specificity": 0.0,
+            "accuracy": 0.3,
+            "f1": 0.46153846153846156
+          }
+        }
+      },
+      "new": {
+        "frames": 100,
+        "exact_switch_accuracy": 0.9,
+        "mean_switch_accuracy": 0.9725,
+        "macro_f1": 0.23958333333333334,
+        "tags": {
+          "low_light": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "glare": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 97,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 0.97,
+            "accuracy": 0.97,
+            "f1": 0.0
+          },
+          "uneven_surface": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 100,
+            "precision": 0.0,
+            "recall": 0.0,
+            "specificity": 1.0,
+            "accuracy": 1.0,
+            "f1": 0.0
+          },
+          "floating_objects": {
+            "tp": 92,
+            "fp": 0,
+            "fn": 8,
+            "tn": 0,
+            "precision": 1.0,
+            "recall": 0.92,
+            "specificity": 0.0,
+            "accuracy": 0.92,
+            "f1": 0.9583333333333334
+          }
+        }
+      }
+    }
+  },
+  "diagnosis": {
+    "float_false_negative_count": 71,
+    "float_false_positive_count": 41,
+    "float_fn_by_visible_pixels": {
+      "50-199": 9,
+      "10-49": 27,
+      "1-9": 35
+    },
+    "float_fn_by_depth_support": {
+      "10-49": 19,
+      "1-9": 42,
+      "0": 8,
+      "50-199": 2
+    },
+    "float_fn_by_condition": {
+      "14": 22,
+      "9": 10,
+      "12": 15,
+      "8": 9,
+      "24": 8,
+      "10": 7
+    },
+    "float_fp_by_condition": {
+      "5": 8,
+      "4": 6,
+      "16": 2,
+      "6": 12,
+      "3": 5,
+      "2": 1,
+      "18": 1,
+      "1": 3,
+      "17": 3
+    },
+    "wave_fn_count": 27,
+    "wave_fn_amplitude_below_3sigma": 15,
+    "post_test_diagnosis_only": true
+  },
+  "latency": {
+    "cpu": {
+      "n": 100,
+      "label_parity_mismatches": 0,
+      "old_classifier_ms": {
+        "median_ms": 13.3574940264225,
+        "p95_ms": 21.415354497730725,
+        "max_ms": 24.82127770781517
+      },
+      "new_classifier_ms": {
+        "median_ms": 452.7509044855833,
+        "p95_ms": 501.8663268536329,
+        "max_ms": 561.8642941117287
+      }
+    },
+    "cuda": {
+      "n": 100,
+      "label_parity_mismatches": 0,
+      "old_classifier_ms": {
+        "median_ms": 8.436296135187149,
+        "p95_ms": 9.083915501832962,
+        "max_ms": 17.92985573410988
+      },
+      "new_classifier_ms": {
+        "median_ms": 352.7616709470749,
+        "p95_ms": 386.2600080668926,
+        "max_ms": 403.0403830111027
+      }
+    }
+  },
+  "classification_only": true,
+  "no_end_to_end_promotion_attempt_after_accuracy_gate_failed": true,
+  "packed_export_verification": {
+    "frames": 1600,
+    "max_probability_error": 6.106226635438361e-16,
+    "decision_mismatches": 0,
+    "timings": {
+      "sklearn": {
+        "median_ms": 14.228124171495438,
+        "p95_ms": 18.600035458803173,
+        "max_ms": 23.622505366802216
+      },
+      "packed": {
+        "median_ms": 0.6465092301368713,
+        "p95_ms": 0.6833136081695557,
+        "max_ms": 0.8762404322624207
+      }
+    },
+    "parameters_unchanged": true
+  },
+  "source_sha256": {
+    "generate_routing_holdout.py": "5afc8e02d0f8e570a8416a28d046994122274d51f10738f51942c307952f0283",
+    "launch_routing_holdout.py": "2938a00190afec67c9d9a43b06b865048a74e9c9e0aa50c3a23c651dee62d629",
+    "module_router_features.py": "98661e1e0256d46a71344ba94b90e5110393c9e3406faf9822c8dca6deba676c",
+    "extract_routing_data.py": "6e60266c48e3e056281220e7eb6acb0961471c7ae9370cb72c4294970642e859",
+    "launch_routing_features.py": "d21faea5783bc4dbb6d843e102e00fa4344ad3fc9603a0e57d11cee072f677dc",
+    "train_module_router.py": "45544a651fc210eea0b46eb5c7b87c3bd7091662f1f974deb186f0401bccfabe",
+    "module_router_spatial.py": "52969065ad346c7fcd809ece94c602eb46e88b557f6975abc18417db15d006f5",
+    "generate_routing_holdout_v2.py": "d66068f8cce43a59691263af5b8a0b8935a9d2823f8fe9754576c37f640e80f0",
+    "augment_routing_features.py": "fbd8b031643f5243606180a7d5f3739088fa9c73837cb58e2bc914f04a8552ff",
+    "launch_routing_v2.py": "8d0492b31c208b71b8fbee7705a71ef3c56c9869db0214561919474e4b595d3b",
+    "train_module_router_v2.py": "357c22f4daa20366d7f7a583d05b1f40ce55fcee1b3ff3be5c50465bb6708e90",
+    "resume_routing_augmentation.py": "f1110e1e3979e64047d4a67e3e69590b3df57eaa76fa335b7d9df0e70175d20e",
+    "module_router_rgb_small.py": "35b6b4fd0c5fc7ed04cc9dbe1cced04ffda08549d1882211c420c65db24ae0ed",
+    "augment_routing_rgb.py": "61958e492ba89200586554ae8a1f5d383df4809072fac25e4bd3273c7b4c2b70",
+    "launch_routing_rgb.py": "245a980f1504882a3428727ac17564e6c0fd4e548ab8de44a3f3f9af8a2dcaf7",
+    "train_module_router_v2_native_rgb.py": "ea6ce8fd287aee5c4c4c82744b782a406077b3a4af4f7637d54be97e229c5358",
+    "diagnose_routing.py": "c25416e0b1600e141cdba8b6e704784108656a6dd2bac545d1fa3f814579c5c4",
+    "benchmark_routing.py": "e496ce821c247982f829d6857d36240f5a17ea591a73ec875f2b1a35cdcbece4",
+    "module_router_rgb_fast.py": "2cd691776ac6e1646556daf9485e145aeeed2fb7ebe14059c48537c7e735a704",
+    "generate_routing_v3.py": "6636533289d271dc6832372fc9640753f07d57dcad7573614f05b16775d2c8eb",
+    "extract_routing_v3.py": "7f12222b9e6adc2b3489edba0e10fb4f43824606dffdc938cb5a79ec3499ead4",
+    "launch_routing_v3.py": "6b50df7a39d27af3f4868c117ae61e14188c8a9244396591dd0689fdf852219b",
+    "module_router_spatial_reference_v2.py": "0163393178bb85fbaaca61ca69c39ccd4a2c839345ecdcdde671ae3cf62aaf49",
+    "train_module_router_v3.py": "18efd5ceea2f2c9102b05d62abe4f2762b8f42e6ae1d7371ed895c311add1ac4",
+    "benchmark_routing_fast.py": "c0328f512b7101da02b44c8979078f0f74bd4ab9a67dfe62550d8306712851f4",
+    "packed_module_router.py": "fd4c4492a67321ab4bae80cf95cc35b46499e5a44c34693a77cdad4a065bf01d",
+    "verify_packed_router.py": "03f50601e45a536b7fb3d8bd5f940376d9352813835755da18a996da75daed10",
+    "diagnose_routing_v3.py": "cc41620ea54b331bf754399c547f4bdba694d5c712233318f5dd022fdee224d2",
+    "verify_packed_router_v3.py": "af0bb679569fbe34790b93369957b49392b02ea2987f3281b27bc3cfbd8a3951",
+    "benchmark_routing_v3.py": "8e87b6f09a7d9ca06e7a577e443c01e946a1fb9179f0d3c462b26efd57af5b81",
+    "adaptive_module_router.py": "ed653d71d5bb643b059b8ad473651972b61880adcc271adfeb69b3ea171c27d8",
+    "finalize_routing_research.py": "2cfd7e3d552c4c53b329c6633a72f3121b63d4109b2e6666e78e0ab9f1b4c2ae",
+    "publish_routing_research.py": "942a17345a5084887a80b84797ea2afd1dae5a18ebd3617001cb8ede7961a53e"
+  },
+  "model_sha256": {
+    "training": "07ce99d90ddc071a859c690d6d0a3c5cb322992b48bba68a6f705d50ad2dc8fe",
+    "training-v2-native-rgb": "156bc5a40e7b492a9619dac51c0e732f2ed50e62583b7c664ba696dd6ee902f8",
+    "training-v3": "10e1db690d343b56dc68aab5ef197b634b75c11d868e575f21e3b6ff66e6b3de"
+  }
+}

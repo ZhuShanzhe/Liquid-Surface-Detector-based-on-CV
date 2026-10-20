@@ -1,0 +1,1750 @@
+{
+  "float_false_negative_count": 77,
+  "float_false_positive_count": 53,
+  "float_fn_by_visible_pixels": {
+    "10-49": 29,
+    "1-9": 21,
+    "50-199": 21,
+    ">=200": 6
+  },
+  "float_fn_by_depth_support": {
+    "10-49": 31,
+    "1-9": 28,
+    "0": 11,
+    "50-199": 7
+  },
+  "float_fn_by_condition": {
+    "8": 5,
+    "9": 10,
+    "10": 8,
+    "12": 14,
+    "14": 34,
+    "24": 6
+  },
+  "float_fp_by_condition": {
+    "2": 3,
+    "3": 8,
+    "18": 3,
+    "5": 6,
+    "6": 17,
+    "0": 1,
+    "1": 3,
+    "4": 8,
+    "16": 1,
+    "17": 3
+  },
+  "wave_fn_count": 39,
+  "wave_fn_amplitude_below_3sigma": 30,
+  "records": {
+    "float_fn": [
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0000_08",
+        "bits": 8,
+        "score": 0.018840604498445313,
+        "visible_float_pixels": 12,
+        "float_valid_depth_pixels": 12,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0000_09",
+        "bits": 9,
+        "score": 0.0026566000306697045,
+        "visible_float_pixels": 12,
+        "float_valid_depth_pixels": 7,
+        "darkness": 0.3,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0000_10",
+        "bits": 10,
+        "score": 0.007780596375526343,
+        "visible_float_pixels": 6,
+        "float_valid_depth_pixels": 6,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0000_12",
+        "bits": 12,
+        "score": 0.016963198276066422,
+        "visible_float_pixels": 7,
+        "float_valid_depth_pixels": 7,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0000_14",
+        "bits": 14,
+        "score": 0.0012027073584556683,
+        "visible_float_pixels": 6,
+        "float_valid_depth_pixels": 6,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0000_24",
+        "bits": 24,
+        "score": 0.015475625081841915,
+        "visible_float_pixels": 12,
+        "float_valid_depth_pixels": 10,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0006_10",
+        "bits": 10,
+        "score": 0.0037238203423475683,
+        "visible_float_pixels": 9,
+        "float_valid_depth_pixels": 6,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0006_14",
+        "bits": 14,
+        "score": 0.015388089620038464,
+        "visible_float_pixels": 9,
+        "float_valid_depth_pixels": 5,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.03333171719997773,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0007_14",
+        "bits": 14,
+        "score": 0.23050595216825542,
+        "visible_float_pixels": 52,
+        "float_valid_depth_pixels": 33,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0009_12",
+        "bits": 12,
+        "score": 0.040537050697288426,
+        "visible_float_pixels": 22,
+        "float_valid_depth_pixels": 22,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0009_14",
+        "bits": 14,
+        "score": 0.022149611047369313,
+        "visible_float_pixels": 24,
+        "float_valid_depth_pixels": 24,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0010_09",
+        "bits": 9,
+        "score": 0.22442069681285912,
+        "visible_float_pixels": 43,
+        "float_valid_depth_pixels": 9,
+        "darkness": 0.62,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0010_14",
+        "bits": 14,
+        "score": 0.044414570182089094,
+        "visible_float_pixels": 35,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0014_14",
+        "bits": 14,
+        "score": 0.13531808573105145,
+        "visible_float_pixels": 523,
+        "float_valid_depth_pixels": 16,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.030977459270464525,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0016_14",
+        "bits": 14,
+        "score": 0.022939380222689258,
+        "visible_float_pixels": 61,
+        "float_valid_depth_pixels": 25,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0018_14",
+        "bits": 14,
+        "score": 0.0056447389327532755,
+        "visible_float_pixels": 22,
+        "float_valid_depth_pixels": 8,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.05700257093711278,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0024_12",
+        "bits": 12,
+        "score": 0.14167066348622642,
+        "visible_float_pixels": 10,
+        "float_valid_depth_pixels": 10,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.049172887306392056,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0025_10",
+        "bits": 10,
+        "score": 0.05473721516554198,
+        "visible_float_pixels": 47,
+        "float_valid_depth_pixels": 30,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.0,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0025_12",
+        "bits": 12,
+        "score": 0.11587264659890366,
+        "visible_float_pixels": 57,
+        "float_valid_depth_pixels": 57,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0025_14",
+        "bits": 14,
+        "score": 0.016759620559770025,
+        "visible_float_pixels": 45,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0028_12",
+        "bits": 12,
+        "score": 0.2191675462257827,
+        "visible_float_pixels": 58,
+        "float_valid_depth_pixels": 58,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0028_14",
+        "bits": 14,
+        "score": 0.0029700505183560206,
+        "visible_float_pixels": 57,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0030_14",
+        "bits": 14,
+        "score": 0.0364706572549541,
+        "visible_float_pixels": 13,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.11039384455814437,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0031_14",
+        "bits": 14,
+        "score": 0.03183508901607961,
+        "visible_float_pixels": 77,
+        "float_valid_depth_pixels": 25,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.06113598035730019,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0033_12",
+        "bits": 12,
+        "score": 0.09271059891215225,
+        "visible_float_pixels": 45,
+        "float_valid_depth_pixels": 45,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0033_14",
+        "bits": 14,
+        "score": 0.2496332919827089,
+        "visible_float_pixels": 63,
+        "float_valid_depth_pixels": 63,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0034_14",
+        "bits": 14,
+        "score": 0.05289427511456766,
+        "visible_float_pixels": 66,
+        "float_valid_depth_pixels": 31,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0036_14",
+        "bits": 14,
+        "score": 0.03543469037927187,
+        "visible_float_pixels": 17,
+        "float_valid_depth_pixels": 7,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0864685468983289,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0039_10",
+        "bits": 10,
+        "score": 0.27303467144381044,
+        "visible_float_pixels": 8,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0039_12",
+        "bits": 12,
+        "score": 0.041976023211475595,
+        "visible_float_pixels": 16,
+        "float_valid_depth_pixels": 16,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.02602079466819907,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0039_24",
+        "bits": 24,
+        "score": 0.22957927943753037,
+        "visible_float_pixels": 15,
+        "float_valid_depth_pixels": 13,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0041_14",
+        "bits": 14,
+        "score": 0.0236552584355406,
+        "visible_float_pixels": 470,
+        "float_valid_depth_pixels": 28,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.03585006715149424,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0042_10",
+        "bits": 10,
+        "score": 0.12819933687783597,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 3,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0042_14",
+        "bits": 14,
+        "score": 0.024578893780847884,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 2,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.07086316701723519,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0043_14",
+        "bits": 14,
+        "score": 0.029972789967860083,
+        "visible_float_pixels": 118,
+        "float_valid_depth_pixels": 58,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0044_14",
+        "bits": 14,
+        "score": 0.14009192027351072,
+        "visible_float_pixels": 377,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.09510384562812298,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0045_14",
+        "bits": 14,
+        "score": 0.016866426438681994,
+        "visible_float_pixels": 38,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0048_08",
+        "bits": 8,
+        "score": 0.0002679890768804558,
+        "visible_float_pixels": 11,
+        "float_valid_depth_pixels": 11,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0048_09",
+        "bits": 9,
+        "score": 0.04501835298760168,
+        "visible_float_pixels": 11,
+        "float_valid_depth_pixels": 11,
+        "darkness": 0.3,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0048_24",
+        "bits": 24,
+        "score": 0.00026319536726494337,
+        "visible_float_pixels": 11,
+        "float_valid_depth_pixels": 10,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0051_12",
+        "bits": 12,
+        "score": 0.22958684055043171,
+        "visible_float_pixels": 15,
+        "float_valid_depth_pixels": 15,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0051_14",
+        "bits": 14,
+        "score": 0.002990699097799293,
+        "visible_float_pixels": 24,
+        "float_valid_depth_pixels": 14,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0052_14",
+        "bits": 14,
+        "score": 0.13709017084039818,
+        "visible_float_pixels": 132,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.06713937783620766,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0057_08",
+        "bits": 8,
+        "score": 0.015285724564633972,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0057_09",
+        "bits": 9,
+        "score": 0.06672687301609005,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.3,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0057_12",
+        "bits": 12,
+        "score": 0.1617477175075891,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0057_14",
+        "bits": 14,
+        "score": 0.018764040662796126,
+        "visible_float_pixels": 14,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0057_24",
+        "bits": 24,
+        "score": 0.019116230298923027,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 3,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0058_12",
+        "bits": 12,
+        "score": 0.1430049578625209,
+        "visible_float_pixels": 51,
+        "float_valid_depth_pixels": 51,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0058_14",
+        "bits": 14,
+        "score": 0.016064955344459307,
+        "visible_float_pixels": 55,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0059_09",
+        "bits": 9,
+        "score": 0.10863483921144616,
+        "visible_float_pixels": 209,
+        "float_valid_depth_pixels": 12,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0060_14",
+        "bits": 14,
+        "score": 0.05679898139317992,
+        "visible_float_pixels": 55,
+        "float_valid_depth_pixels": 27,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0973346011354823,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0061_10",
+        "bits": 10,
+        "score": 0.021880567893334712,
+        "visible_float_pixels": 39,
+        "float_valid_depth_pixels": 2,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.0,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0063_12",
+        "bits": 12,
+        "score": 0.01651639493172548,
+        "visible_float_pixels": 11,
+        "float_valid_depth_pixels": 11,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0317288740216082,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0067_14",
+        "bits": 14,
+        "score": 0.18466836884176252,
+        "visible_float_pixels": 101,
+        "float_valid_depth_pixels": 18,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0070_14",
+        "bits": 14,
+        "score": 0.013703012698319604,
+        "visible_float_pixels": 85,
+        "float_valid_depth_pixels": 19,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.01491750486905916,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0071_14",
+        "bits": 14,
+        "score": 0.12779048421859476,
+        "visible_float_pixels": 268,
+        "float_valid_depth_pixels": 6,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.08103156526743942,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0075_12",
+        "bits": 12,
+        "score": 0.1208092000127287,
+        "visible_float_pixels": 9,
+        "float_valid_depth_pixels": 9,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0969200152518809,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0080_09",
+        "bits": 9,
+        "score": 0.17705747519411388,
+        "visible_float_pixels": 217,
+        "float_valid_depth_pixels": 27,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0080_12",
+        "bits": 12,
+        "score": 0.2201913394340182,
+        "visible_float_pixels": 145,
+        "float_valid_depth_pixels": 125,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0081_08",
+        "bits": 8,
+        "score": 0.048068860220373925,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0081_09",
+        "bits": 9,
+        "score": 0.013368346800907937,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.3,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0081_24",
+        "bits": 24,
+        "score": 0.03477830739152194,
+        "visible_float_pixels": 4,
+        "float_valid_depth_pixels": 4,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0084_10",
+        "bits": 10,
+        "score": 0.006735970622844024,
+        "visible_float_pixels": 8,
+        "float_valid_depth_pixels": 8,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0084_14",
+        "bits": 14,
+        "score": 0.023227500958939114,
+        "visible_float_pixels": 9,
+        "float_valid_depth_pixels": 1,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.05975007001844527,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0087_14",
+        "bits": 14,
+        "score": 0.12021463402422027,
+        "visible_float_pixels": 17,
+        "float_valid_depth_pixels": 17,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0090_14",
+        "bits": 14,
+        "score": 0.0177469721812802,
+        "visible_float_pixels": 34,
+        "float_valid_depth_pixels": 17,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.11024017789939793,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0091_14",
+        "bits": 14,
+        "score": 0.032341729398576206,
+        "visible_float_pixels": 103,
+        "float_valid_depth_pixels": 58,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.12,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_09",
+        "bits": 9,
+        "score": 0.24764209968503825,
+        "visible_float_pixels": 117,
+        "float_valid_depth_pixels": 19,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_10",
+        "bits": 10,
+        "score": 0.1546393631709237,
+        "visible_float_pixels": 112,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_14",
+        "bits": 14,
+        "score": 0.1309371870008163,
+        "visible_float_pixels": 69,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.07884155644674253,
+        "float_count": 12
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0093_08",
+        "bits": 8,
+        "score": 0.02272664120654922,
+        "visible_float_pixels": 7,
+        "float_valid_depth_pixels": 7,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0093_09",
+        "bits": 9,
+        "score": 0.016258556773048292,
+        "visible_float_pixels": 7,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.3,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0093_24",
+        "bits": 24,
+        "score": 0.018879018909921684,
+        "visible_float_pixels": 7,
+        "float_valid_depth_pixels": 6,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 1
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0094_14",
+        "bits": 14,
+        "score": 0.2284702983546439,
+        "visible_float_pixels": 92,
+        "float_valid_depth_pixels": 2,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.11954712490510613,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0097_09",
+        "bits": 9,
+        "score": 0.07712741540619025,
+        "visible_float_pixels": 38,
+        "float_valid_depth_pixels": 16,
+        "darkness": 0.62,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 3
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0097_12",
+        "bits": 12,
+        "score": 0.06629794334236574,
+        "visible_float_pixels": 33,
+        "float_valid_depth_pixels": 32,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.06187028796275285,
+        "float_count": 3
+      }
+    ],
+    "float_fp": [
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0001_02",
+        "bits": 2,
+        "score": 0.5252797576252226,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0001_03",
+        "bits": 3,
+        "score": 0.4092863071650882,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.62,
+        "glare": 0.62,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0001_18",
+        "bits": 18,
+        "score": 0.5252797576252226,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0002_03",
+        "bits": 3,
+        "score": 0.39854943945422006,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0002_05",
+        "bits": 5,
+        "score": 0.43089482623313763,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.09573888577812298,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0003_06",
+        "bits": 6,
+        "score": 0.47470917350187974,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.017355546787190507,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0004_06",
+        "bits": 6,
+        "score": 0.37296036616674,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.02620070753279911,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_00",
+        "bits": 0,
+        "score": 0.6513853329082698,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_01",
+        "bits": 1,
+        "score": 0.39985766931023947,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_04",
+        "bits": 4,
+        "score": 0.39697324185225663,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.064515122796398,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_06",
+        "bits": 6,
+        "score": 0.907780742550114,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.064515122796398,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_16",
+        "bits": 16,
+        "score": 0.6023072273984377,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_17",
+        "bits": 17,
+        "score": 0.39985766931023947,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0011_04",
+        "bits": 4,
+        "score": 0.399652015326821,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0012_06",
+        "bits": 6,
+        "score": 0.7364743581329364,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.018247653322193805,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0016_05",
+        "bits": 5,
+        "score": 0.4567342188878993,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.62,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0020_03",
+        "bits": 3,
+        "score": 0.38513378081126703,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0021_06",
+        "bits": 6,
+        "score": 0.6026425001246135,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.12,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0024_02",
+        "bits": 2,
+        "score": 0.40519574466470354,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0024_18",
+        "bits": 18,
+        "score": 0.40519574466470354,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0030_03",
+        "bits": 3,
+        "score": 0.6196587525200772,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.3,
+        "glare": 0.3,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0030_04",
+        "bits": 4,
+        "score": 0.48207800037165305,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.11039384455814437,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0035_06",
+        "bits": 6,
+        "score": 0.3741642174548336,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.06048865738538647,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0038_06",
+        "bits": 6,
+        "score": 0.7793111924839325,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.01087725752053989,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0039_06",
+        "bits": 6,
+        "score": 0.6977905706763986,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.02602079466819907,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0047_05",
+        "bits": 5,
+        "score": 0.4251241124907989,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0059_06",
+        "bits": 6,
+        "score": 0.462908919464825,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.013689753751911882,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0061_04",
+        "bits": 4,
+        "score": 0.6024710590476537,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.053328659862528716,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0062_03",
+        "bits": 3,
+        "score": 0.9337813177916262,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0063_06",
+        "bits": 6,
+        "score": 0.453533237110269,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.0317288740216082,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0064_04",
+        "bits": 4,
+        "score": 0.41747239274932263,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.04356533761641991,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0064_06",
+        "bits": 6,
+        "score": 0.8964505101258338,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.04356533761641991,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0068_06",
+        "bits": 6,
+        "score": 0.8918561884355882,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.03213489453974774,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0073_06",
+        "bits": 6,
+        "score": 0.48723444545415834,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.07183972675704216,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0074_04",
+        "bits": 4,
+        "score": 0.7124300542460686,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.06764823269572977,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0076_06",
+        "bits": 6,
+        "score": 0.8274617344371845,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.62,
+        "wave_m": 0.030586716013055557,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0077_03",
+        "bits": 3,
+        "score": 0.9435012057811242,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0077_04",
+        "bits": 4,
+        "score": 0.4969883260194176,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.12,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0078_06",
+        "bits": 6,
+        "score": 0.7940788779145659,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.020901197562185964,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0081_04",
+        "bits": 4,
+        "score": 0.49454915359137624,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.0,
+        "wave_m": 0.03526330317495899,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0083_01",
+        "bits": 1,
+        "score": 0.6752933227671978,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0083_05",
+        "bits": 5,
+        "score": 0.534604700042613,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.1141573939200515,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0083_17",
+        "bits": 17,
+        "score": 0.6752933227671978,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_02",
+        "bits": 2,
+        "score": 0.9387590039442204,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_03",
+        "bits": 3,
+        "score": 0.8982928758400707,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_05",
+        "bits": 5,
+        "score": 0.5956103398482249,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.009174888400774227,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_06",
+        "bits": 6,
+        "score": 0.9315710712574541,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.009174888400774227,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_18",
+        "bits": 18,
+        "score": 0.9387590039442204,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0089_03",
+        "bits": 3,
+        "score": 0.27951684907245944,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.93,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_01",
+        "bits": 1,
+        "score": 0.3330333775556283,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_05",
+        "bits": 5,
+        "score": 0.4240275368424276,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.07884155644674253,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_17",
+        "bits": 17,
+        "score": 0.3330333775556283,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.93,
+        "glare": 0.0,
+        "wave_m": 0.0,
+        "float_count": 0
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0093_06",
+        "bits": 6,
+        "score": 0.5350914521753175,
+        "visible_float_pixels": 0,
+        "float_valid_depth_pixels": 0,
+        "darkness": 0.0,
+        "glare": 0.3,
+        "wave_m": 0.009176182334551551,
+        "float_count": 0
+      }
+    ],
+    "wave_fn": [
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0002_14",
+        "wave_m": 0.09573888577812298,
+        "liquid_m": 0.6382592385208199,
+        "bottom_m": 3.589036524165502,
+        "approx_noise_m": 0.003565544099951277
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0005_14",
+        "wave_m": 0.064515122796398,
+        "liquid_m": 0.43010081864265337,
+        "bottom_m": 5.310100281488858,
+        "approx_noise_m": 0.004915999623992343
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0014_06",
+        "wave_m": 0.030977459270464525,
+        "liquid_m": 0.20651639513643016,
+        "bottom_m": 5.5104108362970585,
+        "approx_noise_m": 0.00521272610881244
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0014_14",
+        "wave_m": 0.030977459270464525,
+        "liquid_m": 0.20651639513643016,
+        "bottom_m": 5.5104108362970585,
+        "approx_noise_m": 0.00521272610881244
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0027_04",
+        "wave_m": 0.002542034914625752,
+        "liquid_m": 0.01694689943083835,
+        "bottom_m": 9.275206479994454,
+        "approx_noise_m": 0.00798078170639453
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0027_05",
+        "wave_m": 0.002542034914625752,
+        "liquid_m": 0.01694689943083835,
+        "bottom_m": 9.275206479994454,
+        "approx_noise_m": 0.00798078170639453
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0027_06",
+        "wave_m": 0.002542034914625752,
+        "liquid_m": 0.01694689943083835,
+        "bottom_m": 9.275206479994454,
+        "approx_noise_m": 0.00798078170639453
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0027_12",
+        "wave_m": 0.002542034914625752,
+        "liquid_m": 0.01694689943083835,
+        "bottom_m": 9.275206479994454,
+        "approx_noise_m": 0.00798078170639453
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0027_14",
+        "wave_m": 0.002542034914625752,
+        "liquid_m": 0.01694689943083835,
+        "bottom_m": 9.275206479994454,
+        "approx_noise_m": 0.00798078170639453
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0032_05",
+        "wave_m": 0.01446025399869365,
+        "liquid_m": 0.09640169332462434,
+        "bottom_m": 8.832157380739636,
+        "approx_noise_m": 0.007615028981190508
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0032_06",
+        "wave_m": 0.01446025399869365,
+        "liquid_m": 0.09640169332462434,
+        "bottom_m": 8.832157380739636,
+        "approx_noise_m": 0.007615028981190508
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0032_14",
+        "wave_m": 0.01446025399869365,
+        "liquid_m": 0.09640169332462434,
+        "bottom_m": 8.832157380739636,
+        "approx_noise_m": 0.007615028981190508
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0050_05",
+        "wave_m": 0.010305546734213493,
+        "liquid_m": 0.06870364489475662,
+        "bottom_m": 9.696690686901048,
+        "approx_noise_m": 0.008239590929404404
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0050_06",
+        "wave_m": 0.010305546734213493,
+        "liquid_m": 0.06870364489475662,
+        "bottom_m": 9.696690686901048,
+        "approx_noise_m": 0.008239590929404404
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0050_12",
+        "wave_m": 0.010305546734213493,
+        "liquid_m": 0.06870364489475662,
+        "bottom_m": 9.696690686901048,
+        "approx_noise_m": 0.008239590929404404
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0050_14",
+        "wave_m": 0.010305546734213493,
+        "liquid_m": 0.06870364489475662,
+        "bottom_m": 9.696690686901048,
+        "approx_noise_m": 0.008239590929404404
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0056_04",
+        "wave_m": 0.0017142828178337258,
+        "liquid_m": 0.011428552118891506,
+        "bottom_m": 6.67552418338518,
+        "approx_noise_m": 0.006164866941886402
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0056_05",
+        "wave_m": 0.0017142828178337258,
+        "liquid_m": 0.011428552118891506,
+        "bottom_m": 6.67552418338518,
+        "approx_noise_m": 0.006164866941886402
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0056_06",
+        "wave_m": 0.0017142828178337258,
+        "liquid_m": 0.011428552118891506,
+        "bottom_m": 6.67552418338518,
+        "approx_noise_m": 0.006164866941886402
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0056_12",
+        "wave_m": 0.0017142828178337258,
+        "liquid_m": 0.011428552118891506,
+        "bottom_m": 6.67552418338518,
+        "approx_noise_m": 0.006164866941886402
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0056_14",
+        "wave_m": 0.0017142828178337258,
+        "liquid_m": 0.011428552118891506,
+        "bottom_m": 6.67552418338518,
+        "approx_noise_m": 0.006164866941886402
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0059_06",
+        "wave_m": 0.013689753751911882,
+        "liquid_m": 0.09126502501274589,
+        "bottom_m": 3.4034784582079918,
+        "approx_noise_m": 0.003818549403236672
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0062_06",
+        "wave_m": 0.014775834231068695,
+        "liquid_m": 0.09850556154045798,
+        "bottom_m": 3.544446663438371,
+        "approx_noise_m": 0.003912158771328539
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0062_14",
+        "wave_m": 0.014775834231068695,
+        "liquid_m": 0.09850556154045798,
+        "bottom_m": 3.544446663438371,
+        "approx_noise_m": 0.003912158771328539
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0082_04",
+        "wave_m": 0.0015083843974758716,
+        "liquid_m": 0.010055895983172478,
+        "bottom_m": 7.544389720988123,
+        "approx_noise_m": 0.006774033677503465
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0082_05",
+        "wave_m": 0.0015083843974758716,
+        "liquid_m": 0.010055895983172478,
+        "bottom_m": 7.544389720988123,
+        "approx_noise_m": 0.006774033677503465
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0082_06",
+        "wave_m": 0.0015083843974758716,
+        "liquid_m": 0.010055895983172478,
+        "bottom_m": 7.544389720988123,
+        "approx_noise_m": 0.006774033677503465
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0082_12",
+        "wave_m": 0.0015083843974758716,
+        "liquid_m": 0.010055895983172478,
+        "bottom_m": 7.544389720988123,
+        "approx_noise_m": 0.006774033677503465
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0082_14",
+        "wave_m": 0.0015083843974758716,
+        "liquid_m": 0.010055895983172478,
+        "bottom_m": 7.544389720988123,
+        "approx_noise_m": 0.006774033677503465
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0085_04",
+        "wave_m": 0.0011102286407330452,
+        "liquid_m": 0.007401524271553634,
+        "bottom_m": 2.60396854658906,
+        "approx_noise_m": 0.003317596915622254
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0085_05",
+        "wave_m": 0.0011102286407330452,
+        "liquid_m": 0.007401524271553634,
+        "bottom_m": 2.60396854658906,
+        "approx_noise_m": 0.003317596915622254
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0085_06",
+        "wave_m": 0.0011102286407330452,
+        "liquid_m": 0.007401524271553634,
+        "bottom_m": 2.60396854658906,
+        "approx_noise_m": 0.003317596915622254
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0085_12",
+        "wave_m": 0.0011102286407330452,
+        "liquid_m": 0.007401524271553634,
+        "bottom_m": 2.60396854658906,
+        "approx_noise_m": 0.003317596915622254
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0085_14",
+        "wave_m": 0.0011102286407330452,
+        "liquid_m": 0.007401524271553634,
+        "bottom_m": 2.60396854658906,
+        "approx_noise_m": 0.003317596915622254
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_05",
+        "wave_m": 0.009174888400774227,
+        "liquid_m": 0.06116592267182818,
+        "bottom_m": 3.7568443601793975,
+        "approx_noise_m": 0.004086974906255298
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_06",
+        "wave_m": 0.009174888400774227,
+        "liquid_m": 0.06116592267182818,
+        "bottom_m": 3.7568443601793975,
+        "approx_noise_m": 0.004086974906255298
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0086_14",
+        "wave_m": 0.009174888400774227,
+        "liquid_m": 0.06116592267182818,
+        "bottom_m": 3.7568443601793975,
+        "approx_noise_m": 0.004086974906255298
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_05",
+        "wave_m": 0.07884155644674253,
+        "liquid_m": 0.5256103763116169,
+        "bottom_m": 3.3416037237647864,
+        "approx_noise_m": 0.003471195343217219
+      },
+      {
+        "frame": "/root/autodl-tmp/liquid-depth-data/synthetic/module-router-v5-20261020/test-v2/0092_06",
+        "wave_m": 0.07884155644674253,
+        "liquid_m": 0.5256103763116169,
+        "bottom_m": 3.3416037237647864,
+        "approx_noise_m": 0.003471195343217219
+      }
+    ]
+  },
+  "post_test_diagnosis_only": true
+}

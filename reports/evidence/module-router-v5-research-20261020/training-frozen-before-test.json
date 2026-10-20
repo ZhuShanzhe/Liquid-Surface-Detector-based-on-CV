@@ -1,0 +1,88 @@
+{
+  "protocol": {
+    "seed": 20261020,
+    "development_sources": [
+      "small-float-20261020_all_previous_splits",
+      "compound-repair-independent-20261020_previous_test"
+    ],
+    "previous_holdouts_reassigned_to_development": true,
+    "new_validation_installations": 20,
+    "new_test_installations": 100,
+    "new_test_frames": 1600,
+    "target": "opaque four auxiliary switch exact match >=90%, float precision and recall >=90%, macro F1>=90%; no majority-only or optical-prior inflation",
+    "optical_family": "operator-confirmed physical initialization remains authoritative, not scored as visual success",
+    "loss_audit": "deterministic observed calibrated ROI validity, not learned synthetic requested loss",
+    "test_not_used_for_selection": true,
+    "forbid_label_leakage": true,
+    "retain_all_test_frames_for_classification": true,
+    "merge_requires_independent_target_and_end_to_end_nonregression": true
+  },
+  "selected": {
+    "leaf": 1,
+    "max_features": 0.3,
+    "thresholds": [
+      0.37499999999999994,
+      0.27499999999999997,
+      0.29999999999999993,
+      0.44999999999999996
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.7875,
+      "mean_switch_accuracy": 0.94140625,
+      "macro_f1": 0.9093227796217092,
+      "tags": {
+        "low_light": {
+          "tp": 98,
+          "fp": 2,
+          "fn": 2,
+          "tn": 218,
+          "precision": 0.98,
+          "recall": 0.98,
+          "specificity": 0.990909090909091,
+          "accuracy": 0.9875,
+          "f1": 0.98
+        },
+        "glare": {
+          "tp": 116,
+          "fp": 7,
+          "fn": 4,
+          "tn": 193,
+          "precision": 0.943089430894309,
+          "recall": 0.9666666666666667,
+          "specificity": 0.965,
+          "accuracy": 0.965625,
+          "f1": 0.9547325102880658
+        },
+        "uneven_surface": {
+          "tp": 78,
+          "fp": 1,
+          "fn": 22,
+          "tn": 219,
+          "precision": 0.9873417721518988,
+          "recall": 0.78,
+          "specificity": 0.9954545454545455,
+          "accuracy": 0.928125,
+          "f1": 0.8715083798882681
+        },
+        "floating_objects": {
+          "tp": 91,
+          "fp": 8,
+          "fn": 29,
+          "tn": 192,
+          "precision": 0.9191919191919192,
+          "recall": 0.7583333333333333,
+          "specificity": 0.96,
+          "accuracy": 0.884375,
+          "f1": 0.8310502283105022
+        }
+      }
+    },
+    "objective": 0.9618150836099231
+  },
+  "train_frames": 4200,
+  "validation_frames": 320,
+  "feature_count": 1851,
+  "model_sha256": "07ce99d90ddc071a859c690d6d0a3c5cb322992b48bba68a6f705d50ad2dc8fe",
+  "feature_code_sha256": "98661e1e0256d46a71344ba94b90e5110393c9e3406faf9822c8dca6deba676c"
+}

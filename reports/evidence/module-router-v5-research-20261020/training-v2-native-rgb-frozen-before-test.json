@@ -1,0 +1,98 @@
+{
+  "protocol": {
+    "seed": 20261020,
+    "development_sources": [
+      "small-float-20261020_all_previous_splits",
+      "compound-repair-independent-20261020_previous_test"
+    ],
+    "previous_holdouts_reassigned_to_development": true,
+    "new_validation_installations": 20,
+    "new_test_installations": 100,
+    "new_test_frames": 1600,
+    "target": "opaque four auxiliary switch exact match >=90%, float precision and recall >=90%, macro F1>=90%; no majority-only or optical-prior inflation",
+    "optical_family": "operator-confirmed physical initialization remains authoritative, not scored as visual success",
+    "loss_audit": "deterministic observed calibrated ROI validity, not learned synthetic requested loss",
+    "test_not_used_for_selection": true,
+    "forbid_label_leakage": true,
+    "retain_all_test_frames_for_classification": true,
+    "merge_requires_independent_target_and_end_to_end_nonregression": true,
+    "trial": 2,
+    "independent_test_seed": 202610210117,
+    "test1_not_reused_as_new_independent_test": true,
+    "spatial_features_observed_only": true,
+    "threshold_objective": "exact + .15 macroF1 + .20 minimum(float precision, float recall)"
+  },
+  "selected": {
+    "family": "hist_gradient_boosting",
+    "leaf": 15,
+    "max_features": 0,
+    "thresholds": [
+      0.8749999999999999,
+      0.37499999999999994,
+      0.4999999999999999,
+      0.27499999999999997
+    ],
+    "validation": {
+      "frames": 320,
+      "exact_switch_accuracy": 0.86875,
+      "mean_switch_accuracy": 0.965625,
+      "macro_f1": 0.9520824951306778,
+      "tags": {
+        "low_light": {
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 220,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "accuracy": 1.0,
+          "f1": 1.0
+        },
+        "glare": {
+          "tp": 113,
+          "fp": 0,
+          "fn": 7,
+          "tn": 200,
+          "precision": 1.0,
+          "recall": 0.9416666666666667,
+          "specificity": 1.0,
+          "accuracy": 0.978125,
+          "f1": 0.9699570815450643
+        },
+        "uneven_surface": {
+          "tp": 98,
+          "fp": 1,
+          "fn": 2,
+          "tn": 219,
+          "precision": 0.98989898989899,
+          "recall": 0.98,
+          "specificity": 0.9954545454545455,
+          "accuracy": 0.990625,
+          "f1": 0.9849246231155779
+        },
+        "floating_objects": {
+          "tp": 99,
+          "fp": 13,
+          "fn": 21,
+          "tn": 187,
+          "precision": 0.8839285714285714,
+          "recall": 0.825,
+          "specificity": 0.935,
+          "accuracy": 0.89375,
+          "f1": 0.853448275862069
+        }
+      }
+    },
+    "objective": 1.1765623742696016
+  },
+  "train_frames": 4200,
+  "validation_frames": 320,
+  "feature_count": 3805,
+  "model_sha256": "156bc5a40e7b492a9619dac51c0e732f2ed50e62583b7c664ba696dd6ee902f8",
+  "feature_code_sha256": {
+    "module_router_features.py": "98661e1e0256d46a71344ba94b90e5110393c9e3406faf9822c8dca6deba676c",
+    "module_router_spatial.py": "0163393178bb85fbaaca61ca69c39ccd4a2c839345ecdcdde671ae3cf62aaf49",
+    "module_router_rgb_small.py": "35b6b4fd0c5fc7ed04cc9dbe1cced04ffda08549d1882211c420c65db24ae0ed"
+  }
+}
