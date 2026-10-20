@@ -4,7 +4,7 @@ This opt-in integration does not replace the independently validated manual faca
 RGB proposes labels. Calibration controls the optical family: a single RGB image
 cannot identify a refractive index or make missing phase channels observable.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 import time
 import cv2
 import numpy as np
@@ -24,6 +24,7 @@ class ToFObservation:
     correlations: np.ndarray | None = None
     sensor_family: str = 'tof'
     installation_id: str = 'default'
+    capture_validity: np.ndarray | None = None
 
     def validate(self, expected_shape):
         if self.sensor_family != 'tof':
@@ -35,6 +36,10 @@ class ToFObservation:
             raise ValueError('aligned_uint8_bgr_required')
         if not np.isfinite(self.timestamp_s):
             raise ValueError('finite_timestamp_required')
+        if self.capture_validity is not None:
+            mask=np.asarray(self.capture_validity)
+            if mask.shape!=tuple(expected_shape) or mask.dtype!=np.bool_:
+                raise ValueError('aligned_boolean_capture_validity_required')
         if self.correlations is not None:
             c = np.asarray(self.correlations)
             if c.ndim != 4 or c.shape[:2] != (3, 4) or not np.isfinite(c).all():
@@ -121,20 +126,26 @@ def make_plan(prediction, installation, quality):
 
 
 class UnifiedToFMeter:
-    def __init__(self, installation, classifier, *, profile_path):
+    def __init__(self, installation, classifier, *, profile_path,
+                 compound_repair=True, repair_policy=None):
         installation.validate()
         self.installation, self.classifier = installation, classifier
         self.shape = np.asarray(installation.dry_depth_m).shape
         self.geometric = ToFSceneMeter.from_empty_geometry(installation.geometry,
-                         installation.dry_depth_m, profile_path=profile_path)
+                         installation.dry_depth_m, profile_path=profile_path,evidence_repair=False)
         # Use the existing calibrated empty-vessel ROI, never current truth.
         from .supported_scene_meter import FormalSceneMeter
         base = FormalSceneMeter.from_empty_geometry(installation.geometry, installation.dry_depth_m)
         self.roi = np.asarray(base.ordinary_container_roi, bool)
         if not self.roi.any():
             raise ValueError('empty_calibrated_container_roi')
+        self.compound_repair = None
+        if compound_repair and installation.confirmed_material == 'ordinary_diffuse':
+            from .compound_tof_repair import CompoundToFRepair
+            self.compound_repair = CompoundToFRepair(base, installation.dry_depth_m, repair_policy)
         self.phase_cache = {}
         self.last_timestamp = None
+        self._peak_warmed = False
 
     def preload_optional_peak_models(self):
         """Load trusted assets at initialization; do NOT measure any non-float image."""
@@ -145,11 +156,33 @@ class UnifiedToFMeter:
             holder._float_meter=holder._factory()
         return (time.perf_counter()-start)*1000
 
+    def warm_optional_peak_models(self):
+        """Initialize inference kernels only; discard all dummy predictions.
+
+        This is NOT a measurement, calibration sample or temporal prior.
+        Call at installation startup, not inside reported frame latency.
+        """
+        if self._peak_warmed:return 0.
+        start=time.perf_counter();self.preload_optional_peak_models()
+        from .rgbd_evidence_model import observed_features
+        f=self.geometric.backend.backend._float_meter
+        rgb=np.zeros((*self.shape,3),np.uint8)
+        f.predictor.predict(observed_features(rgb,self.installation.dry_depth_m,
+            self.installation.dry_depth_m,self.roi,self.installation.geometry))
+        self._peak_warmed=True
+        return (time.perf_counter()-start)*1000
+
     def measure(self, observation):
         start = time.perf_counter()
         observation.validate(self.shape)
         if observation.installation_id != self.installation.installation_id:
             raise ValueError('installation_id_changed_recalibrate')
+        validity_audit = None
+        if self.compound_repair is not None:
+            from .compound_tof_repair import sanitize_capture
+            depth,validity_audit=sanitize_capture(observation.depth_m,
+                self.compound_repair.policy.minimum_sensor_depth_m,observation.capture_validity)
+            observation=replace(observation,depth_m=depth)
         if self.last_timestamp is not None and observation.timestamp_s < self.last_timestamp:
             raise ValueError('out_of_order_capture')
         self.last_timestamp = observation.timestamp_s
@@ -171,8 +204,21 @@ class UnifiedToFMeter:
         else:
             # All opaque scenes already share exactly this numerical liquid core.
             scene = 'floating_objects' if plan['visual_peak'] else 'uneven_surface' if 'uneven_surface' in plan['tags'] else 'ordinary_diffuse'
+            defer_visual=self.compound_repair is not None and plan['visual_peak']
             result = self.geometric.measure(scene, depth_m=observation.depth_m,
-                                            rgb_bgr=observation.rgb_bgr, visual_enabled=plan['visual_peak'])
+                                            rgb_bgr=observation.rgb_bgr, visual_enabled=plan['visual_peak'] and not defer_visual)
+            if self.compound_repair is not None:
+                if defer_visual:
+                    self.preload_optional_peak_models()
+                holder=self.geometric.backend.backend
+                result=self.compound_repair.repair(result,observation.depth_m,
+                    rgb_bgr=observation.rgb_bgr,float_backend=holder._float_meter,
+                    visual_peak=plan['visual_peak'])
+                if defer_visual and result['diagnostics']['compound_repair']['peak_legacy_fallback']:
+                    fallback=self.geometric.measure(scene,depth_m=observation.depth_m,
+                        rgb_bgr=observation.rgb_bgr,visual_enabled=True)
+                    result['highest_height_m']=fallback.get('highest_height_m')
+                plan['modules'] += ['native_tof_input_validity','wet_dry_identity_evidence','supported_highest_height']
         liquid=result.get('liquid_depth_m');highest=result.get('highest_height_m')
         consistency=[]
         if liquid is not None and highest is not None and highest<liquid-.005:
@@ -183,5 +229,7 @@ class UnifiedToFMeter:
         return {**result, 'unified_version': VERSION, 'frame_id': observation.frame_id,
                 'classification': classification, 'module_plan': plan, 'observed_quality': quality,
                 'pipeline_ms': (time.perf_counter()-start)*1000,
+                'compound_repair_enabled':self.compound_repair is not None,
+                'input_validity_audit':validity_audit,
                 'physical_consistency_flags':consistency,
                 'liquid_visual_guidance_used': False, 'field_metrology_qualified': False}

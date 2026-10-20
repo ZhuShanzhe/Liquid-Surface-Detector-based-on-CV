@@ -1,0 +1,1709 @@
+{
+  "frames": 240,
+  "exact_numeric_parity": true,
+  "errors": [],
+  "timing": {
+    "all": {
+      "n": 240,
+      "p50_ms": 94.32725049555302,
+      "p95_ms": 267.6386965438721,
+      "max_ms": 932.2283193469048
+    },
+    "visual_enabled": {
+      "n": 33,
+      "p50_ms": 245.57942897081375,
+      "p95_ms": 591.0942241549492,
+      "max_ms": 932.2283193469048
+    },
+    "no_visual": {
+      "n": 207,
+      "p50_ms": 92.81299635767937,
+      "p95_ms": 142.83767044544211,
+      "max_ms": 378.17052379250526
+    }
+  },
+  "timing_records": [
+    {
+      "frame": "0000_00",
+      "group": 0,
+      "bits": 0,
+      "pipeline_ms": 378.17052379250526,
+      "visual": false
+    },
+    {
+      "frame": "0000_01",
+      "group": 0,
+      "bits": 1,
+      "pipeline_ms": 233.78168791532516,
+      "visual": false
+    },
+    {
+      "frame": "0000_02",
+      "group": 0,
+      "bits": 2,
+      "pipeline_ms": 200.40353015065193,
+      "visual": false
+    },
+    {
+      "frame": "0000_03",
+      "group": 0,
+      "bits": 3,
+      "pipeline_ms": 226.6146019101143,
+      "visual": false
+    },
+    {
+      "frame": "0000_04",
+      "group": 0,
+      "bits": 4,
+      "pipeline_ms": 116.14036560058594,
+      "visual": false
+    },
+    {
+      "frame": "0000_05",
+      "group": 0,
+      "bits": 5,
+      "pipeline_ms": 111.89164593815804,
+      "visual": false
+    },
+    {
+      "frame": "0000_06",
+      "group": 0,
+      "bits": 6,
+      "pipeline_ms": 98.59895333647728,
+      "visual": false
+    },
+    {
+      "frame": "0000_08",
+      "group": 0,
+      "bits": 8,
+      "pipeline_ms": 585.0237607955933,
+      "visual": true
+    },
+    {
+      "frame": "0000_09",
+      "group": 0,
+      "bits": 9,
+      "pipeline_ms": 92.6581583917141,
+      "visual": false
+    },
+    {
+      "frame": "0000_10",
+      "group": 0,
+      "bits": 10,
+      "pipeline_ms": 80.41657507419586,
+      "visual": false
+    },
+    {
+      "frame": "0000_12",
+      "group": 0,
+      "bits": 12,
+      "pipeline_ms": 932.2283193469048,
+      "visual": true
+    },
+    {
+      "frame": "0000_16",
+      "group": 0,
+      "bits": 16,
+      "pipeline_ms": 300.75642094016075,
+      "visual": false
+    },
+    {
+      "frame": "0000_17",
+      "group": 0,
+      "bits": 17,
+      "pipeline_ms": 284.25297513604164,
+      "visual": false
+    },
+    {
+      "frame": "0000_18",
+      "group": 0,
+      "bits": 18,
+      "pipeline_ms": 201.41364634037018,
+      "visual": false
+    },
+    {
+      "frame": "0000_20",
+      "group": 0,
+      "bits": 20,
+      "pipeline_ms": 92.81299635767937,
+      "visual": false
+    },
+    {
+      "frame": "0000_24",
+      "group": 0,
+      "bits": 24,
+      "pipeline_ms": 263.3233591914177,
+      "visual": true
+    },
+    {
+      "frame": "0001_00",
+      "group": 1,
+      "bits": 0,
+      "pipeline_ms": 89.81316536664963,
+      "visual": false
+    },
+    {
+      "frame": "0001_01",
+      "group": 1,
+      "bits": 1,
+      "pipeline_ms": 90.63833206892014,
+      "visual": false
+    },
+    {
+      "frame": "0001_02",
+      "group": 1,
+      "bits": 2,
+      "pipeline_ms": 85.35995706915855,
+      "visual": false
+    },
+    {
+      "frame": "0001_03",
+      "group": 1,
+      "bits": 3,
+      "pipeline_ms": 90.2090072631836,
+      "visual": false
+    },
+    {
+      "frame": "0001_04",
+      "group": 1,
+      "bits": 4,
+      "pipeline_ms": 85.93934029340744,
+      "visual": false
+    },
+    {
+      "frame": "0001_05",
+      "group": 1,
+      "bits": 5,
+      "pipeline_ms": 84.56781134009361,
+      "visual": false
+    },
+    {
+      "frame": "0001_06",
+      "group": 1,
+      "bits": 6,
+      "pipeline_ms": 89.99019488692284,
+      "visual": false
+    },
+    {
+      "frame": "0001_08",
+      "group": 1,
+      "bits": 8,
+      "pipeline_ms": 90.06749093532562,
+      "visual": false
+    },
+    {
+      "frame": "0001_09",
+      "group": 1,
+      "bits": 9,
+      "pipeline_ms": 247.8317655622959,
+      "visual": true
+    },
+    {
+      "frame": "0001_10",
+      "group": 1,
+      "bits": 10,
+      "pipeline_ms": 86.18142828345299,
+      "visual": false
+    },
+    {
+      "frame": "0001_12",
+      "group": 1,
+      "bits": 12,
+      "pipeline_ms": 89.72778916358948,
+      "visual": false
+    },
+    {
+      "frame": "0001_16",
+      "group": 1,
+      "bits": 16,
+      "pipeline_ms": 89.61823582649231,
+      "visual": false
+    },
+    {
+      "frame": "0001_17",
+      "group": 1,
+      "bits": 17,
+      "pipeline_ms": 88.13979104161263,
+      "visual": false
+    },
+    {
+      "frame": "0001_18",
+      "group": 1,
+      "bits": 18,
+      "pipeline_ms": 89.50959518551826,
+      "visual": false
+    },
+    {
+      "frame": "0001_20",
+      "group": 1,
+      "bits": 20,
+      "pipeline_ms": 85.610531270504,
+      "visual": false
+    },
+    {
+      "frame": "0001_24",
+      "group": 1,
+      "bits": 24,
+      "pipeline_ms": 88.74598145484924,
+      "visual": false
+    },
+    {
+      "frame": "0002_00",
+      "group": 2,
+      "bits": 0,
+      "pipeline_ms": 88.55974674224854,
+      "visual": false
+    },
+    {
+      "frame": "0002_01",
+      "group": 2,
+      "bits": 1,
+      "pipeline_ms": 79.80003207921982,
+      "visual": false
+    },
+    {
+      "frame": "0002_02",
+      "group": 2,
+      "bits": 2,
+      "pipeline_ms": 79.83789220452309,
+      "visual": false
+    },
+    {
+      "frame": "0002_03",
+      "group": 2,
+      "bits": 3,
+      "pipeline_ms": 79.97459173202515,
+      "visual": false
+    },
+    {
+      "frame": "0002_04",
+      "group": 2,
+      "bits": 4,
+      "pipeline_ms": 81.70183002948761,
+      "visual": false
+    },
+    {
+      "frame": "0002_05",
+      "group": 2,
+      "bits": 5,
+      "pipeline_ms": 77.01477408409119,
+      "visual": false
+    },
+    {
+      "frame": "0002_06",
+      "group": 2,
+      "bits": 6,
+      "pipeline_ms": 79.39594984054565,
+      "visual": false
+    },
+    {
+      "frame": "0002_08",
+      "group": 2,
+      "bits": 8,
+      "pipeline_ms": 261.61028444767,
+      "visual": true
+    },
+    {
+      "frame": "0002_09",
+      "group": 2,
+      "bits": 9,
+      "pipeline_ms": 600.1999191939831,
+      "visual": true
+    },
+    {
+      "frame": "0002_10",
+      "group": 2,
+      "bits": 10,
+      "pipeline_ms": 80.2306979894638,
+      "visual": false
+    },
+    {
+      "frame": "0002_12",
+      "group": 2,
+      "bits": 12,
+      "pipeline_ms": 86.21819317340851,
+      "visual": false
+    },
+    {
+      "frame": "0002_16",
+      "group": 2,
+      "bits": 16,
+      "pipeline_ms": 82.63950049877167,
+      "visual": false
+    },
+    {
+      "frame": "0002_17",
+      "group": 2,
+      "bits": 17,
+      "pipeline_ms": 83.65144208073616,
+      "visual": false
+    },
+    {
+      "frame": "0002_18",
+      "group": 2,
+      "bits": 18,
+      "pipeline_ms": 86.20709553360939,
+      "visual": false
+    },
+    {
+      "frame": "0002_20",
+      "group": 2,
+      "bits": 20,
+      "pipeline_ms": 79.36606928706169,
+      "visual": false
+    },
+    {
+      "frame": "0002_24",
+      "group": 2,
+      "bits": 24,
+      "pipeline_ms": 180.57020753622055,
+      "visual": true
+    },
+    {
+      "frame": "0003_00",
+      "group": 3,
+      "bits": 0,
+      "pipeline_ms": 97.94716164469719,
+      "visual": false
+    },
+    {
+      "frame": "0003_01",
+      "group": 3,
+      "bits": 1,
+      "pipeline_ms": 88.97420763969421,
+      "visual": false
+    },
+    {
+      "frame": "0003_02",
+      "group": 3,
+      "bits": 2,
+      "pipeline_ms": 81.61790668964386,
+      "visual": false
+    },
+    {
+      "frame": "0003_03",
+      "group": 3,
+      "bits": 3,
+      "pipeline_ms": 80.37064969539642,
+      "visual": false
+    },
+    {
+      "frame": "0003_04",
+      "group": 3,
+      "bits": 4,
+      "pipeline_ms": 99.62250664830208,
+      "visual": false
+    },
+    {
+      "frame": "0003_05",
+      "group": 3,
+      "bits": 5,
+      "pipeline_ms": 87.75589987635612,
+      "visual": false
+    },
+    {
+      "frame": "0003_06",
+      "group": 3,
+      "bits": 6,
+      "pipeline_ms": 79.75902780890465,
+      "visual": false
+    },
+    {
+      "frame": "0003_08",
+      "group": 3,
+      "bits": 8,
+      "pipeline_ms": 216.17180481553078,
+      "visual": true
+    },
+    {
+      "frame": "0003_09",
+      "group": 3,
+      "bits": 9,
+      "pipeline_ms": 90.779859572649,
+      "visual": false
+    },
+    {
+      "frame": "0003_10",
+      "group": 3,
+      "bits": 10,
+      "pipeline_ms": 78.52683588862419,
+      "visual": false
+    },
+    {
+      "frame": "0003_12",
+      "group": 3,
+      "bits": 12,
+      "pipeline_ms": 217.5339311361313,
+      "visual": true
+    },
+    {
+      "frame": "0003_16",
+      "group": 3,
+      "bits": 16,
+      "pipeline_ms": 96.47379070520401,
+      "visual": false
+    },
+    {
+      "frame": "0003_17",
+      "group": 3,
+      "bits": 17,
+      "pipeline_ms": 85.67250892519951,
+      "visual": false
+    },
+    {
+      "frame": "0003_18",
+      "group": 3,
+      "bits": 18,
+      "pipeline_ms": 80.73544502258301,
+      "visual": false
+    },
+    {
+      "frame": "0003_20",
+      "group": 3,
+      "bits": 20,
+      "pipeline_ms": 89.67791870236397,
+      "visual": false
+    },
+    {
+      "frame": "0003_24",
+      "group": 3,
+      "bits": 24,
+      "pipeline_ms": 245.57942897081375,
+      "visual": true
+    },
+    {
+      "frame": "0004_00",
+      "group": 4,
+      "bits": 0,
+      "pipeline_ms": 89.4547663629055,
+      "visual": false
+    },
+    {
+      "frame": "0004_01",
+      "group": 4,
+      "bits": 1,
+      "pipeline_ms": 92.78009831905365,
+      "visual": false
+    },
+    {
+      "frame": "0004_02",
+      "group": 4,
+      "bits": 2,
+      "pipeline_ms": 84.48881283402443,
+      "visual": false
+    },
+    {
+      "frame": "0004_03",
+      "group": 4,
+      "bits": 3,
+      "pipeline_ms": 84.13638174533844,
+      "visual": false
+    },
+    {
+      "frame": "0004_04",
+      "group": 4,
+      "bits": 4,
+      "pipeline_ms": 89.86518532037735,
+      "visual": false
+    },
+    {
+      "frame": "0004_05",
+      "group": 4,
+      "bits": 5,
+      "pipeline_ms": 94.97776627540588,
+      "visual": false
+    },
+    {
+      "frame": "0004_06",
+      "group": 4,
+      "bits": 6,
+      "pipeline_ms": 86.36652305722237,
+      "visual": false
+    },
+    {
+      "frame": "0004_08",
+      "group": 4,
+      "bits": 8,
+      "pipeline_ms": 182.62117356061935,
+      "visual": true
+    },
+    {
+      "frame": "0004_09",
+      "group": 4,
+      "bits": 9,
+      "pipeline_ms": 225.32005235552788,
+      "visual": true
+    },
+    {
+      "frame": "0004_10",
+      "group": 4,
+      "bits": 10,
+      "pipeline_ms": 243.6518520116806,
+      "visual": true
+    },
+    {
+      "frame": "0004_12",
+      "group": 4,
+      "bits": 12,
+      "pipeline_ms": 188.76807391643524,
+      "visual": true
+    },
+    {
+      "frame": "0004_16",
+      "group": 4,
+      "bits": 16,
+      "pipeline_ms": 90.24067968130112,
+      "visual": false
+    },
+    {
+      "frame": "0004_17",
+      "group": 4,
+      "bits": 17,
+      "pipeline_ms": 85.23044735193253,
+      "visual": false
+    },
+    {
+      "frame": "0004_18",
+      "group": 4,
+      "bits": 18,
+      "pipeline_ms": 85.7601910829544,
+      "visual": false
+    },
+    {
+      "frame": "0004_20",
+      "group": 4,
+      "bits": 20,
+      "pipeline_ms": 96.08009457588196,
+      "visual": false
+    },
+    {
+      "frame": "0004_24",
+      "group": 4,
+      "bits": 24,
+      "pipeline_ms": 195.79539448022842,
+      "visual": true
+    },
+    {
+      "frame": "0005_00",
+      "group": 5,
+      "bits": 0,
+      "pipeline_ms": 95.24640440940857,
+      "visual": false
+    },
+    {
+      "frame": "0005_01",
+      "group": 5,
+      "bits": 1,
+      "pipeline_ms": 84.22967046499252,
+      "visual": false
+    },
+    {
+      "frame": "0005_02",
+      "group": 5,
+      "bits": 2,
+      "pipeline_ms": 83.75915139913559,
+      "visual": false
+    },
+    {
+      "frame": "0005_03",
+      "group": 5,
+      "bits": 3,
+      "pipeline_ms": 82.0891447365284,
+      "visual": false
+    },
+    {
+      "frame": "0005_04",
+      "group": 5,
+      "bits": 4,
+      "pipeline_ms": 85.86770296096802,
+      "visual": false
+    },
+    {
+      "frame": "0005_05",
+      "group": 5,
+      "bits": 5,
+      "pipeline_ms": 94.03762221336365,
+      "visual": false
+    },
+    {
+      "frame": "0005_06",
+      "group": 5,
+      "bits": 6,
+      "pipeline_ms": 85.75025573372841,
+      "visual": false
+    },
+    {
+      "frame": "0005_08",
+      "group": 5,
+      "bits": 8,
+      "pipeline_ms": 87.75582164525986,
+      "visual": false
+    },
+    {
+      "frame": "0005_09",
+      "group": 5,
+      "bits": 9,
+      "pipeline_ms": 237.00502887368202,
+      "visual": true
+    },
+    {
+      "frame": "0005_10",
+      "group": 5,
+      "bits": 10,
+      "pipeline_ms": 263.5278217494488,
+      "visual": true
+    },
+    {
+      "frame": "0005_12",
+      "group": 5,
+      "bits": 12,
+      "pipeline_ms": 88.18945288658142,
+      "visual": false
+    },
+    {
+      "frame": "0005_16",
+      "group": 5,
+      "bits": 16,
+      "pipeline_ms": 91.66111797094345,
+      "visual": false
+    },
+    {
+      "frame": "0005_17",
+      "group": 5,
+      "bits": 17,
+      "pipeline_ms": 86.1775241792202,
+      "visual": false
+    },
+    {
+      "frame": "0005_18",
+      "group": 5,
+      "bits": 18,
+      "pipeline_ms": 88.02923187613487,
+      "visual": false
+    },
+    {
+      "frame": "0005_20",
+      "group": 5,
+      "bits": 20,
+      "pipeline_ms": 89.49193358421326,
+      "visual": false
+    },
+    {
+      "frame": "0005_24",
+      "group": 5,
+      "bits": 24,
+      "pipeline_ms": 89.90731462836266,
+      "visual": false
+    },
+    {
+      "frame": "0006_00",
+      "group": 6,
+      "bits": 0,
+      "pipeline_ms": 94.32139620184898,
+      "visual": false
+    },
+    {
+      "frame": "0006_01",
+      "group": 6,
+      "bits": 1,
+      "pipeline_ms": 83.3117738366127,
+      "visual": false
+    },
+    {
+      "frame": "0006_02",
+      "group": 6,
+      "bits": 2,
+      "pipeline_ms": 84.67359095811844,
+      "visual": false
+    },
+    {
+      "frame": "0006_03",
+      "group": 6,
+      "bits": 3,
+      "pipeline_ms": 84.4658724963665,
+      "visual": false
+    },
+    {
+      "frame": "0006_04",
+      "group": 6,
+      "bits": 4,
+      "pipeline_ms": 95.65998986363411,
+      "visual": false
+    },
+    {
+      "frame": "0006_05",
+      "group": 6,
+      "bits": 5,
+      "pipeline_ms": 103.87979075312614,
+      "visual": false
+    },
+    {
+      "frame": "0006_06",
+      "group": 6,
+      "bits": 6,
+      "pipeline_ms": 108.3720214664936,
+      "visual": false
+    },
+    {
+      "frame": "0006_08",
+      "group": 6,
+      "bits": 8,
+      "pipeline_ms": 102.03615203499794,
+      "visual": false
+    },
+    {
+      "frame": "0006_09",
+      "group": 6,
+      "bits": 9,
+      "pipeline_ms": 96.35365009307861,
+      "visual": false
+    },
+    {
+      "frame": "0006_10",
+      "group": 6,
+      "bits": 10,
+      "pipeline_ms": 96.1073487997055,
+      "visual": false
+    },
+    {
+      "frame": "0006_12",
+      "group": 6,
+      "bits": 12,
+      "pipeline_ms": 104.35862094163895,
+      "visual": false
+    },
+    {
+      "frame": "0006_16",
+      "group": 6,
+      "bits": 16,
+      "pipeline_ms": 93.8306488096714,
+      "visual": false
+    },
+    {
+      "frame": "0006_17",
+      "group": 6,
+      "bits": 17,
+      "pipeline_ms": 89.68646824359894,
+      "visual": false
+    },
+    {
+      "frame": "0006_18",
+      "group": 6,
+      "bits": 18,
+      "pipeline_ms": 94.35034170746803,
+      "visual": false
+    },
+    {
+      "frame": "0006_20",
+      "group": 6,
+      "bits": 20,
+      "pipeline_ms": 228.31502184271812,
+      "visual": false
+    },
+    {
+      "frame": "0006_24",
+      "group": 6,
+      "bits": 24,
+      "pipeline_ms": 93.57091411948204,
+      "visual": false
+    },
+    {
+      "frame": "0007_00",
+      "group": 7,
+      "bits": 0,
+      "pipeline_ms": 108.54626819491386,
+      "visual": false
+    },
+    {
+      "frame": "0007_01",
+      "group": 7,
+      "bits": 1,
+      "pipeline_ms": 102.53489017486572,
+      "visual": false
+    },
+    {
+      "frame": "0007_02",
+      "group": 7,
+      "bits": 2,
+      "pipeline_ms": 97.46216237545013,
+      "visual": false
+    },
+    {
+      "frame": "0007_03",
+      "group": 7,
+      "bits": 3,
+      "pipeline_ms": 93.86056289076805,
+      "visual": false
+    },
+    {
+      "frame": "0007_04",
+      "group": 7,
+      "bits": 4,
+      "pipeline_ms": 92.47498586773872,
+      "visual": false
+    },
+    {
+      "frame": "0007_05",
+      "group": 7,
+      "bits": 5,
+      "pipeline_ms": 98.66241365671158,
+      "visual": false
+    },
+    {
+      "frame": "0007_06",
+      "group": 7,
+      "bits": 6,
+      "pipeline_ms": 93.1241475045681,
+      "visual": false
+    },
+    {
+      "frame": "0007_08",
+      "group": 7,
+      "bits": 8,
+      "pipeline_ms": 260.4384422302246,
+      "visual": true
+    },
+    {
+      "frame": "0007_09",
+      "group": 7,
+      "bits": 9,
+      "pipeline_ms": 304.89130318164825,
+      "visual": true
+    },
+    {
+      "frame": "0007_10",
+      "group": 7,
+      "bits": 10,
+      "pipeline_ms": 298.9494539797306,
+      "visual": true
+    },
+    {
+      "frame": "0007_12",
+      "group": 7,
+      "bits": 12,
+      "pipeline_ms": 266.764260828495,
+      "visual": true
+    },
+    {
+      "frame": "0007_16",
+      "group": 7,
+      "bits": 16,
+      "pipeline_ms": 101.35848820209503,
+      "visual": false
+    },
+    {
+      "frame": "0007_17",
+      "group": 7,
+      "bits": 17,
+      "pipeline_ms": 101.85274481773376,
+      "visual": false
+    },
+    {
+      "frame": "0007_18",
+      "group": 7,
+      "bits": 18,
+      "pipeline_ms": 93.43644604086876,
+      "visual": false
+    },
+    {
+      "frame": "0007_20",
+      "group": 7,
+      "bits": 20,
+      "pipeline_ms": 91.80333837866783,
+      "visual": false
+    },
+    {
+      "frame": "0007_24",
+      "group": 7,
+      "bits": 24,
+      "pipeline_ms": 211.2060859799385,
+      "visual": true
+    },
+    {
+      "frame": "0018_00",
+      "group": 18,
+      "bits": 0,
+      "pipeline_ms": 90.98036959767342,
+      "visual": false
+    },
+    {
+      "frame": "0018_01",
+      "group": 18,
+      "bits": 1,
+      "pipeline_ms": 93.78692507743835,
+      "visual": false
+    },
+    {
+      "frame": "0018_02",
+      "group": 18,
+      "bits": 2,
+      "pipeline_ms": 84.85657349228859,
+      "visual": false
+    },
+    {
+      "frame": "0018_03",
+      "group": 18,
+      "bits": 3,
+      "pipeline_ms": 83.68070423603058,
+      "visual": false
+    },
+    {
+      "frame": "0018_04",
+      "group": 18,
+      "bits": 4,
+      "pipeline_ms": 96.19861468672752,
+      "visual": false
+    },
+    {
+      "frame": "0018_05",
+      "group": 18,
+      "bits": 5,
+      "pipeline_ms": 93.04462000727654,
+      "visual": false
+    },
+    {
+      "frame": "0018_06",
+      "group": 18,
+      "bits": 6,
+      "pipeline_ms": 85.70177108049393,
+      "visual": false
+    },
+    {
+      "frame": "0018_08",
+      "group": 18,
+      "bits": 8,
+      "pipeline_ms": 211.69425919651985,
+      "visual": true
+    },
+    {
+      "frame": "0018_09",
+      "group": 18,
+      "bits": 9,
+      "pipeline_ms": 87.82092481851578,
+      "visual": false
+    },
+    {
+      "frame": "0018_10",
+      "group": 18,
+      "bits": 10,
+      "pipeline_ms": 215.621929615736,
+      "visual": true
+    },
+    {
+      "frame": "0018_12",
+      "group": 18,
+      "bits": 12,
+      "pipeline_ms": 101.67171433568001,
+      "visual": false
+    },
+    {
+      "frame": "0018_16",
+      "group": 18,
+      "bits": 16,
+      "pipeline_ms": 87.92568743228912,
+      "visual": false
+    },
+    {
+      "frame": "0018_17",
+      "group": 18,
+      "bits": 17,
+      "pipeline_ms": 87.5861793756485,
+      "visual": false
+    },
+    {
+      "frame": "0018_18",
+      "group": 18,
+      "bits": 18,
+      "pipeline_ms": 84.46826413273811,
+      "visual": false
+    },
+    {
+      "frame": "0018_20",
+      "group": 18,
+      "bits": 20,
+      "pipeline_ms": 98.4591618180275,
+      "visual": false
+    },
+    {
+      "frame": "0018_24",
+      "group": 18,
+      "bits": 24,
+      "pipeline_ms": 213.71280029416084,
+      "visual": true
+    },
+    {
+      "frame": "0024_00",
+      "group": 24,
+      "bits": 0,
+      "pipeline_ms": 98.11422973871231,
+      "visual": false
+    },
+    {
+      "frame": "0024_01",
+      "group": 24,
+      "bits": 1,
+      "pipeline_ms": 125.30519440770149,
+      "visual": false
+    },
+    {
+      "frame": "0024_02",
+      "group": 24,
+      "bits": 2,
+      "pipeline_ms": 110.44279858469963,
+      "visual": false
+    },
+    {
+      "frame": "0024_03",
+      "group": 24,
+      "bits": 3,
+      "pipeline_ms": 109.16874185204506,
+      "visual": false
+    },
+    {
+      "frame": "0024_04",
+      "group": 24,
+      "bits": 4,
+      "pipeline_ms": 150.48541501164436,
+      "visual": false
+    },
+    {
+      "frame": "0024_05",
+      "group": 24,
+      "bits": 5,
+      "pipeline_ms": 138.41598108410835,
+      "visual": false
+    },
+    {
+      "frame": "0024_06",
+      "group": 24,
+      "bits": 6,
+      "pipeline_ms": 120.076484978199,
+      "visual": false
+    },
+    {
+      "frame": "0024_08",
+      "group": 24,
+      "bits": 8,
+      "pipeline_ms": 93.6315692961216,
+      "visual": false
+    },
+    {
+      "frame": "0024_09",
+      "group": 24,
+      "bits": 9,
+      "pipeline_ms": 107.06545040011406,
+      "visual": false
+    },
+    {
+      "frame": "0024_10",
+      "group": 24,
+      "bits": 10,
+      "pipeline_ms": 114.0357069671154,
+      "visual": false
+    },
+    {
+      "frame": "0024_12",
+      "group": 24,
+      "bits": 12,
+      "pipeline_ms": 163.2668599486351,
+      "visual": false
+    },
+    {
+      "frame": "0024_16",
+      "group": 24,
+      "bits": 16,
+      "pipeline_ms": 108.15316438674927,
+      "visual": false
+    },
+    {
+      "frame": "0024_17",
+      "group": 24,
+      "bits": 17,
+      "pipeline_ms": 126.20346620678902,
+      "visual": false
+    },
+    {
+      "frame": "0024_18",
+      "group": 24,
+      "bits": 18,
+      "pipeline_ms": 112.88734152913094,
+      "visual": false
+    },
+    {
+      "frame": "0024_20",
+      "group": 24,
+      "bits": 20,
+      "pipeline_ms": 144.73268017172813,
+      "visual": false
+    },
+    {
+      "frame": "0024_24",
+      "group": 24,
+      "bits": 24,
+      "pipeline_ms": 106.9941408932209,
+      "visual": false
+    },
+    {
+      "frame": "0054_00",
+      "group": 54,
+      "bits": 0,
+      "pipeline_ms": 96.6925173997879,
+      "visual": false
+    },
+    {
+      "frame": "0054_01",
+      "group": 54,
+      "bits": 1,
+      "pipeline_ms": 101.00188106298447,
+      "visual": false
+    },
+    {
+      "frame": "0054_02",
+      "group": 54,
+      "bits": 2,
+      "pipeline_ms": 97.30474650859833,
+      "visual": false
+    },
+    {
+      "frame": "0054_03",
+      "group": 54,
+      "bits": 3,
+      "pipeline_ms": 96.32476046681404,
+      "visual": false
+    },
+    {
+      "frame": "0054_04",
+      "group": 54,
+      "bits": 4,
+      "pipeline_ms": 107.415571808815,
+      "visual": false
+    },
+    {
+      "frame": "0054_05",
+      "group": 54,
+      "bits": 5,
+      "pipeline_ms": 100.33268108963966,
+      "visual": false
+    },
+    {
+      "frame": "0054_06",
+      "group": 54,
+      "bits": 6,
+      "pipeline_ms": 100.34699365496635,
+      "visual": false
+    },
+    {
+      "frame": "0054_08",
+      "group": 54,
+      "bits": 8,
+      "pipeline_ms": 94.08006444573402,
+      "visual": false
+    },
+    {
+      "frame": "0054_09",
+      "group": 54,
+      "bits": 9,
+      "pipeline_ms": 100.49998760223389,
+      "visual": false
+    },
+    {
+      "frame": "0054_10",
+      "group": 54,
+      "bits": 10,
+      "pipeline_ms": 95.30604258179665,
+      "visual": false
+    },
+    {
+      "frame": "0054_12",
+      "group": 54,
+      "bits": 12,
+      "pipeline_ms": 110.10443046689034,
+      "visual": false
+    },
+    {
+      "frame": "0054_16",
+      "group": 54,
+      "bits": 16,
+      "pipeline_ms": 94.41490843892097,
+      "visual": false
+    },
+    {
+      "frame": "0054_17",
+      "group": 54,
+      "bits": 17,
+      "pipeline_ms": 100.34007951617241,
+      "visual": false
+    },
+    {
+      "frame": "0054_18",
+      "group": 54,
+      "bits": 18,
+      "pipeline_ms": 98.66752848029137,
+      "visual": false
+    },
+    {
+      "frame": "0054_20",
+      "group": 54,
+      "bits": 20,
+      "pipeline_ms": 102.5460958480835,
+      "visual": false
+    },
+    {
+      "frame": "0054_24",
+      "group": 54,
+      "bits": 24,
+      "pipeline_ms": 95.17526626586914,
+      "visual": false
+    },
+    {
+      "frame": "0066_00",
+      "group": 66,
+      "bits": 0,
+      "pipeline_ms": 111.27376928925514,
+      "visual": false
+    },
+    {
+      "frame": "0066_01",
+      "group": 66,
+      "bits": 1,
+      "pipeline_ms": 97.72463887929916,
+      "visual": false
+    },
+    {
+      "frame": "0066_02",
+      "group": 66,
+      "bits": 2,
+      "pipeline_ms": 91.57141670584679,
+      "visual": false
+    },
+    {
+      "frame": "0066_03",
+      "group": 66,
+      "bits": 3,
+      "pipeline_ms": 93.44775974750519,
+      "visual": false
+    },
+    {
+      "frame": "0066_04",
+      "group": 66,
+      "bits": 4,
+      "pipeline_ms": 114.8945540189743,
+      "visual": false
+    },
+    {
+      "frame": "0066_05",
+      "group": 66,
+      "bits": 5,
+      "pipeline_ms": 96.14919498562813,
+      "visual": false
+    },
+    {
+      "frame": "0066_06",
+      "group": 66,
+      "bits": 6,
+      "pipeline_ms": 89.96453508734703,
+      "visual": false
+    },
+    {
+      "frame": "0066_08",
+      "group": 66,
+      "bits": 8,
+      "pipeline_ms": 290.78489542007446,
+      "visual": true
+    },
+    {
+      "frame": "0066_09",
+      "group": 66,
+      "bits": 9,
+      "pipeline_ms": 230.71341961622238,
+      "visual": true
+    },
+    {
+      "frame": "0066_10",
+      "group": 66,
+      "bits": 10,
+      "pipeline_ms": 92.20710396766663,
+      "visual": false
+    },
+    {
+      "frame": "0066_12",
+      "group": 66,
+      "bits": 12,
+      "pipeline_ms": 222.4968522787094,
+      "visual": true
+    },
+    {
+      "frame": "0066_16",
+      "group": 66,
+      "bits": 16,
+      "pipeline_ms": 103.79484295845032,
+      "visual": false
+    },
+    {
+      "frame": "0066_17",
+      "group": 66,
+      "bits": 17,
+      "pipeline_ms": 101.031344383955,
+      "visual": false
+    },
+    {
+      "frame": "0066_18",
+      "group": 66,
+      "bits": 18,
+      "pipeline_ms": 94.56942975521088,
+      "visual": false
+    },
+    {
+      "frame": "0066_20",
+      "group": 66,
+      "bits": 20,
+      "pipeline_ms": 101.11435875296593,
+      "visual": false
+    },
+    {
+      "frame": "0066_24",
+      "group": 66,
+      "bits": 24,
+      "pipeline_ms": 287.6673713326454,
+      "visual": true
+    },
+    {
+      "frame": "0009_00",
+      "group": 9,
+      "bits": 0,
+      "pipeline_ms": 94.19440105557442,
+      "visual": false
+    },
+    {
+      "frame": "0009_01",
+      "group": 9,
+      "bits": 1,
+      "pipeline_ms": 97.48871996998787,
+      "visual": false
+    },
+    {
+      "frame": "0009_02",
+      "group": 9,
+      "bits": 2,
+      "pipeline_ms": 92.0555368065834,
+      "visual": false
+    },
+    {
+      "frame": "0009_03",
+      "group": 9,
+      "bits": 3,
+      "pipeline_ms": 93.17724779248238,
+      "visual": false
+    },
+    {
+      "frame": "0009_04",
+      "group": 9,
+      "bits": 4,
+      "pipeline_ms": 116.1908470094204,
+      "visual": false
+    },
+    {
+      "frame": "0009_05",
+      "group": 9,
+      "bits": 5,
+      "pipeline_ms": 100.39067268371582,
+      "visual": false
+    },
+    {
+      "frame": "0009_06",
+      "group": 9,
+      "bits": 6,
+      "pipeline_ms": 94.33310478925705,
+      "visual": false
+    },
+    {
+      "frame": "0009_08",
+      "group": 9,
+      "bits": 8,
+      "pipeline_ms": 92.43152290582657,
+      "visual": false
+    },
+    {
+      "frame": "0009_09",
+      "group": 9,
+      "bits": 9,
+      "pipeline_ms": 91.02905914187431,
+      "visual": false
+    },
+    {
+      "frame": "0009_10",
+      "group": 9,
+      "bits": 10,
+      "pipeline_ms": 92.91162341833115,
+      "visual": false
+    },
+    {
+      "frame": "0009_12",
+      "group": 9,
+      "bits": 12,
+      "pipeline_ms": 116.53757095336914,
+      "visual": false
+    },
+    {
+      "frame": "0009_16",
+      "group": 9,
+      "bits": 16,
+      "pipeline_ms": 88.30615133047104,
+      "visual": false
+    },
+    {
+      "frame": "0009_17",
+      "group": 9,
+      "bits": 17,
+      "pipeline_ms": 88.27653154730797,
+      "visual": false
+    },
+    {
+      "frame": "0009_18",
+      "group": 9,
+      "bits": 18,
+      "pipeline_ms": 86.4657312631607,
+      "visual": false
+    },
+    {
+      "frame": "0009_20",
+      "group": 9,
+      "bits": 20,
+      "pipeline_ms": 100.85785388946533,
+      "visual": false
+    },
+    {
+      "frame": "0009_24",
+      "group": 9,
+      "bits": 24,
+      "pipeline_ms": 92.47596561908722,
+      "visual": false
+    },
+    {
+      "frame": "0027_00",
+      "group": 27,
+      "bits": 0,
+      "pipeline_ms": 100.33557564020157,
+      "visual": false
+    },
+    {
+      "frame": "0027_01",
+      "group": 27,
+      "bits": 1,
+      "pipeline_ms": 82.30338245630264,
+      "visual": false
+    },
+    {
+      "frame": "0027_02",
+      "group": 27,
+      "bits": 2,
+      "pipeline_ms": 76.50667056441307,
+      "visual": false
+    },
+    {
+      "frame": "0027_03",
+      "group": 27,
+      "bits": 3,
+      "pipeline_ms": 78.60882580280304,
+      "visual": false
+    },
+    {
+      "frame": "0027_04",
+      "group": 27,
+      "bits": 4,
+      "pipeline_ms": 99.74127635359764,
+      "visual": false
+    },
+    {
+      "frame": "0027_05",
+      "group": 27,
+      "bits": 5,
+      "pipeline_ms": 87.47818320989609,
+      "visual": false
+    },
+    {
+      "frame": "0027_06",
+      "group": 27,
+      "bits": 6,
+      "pipeline_ms": 84.78334546089172,
+      "visual": false
+    },
+    {
+      "frame": "0027_08",
+      "group": 27,
+      "bits": 8,
+      "pipeline_ms": 96.25251963734627,
+      "visual": false
+    },
+    {
+      "frame": "0027_09",
+      "group": 27,
+      "bits": 9,
+      "pipeline_ms": 88.4672962129116,
+      "visual": false
+    },
+    {
+      "frame": "0027_10",
+      "group": 27,
+      "bits": 10,
+      "pipeline_ms": 75.37776604294777,
+      "visual": false
+    },
+    {
+      "frame": "0027_12",
+      "group": 27,
+      "bits": 12,
+      "pipeline_ms": 286.3387204706669,
+      "visual": true
+    },
+    {
+      "frame": "0027_16",
+      "group": 27,
+      "bits": 16,
+      "pipeline_ms": 93.87543052434921,
+      "visual": false
+    },
+    {
+      "frame": "0027_17",
+      "group": 27,
+      "bits": 17,
+      "pipeline_ms": 81.13791793584824,
+      "visual": false
+    },
+    {
+      "frame": "0027_18",
+      "group": 27,
+      "bits": 18,
+      "pipeline_ms": 77.8869278728962,
+      "visual": false
+    },
+    {
+      "frame": "0027_20",
+      "group": 27,
+      "bits": 20,
+      "pipeline_ms": 91.98139235377312,
+      "visual": false
+    },
+    {
+      "frame": "0027_24",
+      "group": 27,
+      "bits": 24,
+      "pipeline_ms": 95.67680954933167,
+      "visual": false
+    },
+    {
+      "frame": "0081_00",
+      "group": 81,
+      "bits": 0,
+      "pipeline_ms": 89.73300457000732,
+      "visual": false
+    },
+    {
+      "frame": "0081_01",
+      "group": 81,
+      "bits": 1,
+      "pipeline_ms": 95.2991284430027,
+      "visual": false
+    },
+    {
+      "frame": "0081_02",
+      "group": 81,
+      "bits": 2,
+      "pipeline_ms": 83.33897590637207,
+      "visual": false
+    },
+    {
+      "frame": "0081_03",
+      "group": 81,
+      "bits": 3,
+      "pipeline_ms": 87.39947155117989,
+      "visual": false
+    },
+    {
+      "frame": "0081_04",
+      "group": 81,
+      "bits": 4,
+      "pipeline_ms": 113.31243067979813,
+      "visual": false
+    },
+    {
+      "frame": "0081_05",
+      "group": 81,
+      "bits": 5,
+      "pipeline_ms": 88.8557881116867,
+      "visual": false
+    },
+    {
+      "frame": "0081_06",
+      "group": 81,
+      "bits": 6,
+      "pipeline_ms": 85.98007261753082,
+      "visual": false
+    },
+    {
+      "frame": "0081_08",
+      "group": 81,
+      "bits": 8,
+      "pipeline_ms": 171.7958189547062,
+      "visual": true
+    },
+    {
+      "frame": "0081_09",
+      "group": 81,
+      "bits": 9,
+      "pipeline_ms": 97.12568670511246,
+      "visual": false
+    },
+    {
+      "frame": "0081_10",
+      "group": 81,
+      "bits": 10,
+      "pipeline_ms": 334.00924876332283,
+      "visual": true
+    },
+    {
+      "frame": "0081_12",
+      "group": 81,
+      "bits": 12,
+      "pipeline_ms": 109.4147190451622,
+      "visual": false
+    },
+    {
+      "frame": "0081_16",
+      "group": 81,
+      "bits": 16,
+      "pipeline_ms": 86.5762010216713,
+      "visual": false
+    },
+    {
+      "frame": "0081_17",
+      "group": 81,
+      "bits": 17,
+      "pipeline_ms": 84.95331555604935,
+      "visual": false
+    },
+    {
+      "frame": "0081_18",
+      "group": 81,
+      "bits": 18,
+      "pipeline_ms": 82.92970433831215,
+      "visual": false
+    },
+    {
+      "frame": "0081_20",
+      "group": 81,
+      "bits": 20,
+      "pipeline_ms": 104.66335341334343,
+      "visual": false
+    },
+    {
+      "frame": "0081_24",
+      "group": 81,
+      "bits": 24,
+      "pipeline_ms": 264.0925645828247,
+      "visual": true
+    }
+  ],
+  "excludes_render_capture_and_initialization": true,
+  "preloaded_assets": true
+}

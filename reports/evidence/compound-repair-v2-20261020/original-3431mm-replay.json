@@ -1,0 +1,54 @@
+{
+  "input_path": "/root/autodl-tmp/liquid-depth-data/synthetic/dual-camera-v2-20261017/far/observations/0002/floating_objects_all/tof_raw_03.npy",
+  "truth": {
+    "liquid_height_m": 0.04747923816388918,
+    "highest_height_m": 0.1341069748515494,
+    "lowest_height_m": 0.04747923816388918,
+    "wave_peak_to_peak_m": 0.0
+  },
+  "old_liquid": 0.04630221379933985,
+  "new_liquid": 0.04630221379933985,
+  "old_peak": 3.5651902077772495,
+  "new_peak": 0.1291833521670981,
+  "diagnostics": {
+    "interior_valid_returns": 12514,
+    "changed_returns": 9162,
+    "changed_fraction": 0.73214000319642,
+    "changed_tiles": 16,
+    "changed_proposal_m": 0.04769432272003993,
+    "changed_mad_m": 0.006539999507367611,
+    "changed_evidence_strong": true,
+    "legacy_liquid_m": 0.04630221379933985,
+    "liquid_replaced": false,
+    "old_identity_score": 8843.0262173234,
+    "new_identity_score": 8861.49013261076,
+    "surface_peak_m": 0.07074842420026896,
+    "surface_peak_support": 10598,
+    "no_truth_or_visual_liquid_input": true,
+    "float_peak": {
+      "requested": true,
+      "executed": true,
+      "original_candidates": 19,
+      "supported_candidates": 17,
+      "selected": {
+        "height_raw_m": 0.13043000865613513,
+        "noise_m": 0.006533000152558088,
+        "pixels": 20,
+        "variant": 4,
+        "bbox_xyxy_px": [
+          234,
+          76,
+          241,
+          82
+        ],
+        "object_score": 0.9865540582247612,
+        "correction_m": -0.003112243838261574,
+        "interval_width_m": 0.0525716746923222,
+        "height_m": 0.1291833521670981,
+        "proposal_agreement": 5
+      }
+    },
+    "peak_legacy_fallback": false
+  },
+  "not_a_full_formal_dataset_requalification": true
+}

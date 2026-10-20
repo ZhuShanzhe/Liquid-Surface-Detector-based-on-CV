@@ -26,7 +26,10 @@ def render(request, folder, *, corpus=False):
     base, _ = make_scene(0, request['seed'])
     scene = replace(base, seed=request['seed'], index=request.get('index', 0),
         width=384 if corpus else 480, height=216 if corpus else 270, horizontal_fov_deg=54.,
-        sensor_family='tof', scenario='compound' if glare else 'low_light' if dark else 'ordinary',
+        # Composition is described by independent controls. `compound` in the
+        # legacy sensor proxy ALSO enables refractive bias/multipath, and must
+        # not be selected just because an opaque liquid has glare.
+        sensor_family='tof', scenario='glare' if glare else 'low_light' if dark else 'ordinary',
         container_shape=request.get('shape', 'cylindrical'),
         container_exponent=10. if request.get('shape') == 'rectangular_tank' else 2.,
         surface_radius_x_m=rx, surface_radius_y_m=ry,
@@ -55,7 +58,7 @@ def render(request, folder, *, corpus=False):
     links.new(checker.outputs['Color'], nodes.get('Principled BSDF').inputs['Base Color'])
     before=[o for o in bpy.context.scene.objects if o.type=='MESH']
     dry=cast(scene, tree_for(before))
-    dry=np.where(dry>0,dry+rng.normal(0,.001+.00015*b,dry.shape),0).astype(np.float32)
+    dry=np.where(dry>0,np.maximum(dry+rng.normal(0,.001+.00015*b,dry.shape),0),0).astype(np.float32)
     np.save(folder/'dry_depth_m.npy',dry)
     empty_floor=cast(scene,tree_for([floor]))
     empty_roi=(empty_floor>0)&(abs(empty_floor-dry)<.02)
@@ -77,7 +80,10 @@ def render(request, folder, *, corpus=False):
         labels['target_depth_m']=np.where(semantic==3,fdepth,water).astype(np.float32)
         labels['mask']=((semantic==2)|(semantic==3)).astype(np.uint8)
         sim=gen.simulate_raw_depth(scene,labels) if liquid else {'raw_depth_m':full}
-        raw=np.where((semantic==2)|(semantic==3),sim['raw_depth_m'],full+rng.normal(0,.001,full.shape))
+        # Raycast miss remains invalid. Never turn a missing background into a
+        # tiny positive depth that can back-project next to the camera.
+        background=np.where(full>0,full+rng.normal(0,.001,full.shape),0)
+        raw=np.where((semantic==2)|(semantic==3),sim['raw_depth_m'],background)
         # The established proxy has non-normalized flying weights. Replace only
         # flying samples in THIS demo producer by a declared convex mixture.
         if liquid and 'simulated_error_type' in sim:
@@ -88,6 +94,10 @@ def render(request, folder, *, corpus=False):
         desired=int(loss*roi.sum())-int((roi & (raw<=0)).sum())
         if desired>0 and len(ids):raw.flat[rng.choice(ids,min(desired,len(ids)),replace=False)]=0
         raw=np.where(np.isfinite(raw)&(raw>0),raw,0).astype(np.float32)
+        origin=np.array(sim.get('simulated_error_type',np.zeros_like(raw)),dtype=np.uint8)
+        origin[(raw<=0)&(origin==0)]=1
+        np.savez_compressed(folder/'offline_return_origin.npz',error_type=origin)
+        np.save(folder/'capture_valid.npy',raw>0)
         np.save(folder/'depth_m.npy',raw)
         np.savez_compressed(folder/'routing_prior.npz',dry_depth_m=dry,roi=empty_roi)
     if not corpus:

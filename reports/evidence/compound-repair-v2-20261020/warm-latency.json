@@ -1,0 +1,1423 @@
+{
+  "summary": {
+    "all": {
+      "n": 198,
+      "p50_ms": 89.84249830245972,
+      "p95_ms": 264.41208701580763,
+      "max_ms": 521.4083641767502,
+      "above_500_ms": 1
+    },
+    "visual": {
+      "n": 39,
+      "p50_ms": 223.07982295751572,
+      "p95_ms": 266.9918317347765,
+      "max_ms": 335.2968581020832,
+      "above_500_ms": 0
+    },
+    "no_visual": {
+      "n": 159,
+      "p50_ms": 87.66594901680946,
+      "p95_ms": 206.96579143404955,
+      "max_ms": 521.4083641767502,
+      "above_500_ms": 1
+    }
+  },
+  "warmup_ms": [
+    2998.6491203308105,
+    233.38162526488304,
+    361.025407910347,
+    233.22342336177826,
+    228.01703587174416,
+    200.41122287511826
+  ],
+  "records": [
+    {
+      "group": 0,
+      "bits": 0,
+      "repeat": 0,
+      "ms": 219.68000009655952,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 3,
+      "repeat": 0,
+      "ms": 138.5727860033512,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 5,
+      "repeat": 0,
+      "ms": 92.56160259246826,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 9,
+      "repeat": 0,
+      "ms": 96.60911560058594,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 17,
+      "repeat": 0,
+      "ms": 93.67291256785393,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 6,
+      "repeat": 0,
+      "ms": 92.55705401301384,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 10,
+      "repeat": 0,
+      "ms": 101.42487660050392,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 18,
+      "repeat": 0,
+      "ms": 94.76260468363762,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 12,
+      "repeat": 0,
+      "ms": 236.82275786995888,
+      "visual": true
+    },
+    {
+      "group": 0,
+      "bits": 20,
+      "repeat": 0,
+      "ms": 108.4335595369339,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 24,
+      "repeat": 0,
+      "ms": 274.3675075471401,
+      "visual": true
+    },
+    {
+      "group": 0,
+      "bits": 0,
+      "repeat": 1,
+      "ms": 521.4083641767502,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 3,
+      "repeat": 1,
+      "ms": 386.74570620059967,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 5,
+      "repeat": 1,
+      "ms": 297.5805848836899,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 9,
+      "repeat": 1,
+      "ms": 298.1642633676529,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 17,
+      "repeat": 1,
+      "ms": 205.97020909190178,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 6,
+      "repeat": 1,
+      "ms": 89.05499055981636,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 10,
+      "repeat": 1,
+      "ms": 99.20500218868256,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 18,
+      "repeat": 1,
+      "ms": 82.26726204156876,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 12,
+      "repeat": 1,
+      "ms": 231.2532290816307,
+      "visual": true
+    },
+    {
+      "group": 0,
+      "bits": 20,
+      "repeat": 1,
+      "ms": 93.18750351667404,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 24,
+      "repeat": 1,
+      "ms": 256.2703378498554,
+      "visual": true
+    },
+    {
+      "group": 0,
+      "bits": 0,
+      "repeat": 2,
+      "ms": 96.74244374036789,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 3,
+      "repeat": 2,
+      "ms": 80.96086606383324,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 5,
+      "repeat": 2,
+      "ms": 84.346704185009,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 9,
+      "repeat": 2,
+      "ms": 89.43714946508408,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 17,
+      "repeat": 2,
+      "ms": 84.0887576341629,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 6,
+      "repeat": 2,
+      "ms": 77.7074433863163,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 10,
+      "repeat": 2,
+      "ms": 77.93677225708961,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 18,
+      "repeat": 2,
+      "ms": 80.69775998592377,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 12,
+      "repeat": 2,
+      "ms": 232.1738451719284,
+      "visual": true
+    },
+    {
+      "group": 0,
+      "bits": 20,
+      "repeat": 2,
+      "ms": 93.00355985760689,
+      "visual": false
+    },
+    {
+      "group": 0,
+      "bits": 24,
+      "repeat": 2,
+      "ms": 264.23921808600426,
+      "visual": true
+    },
+    {
+      "group": 1,
+      "bits": 0,
+      "repeat": 0,
+      "ms": 91.94881841540337,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 3,
+      "repeat": 0,
+      "ms": 85.61673387885094,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 5,
+      "repeat": 0,
+      "ms": 85.47165989875793,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 9,
+      "repeat": 0,
+      "ms": 248.0495274066925,
+      "visual": true
+    },
+    {
+      "group": 1,
+      "bits": 17,
+      "repeat": 0,
+      "ms": 185.9886720776558,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 6,
+      "repeat": 0,
+      "ms": 215.92603251338005,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 10,
+      "repeat": 0,
+      "ms": 280.376173555851,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 18,
+      "repeat": 0,
+      "ms": 83.82662385702133,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 12,
+      "repeat": 0,
+      "ms": 87.71181106567383,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 20,
+      "repeat": 0,
+      "ms": 90.55647626519203,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 24,
+      "repeat": 0,
+      "ms": 91.8622836470604,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 0,
+      "repeat": 1,
+      "ms": 91.40066057443619,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 3,
+      "repeat": 1,
+      "ms": 84.46182683110237,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 5,
+      "repeat": 1,
+      "ms": 84.05090495944023,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 9,
+      "repeat": 1,
+      "ms": 242.02952906489372,
+      "visual": true
+    },
+    {
+      "group": 1,
+      "bits": 17,
+      "repeat": 1,
+      "ms": 90.20080044865608,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 6,
+      "repeat": 1,
+      "ms": 86.9327038526535,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 10,
+      "repeat": 1,
+      "ms": 84.87109839916229,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 18,
+      "repeat": 1,
+      "ms": 84.10434052348137,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 12,
+      "repeat": 1,
+      "ms": 89.95305374264717,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 20,
+      "repeat": 1,
+      "ms": 88.25922012329102,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 24,
+      "repeat": 1,
+      "ms": 89.11233395338058,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 0,
+      "repeat": 2,
+      "ms": 90.14744311571121,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 3,
+      "repeat": 2,
+      "ms": 87.66594901680946,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 5,
+      "repeat": 2,
+      "ms": 85.86109057068825,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 9,
+      "repeat": 2,
+      "ms": 246.53393402695656,
+      "visual": true
+    },
+    {
+      "group": 1,
+      "bits": 17,
+      "repeat": 2,
+      "ms": 90.42375162243843,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 6,
+      "repeat": 2,
+      "ms": 84.66297388076782,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 10,
+      "repeat": 2,
+      "ms": 84.21403169631958,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 18,
+      "repeat": 2,
+      "ms": 85.17488837242126,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 12,
+      "repeat": 2,
+      "ms": 89.36696127057076,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 20,
+      "repeat": 2,
+      "ms": 91.49948135018349,
+      "visual": false
+    },
+    {
+      "group": 1,
+      "bits": 24,
+      "repeat": 2,
+      "ms": 89.96009454131126,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 0,
+      "repeat": 0,
+      "ms": 84.26135405898094,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 3,
+      "repeat": 0,
+      "ms": 78.14867794513702,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 5,
+      "repeat": 0,
+      "ms": 78.85938510298729,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 9,
+      "repeat": 0,
+      "ms": 211.24965324997902,
+      "visual": true
+    },
+    {
+      "group": 2,
+      "bits": 17,
+      "repeat": 0,
+      "ms": 83.8974341750145,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 6,
+      "repeat": 0,
+      "ms": 75.80787315964699,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 10,
+      "repeat": 0,
+      "ms": 79.3427936732769,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 18,
+      "repeat": 0,
+      "ms": 78.65112647414207,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 12,
+      "repeat": 0,
+      "ms": 84.9890261888504,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 20,
+      "repeat": 0,
+      "ms": 81.89160376787186,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 24,
+      "repeat": 0,
+      "ms": 185.22436171770096,
+      "visual": true
+    },
+    {
+      "group": 2,
+      "bits": 0,
+      "repeat": 1,
+      "ms": 84.5201201736927,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 3,
+      "repeat": 1,
+      "ms": 84.3031257390976,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 5,
+      "repeat": 1,
+      "ms": 79.22175899147987,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 9,
+      "repeat": 1,
+      "ms": 208.89530703425407,
+      "visual": true
+    },
+    {
+      "group": 2,
+      "bits": 17,
+      "repeat": 1,
+      "ms": 85.47469973564148,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 6,
+      "repeat": 1,
+      "ms": 78.38428765535355,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 10,
+      "repeat": 1,
+      "ms": 80.8899886906147,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 18,
+      "repeat": 1,
+      "ms": 79.50442656874657,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 12,
+      "repeat": 1,
+      "ms": 82.459956407547,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 20,
+      "repeat": 1,
+      "ms": 82.52463489770889,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 24,
+      "repeat": 1,
+      "ms": 182.6581172645092,
+      "visual": true
+    },
+    {
+      "group": 2,
+      "bits": 0,
+      "repeat": 2,
+      "ms": 83.2977332174778,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 3,
+      "repeat": 2,
+      "ms": 78.11833918094635,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 5,
+      "repeat": 2,
+      "ms": 83.83629843592644,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 9,
+      "repeat": 2,
+      "ms": 209.47295799851418,
+      "visual": true
+    },
+    {
+      "group": 2,
+      "bits": 17,
+      "repeat": 2,
+      "ms": 81.61402121186256,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 6,
+      "repeat": 2,
+      "ms": 80.22179454565048,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 10,
+      "repeat": 2,
+      "ms": 76.57862454652786,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 18,
+      "repeat": 2,
+      "ms": 76.03517919778824,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 12,
+      "repeat": 2,
+      "ms": 78.59412953257561,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 20,
+      "repeat": 2,
+      "ms": 80.09077608585358,
+      "visual": false
+    },
+    {
+      "group": 2,
+      "bits": 24,
+      "repeat": 2,
+      "ms": 185.41689962148666,
+      "visual": true
+    },
+    {
+      "group": 3,
+      "bits": 0,
+      "repeat": 0,
+      "ms": 99.84670951962471,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 3,
+      "repeat": 0,
+      "ms": 86.23147755861282,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 5,
+      "repeat": 0,
+      "ms": 89.47483450174332,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 9,
+      "repeat": 0,
+      "ms": 89.81277048587799,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 17,
+      "repeat": 0,
+      "ms": 93.66403892636299,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 6,
+      "repeat": 0,
+      "ms": 84.52865108847618,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 10,
+      "repeat": 0,
+      "ms": 84.91125330328941,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 18,
+      "repeat": 0,
+      "ms": 85.3356309235096,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 12,
+      "repeat": 0,
+      "ms": 236.94897443056107,
+      "visual": true
+    },
+    {
+      "group": 3,
+      "bits": 20,
+      "repeat": 0,
+      "ms": 97.67929464578629,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 24,
+      "repeat": 0,
+      "ms": 252.43470817804337,
+      "visual": true
+    },
+    {
+      "group": 3,
+      "bits": 0,
+      "repeat": 1,
+      "ms": 100.61422362923622,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 3,
+      "repeat": 1,
+      "ms": 82.81141519546509,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 5,
+      "repeat": 1,
+      "ms": 86.435966193676,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 9,
+      "repeat": 1,
+      "ms": 271.47553488612175,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 17,
+      "repeat": 1,
+      "ms": 88.09458091855049,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 6,
+      "repeat": 1,
+      "ms": 79.60866391658783,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 10,
+      "repeat": 1,
+      "ms": 83.21220055222511,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 18,
+      "repeat": 1,
+      "ms": 82.68149197101593,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 12,
+      "repeat": 1,
+      "ms": 222.57963940501213,
+      "visual": true
+    },
+    {
+      "group": 3,
+      "bits": 20,
+      "repeat": 1,
+      "ms": 100.1444049179554,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 24,
+      "repeat": 1,
+      "ms": 240.33252522349358,
+      "visual": true
+    },
+    {
+      "group": 3,
+      "bits": 0,
+      "repeat": 2,
+      "ms": 100.90569034218788,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 3,
+      "repeat": 2,
+      "ms": 82.1615643799305,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 5,
+      "repeat": 2,
+      "ms": 89.87222611904144,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 9,
+      "repeat": 2,
+      "ms": 99.43588078022003,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 17,
+      "repeat": 2,
+      "ms": 89.98585492372513,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 6,
+      "repeat": 2,
+      "ms": 90.90787544846535,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 10,
+      "repeat": 2,
+      "ms": 83.79203826189041,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 18,
+      "repeat": 2,
+      "ms": 84.67565104365349,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 12,
+      "repeat": 2,
+      "ms": 232.98731446266174,
+      "visual": true
+    },
+    {
+      "group": 3,
+      "bits": 20,
+      "repeat": 2,
+      "ms": 95.41494026780128,
+      "visual": false
+    },
+    {
+      "group": 3,
+      "bits": 24,
+      "repeat": 2,
+      "ms": 335.2968581020832,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 0,
+      "repeat": 0,
+      "ms": 113.73942717909813,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 3,
+      "repeat": 0,
+      "ms": 89.72709625959396,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 5,
+      "repeat": 0,
+      "ms": 101.256612688303,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 9,
+      "repeat": 0,
+      "ms": 257.88209214806557,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 17,
+      "repeat": 0,
+      "ms": 104.71516847610474,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 6,
+      "repeat": 0,
+      "ms": 108.39827358722687,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 10,
+      "repeat": 0,
+      "ms": 265.39167761802673,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 18,
+      "repeat": 0,
+      "ms": 103.68454456329346,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 12,
+      "repeat": 0,
+      "ms": 191.6186809539795,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 20,
+      "repeat": 0,
+      "ms": 114.70535025000572,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 24,
+      "repeat": 0,
+      "ms": 205.5802270770073,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 0,
+      "repeat": 1,
+      "ms": 109.18226093053818,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 3,
+      "repeat": 1,
+      "ms": 91.19841083884239,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 5,
+      "repeat": 1,
+      "ms": 100.7319875061512,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 9,
+      "repeat": 1,
+      "ms": 206.44709467887878,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 17,
+      "repeat": 1,
+      "ms": 88.22808787226677,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 6,
+      "repeat": 1,
+      "ms": 84.7359299659729,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 10,
+      "repeat": 1,
+      "ms": 266.1723122000694,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 18,
+      "repeat": 1,
+      "ms": 105.17745092511177,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 12,
+      "repeat": 1,
+      "ms": 156.41465038061142,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 20,
+      "repeat": 1,
+      "ms": 113.99484798312187,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 24,
+      "repeat": 1,
+      "ms": 190.51047042012215,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 0,
+      "repeat": 2,
+      "ms": 87.54100650548935,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 3,
+      "repeat": 2,
+      "ms": 102.53602638840675,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 5,
+      "repeat": 2,
+      "ms": 86.19127422571182,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 9,
+      "repeat": 2,
+      "ms": 182.20018222928047,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 17,
+      "repeat": 2,
+      "ms": 82.87812024354935,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 6,
+      "repeat": 2,
+      "ms": 83.1744633615017,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 10,
+      "repeat": 2,
+      "ms": 209.33880656957626,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 18,
+      "repeat": 2,
+      "ms": 84.2636376619339,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 12,
+      "repeat": 2,
+      "ms": 156.639713793993,
+      "visual": true
+    },
+    {
+      "group": 4,
+      "bits": 20,
+      "repeat": 2,
+      "ms": 89.04995396733284,
+      "visual": false
+    },
+    {
+      "group": 4,
+      "bits": 24,
+      "repeat": 2,
+      "ms": 170.5355904996395,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 0,
+      "repeat": 0,
+      "ms": 90.25562554597855,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 3,
+      "repeat": 0,
+      "ms": 86.15576475858688,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 5,
+      "repeat": 0,
+      "ms": 90.92038497328758,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 9,
+      "repeat": 0,
+      "ms": 206.1021514236927,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 17,
+      "repeat": 0,
+      "ms": 85.46170964837074,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 6,
+      "repeat": 0,
+      "ms": 86.5754708647728,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 10,
+      "repeat": 0,
+      "ms": 231.33906349539757,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 18,
+      "repeat": 0,
+      "ms": 84.86125618219376,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 12,
+      "repeat": 0,
+      "ms": 88.57721835374832,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 20,
+      "repeat": 0,
+      "ms": 89.52319249510765,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 24,
+      "repeat": 0,
+      "ms": 91.41352027654648,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 0,
+      "repeat": 1,
+      "ms": 87.30456605553627,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 3,
+      "repeat": 1,
+      "ms": 82.73579925298691,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 5,
+      "repeat": 1,
+      "ms": 85.83443984389305,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 9,
+      "repeat": 1,
+      "ms": 201.51646062731743,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 17,
+      "repeat": 1,
+      "ms": 88.08686956763268,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 6,
+      "repeat": 1,
+      "ms": 84.7146138548851,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 10,
+      "repeat": 1,
+      "ms": 229.96078804135323,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 18,
+      "repeat": 1,
+      "ms": 92.87667647004128,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 12,
+      "repeat": 1,
+      "ms": 81.98532089591026,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 20,
+      "repeat": 1,
+      "ms": 83.36525782942772,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 24,
+      "repeat": 1,
+      "ms": 84.12300050258636,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 0,
+      "repeat": 2,
+      "ms": 88.28750252723694,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 3,
+      "repeat": 2,
+      "ms": 81.46804571151733,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 5,
+      "repeat": 2,
+      "ms": 90.82113578915596,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 9,
+      "repeat": 2,
+      "ms": 203.37501540780067,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 17,
+      "repeat": 2,
+      "ms": 88.18910270929337,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 6,
+      "repeat": 2,
+      "ms": 86.26513183116913,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 10,
+      "repeat": 2,
+      "ms": 223.07982295751572,
+      "visual": true
+    },
+    {
+      "group": 5,
+      "bits": 18,
+      "repeat": 2,
+      "ms": 87.63023093342781,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 12,
+      "repeat": 2,
+      "ms": 87.71392330527306,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 20,
+      "repeat": 2,
+      "ms": 87.97246962785721,
+      "visual": false
+    },
+    {
+      "group": 5,
+      "bits": 24,
+      "repeat": 2,
+      "ms": 87.09126710891724,
+      "visual": false
+    }
+  ],
+  "includes_capture_or_render": false,
+  "model_preloaded_and_kernel_warmed": true
+}

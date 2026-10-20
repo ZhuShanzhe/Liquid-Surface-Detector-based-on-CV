@@ -1,0 +1,16 @@
+{
+  "policy": "opaque_tof_compound_evidence_v2_20261020",
+  "module_sha256": "a84e17996bc4e1c3707005d81ff7f0bae4173ff6ec8c89c2f44f0e502193ec9c",
+  "independent_seed": 202610201157,
+  "new_installation_ids": [
+    20000,
+    20099
+  ],
+  "test_groups": 100,
+  "cases_per_group": 16,
+  "no_tuning_after_test": true,
+  "old_and_new_same_corrected_inputs": true,
+  "exclusion": "input evidence only; retain all raw records; actual liquid loss 0-50 percent for loss-labelled acceptance",
+  "ordinary_liquid_regression_limit_mm": 2,
+  "candidate_only_if_not_regressed": true
+}

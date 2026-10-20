@@ -47,13 +47,14 @@ def validate_controls(value):
 
 
 class Console:
-    def __init__(self,work,blender,checkpoint):
+    def __init__(self,work,blender,checkpoint,*,compound_repair=True):
         self.work=work;work.mkdir(parents=True,exist_ok=True)
         self.blender=blender;self.classifier=SceneClassifier(checkpoint)
         self.worker=ThreadPoolExecutor(max_workers=1,thread_name_prefix='simulation')
         self.lock=threading.Lock();self.jobs={};self.state={'status':'not_initialized','result':None}
         self.meter=None;self.initialization=None;self.counter=0
         self.controls=validate_controls({});self.token=uuid.uuid4().hex
+        self.compound_repair=bool(compound_repair)
 
     def submit(self,controls,initialize=False):
         controls=validate_controls(controls)
@@ -128,8 +129,10 @@ class Console:
              provenance=dict(mode='simulation_empty_plus_independent_ruler_and_five_known_priors',
                              current_test_truth_used=False,field_calibration_requires_operator_measurements=True),
              confirmed_refractive_planar_unoccluded=material!='ordinary_diffuse')
-        self.meter=UnifiedToFMeter(installation,self.classifier,profile_path=profile)
+        self.meter=UnifiedToFMeter(installation,self.classifier,profile_path=profile,
+                                  compound_repair=self.compound_repair)
         preload_ms=self.meter.preload_optional_peak_models() if material=='ordinary_diffuse' else 0.
+        warmup_ms=self.meter.warm_optional_peak_models() if material=='ordinary_diffuse' and self.compound_repair else 0.
         # Fit phase calibration at initialization, not inside the reported warm inference latency.
         if material!='ordinary_diffuse':
             from .tof_scene_meter import ToFSceneMeter
@@ -138,6 +141,10 @@ class Console:
              phase_known_heights_m=known.tolist(),phase_calibration_precomputed=material!='ordinary_diffuse',
              simulated_ruler_is_exact=True,current_truth_used_for_measurement=False,
              optional_peak_asset_preload_ms=preload_ms,optional_peak_assets_preloaded=material=='ordinary_diffuse')
+        self.initialization['compound_repair_requested']=self.compound_repair
+        self.initialization['compound_repair_enabled']=self.meter.compound_repair is not None
+        self.initialization['optional_peak_kernel_warmup_ms']=warmup_ms
+        self.initialization['warmup_predictions_used_as_measurement_or_calibration']=False
         (folder/'geometry.json').write_text(json.dumps(item['bundle']))
         self.forward_physical,self.forward_profile=physical,phase_profile
 
@@ -237,9 +244,11 @@ def serve(console,port):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--work',type=Path,required=True);p.add_argument('--checkpoint',type=Path,required=True)
     p.add_argument('--port',type=int,default=8765)
+    p.add_argument('--compound-repair',action='store_true',default=True,help='Formal v2 evidence repair (default)')
+    p.add_argument('--legacy-geometry',dest='compound_repair',action='store_false',help='Diagnostic old numeric path; not the selected release')
     p.add_argument('--blender',default='/root/autodl-tmp/tools/blender/blender-4.2.0-linux-x64/blender')
     a=p.parse_args();torch.set_num_threads(2);cv2.setNumThreads(1)
-    console=Console(a.work,a.blender,a.checkpoint);serve(console,a.port)
+    console=Console(a.work,a.blender,a.checkpoint,compound_repair=a.compound_repair);serve(console,a.port)
 
 
 if __name__=='__main__':main()

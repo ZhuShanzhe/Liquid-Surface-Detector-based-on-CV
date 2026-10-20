@@ -1,0 +1,26 @@
+{
+  "generated": 1600,
+  "input_evidence_eligible": 1568,
+  "all_native_backgrounds_valid": true,
+  "invalid_no_hit_backgrounds": [],
+  "changed_existing_python": [
+    "src/liquid_depth/scene_console_web.py",
+    "src/liquid_depth/unified_tof.py"
+  ],
+  "frozen_formal_numeric_sources_unchanged": true,
+  "formal_pdf_bytes_unchanged": true,
+  "classifier_bytes_unchanged": true,
+  "liquid_changed": 5,
+  "liquid_regressions_more_than_2mm": [],
+  "base_commit": "7984bef85aa20d0f3b6a02425302698949df911c",
+  "default_repair_enabled": false,
+  "classifier_retrained": false,
+  "all_errors_retained": true,
+  "no_error_based_exclusion": true,
+  "source_sha256": {
+    "src/liquid_depth/compound_tof_repair.py": "57fa196ff0ef65da1e7bed6e06a3e7c014c90890cbb1d3e570b4a2c437499031",
+    "src/liquid_depth/unified_tof.py": "cc8256f49e78d35d3e4a03ad55c978c98fed61c4c48bafffd712e9c2e1317b61",
+    "scripts/render_scene_console.py": "8999fa2bb06f89fffb5b5581b0e10dee8c58e153bf2867d32b9eff832e138d56",
+    "src/liquid_depth/scene_console_web.py": "18e32ddcc193d595121e54f5ddffac133631795270b6bdff4dd7a6c094da0642"
+  }
+}

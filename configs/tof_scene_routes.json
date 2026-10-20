@@ -1,5 +1,8 @@
 {
-  "version": "tof_formal_v1_20261017",
+  "version": "tof_formal_v2_20261020",
+  "opaque_evidence_repair_default": true,
+  "opaque_evidence_repair": "opaque_tof_compound_evidence_v2_20261020",
+  "phase_numeric_backend_unchanged": true,
   "sensors": ["tof"],
   "manual_scene_selection": true,
   "scenes": {
