@@ -1,0 +1,10 @@
+{
+  "version": "small_float_highest_v1_20261020",
+  "trusted_project_assets_only": true,
+  "sklearn_version": "1.9.0",
+  "sha256": {
+    "pixel_best.pt": "ee0a04054140ff8468bcb608dc4bbe4f79c615e5d378437283fc455061b6e73b",
+    "policy.json": "5de6c3e302893737e5c685c4d7499841e3cbda3a5ed446f768206fd13ea4c26d",
+    "candidates.joblib": "56a0fb69bb21e02f1dd2bbb9ae2f2328fcf4336ec560bb51d747625f3971e980"
+  }
+}

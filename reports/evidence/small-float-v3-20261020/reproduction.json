@@ -1,0 +1,48 @@
+{
+  "base_commit": "182bbd73aacd5bd1731e5321faf2c427421b4259",
+  "data_root": "/root/autodl-tmp/liquid-depth-data/synthetic/small-float-20261020",
+  "generation_seeds": {
+    "train": 202610202147,
+    "validation": 202610202239,
+    "test": 202610202351
+  },
+  "installations": {
+    "train": 128,
+    "validation": 32,
+    "test": 100
+  },
+  "condition_bits": [
+    0,
+    1,
+    2,
+    4,
+    16,
+    8,
+    9,
+    10,
+    12,
+    24
+  ],
+  "baseline_source_export": "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/frozen-v2",
+  "liquid_core_unchanged": true,
+  "source_hashes": {
+    "benchmark_staged.py": "d4378f7814e0eb346b73339382ce941e63ee7bd2d666d12b80679cfbf87664cd",
+    "build_small_float_report.py": "c353ca17f7cd0886c96962283576eafbedd144eecc9b0c5f61a6be2f6f351080",
+    "cache_baseline.py": "8e170588ee77bd3532c1cb1d68a8da4541f01d018ed199e4b396ac828c34f810",
+    "diagnose_small_float.py": "ade914fa5d96d4eae1ae3ded9437d473d623a8062e5cf4598c831977ca698aed",
+    "evaluate_small_float.py": "ee38f2acbdf14cea4318a34df8dca637881eaabef2364edb5c0515e9a3aa809b",
+    "fit_candidates.py": "2759cdfd95c3161b102f9c820ab8a05f6f288a3e6919cd3134cfe2292f69b6f6",
+    "generate_small_floats.py": "23f63ca46bd85b8de8663db6ef27adf5c502757f28fe0aae44ab8ff63b172a29",
+    "launch_baseline.py": "74f283f92c57e71e82d2411c266dac7f01d5a46d37e3fa35104914154c367809",
+    "launch_evaluation.py": "e412f206967c5c034e53dd688dea0fba6f0520b12cea8839e1ff7728db65003d",
+    "launch_prepare.py": "9be81719923f68d7f6547bdda8e25374fbe24290eb803c096e4cef57bd2a54c1",
+    "launch_render.py": "c17c9f6437bad96eb1b0f4a234b084b52ccb71080ebd4d78bb70b970b7409e59",
+    "prepare_training.py": "e2ef051922973fe59fb9bb62521c74d592488ac3303c72f59b8b8e7b4cd13399",
+    "render_scene_console.py": "3b318a766d85ed55b0c0e6f85c209fa2f1c19a94ca3d0f827a4c60fda851f77e",
+    "select_candidate.py": "5a0d24fefc4c7f658db4331d28f29f13dc219a2c08f90613cabfae6b3a18d1e4",
+    "small_float_model.py": "5232e632ef03b5a598e4e71297820a4127c504048d1aa983d3922c84b1900f17",
+    "summarize_small_float.py": "00198ce57d0dd37b42ef2155bf9c05beffbe59abac7bbe061ea930f35581464d",
+    "train_small_float.py": "60e47654ec41fa69818d438af1d564f9c08c12c4355fbe49f66444157e48af90",
+    "validation_early_stop.py": "918eb0c7593e1654d82096a14583d43e30ba7ed77be77ca7850bcb38aca61e40"
+  }
+}

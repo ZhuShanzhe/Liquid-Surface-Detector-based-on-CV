@@ -1,0 +1,18 @@
+{
+  "base_commit": "182bbd73aacd5bd1731e5321faf2c427421b4259",
+  "test_seed": 202610202351,
+  "test_installations": 100,
+  "test_frames": 1000,
+  "liquid_must_be_exactly_unchanged": true,
+  "visual_highest_only": true,
+  "higher_supported_candidate_only": true,
+  "no_error_based_exclusion": true,
+  "acceptance": "No new tolerance failure on no-float controls; per float condition MAE<=baseline+2mm, P95<=baseline+5mm, max<=baseline+5mm, pass>=baseline-2 percentage points; some material aggregate improvement; latency p95<=500ms target, report cold and warm separately",
+  "top_support_audit": "offline visible highest source has >=3 direct-return points in a 2-D spatial patch; separate strata, not a numerical-output gate",
+  "hashes": {
+    "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/small_float_model.py": "5232e632ef03b5a598e4e71297820a4127c504048d1aa983d3922c84b1900f17",
+    "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/assets/models/v8/pixel_best.pt": "bddcae7adbee12461ba1677fc32ac4bae95ea1927082c2290b464fa2e600197a",
+    "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/candidate-old/models.joblib": "8062e94f9e19fc9ad8ddca64ed0a4acc6339e340418af839197b5f94e25496fd",
+    "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/candidate-old/policy.json": "af583b34d3303687d4114b764a2e85b5a17824ceafc80edb06715cc863bc581f"
+  }
+}

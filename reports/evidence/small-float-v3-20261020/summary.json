@@ -1,0 +1,2156 @@
+{
+  "base_commit": "182bbd73aacd5bd1731e5321faf2c427421b4259",
+  "selected": {
+    "base_commit": "182bbd73aacd5bd1731e5321faf2c427421b4259",
+    "test_seed": 202610202351,
+    "test_installations": 100,
+    "test_frames": 1000,
+    "liquid_must_be_exactly_unchanged": true,
+    "visual_highest_only": true,
+    "higher_supported_candidate_only": true,
+    "no_error_based_exclusion": true,
+    "acceptance": "No new tolerance failure on no-float controls; per float condition MAE<=baseline+2mm, P95<=baseline+5mm, max<=baseline+5mm, pass>=baseline-2 percentage points; some material aggregate improvement; latency p95<=500ms target, report cold and warm separately",
+    "top_support_audit": "offline visible highest source has >=3 direct-return points in a 2-D spatial patch; separate strata, not a numerical-output gate",
+    "hashes": {
+      "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/small_float_model.py": "5232e632ef03b5a598e4e71297820a4127c504048d1aa983d3922c84b1900f17",
+      "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/pixel-training/best.pt": "ee0a04054140ff8468bcb608dc4bbe4f79c615e5d378437283fc455061b6e73b",
+      "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/candidate-new/models.joblib": "db7a25431bfdd0ca5cdbe94c6ac2dfd6e161a10f85a48b4e0e82691351fce82f",
+      "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/candidate-new/policy.json": "b2d6bf66f6ffe79d58c96d4015688efa295562271c14113e496dd246d4bbe7f6"
+    },
+    "family_selection_validation_only": {
+      "old": {
+        "threshold": 0.6,
+        "top_threshold": 0.0,
+        "mae_m": 0.024478407149147112,
+        "p95_m": 0.07893184213974083,
+        "max_m": 0.10160014126486416,
+        "control_new_failures": 0,
+        "updates": 0,
+        "objective": 0.04253160548960762,
+        "pixel_checkpoint": "/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV/assets/models/v8/pixel_best.pt",
+        "feature_mode": "legacy",
+        "source": "old"
+      },
+      "new": {
+        "threshold": 0.6,
+        "top_threshold": 0.0,
+        "mae_m": 0.019875577692745082,
+        "p95_m": 0.07893184213974083,
+        "max_m": 0.10160014126486416,
+        "control_new_failures": 0,
+        "updates": 64,
+        "objective": 0.03792877603320559,
+        "pixel_checkpoint": "/root/autodl-tmp/liquid-depth-artifacts/small-float-20261020/pixel-training/best.pt",
+        "feature_mode": "tof_linear",
+        "source": "new"
+      }
+    },
+    "selected_source": "new"
+  },
+  "generated": 1000,
+  "eligible": 978,
+  "all_frames": {
+    "old": {
+      "n": 1000,
+      "outputs": 1000,
+      "coverage": 1.0,
+      "mae_mm": 21.396564726972247,
+      "p95_mm": 49.25085000790419,
+      "max_mm": 1406.4509880089233,
+      "pass_rate": 0.955,
+      "abs_bins": {
+        "0-5mm": 354,
+        "5-20mm": 416,
+        "20-50mm": 181,
+        "50-100mm": 43,
+        "100-500mm": 0,
+        ">500mm": 6
+      },
+      "relative_bins": {
+        "0-1%": 408,
+        "1-2%": 169,
+        "2-5%": 163,
+        "5-10%": 120,
+        ">10%": 140
+      }
+    },
+    "new": {
+      "n": 1000,
+      "outputs": 1000,
+      "coverage": 1.0,
+      "mae_mm": 20.214616086853678,
+      "p95_mm": 45.03546599189986,
+      "max_mm": 1406.4509880089233,
+      "pass_rate": 0.965,
+      "abs_bins": {
+        "0-5mm": 350,
+        "5-20mm": 454,
+        "20-50mm": 159,
+        "50-100mm": 31,
+        "100-500mm": 0,
+        ">500mm": 6
+      },
+      "relative_bins": {
+        "0-1%": 412,
+        "1-2%": 173,
+        "2-5%": 170,
+        "5-10%": 129,
+        ">10%": 116
+      }
+    },
+    "updates": 215,
+    "new_activations": 178
+  },
+  "primary_float": {
+    "old": {
+      "n": 486,
+      "outputs": 486,
+      "coverage": 1.0,
+      "mae_mm": 21.975333001101543,
+      "p95_mm": 58.18761179146091,
+      "max_mm": 1380.9157363467923,
+      "pass_rate": 0.9218106995884774,
+      "abs_bins": {
+        "0-5mm": 151,
+        "5-20mm": 152,
+        "20-50mm": 141,
+        "50-100mm": 41,
+        "100-500mm": 0,
+        ">500mm": 1
+      },
+      "relative_bins": {
+        "0-1%": 171,
+        "1-2%": 74,
+        "2-5%": 93,
+        "5-10%": 50,
+        ">10%": 98
+      }
+    },
+    "new": {
+      "n": 486,
+      "outputs": 486,
+      "coverage": 1.0,
+      "mae_mm": 19.295583582825934,
+      "p95_mm": 52.43142179620566,
+      "max_mm": 1380.9157363467923,
+      "pass_rate": 0.9423868312757202,
+      "abs_bins": {
+        "0-5mm": 158,
+        "5-20mm": 180,
+        "20-50mm": 118,
+        "50-100mm": 29,
+        "100-500mm": 0,
+        ">500mm": 1
+      },
+      "relative_bins": {
+        "0-1%": 181,
+        "1-2%": 77,
+        "2-5%": 97,
+        "5-10%": 59,
+        ">10%": 72
+      }
+    },
+    "updates": 146,
+    "new_activations": 109
+  },
+  "primary_controls": {
+    "old": {
+      "n": 492,
+      "outputs": 492,
+      "coverage": 1.0,
+      "mae_mm": 11.227168512036261,
+      "p95_mm": 23.217891782071202,
+      "max_mm": 1403.0625419272212,
+      "pass_rate": 0.9979674796747967,
+      "abs_bins": {
+        "0-5mm": 195,
+        "5-20mm": 259,
+        "20-50mm": 37,
+        "50-100mm": 0,
+        "100-500mm": 0,
+        ">500mm": 1
+      },
+      "relative_bins": {
+        "0-1%": 233,
+        "1-2%": 91,
+        "2-5%": 65,
+        "5-10%": 69,
+        ">10%": 34
+      }
+    },
+    "new": {
+      "n": 492,
+      "outputs": 492,
+      "coverage": 1.0,
+      "mae_mm": 11.447175322264187,
+      "p95_mm": 23.471279360055732,
+      "max_mm": 1403.0625419272212,
+      "pass_rate": 0.9979674796747967,
+      "abs_bins": {
+        "0-5mm": 186,
+        "5-20mm": 267,
+        "20-50mm": 38,
+        "50-100mm": 0,
+        "100-500mm": 0,
+        ">500mm": 1
+      },
+      "relative_bins": {
+        "0-1%": 227,
+        "1-2%": 93,
+        "2-5%": 68,
+        "5-10%": 68,
+        ">10%": 36
+      }
+    },
+    "updates": 66,
+    "new_activations": 66
+  },
+  "by_condition": {
+    "0": {
+      "name": "普通无漂浮物对照",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 8.490566458489203,
+        "p95_mm": 23.401122250529667,
+        "max_mm": 35.25720109081165,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 41,
+          "5-20mm": 51,
+          "20-50mm": 8,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 44,
+          "1-2%": 21,
+          "2-5%": 14,
+          "5-10%": 14,
+          ">10%": 7
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 8.873997792236603,
+        "p95_mm": 23.401122250529667,
+        "max_mm": 35.25720109081165,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 36,
+          "5-20mm": 56,
+          "20-50mm": 8,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 43,
+          "1-2%": 23,
+          "2-5%": 13,
+          "5-10%": 13,
+          ">10%": 8
+        }
+      },
+      "updates": 20,
+      "new_activations": 20
+    },
+    "1": {
+      "name": "低照无漂浮物对照",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 22.78810504550088,
+        "p95_mm": 27.77981724551406,
+        "max_mm": 1403.0625419272212,
+        "pass_rate": 0.99,
+        "abs_bins": {
+          "0-5mm": 36,
+          "5-20mm": 54,
+          "20-50mm": 9,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 1
+        },
+        "relative_bins": {
+          "0-1%": 46,
+          "1-2%": 20,
+          "2-5%": 11,
+          "5-10%": 14,
+          ">10%": 9
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 23.042894130760292,
+        "p95_mm": 29.784515735523662,
+        "max_mm": 1403.0625419272212,
+        "pass_rate": 0.99,
+        "abs_bins": {
+          "0-5mm": 34,
+          "5-20mm": 55,
+          "20-50mm": 10,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 1
+        },
+        "relative_bins": {
+          "0-1%": 44,
+          "1-2%": 21,
+          "2-5%": 12,
+          "5-10%": 14,
+          ">10%": 9
+        }
+      },
+      "updates": 13,
+      "new_activations": 13
+    },
+    "2": {
+      "name": "眩光无漂浮物对照",
+      "generated": 100,
+      "old": {
+        "n": 92,
+        "outputs": 92,
+        "coverage": 1.0,
+        "mae_mm": 8.657303020068143,
+        "p95_mm": 21.452123703845004,
+        "max_mm": 36.47724442909972,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 34,
+          "5-20mm": 52,
+          "20-50mm": 6,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 41,
+          "1-2%": 20,
+          "2-5%": 11,
+          "5-10%": 13,
+          ">10%": 7
+        }
+      },
+      "new": {
+        "n": 92,
+        "outputs": 92,
+        "coverage": 1.0,
+        "mae_mm": 8.741234632291691,
+        "p95_mm": 21.452123703845004,
+        "max_mm": 36.47724442909972,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 34,
+          "5-20mm": 52,
+          "20-50mm": 6,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 40,
+          "1-2%": 20,
+          "2-5%": 12,
+          "5-10%": 13,
+          ">10%": 7
+        }
+      },
+      "updates": 11,
+      "new_activations": 11
+    },
+    "4": {
+      "name": "不平整无漂浮物对照",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 6.843052564675802,
+        "p95_mm": 18.002210476113714,
+        "max_mm": 28.642986468825015,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 49,
+          "5-20mm": 46,
+          "20-50mm": 5,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 56,
+          "1-2%": 12,
+          "2-5%": 16,
+          "5-10%": 12,
+          ">10%": 4
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 6.862715401469612,
+        "p95_mm": 18.002210476113714,
+        "max_mm": 28.642986468825015,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 49,
+          "5-20mm": 46,
+          "20-50mm": 5,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 55,
+          "1-2%": 12,
+          "2-5%": 17,
+          "5-10%": 12,
+          ">10%": 4
+        }
+      },
+      "updates": 4,
+      "new_activations": 4
+    },
+    "16": {
+      "name": "深度丢失无漂浮物对照",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 9.151226232089837,
+        "p95_mm": 24.03748307057317,
+        "max_mm": 35.25720109081154,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 35,
+          "5-20mm": 56,
+          "20-50mm": 9,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 46,
+          "1-2%": 18,
+          "2-5%": 13,
+          "5-10%": 16,
+          ">10%": 7
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 9.498559399364938,
+        "p95_mm": 24.410417733112016,
+        "max_mm": 35.25720109081154,
+        "pass_rate": 1.0,
+        "abs_bins": {
+          "0-5mm": 33,
+          "5-20mm": 58,
+          "20-50mm": 9,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 45,
+          "1-2%": 17,
+          "2-5%": 14,
+          "5-10%": 16,
+          ">10%": 8
+        }
+      },
+      "updates": 18,
+      "new_activations": 18
+    },
+    "8": {
+      "name": "小漂浮物",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 19.876473611378398,
+        "p95_mm": 58.21666851350088,
+        "max_mm": 83.15106175384764,
+        "pass_rate": 0.9,
+        "abs_bins": {
+          "0-5mm": 31,
+          "5-20mm": 29,
+          "20-50mm": 29,
+          "50-100mm": 11,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 35,
+          "1-2%": 13,
+          "2-5%": 20,
+          "5-10%": 13,
+          ">10%": 19
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 15.917355916720535,
+        "p95_mm": 48.93942881343202,
+        "max_mm": 63.032158118838886,
+        "pass_rate": 0.95,
+        "abs_bins": {
+          "0-5mm": 32,
+          "5-20mm": 37,
+          "20-50mm": 26,
+          "50-100mm": 5,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 36,
+          "1-2%": 13,
+          "2-5%": 24,
+          "5-10%": 15,
+          ">10%": 12
+        }
+      },
+      "updates": 41,
+      "new_activations": 32
+    },
+    "9": {
+      "name": "低照+小漂浮物",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 33.747589309015616,
+        "p95_mm": 59.49390747790473,
+        "max_mm": 1380.9157363467923,
+        "pass_rate": 0.91,
+        "abs_bins": {
+          "0-5mm": 30,
+          "5-20mm": 27,
+          "20-50mm": 32,
+          "50-100mm": 10,
+          "100-500mm": 0,
+          ">500mm": 1
+        },
+        "relative_bins": {
+          "0-1%": 32,
+          "1-2%": 16,
+          "2-5%": 19,
+          "5-10%": 11,
+          ">10%": 22
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 31.577303833279675,
+        "p95_mm": 59.49390747790473,
+        "max_mm": 1380.9157363467923,
+        "pass_rate": 0.92,
+        "abs_bins": {
+          "0-5mm": 32,
+          "5-20mm": 32,
+          "20-50mm": 26,
+          "50-100mm": 9,
+          "100-500mm": 0,
+          ">500mm": 1
+        },
+        "relative_bins": {
+          "0-1%": 34,
+          "1-2%": 15,
+          "2-5%": 21,
+          "5-10%": 13,
+          ">10%": 17
+        }
+      },
+      "updates": 32,
+      "new_activations": 21
+    },
+    "10": {
+      "name": "眩光+小漂浮物",
+      "generated": 100,
+      "old": {
+        "n": 92,
+        "outputs": 92,
+        "coverage": 1.0,
+        "mae_mm": 25.15160367305014,
+        "p95_mm": 60.73005758591795,
+        "max_mm": 92.36229742086633,
+        "pass_rate": 0.9021739130434783,
+        "abs_bins": {
+          "0-5mm": 19,
+          "5-20mm": 28,
+          "20-50mm": 36,
+          "50-100mm": 9,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 25,
+          "1-2%": 14,
+          "2-5%": 20,
+          "5-10%": 6,
+          ">10%": 27
+        }
+      },
+      "new": {
+        "n": 92,
+        "outputs": 92,
+        "coverage": 1.0,
+        "mae_mm": 24.40073837731446,
+        "p95_mm": 60.73005758591795,
+        "max_mm": 92.36229742086633,
+        "pass_rate": 0.9021739130434783,
+        "abs_bins": {
+          "0-5mm": 19,
+          "5-20mm": 28,
+          "20-50mm": 36,
+          "50-100mm": 9,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 27,
+          "1-2%": 14,
+          "2-5%": 17,
+          "5-10%": 9,
+          ">10%": 25
+        }
+      },
+      "updates": 17,
+      "new_activations": 16
+    },
+    "12": {
+      "name": "不平整+小漂浮物",
+      "generated": 100,
+      "old": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 10.883882382928684,
+        "p95_mm": 42.058031798933925,
+        "max_mm": 78.60604970147605,
+        "pass_rate": 0.98,
+        "abs_bins": {
+          "0-5mm": 45,
+          "5-20mm": 39,
+          "20-50mm": 14,
+          "50-100mm": 2,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 51,
+          "1-2%": 13,
+          "2-5%": 16,
+          "5-10%": 7,
+          ">10%": 13
+        }
+      },
+      "new": {
+        "n": 100,
+        "outputs": 100,
+        "coverage": 1.0,
+        "mae_mm": 9.04687569576424,
+        "p95_mm": 29.652611214760434,
+        "max_mm": 51.41599960966695,
+        "pass_rate": 0.99,
+        "abs_bins": {
+          "0-5mm": 45,
+          "5-20mm": 43,
+          "20-50mm": 11,
+          "50-100mm": 1,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 54,
+          "1-2%": 14,
+          "2-5%": 13,
+          "5-10%": 12,
+          ">10%": 7
+        }
+      },
+      "updates": 15,
+      "new_activations": 14
+    },
+    "24": {
+      "name": "深度丢失+小漂浮物",
+      "generated": 100,
+      "old": {
+        "n": 94,
+        "outputs": 94,
+        "coverage": 1.0,
+        "mae_mm": 20.375210322153922,
+        "p95_mm": 58.37040340131978,
+        "max_mm": 87.55239610426766,
+        "pass_rate": 0.9148936170212766,
+        "abs_bins": {
+          "0-5mm": 26,
+          "5-20mm": 29,
+          "20-50mm": 30,
+          "50-100mm": 9,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 28,
+          "1-2%": 18,
+          "2-5%": 18,
+          "5-10%": 13,
+          ">10%": 17
+        }
+      },
+      "new": {
+        "n": 94,
+        "outputs": 94,
+        "coverage": 1.0,
+        "mae_mm": 15.730129212383277,
+        "p95_mm": 50.11298216041395,
+        "max_mm": 79.79007285048596,
+        "pass_rate": 0.9468085106382979,
+        "abs_bins": {
+          "0-5mm": 30,
+          "5-20mm": 40,
+          "20-50mm": 19,
+          "50-100mm": 5,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 30,
+          "1-2%": 21,
+          "2-5%": 22,
+          "5-10%": 10,
+          ">10%": 11
+        }
+      },
+      "updates": 41,
+      "new_activations": 26
+    }
+  },
+  "highest_observable": {
+    "old": {
+      "n": 412,
+      "outputs": 412,
+      "coverage": 1.0,
+      "mae_mm": 18.391848526759578,
+      "p95_mm": 57.44699070591558,
+      "max_mm": 87.55239610426766,
+      "pass_rate": 0.9296116504854369,
+      "abs_bins": {
+        "0-5mm": 134,
+        "5-20mm": 127,
+        "20-50mm": 118,
+        "50-100mm": 33,
+        "100-500mm": 0,
+        ">500mm": 0
+      },
+      "relative_bins": {
+        "0-1%": 149,
+        "1-2%": 67,
+        "2-5%": 79,
+        "5-10%": 43,
+        ">10%": 74
+      }
+    },
+    "new": {
+      "n": 412,
+      "outputs": 412,
+      "coverage": 1.0,
+      "mae_mm": 15.30221152741342,
+      "p95_mm": 50.67034349152167,
+      "max_mm": 81.8606361665182,
+      "pass_rate": 0.9514563106796117,
+      "abs_bins": {
+        "0-5mm": 142,
+        "5-20mm": 154,
+        "20-50mm": 94,
+        "50-100mm": 22,
+        "100-500mm": 0,
+        ">500mm": 0
+      },
+      "relative_bins": {
+        "0-1%": 158,
+        "1-2%": 70,
+        "2-5%": 84,
+        "5-10%": 51,
+        ">10%": 49
+      }
+    },
+    "updates": 139,
+    "new_activations": 103
+  },
+  "highest_not_observable": {
+    "old": {
+      "n": 74,
+      "outputs": 74,
+      "coverage": 1.0,
+      "mae_mm": 41.9266249393298,
+      "p95_mm": 69.1103573478278,
+      "max_mm": 1380.9157363467923,
+      "pass_rate": 0.8783783783783784,
+      "abs_bins": {
+        "0-5mm": 17,
+        "5-20mm": 25,
+        "20-50mm": 23,
+        "50-100mm": 8,
+        "100-500mm": 0,
+        ">500mm": 1
+      },
+      "relative_bins": {
+        "0-1%": 22,
+        "1-2%": 7,
+        "2-5%": 14,
+        "5-10%": 7,
+        ">10%": 24
+      }
+    },
+    "new": {
+      "n": 74,
+      "outputs": 74,
+      "coverage": 1.0,
+      "mae_mm": 41.528952323771264,
+      "p95_mm": 69.1103573478278,
+      "max_mm": 1380.9157363467923,
+      "pass_rate": 0.8918918918918919,
+      "abs_bins": {
+        "0-5mm": 16,
+        "5-20mm": 26,
+        "20-50mm": 24,
+        "50-100mm": 7,
+        "100-500mm": 0,
+        ">500mm": 1
+      },
+      "relative_bins": {
+        "0-1%": 23,
+        "1-2%": 7,
+        "2-5%": 13,
+        "5-10%": 8,
+        ">10%": 23
+      }
+    },
+    "updates": 7,
+    "new_activations": 6
+  },
+  "float_visible_area": {
+    "0-9px": {
+      "old": {
+        "n": 65,
+        "outputs": 65,
+        "coverage": 1.0,
+        "mae_mm": 31.54587437938757,
+        "p95_mm": 31.070709414764494,
+        "max_mm": 1380.9157363467923,
+        "pass_rate": 0.9846153846153847,
+        "abs_bins": {
+          "0-5mm": 27,
+          "5-20mm": 28,
+          "20-50mm": 9,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 1
+        },
+        "relative_bins": {
+          "0-1%": 33,
+          "1-2%": 5,
+          "2-5%": 13,
+          "5-10%": 6,
+          ">10%": 8
+        }
+      },
+      "new": {
+        "n": 65,
+        "outputs": 65,
+        "coverage": 1.0,
+        "mae_mm": 30.89650122794718,
+        "p95_mm": 29.24316358065404,
+        "max_mm": 1380.9157363467923,
+        "pass_rate": 0.9846153846153847,
+        "abs_bins": {
+          "0-5mm": 27,
+          "5-20mm": 29,
+          "20-50mm": 8,
+          "50-100mm": 0,
+          "100-500mm": 0,
+          ">500mm": 1
+        },
+        "relative_bins": {
+          "0-1%": 34,
+          "1-2%": 5,
+          "2-5%": 13,
+          "5-10%": 6,
+          ">10%": 7
+        }
+      },
+      "updates": 11,
+      "new_activations": 11
+    },
+    "10-49px": {
+      "old": {
+        "n": 180,
+        "outputs": 180,
+        "coverage": 1.0,
+        "mae_mm": 16.55197602411674,
+        "p95_mm": 52.64990757101523,
+        "max_mm": 92.36229742086633,
+        "pass_rate": 0.9388888888888889,
+        "abs_bins": {
+          "0-5mm": 64,
+          "5-20mm": 57,
+          "20-50mm": 48,
+          "50-100mm": 11,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 70,
+          "1-2%": 23,
+          "2-5%": 32,
+          "5-10%": 17,
+          ">10%": 38
+        }
+      },
+      "new": {
+        "n": 180,
+        "outputs": 180,
+        "coverage": 1.0,
+        "mae_mm": 15.655062547377044,
+        "p95_mm": 51.73165826554751,
+        "max_mm": 92.36229742086633,
+        "pass_rate": 0.9444444444444444,
+        "abs_bins": {
+          "0-5mm": 68,
+          "5-20mm": 57,
+          "20-50mm": 45,
+          "50-100mm": 10,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 73,
+          "1-2%": 23,
+          "2-5%": 31,
+          "5-10%": 19,
+          ">10%": 34
+        }
+      },
+      "updates": 44,
+      "new_activations": 43
+    },
+    "50-199px": {
+      "old": {
+        "n": 190,
+        "outputs": 190,
+        "coverage": 1.0,
+        "mae_mm": 23.705325887509574,
+        "p95_mm": 68.4266840515819,
+        "max_mm": 87.55239610426766,
+        "pass_rate": 0.8947368421052632,
+        "abs_bins": {
+          "0-5mm": 48,
+          "5-20mm": 54,
+          "20-50mm": 64,
+          "50-100mm": 24,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 56,
+          "1-2%": 34,
+          "2-5%": 37,
+          "5-10%": 19,
+          ">10%": 44
+        }
+      },
+      "new": {
+        "n": 190,
+        "outputs": 190,
+        "coverage": 1.0,
+        "mae_mm": 18.965349857005453,
+        "p95_mm": 55.78521508727345,
+        "max_mm": 81.8606361665182,
+        "pass_rate": 0.9263157894736842,
+        "abs_bins": {
+          "0-5mm": 49,
+          "5-20mm": 76,
+          "20-50mm": 49,
+          "50-100mm": 16,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 60,
+          "1-2%": 35,
+          "2-5%": 41,
+          "5-10%": 28,
+          ">10%": 26
+        }
+      },
+      "updates": 71,
+      "new_activations": 51
+    },
+    ">=200px": {
+      "old": {
+        "n": 51,
+        "outputs": 51,
+        "coverage": 1.0,
+        "mae_mm": 22.473772566810347,
+        "p95_mm": 58.70674358556846,
+        "max_mm": 63.207117611643994,
+        "pass_rate": 0.8823529411764706,
+        "abs_bins": {
+          "0-5mm": 12,
+          "5-20mm": 13,
+          "20-50mm": 20,
+          "50-100mm": 6,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 12,
+          "1-2%": 12,
+          "2-5%": 11,
+          "5-10%": 8,
+          ">10%": 8
+        }
+      },
+      "new": {
+        "n": 51,
+        "outputs": 51,
+        "coverage": 1.0,
+        "mae_mm": 18.589280589763376,
+        "p95_mm": 50.873683901123734,
+        "max_mm": 63.207117611643994,
+        "pass_rate": 0.9411764705882353,
+        "abs_bins": {
+          "0-5mm": 14,
+          "5-20mm": 18,
+          "20-50mm": 16,
+          "50-100mm": 3,
+          "100-500mm": 0,
+          ">500mm": 0
+        },
+        "relative_bins": {
+          "0-1%": 14,
+          "1-2%": 14,
+          "2-5%": 12,
+          "5-10%": 6,
+          ">10%": 5
+        }
+      },
+      "updates": 20,
+      "new_activations": 4
+    }
+  },
+  "per_float_condition_nonregression": {
+    "8": true,
+    "9": true,
+    "10": true,
+    "12": true,
+    "24": true
+  },
+  "new_control_failures": [],
+  "liquid_exactly_unchanged": true,
+  "material_aggregate_improvement": true,
+  "latency": {
+    "baseline_ms": {
+      "median": 90.37764742970467,
+      "p95": 189.270019903779,
+      "max": 324.6341124176979
+    },
+    "extra_ms": {
+      "median": 203.76249216496944,
+      "p95": 291.9763054698705,
+      "max": 400.5335159599781
+    },
+    "total_estimated_ms": {
+      "median": 297.8743948042393,
+      "p95": 423.2890537008642,
+      "max": 579.2106576263905
+    }
+  },
+  "installation_clustered_bootstrap": {
+    "mae_change_mm_95ci": [
+      -3.781815221632795,
+      -1.652430465147031
+    ],
+    "pass_change_percentage_points_95ci": [
+      0.8163265306122449,
+      3.6809815950920246
+    ],
+    "resampling_unit": "physical installation",
+    "replicates": 3000
+  },
+  "failure_counts": {
+    "all_float": {
+      "n": 486,
+      "failures": 28,
+      "no_dense_candidates": 0,
+      "no_accepted_candidate": 26,
+      "underestimates": 27,
+      "overestimates": 1,
+      "highest_not_observable": 8
+    },
+    "no_visual_activation": {
+      "n": 393,
+      "failures": 22,
+      "no_dense_candidates": 0,
+      "no_accepted_candidate": 21,
+      "underestimates": 21,
+      "overestimates": 1,
+      "highest_not_observable": 8
+    },
+    "highest_observable": {
+      "n": 412,
+      "failures": 20,
+      "no_dense_candidates": 0,
+      "no_accepted_candidate": 18,
+      "underestimates": 20,
+      "overestimates": 0,
+      "highest_not_observable": 0
+    }
+  },
+  "numerical_gate_pass": true,
+  "latency_is_cached_baseline_plus_current_auxiliary_not_direct_e2e": true,
+  "worst": [
+    {
+      "frame": "0021_01",
+      "bits": 1,
+      "old_peak": 1.9693323192903363,
+      "new_peak": 1.9693323192903363,
+      "truth": {
+        "liquid_height_m": 0.5662697773631152,
+        "highest_height_m": 0.5662697773631151,
+        "lowest_height_m": 0.5662697773631151
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 4,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 3625,
+          "occupied_4x4_tiles": 8,
+          "footprint_span_fraction": [
+            0.9881699855784885,
+            0.9869017930001416
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 162,
+          "occupied_4x4_tiles": 7,
+          "span_fraction": [
+            0.8095238095238095,
+            0.88
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.9802527646129542,
+        "surface_pixels": 8862,
+        "highest_near_direct_points": 162,
+        "highest_support_observable": true,
+        "visible_float_pixels": 0
+      }
+    },
+    {
+      "frame": "0021_09",
+      "bits": 9,
+      "old_peak": 1.967440393899803,
+      "new_peak": 1.967440393899803,
+      "truth": {
+        "liquid_height_m": 0.5662697773631152,
+        "highest_height_m": 0.5865246575530108,
+        "lowest_height_m": 0.5662697773631151
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 4,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 3629,
+          "occupied_4x4_tiles": 8,
+          "footprint_span_fraction": [
+            0.9880239964019553,
+            0.9871637474136619
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 161,
+          "occupied_4x4_tiles": 7,
+          "span_fraction": [
+            0.8095238095238095,
+            0.88
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.9804608086740456,
+        "surface_pixels": 8854,
+        "highest_near_direct_points": 1,
+        "highest_support_observable": false,
+        "visible_float_pixels": 8
+      }
+    },
+    {
+      "frame": "0040_10",
+      "bits": 10,
+      "old_peak": 0.31949315268827094,
+      "new_peak": 0.31949315268827094,
+      "truth": {
+        "liquid_height_m": 0.30240842534650675,
+        "highest_height_m": 0.41185545010913727,
+        "lowest_height_m": 0.3024084253465068
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 17,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 12155,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9195780462606606,
+            0.9167369319412
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 13305,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9880952380952381,
+            0.9821428571428571
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.36388750509487794,
+        "surface_pixels": 22081,
+        "highest_near_direct_points": 0,
+        "highest_support_observable": false,
+        "visible_float_pixels": 45
+      }
+    },
+    {
+      "frame": "0011_10",
+      "bits": 10,
+      "old_peak": 0.20174302974491162,
+      "new_peak": 0.20174302974491162,
+      "truth": {
+        "liquid_height_m": 0.19373108216451973,
+        "highest_height_m": 0.2836036659114298,
+        "lowest_height_m": 0.19373108216451976
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 40,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 2562,
+          "occupied_4x4_tiles": 12,
+          "footprint_span_fraction": [
+            0.8235857408029816,
+            0.788133643891761
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 2675,
+          "occupied_4x4_tiles": 12,
+          "span_fraction": [
+            0.823529411764706,
+            0.9776119402985074
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.7981800225733634,
+        "surface_pixels": 14176,
+        "highest_near_direct_points": 14,
+        "highest_support_observable": true,
+        "visible_float_pixels": 124
+      }
+    },
+    {
+      "frame": "0038_10",
+      "bits": 10,
+      "old_peak": 0.29945697437361607,
+      "new_peak": 0.29945697437361607,
+      "truth": {
+        "liquid_height_m": 0.29901036648590695,
+        "highest_height_m": 0.3810070979460015,
+        "lowest_height_m": 0.29901036648590706
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 12,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 2073,
+          "occupied_4x4_tiles": 12,
+          "footprint_span_fraction": [
+            0.9111737591938689,
+            0.7368020268257136
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 2082,
+          "occupied_4x4_tiles": 11,
+          "span_fraction": [
+            0.8,
+            0.9465648854961832
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.8331452644248852,
+        "surface_pixels": 13293,
+        "highest_near_direct_points": 4,
+        "highest_support_observable": true,
+        "visible_float_pixels": 155
+      }
+    },
+    {
+      "frame": "0096_09",
+      "bits": 9,
+      "old_peak": 0.022476482939246534,
+      "new_peak": 0.022476482939246534,
+      "truth": {
+        "liquid_height_m": 0.015698712008614564,
+        "highest_height_m": 0.1027459312850428,
+        "lowest_height_m": 0.015698712008614567
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 47,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 4352,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9893619529727744,
+            0.9888747073888191
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 3414,
+          "occupied_4x4_tiles": 13,
+          "span_fraction": [
+            0.9439252336448598,
+            0.9624413145539906
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.8553865307551648,
+        "surface_pixels": 25703,
+        "highest_near_direct_points": 0,
+        "highest_support_observable": false,
+        "visible_float_pixels": 57
+      }
+    },
+    {
+      "frame": "0011_09",
+      "bits": 9,
+      "old_peak": 0.21031250421997147,
+      "new_peak": 0.21031250421997147,
+      "truth": {
+        "liquid_height_m": 0.19373108216451973,
+        "highest_height_m": 0.2903934396140513,
+        "lowest_height_m": 0.19373108216451976
+      },
+      "used": false,
+      "baseline_visual": true,
+      "new_activation": false,
+      "candidate_count": 27,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 5433,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9204492783733764,
+            0.9119996531463832
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 5687,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9558823529411765,
+            0.9925373134328358
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.5694307105523378,
+        "surface_pixels": 14158,
+        "highest_near_direct_points": 6,
+        "highest_support_observable": true,
+        "visible_float_pixels": 142
+      }
+    },
+    {
+      "frame": "0096_24",
+      "bits": 24,
+      "old_peak": 0.022955858434556844,
+      "new_peak": 0.022955858434556844,
+      "truth": {
+        "liquid_height_m": 0.015698712008614564,
+        "highest_height_m": 0.1027459312850428,
+        "lowest_height_m": 0.015698712008614567
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 106,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 13456,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9898485258006503,
+            0.9896564123481035
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 12364,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9953271028037384,
+            0.9953051643192489
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.5000194529821421,
+        "surface_pixels": 25703,
+        "highest_near_direct_points": 21,
+        "highest_support_observable": true,
+        "visible_float_pixels": 57
+      }
+    },
+    {
+      "frame": "0083_10",
+      "bits": 10,
+      "old_peak": 0.2586708103731479,
+      "new_peak": 0.2586708103731479,
+      "truth": {
+        "liquid_height_m": 0.25540635922609234,
+        "highest_height_m": 0.33456602880416786,
+        "lowest_height_m": 0.25540635922609245
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 33,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 2724,
+          "occupied_4x4_tiles": 14,
+          "footprint_span_fraction": [
+            0.879186015901569,
+            0.9192479108771607
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 2952,
+          "occupied_4x4_tiles": 15,
+          "span_fraction": [
+            0.9253731343283582,
+            0.9777777777777777
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.7740309527190118,
+        "surface_pixels": 14086,
+        "highest_near_direct_points": 0,
+        "highest_support_observable": false,
+        "visible_float_pixels": 142
+      }
+    },
+    {
+      "frame": "0042_09",
+      "bits": 9,
+      "old_peak": 0.6030028516532561,
+      "new_peak": 0.6030028516532561,
+      "truth": {
+        "liquid_height_m": 0.6049460813668018,
+        "highest_height_m": 0.6684598222639805,
+        "lowest_height_m": 0.6049460813668018
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 36,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 3521,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.988177195113145,
+            0.9876008097156224
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 3078,
+          "occupied_4x4_tiles": 11,
+          "span_fraction": [
+            0.8818181818181818,
+            0.9454545454545455
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.8766622826245799,
+        "surface_pixels": 27372,
+        "highest_near_direct_points": 0,
+        "highest_support_observable": false,
+        "visible_float_pixels": 16
+      }
+    },
+    {
+      "frame": "0026_09",
+      "bits": 9,
+      "old_peak": 0.4257718041670345,
+      "new_peak": 0.4257718041670345,
+      "truth": {
+        "liquid_height_m": 0.4169675999956128,
+        "highest_height_m": 0.48897892177867847,
+        "lowest_height_m": 0.41696759999561267
+      },
+      "used": false,
+      "baseline_visual": true,
+      "new_activation": false,
+      "candidate_count": 14,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 7871,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9211011884459683,
+            0.915676428055844
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 8669,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9938271604938271,
+            0.9629629629629629
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.5405112544944097,
+        "surface_pixels": 20303,
+        "highest_near_direct_points": 5,
+        "highest_support_observable": true,
+        "visible_float_pixels": 271
+      }
+    },
+    {
+      "frame": "0042_24",
+      "bits": 24,
+      "old_peak": 0.6053938989863147,
+      "new_peak": 0.6053938989863147,
+      "truth": {
+        "liquid_height_m": 0.6049460813668018,
+        "highest_height_m": 0.6684598222639805,
+        "lowest_height_m": 0.6049460813668018
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 125,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 13624,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9889012607567416,
+            0.9895763126907282
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 13069,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9954545454545455,
+            0.9954545454545455
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.4998903989478299,
+        "surface_pixels": 27372,
+        "highest_near_direct_points": 5,
+        "highest_support_observable": true,
+        "visible_float_pixels": 16
+      }
+    },
+    {
+      "frame": "0042_08",
+      "bits": 8,
+      "old_peak": 0.6054276641451416,
+      "new_peak": 0.6054276641451416,
+      "truth": {
+        "liquid_height_m": 0.6049460813668018,
+        "highest_height_m": 0.6684598222639805,
+        "lowest_height_m": 0.6049460813668018
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 24,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 26497,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.989378582892297,
+            0.9897929272525599
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 25561,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9954545454545455,
+            0.9954545454545455
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.021701008329679965,
+        "surface_pixels": 27372,
+        "highest_near_direct_points": 15,
+        "highest_support_observable": true,
+        "visible_float_pixels": 16
+      }
+    },
+    {
+      "frame": "0042_10",
+      "bits": 10,
+      "old_peak": 0.6048490397276733,
+      "new_peak": 0.6048490397276733,
+      "truth": {
+        "liquid_height_m": 0.6049460813668018,
+        "highest_height_m": 0.6659021050002819,
+        "lowest_height_m": 0.6049460813668018
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 17,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 586,
+          "occupied_4x4_tiles": 7,
+          "footprint_span_fraction": [
+            0.9880515558881323,
+            0.9871043310674519
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 363,
+          "occupied_4x4_tiles": 6,
+          "span_fraction": [
+            0.5727272727272728,
+            0.9181818181818182
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.985202776762879,
+        "surface_pixels": 27370,
+        "highest_near_direct_points": 0,
+        "highest_support_observable": false,
+        "visible_float_pixels": 18
+      }
+    },
+    {
+      "frame": "0026_10",
+      "bits": 10,
+      "old_peak": 0.4146550521229945,
+      "new_peak": 0.4146550521229945,
+      "truth": {
+        "liquid_height_m": 0.4169675999956128,
+        "highest_height_m": 0.47512083069252925,
+        "lowest_height_m": 0.41696759999561267
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 22,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 3841,
+          "occupied_4x4_tiles": 14,
+          "footprint_span_fraction": [
+            0.9211011884459683,
+            0.8955582346047071
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 4326,
+          "occupied_4x4_tiles": 14,
+          "span_fraction": [
+            0.9814814814814814,
+            0.9506172839506173
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.7690641461133264,
+        "surface_pixels": 20313,
+        "highest_near_direct_points": 4,
+        "highest_support_observable": true,
+        "visible_float_pixels": 261
+      }
+    },
+    {
+      "frame": "0083_09",
+      "bits": 9,
+      "old_peak": 0.25723103891792004,
+      "new_peak": 0.25723103891792004,
+      "truth": {
+        "liquid_height_m": 0.25540635922609234,
+        "highest_height_m": 0.3165295142835227,
+        "lowest_height_m": 0.25540635922609245
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 61,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 4527,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.907557859457073,
+            0.9205257205466837
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 4825,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9701492537313433,
+            0.9777777777777777
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.6313845279533992,
+        "surface_pixels": 14077,
+        "highest_near_direct_points": 3,
+        "highest_support_observable": true,
+        "visible_float_pixels": 151
+      }
+    },
+    {
+      "frame": "0085_09",
+      "bits": 9,
+      "old_peak": 1.4040337315612315,
+      "new_peak": 1.4040337315612315,
+      "truth": {
+        "liquid_height_m": 1.4003388771774856,
+        "highest_height_m": 1.4628378713491048,
+        "lowest_height_m": 1.4003388771774854
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 7,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 11655,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9153803740248869,
+            0.9158154983553237
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 12665,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9933333333333333,
+            0.98
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.23866948619763387,
+        "surface_pixels": 17497,
+        "highest_near_direct_points": 22,
+        "highest_support_observable": true,
+        "visible_float_pixels": 59
+      }
+    },
+    {
+      "frame": "0040_24",
+      "bits": 24,
+      "old_peak": 0.3183382410560335,
+      "new_peak": 0.3183382410560335,
+      "truth": {
+        "liquid_height_m": 0.30240842534650675,
+        "highest_height_m": 0.3764750940953624,
+        "lowest_height_m": 0.3024084253465068
+      },
+      "used": false,
+      "baseline_visual": true,
+      "new_activation": false,
+      "candidate_count": 19,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 17003,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9169233205532863,
+            0.9178506656660902
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 18876,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9940476190476191,
+            0.9940476190476191
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.09990950226244344,
+        "surface_pixels": 22100,
+        "highest_near_direct_points": 12,
+        "highest_support_observable": true,
+        "visible_float_pixels": 26
+      }
+    },
+    {
+      "frame": "0040_08",
+      "bits": 8,
+      "old_peak": 0.31952838964504043,
+      "new_peak": 0.31952838964504043,
+      "truth": {
+        "liquid_height_m": 0.30240842534650675,
+        "highest_height_m": 0.3764750940953624,
+        "lowest_height_m": 0.3024084253465068
+      },
+      "used": false,
+      "baseline_visual": true,
+      "new_activation": false,
+      "candidate_count": 12,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 18671,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9169233205532863,
+            0.9178506656660902
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 20714,
+          "occupied_4x4_tiles": 16,
+          "span_fraction": [
+            0.9940476190476191,
+            0.9940476190476191
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.011855203619909502,
+        "surface_pixels": 22100,
+        "highest_near_direct_points": 15,
+        "highest_support_observable": true,
+        "visible_float_pixels": 26
+      }
+    },
+    {
+      "frame": "0069_09",
+      "bits": 9,
+      "old_peak": 0.14097237284318687,
+      "new_peak": 0.14097237284318687,
+      "truth": {
+        "liquid_height_m": 0.14222480828898032,
+        "highest_height_m": 0.19722399960296233,
+        "lowest_height_m": 0.14222480828898032
+      },
+      "used": false,
+      "baseline_visual": false,
+      "new_activation": false,
+      "candidate_count": 84,
+      "selected": null,
+      "input_audit": {
+        "online": {
+          "eligible": true,
+          "reasons": [],
+          "interior_returns": 5839,
+          "occupied_4x4_tiles": 16,
+          "footprint_span_fraction": [
+            0.9880875520791356,
+            0.9885116601931792
+          ],
+          "uses_true_liquid_depth": false,
+          "uses_predicted_liquid_depth": false,
+          "uses_offline_semantic_or_origin_labels": false,
+          "policy": "input_evidence_v1"
+        },
+        "origin": {
+          "eligible": true,
+          "reasons": [],
+          "direct_surface_returns": 5082,
+          "occupied_4x4_tiles": 15,
+          "span_fraction": [
+            0.8944954128440367,
+            0.9354838709677419
+          ],
+          "uses_true_or_predicted_liquid_depth_error": false,
+          "uses_offline_return_source_labels": true,
+          "inference_may_not_receive_these_labels": true,
+          "note": "capture-information sufficiency audit only, not real-world online observability certification"
+        },
+        "liquid_missing_fraction": 0.7925676937441644,
+        "surface_pixels": 26775,
+        "highest_near_direct_points": 33,
+        "highest_support_observable": true,
+        "visible_float_pixels": 69
+      }
+    }
+  ]
+}

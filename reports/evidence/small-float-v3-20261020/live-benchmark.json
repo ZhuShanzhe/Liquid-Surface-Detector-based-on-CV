@@ -1,0 +1,7542 @@
+{
+  "summary": {
+    "all": {
+      "n": 1000,
+      "median_ms": 294.19522918760777,
+      "p95_ms": 436.3817412406206,
+      "max_ms": 1295.8177998661995,
+      "over_500ms": 17
+    },
+    "floats": {
+      "n": 500,
+      "median_ms": 306.1712495982647,
+      "p95_ms": 457.3925159871578,
+      "max_ms": 1295.8177998661995,
+      "over_500ms": 9
+    },
+    "controls": {
+      "n": 500,
+      "median_ms": 285.40594317018986,
+      "p95_ms": 400.87702013552183,
+      "max_ms": 922.4559478461742,
+      "over_500ms": 8
+    },
+    "initialization": {
+      "n": 100,
+      "median_ms": 677.5397229939699,
+      "p95_ms": 907.5485162436959,
+      "max_ms": 1903.7706553936005,
+      "over_500ms": 100
+    },
+    "parity_mismatches": [],
+    "measured_directly": true,
+    "sequential_cpu_threads": 2,
+    "cold_model_load_in_initialization": true,
+    "scene_router_loaded_once": true,
+    "no_gpu_in_inference": true
+  },
+  "records": [
+    {
+      "frame": "0000_00",
+      "bits": 0,
+      "pipeline_ms": 347.83879667520523,
+      "wall_ms": 347.88360819220543,
+      "used": false
+    },
+    {
+      "frame": "0000_01",
+      "bits": 1,
+      "pipeline_ms": 378.11848893761635,
+      "wall_ms": 378.15045192837715,
+      "used": true
+    },
+    {
+      "frame": "0000_02",
+      "bits": 2,
+      "pipeline_ms": 319.6159042418003,
+      "wall_ms": 319.64918971061707,
+      "used": false
+    },
+    {
+      "frame": "0000_04",
+      "bits": 4,
+      "pipeline_ms": 325.9924426674843,
+      "wall_ms": 326.0301537811756,
+      "used": false
+    },
+    {
+      "frame": "0000_16",
+      "bits": 16,
+      "pipeline_ms": 377.0729750394821,
+      "wall_ms": 377.1023489534855,
+      "used": false
+    },
+    {
+      "frame": "0000_08",
+      "bits": 8,
+      "pipeline_ms": 327.81875133514404,
+      "wall_ms": 327.84564048051834,
+      "used": false
+    },
+    {
+      "frame": "0000_09",
+      "bits": 9,
+      "pipeline_ms": 402.69291400909424,
+      "wall_ms": 402.71933004260063,
+      "used": true
+    },
+    {
+      "frame": "0000_10",
+      "bits": 10,
+      "pipeline_ms": 283.21557492017746,
+      "wall_ms": 283.24997797608376,
+      "used": false
+    },
+    {
+      "frame": "0000_12",
+      "bits": 12,
+      "pipeline_ms": 332.1539983153343,
+      "wall_ms": 332.1782425045967,
+      "used": false
+    },
+    {
+      "frame": "0000_24",
+      "bits": 24,
+      "pipeline_ms": 382.10633769631386,
+      "wall_ms": 382.13353604078293,
+      "used": false
+    },
+    {
+      "frame": "0001_00",
+      "bits": 0,
+      "pipeline_ms": 273.2270136475563,
+      "wall_ms": 273.2599824666977,
+      "used": false
+    },
+    {
+      "frame": "0001_01",
+      "bits": 1,
+      "pipeline_ms": 290.0131829082966,
+      "wall_ms": 290.04116728901863,
+      "used": false
+    },
+    {
+      "frame": "0001_02",
+      "bits": 2,
+      "pipeline_ms": 296.2382808327675,
+      "wall_ms": 296.2692677974701,
+      "used": false
+    },
+    {
+      "frame": "0001_04",
+      "bits": 4,
+      "pipeline_ms": 288.1881892681122,
+      "wall_ms": 288.21510076522827,
+      "used": false
+    },
+    {
+      "frame": "0001_16",
+      "bits": 16,
+      "pipeline_ms": 278.6666415631771,
+      "wall_ms": 278.6925807595253,
+      "used": true
+    },
+    {
+      "frame": "0001_08",
+      "bits": 8,
+      "pipeline_ms": 285.48865765333176,
+      "wall_ms": 285.51558405160904,
+      "used": true
+    },
+    {
+      "frame": "0001_09",
+      "bits": 9,
+      "pipeline_ms": 304.23039197921753,
+      "wall_ms": 304.25841361284256,
+      "used": true
+    },
+    {
+      "frame": "0001_10",
+      "bits": 10,
+      "pipeline_ms": 262.2947730123997,
+      "wall_ms": 262.32145354151726,
+      "used": false
+    },
+    {
+      "frame": "0001_12",
+      "bits": 12,
+      "pipeline_ms": 296.12672701478004,
+      "wall_ms": 296.1577735841274,
+      "used": true
+    },
+    {
+      "frame": "0001_24",
+      "bits": 24,
+      "pipeline_ms": 269.28818970918655,
+      "wall_ms": 269.3166807293892,
+      "used": true
+    },
+    {
+      "frame": "0002_00",
+      "bits": 0,
+      "pipeline_ms": 278.76322716474533,
+      "wall_ms": 278.7984423339367,
+      "used": false
+    },
+    {
+      "frame": "0002_01",
+      "bits": 1,
+      "pipeline_ms": 307.9601265490055,
+      "wall_ms": 307.98814445734024,
+      "used": false
+    },
+    {
+      "frame": "0002_02",
+      "bits": 2,
+      "pipeline_ms": 275.99817514419556,
+      "wall_ms": 276.02243050932884,
+      "used": false
+    },
+    {
+      "frame": "0002_04",
+      "bits": 4,
+      "pipeline_ms": 330.22626489400864,
+      "wall_ms": 330.25507256388664,
+      "used": false
+    },
+    {
+      "frame": "0002_16",
+      "bits": 16,
+      "pipeline_ms": 294.17775198817253,
+      "wall_ms": 294.2090183496475,
+      "used": false
+    },
+    {
+      "frame": "0002_08",
+      "bits": 8,
+      "pipeline_ms": 311.9687885046005,
+      "wall_ms": 311.9988478720188,
+      "used": true
+    },
+    {
+      "frame": "0002_09",
+      "bits": 9,
+      "pipeline_ms": 292.8480729460716,
+      "wall_ms": 292.8757220506668,
+      "used": false
+    },
+    {
+      "frame": "0002_10",
+      "bits": 10,
+      "pipeline_ms": 299.4638532400131,
+      "wall_ms": 299.4933947920799,
+      "used": false
+    },
+    {
+      "frame": "0002_12",
+      "bits": 12,
+      "pipeline_ms": 328.6734074354172,
+      "wall_ms": 328.70297133922577,
+      "used": false
+    },
+    {
+      "frame": "0002_24",
+      "bits": 24,
+      "pipeline_ms": 306.4878173172474,
+      "wall_ms": 306.5169155597687,
+      "used": true
+    },
+    {
+      "frame": "0003_00",
+      "bits": 0,
+      "pipeline_ms": 340.14520049095154,
+      "wall_ms": 340.1807136833668,
+      "used": false
+    },
+    {
+      "frame": "0003_01",
+      "bits": 1,
+      "pipeline_ms": 336.1222445964813,
+      "wall_ms": 336.14587783813477,
+      "used": false
+    },
+    {
+      "frame": "0003_02",
+      "bits": 2,
+      "pipeline_ms": 293.85438561439514,
+      "wall_ms": 293.87959837913513,
+      "used": false
+    },
+    {
+      "frame": "0003_04",
+      "bits": 4,
+      "pipeline_ms": 352.6449464261532,
+      "wall_ms": 352.66854614019394,
+      "used": false
+    },
+    {
+      "frame": "0003_16",
+      "bits": 16,
+      "pipeline_ms": 402.57829427719116,
+      "wall_ms": 402.60064601898193,
+      "used": true
+    },
+    {
+      "frame": "0003_08",
+      "bits": 8,
+      "pipeline_ms": 347.73385152220726,
+      "wall_ms": 347.7575294673443,
+      "used": true
+    },
+    {
+      "frame": "0003_09",
+      "bits": 9,
+      "pipeline_ms": 370.5858662724495,
+      "wall_ms": 370.625514537096,
+      "used": true
+    },
+    {
+      "frame": "0003_10",
+      "bits": 10,
+      "pipeline_ms": 381.8892240524292,
+      "wall_ms": 381.93662092089653,
+      "used": false
+    },
+    {
+      "frame": "0003_12",
+      "bits": 12,
+      "pipeline_ms": 381.68274238705635,
+      "wall_ms": 381.7182257771492,
+      "used": false
+    },
+    {
+      "frame": "0003_24",
+      "bits": 24,
+      "pipeline_ms": 407.4003957211971,
+      "wall_ms": 407.4253663420677,
+      "used": false
+    },
+    {
+      "frame": "0004_00",
+      "bits": 0,
+      "pipeline_ms": 295.3021451830864,
+      "wall_ms": 295.33039405941963,
+      "used": false
+    },
+    {
+      "frame": "0004_01",
+      "bits": 1,
+      "pipeline_ms": 311.78394332528114,
+      "wall_ms": 311.8099048733711,
+      "used": false
+    },
+    {
+      "frame": "0004_02",
+      "bits": 2,
+      "pipeline_ms": 296.9592697918415,
+      "wall_ms": 296.9825193285942,
+      "used": false
+    },
+    {
+      "frame": "0004_04",
+      "bits": 4,
+      "pipeline_ms": 284.2629551887512,
+      "wall_ms": 284.2870503664017,
+      "used": false
+    },
+    {
+      "frame": "0004_16",
+      "bits": 16,
+      "pipeline_ms": 290.21790996193886,
+      "wall_ms": 290.24847596883774,
+      "used": false
+    },
+    {
+      "frame": "0004_08",
+      "bits": 8,
+      "pipeline_ms": 296.151727437973,
+      "wall_ms": 296.1798831820488,
+      "used": false
+    },
+    {
+      "frame": "0004_09",
+      "bits": 9,
+      "pipeline_ms": 306.20987713336945,
+      "wall_ms": 306.2340058386326,
+      "used": false
+    },
+    {
+      "frame": "0004_10",
+      "bits": 10,
+      "pipeline_ms": 295.4949140548706,
+      "wall_ms": 295.5201081931591,
+      "used": true
+    },
+    {
+      "frame": "0004_12",
+      "bits": 12,
+      "pipeline_ms": 291.7408384382725,
+      "wall_ms": 291.7683571577072,
+      "used": true
+    },
+    {
+      "frame": "0004_24",
+      "bits": 24,
+      "pipeline_ms": 282.4985422194004,
+      "wall_ms": 282.52262249588966,
+      "used": false
+    },
+    {
+      "frame": "0005_00",
+      "bits": 0,
+      "pipeline_ms": 274.2713615298271,
+      "wall_ms": 274.29770305752754,
+      "used": false
+    },
+    {
+      "frame": "0005_01",
+      "bits": 1,
+      "pipeline_ms": 303.52531746029854,
+      "wall_ms": 303.5510182380676,
+      "used": false
+    },
+    {
+      "frame": "0005_02",
+      "bits": 2,
+      "pipeline_ms": 288.30188140273094,
+      "wall_ms": 288.32804039120674,
+      "used": false
+    },
+    {
+      "frame": "0005_04",
+      "bits": 4,
+      "pipeline_ms": 329.8193924129009,
+      "wall_ms": 329.8465609550476,
+      "used": false
+    },
+    {
+      "frame": "0005_16",
+      "bits": 16,
+      "pipeline_ms": 299.9352775514126,
+      "wall_ms": 299.9599426984787,
+      "used": false
+    },
+    {
+      "frame": "0005_08",
+      "bits": 8,
+      "pipeline_ms": 431.19828402996063,
+      "wall_ms": 431.2426522374153,
+      "used": false
+    },
+    {
+      "frame": "0005_09",
+      "bits": 9,
+      "pipeline_ms": 442.4700103700161,
+      "wall_ms": 442.50064343214035,
+      "used": false
+    },
+    {
+      "frame": "0005_10",
+      "bits": 10,
+      "pipeline_ms": 276.7237015068531,
+      "wall_ms": 276.7502963542938,
+      "used": true
+    },
+    {
+      "frame": "0005_12",
+      "bits": 12,
+      "pipeline_ms": 461.10378578305244,
+      "wall_ms": 461.1269682645798,
+      "used": false
+    },
+    {
+      "frame": "0005_24",
+      "bits": 24,
+      "pipeline_ms": 404.1697643697262,
+      "wall_ms": 404.21241521835327,
+      "used": true
+    },
+    {
+      "frame": "0006_00",
+      "bits": 0,
+      "pipeline_ms": 285.8917750418186,
+      "wall_ms": 285.94040870666504,
+      "used": false
+    },
+    {
+      "frame": "0006_01",
+      "bits": 1,
+      "pipeline_ms": 331.8752348423004,
+      "wall_ms": 331.898245960474,
+      "used": false
+    },
+    {
+      "frame": "0006_02",
+      "bits": 2,
+      "pipeline_ms": 293.0293530225754,
+      "wall_ms": 293.0542454123497,
+      "used": false
+    },
+    {
+      "frame": "0006_04",
+      "bits": 4,
+      "pipeline_ms": 315.9276694059372,
+      "wall_ms": 315.9562163054943,
+      "used": false
+    },
+    {
+      "frame": "0006_16",
+      "bits": 16,
+      "pipeline_ms": 387.1902786195278,
+      "wall_ms": 387.214083224535,
+      "used": false
+    },
+    {
+      "frame": "0006_08",
+      "bits": 8,
+      "pipeline_ms": 290.6310372054577,
+      "wall_ms": 290.6542681157589,
+      "used": false
+    },
+    {
+      "frame": "0006_09",
+      "bits": 9,
+      "pipeline_ms": 330.1020860671997,
+      "wall_ms": 330.1266059279442,
+      "used": false
+    },
+    {
+      "frame": "0006_10",
+      "bits": 10,
+      "pipeline_ms": 286.79417073726654,
+      "wall_ms": 286.8209779262543,
+      "used": false
+    },
+    {
+      "frame": "0006_12",
+      "bits": 12,
+      "pipeline_ms": 320.19296661019325,
+      "wall_ms": 320.2188089489937,
+      "used": false
+    },
+    {
+      "frame": "0006_24",
+      "bits": 24,
+      "pipeline_ms": 362.43031173944473,
+      "wall_ms": 362.45913058519363,
+      "used": false
+    },
+    {
+      "frame": "0007_00",
+      "bits": 0,
+      "pipeline_ms": 304.9270026385784,
+      "wall_ms": 304.96570095419884,
+      "used": false
+    },
+    {
+      "frame": "0007_01",
+      "bits": 1,
+      "pipeline_ms": 301.0062538087368,
+      "wall_ms": 301.02794244885445,
+      "used": false
+    },
+    {
+      "frame": "0007_02",
+      "bits": 2,
+      "pipeline_ms": 298.5048219561577,
+      "wall_ms": 298.52529615163803,
+      "used": false
+    },
+    {
+      "frame": "0007_04",
+      "bits": 4,
+      "pipeline_ms": 376.313678920269,
+      "wall_ms": 376.3374388217926,
+      "used": false
+    },
+    {
+      "frame": "0007_16",
+      "bits": 16,
+      "pipeline_ms": 309.77416038513184,
+      "wall_ms": 309.79522317647934,
+      "used": false
+    },
+    {
+      "frame": "0007_08",
+      "bits": 8,
+      "pipeline_ms": 411.4128649234772,
+      "wall_ms": 411.4411287009716,
+      "used": false
+    },
+    {
+      "frame": "0007_09",
+      "bits": 9,
+      "pipeline_ms": 397.2538411617279,
+      "wall_ms": 397.28445559740067,
+      "used": false
+    },
+    {
+      "frame": "0007_10",
+      "bits": 10,
+      "pipeline_ms": 275.4186689853668,
+      "wall_ms": 275.4594683647156,
+      "used": false
+    },
+    {
+      "frame": "0007_12",
+      "bits": 12,
+      "pipeline_ms": 370.77028676867485,
+      "wall_ms": 370.7999475300312,
+      "used": false
+    },
+    {
+      "frame": "0007_24",
+      "bits": 24,
+      "pipeline_ms": 394.03750002384186,
+      "wall_ms": 394.0642289817333,
+      "used": false
+    },
+    {
+      "frame": "0008_00",
+      "bits": 0,
+      "pipeline_ms": 282.64743089675903,
+      "wall_ms": 282.6755866408348,
+      "used": false
+    },
+    {
+      "frame": "0008_01",
+      "bits": 1,
+      "pipeline_ms": 311.1388571560383,
+      "wall_ms": 311.1617863178253,
+      "used": false
+    },
+    {
+      "frame": "0008_02",
+      "bits": 2,
+      "pipeline_ms": 299.2396950721741,
+      "wall_ms": 299.26255345344543,
+      "used": false
+    },
+    {
+      "frame": "0008_04",
+      "bits": 4,
+      "pipeline_ms": 313.2439889013767,
+      "wall_ms": 313.2656253874302,
+      "used": false
+    },
+    {
+      "frame": "0008_16",
+      "bits": 16,
+      "pipeline_ms": 311.76378205418587,
+      "wall_ms": 311.78662180900574,
+      "used": false
+    },
+    {
+      "frame": "0008_08",
+      "bits": 8,
+      "pipeline_ms": 311.7295876145363,
+      "wall_ms": 311.7535822093487,
+      "used": false
+    },
+    {
+      "frame": "0008_09",
+      "bits": 9,
+      "pipeline_ms": 309.8040856420994,
+      "wall_ms": 309.8277300596237,
+      "used": false
+    },
+    {
+      "frame": "0008_10",
+      "bits": 10,
+      "pipeline_ms": 303.8429915904999,
+      "wall_ms": 303.8657568395138,
+      "used": false
+    },
+    {
+      "frame": "0008_12",
+      "bits": 12,
+      "pipeline_ms": 333.95756036043167,
+      "wall_ms": 333.9812532067299,
+      "used": false
+    },
+    {
+      "frame": "0008_24",
+      "bits": 24,
+      "pipeline_ms": 297.49632254242897,
+      "wall_ms": 297.51748591661453,
+      "used": false
+    },
+    {
+      "frame": "0009_00",
+      "bits": 0,
+      "pipeline_ms": 288.5464318096638,
+      "wall_ms": 288.57655823230743,
+      "used": true
+    },
+    {
+      "frame": "0009_01",
+      "bits": 1,
+      "pipeline_ms": 362.3884655535221,
+      "wall_ms": 362.4095134437084,
+      "used": false
+    },
+    {
+      "frame": "0009_02",
+      "bits": 2,
+      "pipeline_ms": 325.9700834751129,
+      "wall_ms": 325.9926103055477,
+      "used": false
+    },
+    {
+      "frame": "0009_04",
+      "bits": 4,
+      "pipeline_ms": 294.58631575107574,
+      "wall_ms": 294.6123145520687,
+      "used": false
+    },
+    {
+      "frame": "0009_16",
+      "bits": 16,
+      "pipeline_ms": 492.26607009768486,
+      "wall_ms": 492.2916069626808,
+      "used": false
+    },
+    {
+      "frame": "0009_08",
+      "bits": 8,
+      "pipeline_ms": 290.38816317915916,
+      "wall_ms": 290.41849449276924,
+      "used": true
+    },
+    {
+      "frame": "0009_09",
+      "bits": 9,
+      "pipeline_ms": 362.7752438187599,
+      "wall_ms": 362.79789358377457,
+      "used": false
+    },
+    {
+      "frame": "0009_10",
+      "bits": 10,
+      "pipeline_ms": 336.8607424199581,
+      "wall_ms": 336.88315749168396,
+      "used": false
+    },
+    {
+      "frame": "0009_12",
+      "bits": 12,
+      "pipeline_ms": 307.03509598970413,
+      "wall_ms": 307.05926567316055,
+      "used": true
+    },
+    {
+      "frame": "0009_24",
+      "bits": 24,
+      "pipeline_ms": 453.934408724308,
+      "wall_ms": 453.95586267113686,
+      "used": true
+    },
+    {
+      "frame": "0010_00",
+      "bits": 0,
+      "pipeline_ms": 279.6515077352524,
+      "wall_ms": 279.69470992684364,
+      "used": false
+    },
+    {
+      "frame": "0010_01",
+      "bits": 1,
+      "pipeline_ms": 282.53669664263725,
+      "wall_ms": 282.55773335695267,
+      "used": false
+    },
+    {
+      "frame": "0010_02",
+      "bits": 2,
+      "pipeline_ms": 277.58457884192467,
+      "wall_ms": 277.6077687740326,
+      "used": false
+    },
+    {
+      "frame": "0010_04",
+      "bits": 4,
+      "pipeline_ms": 346.0978902876377,
+      "wall_ms": 346.1197018623352,
+      "used": false
+    },
+    {
+      "frame": "0010_16",
+      "bits": 16,
+      "pipeline_ms": 284.61339324712753,
+      "wall_ms": 284.6642695367336,
+      "used": false
+    },
+    {
+      "frame": "0010_08",
+      "bits": 8,
+      "pipeline_ms": 278.19281443953514,
+      "wall_ms": 278.21966260671616,
+      "used": false
+    },
+    {
+      "frame": "0010_09",
+      "bits": 9,
+      "pipeline_ms": 271.30090445280075,
+      "wall_ms": 271.32173255085945,
+      "used": false
+    },
+    {
+      "frame": "0010_10",
+      "bits": 10,
+      "pipeline_ms": 275.4836603999138,
+      "wall_ms": 275.5073942244053,
+      "used": true
+    },
+    {
+      "frame": "0010_12",
+      "bits": 12,
+      "pipeline_ms": 328.40151712298393,
+      "wall_ms": 328.44315841794014,
+      "used": false
+    },
+    {
+      "frame": "0010_24",
+      "bits": 24,
+      "pipeline_ms": 254.8743262887001,
+      "wall_ms": 254.912368953228,
+      "used": false
+    },
+    {
+      "frame": "0011_00",
+      "bits": 0,
+      "pipeline_ms": 260.45169308781624,
+      "wall_ms": 260.48848032951355,
+      "used": false
+    },
+    {
+      "frame": "0011_01",
+      "bits": 1,
+      "pipeline_ms": 287.9840098321438,
+      "wall_ms": 288.00786659121513,
+      "used": false
+    },
+    {
+      "frame": "0011_02",
+      "bits": 2,
+      "pipeline_ms": 295.30050978064537,
+      "wall_ms": 295.32168060541153,
+      "used": false
+    },
+    {
+      "frame": "0011_04",
+      "bits": 4,
+      "pipeline_ms": 265.14533162117004,
+      "wall_ms": 265.1686705648899,
+      "used": false
+    },
+    {
+      "frame": "0011_16",
+      "bits": 16,
+      "pipeline_ms": 262.8830336034298,
+      "wall_ms": 262.9052624106407,
+      "used": false
+    },
+    {
+      "frame": "0011_08",
+      "bits": 8,
+      "pipeline_ms": 391.5772885084152,
+      "wall_ms": 391.5981724858284,
+      "used": true
+    },
+    {
+      "frame": "0011_09",
+      "bits": 9,
+      "pipeline_ms": 395.7606814801693,
+      "wall_ms": 395.7814686000347,
+      "used": false
+    },
+    {
+      "frame": "0011_10",
+      "bits": 10,
+      "pipeline_ms": 288.4410321712494,
+      "wall_ms": 288.46095502376556,
+      "used": false
+    },
+    {
+      "frame": "0011_12",
+      "bits": 12,
+      "pipeline_ms": 292.38350689411163,
+      "wall_ms": 292.40623116493225,
+      "used": true
+    },
+    {
+      "frame": "0011_24",
+      "bits": 24,
+      "pipeline_ms": 393.358800560236,
+      "wall_ms": 393.37969943881035,
+      "used": true
+    },
+    {
+      "frame": "0012_00",
+      "bits": 0,
+      "pipeline_ms": 293.35271194577217,
+      "wall_ms": 293.3809123933315,
+      "used": false
+    },
+    {
+      "frame": "0012_01",
+      "bits": 1,
+      "pipeline_ms": 301.5984855592251,
+      "wall_ms": 301.6183078289032,
+      "used": false
+    },
+    {
+      "frame": "0012_02",
+      "bits": 2,
+      "pipeline_ms": 273.74425902962685,
+      "wall_ms": 273.7658843398094,
+      "used": false
+    },
+    {
+      "frame": "0012_04",
+      "bits": 4,
+      "pipeline_ms": 313.9377199113369,
+      "wall_ms": 313.95965442061424,
+      "used": false
+    },
+    {
+      "frame": "0012_16",
+      "bits": 16,
+      "pipeline_ms": 332.61052146553993,
+      "wall_ms": 332.6314501464367,
+      "used": false
+    },
+    {
+      "frame": "0012_08",
+      "bits": 8,
+      "pipeline_ms": 311.66165322065353,
+      "wall_ms": 311.68313696980476,
+      "used": false
+    },
+    {
+      "frame": "0012_09",
+      "bits": 9,
+      "pipeline_ms": 302.13749781250954,
+      "wall_ms": 302.15851590037346,
+      "used": false
+    },
+    {
+      "frame": "0012_10",
+      "bits": 10,
+      "pipeline_ms": 275.01310035586357,
+      "wall_ms": 275.03547444939613,
+      "used": false
+    },
+    {
+      "frame": "0012_12",
+      "bits": 12,
+      "pipeline_ms": 312.09561973810196,
+      "wall_ms": 312.11744993925095,
+      "used": false
+    },
+    {
+      "frame": "0012_24",
+      "bits": 24,
+      "pipeline_ms": 338.96341174840927,
+      "wall_ms": 338.986162096262,
+      "used": false
+    },
+    {
+      "frame": "0013_00",
+      "bits": 0,
+      "pipeline_ms": 263.8813145458698,
+      "wall_ms": 263.9096677303314,
+      "used": false
+    },
+    {
+      "frame": "0013_01",
+      "bits": 1,
+      "pipeline_ms": 254.9077272415161,
+      "wall_ms": 254.92900609970093,
+      "used": false
+    },
+    {
+      "frame": "0013_02",
+      "bits": 2,
+      "pipeline_ms": 276.66645497083664,
+      "wall_ms": 276.68771520256996,
+      "used": false
+    },
+    {
+      "frame": "0013_04",
+      "bits": 4,
+      "pipeline_ms": 311.8240423500538,
+      "wall_ms": 311.84618920087814,
+      "used": false
+    },
+    {
+      "frame": "0013_16",
+      "bits": 16,
+      "pipeline_ms": 288.2126718759537,
+      "wall_ms": 288.2358953356743,
+      "used": false
+    },
+    {
+      "frame": "0013_08",
+      "bits": 8,
+      "pipeline_ms": 391.01598784327507,
+      "wall_ms": 391.0393491387367,
+      "used": false
+    },
+    {
+      "frame": "0013_09",
+      "bits": 9,
+      "pipeline_ms": 404.27128970623016,
+      "wall_ms": 404.29114550352097,
+      "used": false
+    },
+    {
+      "frame": "0013_10",
+      "bits": 10,
+      "pipeline_ms": 306.08510598540306,
+      "wall_ms": 306.1084933578968,
+      "used": false
+    },
+    {
+      "frame": "0013_12",
+      "bits": 12,
+      "pipeline_ms": 308.2509934902191,
+      "wall_ms": 308.27416107058525,
+      "used": false
+    },
+    {
+      "frame": "0013_24",
+      "bits": 24,
+      "pipeline_ms": 399.5383381843567,
+      "wall_ms": 399.56074953079224,
+      "used": false
+    },
+    {
+      "frame": "0014_00",
+      "bits": 0,
+      "pipeline_ms": 279.34157475829124,
+      "wall_ms": 279.36912700533867,
+      "used": true
+    },
+    {
+      "frame": "0014_01",
+      "bits": 1,
+      "pipeline_ms": 289.07789289951324,
+      "wall_ms": 289.09891098737717,
+      "used": false
+    },
+    {
+      "frame": "0014_02",
+      "bits": 2,
+      "pipeline_ms": 275.32752230763435,
+      "wall_ms": 275.34862607717514,
+      "used": false
+    },
+    {
+      "frame": "0014_04",
+      "bits": 4,
+      "pipeline_ms": 338.5832570493221,
+      "wall_ms": 338.60281109809875,
+      "used": false
+    },
+    {
+      "frame": "0014_16",
+      "bits": 16,
+      "pipeline_ms": 302.9913045465946,
+      "wall_ms": 303.0145764350891,
+      "used": false
+    },
+    {
+      "frame": "0014_08",
+      "bits": 8,
+      "pipeline_ms": 284.2419520020485,
+      "wall_ms": 284.26213935017586,
+      "used": false
+    },
+    {
+      "frame": "0014_09",
+      "bits": 9,
+      "pipeline_ms": 405.252069234848,
+      "wall_ms": 405.2737057209015,
+      "used": true
+    },
+    {
+      "frame": "0014_10",
+      "bits": 10,
+      "pipeline_ms": 277.2497460246086,
+      "wall_ms": 277.27340906858444,
+      "used": false
+    },
+    {
+      "frame": "0014_12",
+      "bits": 12,
+      "pipeline_ms": 347.3048657178879,
+      "wall_ms": 347.3258204758167,
+      "used": false
+    },
+    {
+      "frame": "0014_24",
+      "bits": 24,
+      "pipeline_ms": 316.72871485352516,
+      "wall_ms": 316.7493864893913,
+      "used": false
+    },
+    {
+      "frame": "0015_00",
+      "bits": 0,
+      "pipeline_ms": 323.4841078519821,
+      "wall_ms": 323.51141050457954,
+      "used": false
+    },
+    {
+      "frame": "0015_01",
+      "bits": 1,
+      "pipeline_ms": 312.09900975227356,
+      "wall_ms": 312.11842596530914,
+      "used": false
+    },
+    {
+      "frame": "0015_02",
+      "bits": 2,
+      "pipeline_ms": 283.8716693222523,
+      "wall_ms": 283.89429673552513,
+      "used": false
+    },
+    {
+      "frame": "0015_04",
+      "bits": 4,
+      "pipeline_ms": 339.30910378694534,
+      "wall_ms": 339.33014050126076,
+      "used": false
+    },
+    {
+      "frame": "0015_16",
+      "bits": 16,
+      "pipeline_ms": 383.87662917375565,
+      "wall_ms": 383.89717787504196,
+      "used": true
+    },
+    {
+      "frame": "0015_08",
+      "bits": 8,
+      "pipeline_ms": 336.373969912529,
+      "wall_ms": 336.3941125571728,
+      "used": true
+    },
+    {
+      "frame": "0015_09",
+      "bits": 9,
+      "pipeline_ms": 315.34724310040474,
+      "wall_ms": 315.3691962361336,
+      "used": false
+    },
+    {
+      "frame": "0015_10",
+      "bits": 10,
+      "pipeline_ms": 283.0410525202751,
+      "wall_ms": 283.0618880689144,
+      "used": false
+    },
+    {
+      "frame": "0015_12",
+      "bits": 12,
+      "pipeline_ms": 369.2072629928589,
+      "wall_ms": 369.2280128598213,
+      "used": false
+    },
+    {
+      "frame": "0015_24",
+      "bits": 24,
+      "pipeline_ms": 377.7312897145748,
+      "wall_ms": 377.75080651044846,
+      "used": true
+    },
+    {
+      "frame": "0016_00",
+      "bits": 0,
+      "pipeline_ms": 297.9423403739929,
+      "wall_ms": 297.9784607887268,
+      "used": false
+    },
+    {
+      "frame": "0016_01",
+      "bits": 1,
+      "pipeline_ms": 310.0687563419342,
+      "wall_ms": 310.08828058838844,
+      "used": false
+    },
+    {
+      "frame": "0016_02",
+      "bits": 2,
+      "pipeline_ms": 301.3223819434643,
+      "wall_ms": 301.3453856110573,
+      "used": false
+    },
+    {
+      "frame": "0016_04",
+      "bits": 4,
+      "pipeline_ms": 382.6972506940365,
+      "wall_ms": 382.7180489897728,
+      "used": false
+    },
+    {
+      "frame": "0016_16",
+      "bits": 16,
+      "pipeline_ms": 322.54572585225105,
+      "wall_ms": 322.5757107138634,
+      "used": false
+    },
+    {
+      "frame": "0016_08",
+      "bits": 8,
+      "pipeline_ms": 324.5309628546238,
+      "wall_ms": 324.5540075004101,
+      "used": false
+    },
+    {
+      "frame": "0016_09",
+      "bits": 9,
+      "pipeline_ms": 315.89919701218605,
+      "wall_ms": 315.921351313591,
+      "used": false
+    },
+    {
+      "frame": "0016_10",
+      "bits": 10,
+      "pipeline_ms": 296.87630012631416,
+      "wall_ms": 296.89715802669525,
+      "used": false
+    },
+    {
+      "frame": "0016_12",
+      "bits": 12,
+      "pipeline_ms": 362.3228073120117,
+      "wall_ms": 362.34327033162117,
+      "used": false
+    },
+    {
+      "frame": "0016_24",
+      "bits": 24,
+      "pipeline_ms": 313.1506033241749,
+      "wall_ms": 313.17098811268806,
+      "used": false
+    },
+    {
+      "frame": "0017_00",
+      "bits": 0,
+      "pipeline_ms": 294.15280371904373,
+      "wall_ms": 294.181440025568,
+      "used": true
+    },
+    {
+      "frame": "0017_01",
+      "bits": 1,
+      "pipeline_ms": 327.328447252512,
+      "wall_ms": 327.3480199277401,
+      "used": false
+    },
+    {
+      "frame": "0017_02",
+      "bits": 2,
+      "pipeline_ms": 275.75846016407013,
+      "wall_ms": 275.7784090936184,
+      "used": false
+    },
+    {
+      "frame": "0017_04",
+      "bits": 4,
+      "pipeline_ms": 394.46310698986053,
+      "wall_ms": 394.4845162332058,
+      "used": true
+    },
+    {
+      "frame": "0017_16",
+      "bits": 16,
+      "pipeline_ms": 327.07198336720467,
+      "wall_ms": 327.09653303027153,
+      "used": false
+    },
+    {
+      "frame": "0017_08",
+      "bits": 8,
+      "pipeline_ms": 313.5773316025734,
+      "wall_ms": 313.5988228023052,
+      "used": false
+    },
+    {
+      "frame": "0017_09",
+      "bits": 9,
+      "pipeline_ms": 315.3405301272869,
+      "wall_ms": 315.36101549863815,
+      "used": false
+    },
+    {
+      "frame": "0017_10",
+      "bits": 10,
+      "pipeline_ms": 285.5774946510792,
+      "wall_ms": 285.59936955571175,
+      "used": true
+    },
+    {
+      "frame": "0017_12",
+      "bits": 12,
+      "pipeline_ms": 390.072226524353,
+      "wall_ms": 390.09296894073486,
+      "used": true
+    },
+    {
+      "frame": "0017_24",
+      "bits": 24,
+      "pipeline_ms": 329.64083179831505,
+      "wall_ms": 329.6676464378834,
+      "used": false
+    },
+    {
+      "frame": "0018_00",
+      "bits": 0,
+      "pipeline_ms": 286.40618175268173,
+      "wall_ms": 286.4440232515335,
+      "used": false
+    },
+    {
+      "frame": "0018_01",
+      "bits": 1,
+      "pipeline_ms": 405.8498330414295,
+      "wall_ms": 405.86986020207405,
+      "used": false
+    },
+    {
+      "frame": "0018_02",
+      "bits": 2,
+      "pipeline_ms": 306.5701834857464,
+      "wall_ms": 306.59278109669685,
+      "used": false
+    },
+    {
+      "frame": "0018_04",
+      "bits": 4,
+      "pipeline_ms": 295.82999274134636,
+      "wall_ms": 295.8518788218498,
+      "used": false
+    },
+    {
+      "frame": "0018_16",
+      "bits": 16,
+      "pipeline_ms": 409.0012088418007,
+      "wall_ms": 409.0227447450161,
+      "used": false
+    },
+    {
+      "frame": "0018_08",
+      "bits": 8,
+      "pipeline_ms": 307.5292631983757,
+      "wall_ms": 307.55193531513214,
+      "used": true
+    },
+    {
+      "frame": "0018_09",
+      "bits": 9,
+      "pipeline_ms": 405.1964618265629,
+      "wall_ms": 405.2184484899044,
+      "used": false
+    },
+    {
+      "frame": "0018_10",
+      "bits": 10,
+      "pipeline_ms": 321.51058688759804,
+      "wall_ms": 321.53337076306343,
+      "used": false
+    },
+    {
+      "frame": "0018_12",
+      "bits": 12,
+      "pipeline_ms": 306.5309636294842,
+      "wall_ms": 306.5553642809391,
+      "used": false
+    },
+    {
+      "frame": "0018_24",
+      "bits": 24,
+      "pipeline_ms": 438.4378343820572,
+      "wall_ms": 438.4600967168808,
+      "used": false
+    },
+    {
+      "frame": "0019_00",
+      "bits": 0,
+      "pipeline_ms": 263.0283907055855,
+      "wall_ms": 263.05901259183884,
+      "used": true
+    },
+    {
+      "frame": "0019_01",
+      "bits": 1,
+      "pipeline_ms": 286.0799990594387,
+      "wall_ms": 286.1018441617489,
+      "used": true
+    },
+    {
+      "frame": "0019_02",
+      "bits": 2,
+      "pipeline_ms": 286.2875461578369,
+      "wall_ms": 286.31120920181274,
+      "used": false
+    },
+    {
+      "frame": "0019_04",
+      "bits": 4,
+      "pipeline_ms": 278.58665958046913,
+      "wall_ms": 278.6100246012211,
+      "used": false
+    },
+    {
+      "frame": "0019_16",
+      "bits": 16,
+      "pipeline_ms": 278.3537358045578,
+      "wall_ms": 278.3762998878956,
+      "used": true
+    },
+    {
+      "frame": "0019_08",
+      "bits": 8,
+      "pipeline_ms": 413.82694989442825,
+      "wall_ms": 413.8501361012459,
+      "used": true
+    },
+    {
+      "frame": "0019_09",
+      "bits": 9,
+      "pipeline_ms": 442.1059899032116,
+      "wall_ms": 442.1291574835777,
+      "used": true
+    },
+    {
+      "frame": "0019_10",
+      "bits": 10,
+      "pipeline_ms": 288.55831176042557,
+      "wall_ms": 288.5892316699028,
+      "used": false
+    },
+    {
+      "frame": "0019_12",
+      "bits": 12,
+      "pipeline_ms": 280.51745146512985,
+      "wall_ms": 280.5500067770481,
+      "used": true
+    },
+    {
+      "frame": "0019_24",
+      "bits": 24,
+      "pipeline_ms": 401.8479213118553,
+      "wall_ms": 401.86986699700356,
+      "used": true
+    },
+    {
+      "frame": "0020_00",
+      "bits": 0,
+      "pipeline_ms": 262.89454847574234,
+      "wall_ms": 262.92387768626213,
+      "used": false
+    },
+    {
+      "frame": "0020_01",
+      "bits": 1,
+      "pipeline_ms": 270.9912657737732,
+      "wall_ms": 271.01320773363113,
+      "used": false
+    },
+    {
+      "frame": "0020_02",
+      "bits": 2,
+      "pipeline_ms": 269.5404849946499,
+      "wall_ms": 269.56310123205185,
+      "used": false
+    },
+    {
+      "frame": "0020_04",
+      "bits": 4,
+      "pipeline_ms": 281.8671204149723,
+      "wall_ms": 281.90311789512634,
+      "used": false
+    },
+    {
+      "frame": "0020_16",
+      "bits": 16,
+      "pipeline_ms": 294.02758553624153,
+      "wall_ms": 294.06802728772163,
+      "used": false
+    },
+    {
+      "frame": "0020_08",
+      "bits": 8,
+      "pipeline_ms": 362.98026144504547,
+      "wall_ms": 363.00260573625565,
+      "used": true
+    },
+    {
+      "frame": "0020_09",
+      "bits": 9,
+      "pipeline_ms": 440.690066665411,
+      "wall_ms": 440.7128393650055,
+      "used": false
+    },
+    {
+      "frame": "0020_10",
+      "bits": 10,
+      "pipeline_ms": 426.564060151577,
+      "wall_ms": 426.5872947871685,
+      "used": false
+    },
+    {
+      "frame": "0020_12",
+      "bits": 12,
+      "pipeline_ms": 431.0869798064232,
+      "wall_ms": 431.1109855771065,
+      "used": false
+    },
+    {
+      "frame": "0020_24",
+      "bits": 24,
+      "pipeline_ms": 351.38778761029243,
+      "wall_ms": 351.41944512724876,
+      "used": true
+    },
+    {
+      "frame": "0021_00",
+      "bits": 0,
+      "pipeline_ms": 341.3965478539467,
+      "wall_ms": 341.435294598341,
+      "used": false
+    },
+    {
+      "frame": "0021_01",
+      "bits": 1,
+      "pipeline_ms": 397.69966900348663,
+      "wall_ms": 397.7263495326042,
+      "used": false
+    },
+    {
+      "frame": "0021_02",
+      "bits": 2,
+      "pipeline_ms": 325.93195885419846,
+      "wall_ms": 325.97023993730545,
+      "used": false
+    },
+    {
+      "frame": "0021_04",
+      "bits": 4,
+      "pipeline_ms": 573.451828211546,
+      "wall_ms": 573.4825357794762,
+      "used": false
+    },
+    {
+      "frame": "0021_16",
+      "bits": 16,
+      "pipeline_ms": 658.4625579416752,
+      "wall_ms": 658.4966592490673,
+      "used": false
+    },
+    {
+      "frame": "0021_08",
+      "bits": 8,
+      "pipeline_ms": 348.04124757647514,
+      "wall_ms": 348.06977957487106,
+      "used": false
+    },
+    {
+      "frame": "0021_09",
+      "bits": 9,
+      "pipeline_ms": 398.9391587674618,
+      "wall_ms": 398.9640176296234,
+      "used": false
+    },
+    {
+      "frame": "0021_10",
+      "bits": 10,
+      "pipeline_ms": 352.71767526865005,
+      "wall_ms": 352.75448113679886,
+      "used": false
+    },
+    {
+      "frame": "0021_12",
+      "bits": 12,
+      "pipeline_ms": 541.7295321822166,
+      "wall_ms": 541.7597815394402,
+      "used": false
+    },
+    {
+      "frame": "0021_24",
+      "bits": 24,
+      "pipeline_ms": 405.0097465515137,
+      "wall_ms": 405.0406776368618,
+      "used": false
+    },
+    {
+      "frame": "0022_00",
+      "bits": 0,
+      "pipeline_ms": 244.75398287177086,
+      "wall_ms": 244.78986859321594,
+      "used": false
+    },
+    {
+      "frame": "0022_01",
+      "bits": 1,
+      "pipeline_ms": 355.02395406365395,
+      "wall_ms": 355.0466001033783,
+      "used": false
+    },
+    {
+      "frame": "0022_02",
+      "bits": 2,
+      "pipeline_ms": 562.4352358281612,
+      "wall_ms": 562.4587051570415,
+      "used": false
+    },
+    {
+      "frame": "0022_04",
+      "bits": 4,
+      "pipeline_ms": 617.5301559269428,
+      "wall_ms": 617.5541281700134,
+      "used": false
+    },
+    {
+      "frame": "0022_16",
+      "bits": 16,
+      "pipeline_ms": 922.4275387823582,
+      "wall_ms": 922.4559478461742,
+      "used": false
+    },
+    {
+      "frame": "0022_08",
+      "bits": 8,
+      "pipeline_ms": 318.9275860786438,
+      "wall_ms": 318.95140185952187,
+      "used": false
+    },
+    {
+      "frame": "0022_09",
+      "bits": 9,
+      "pipeline_ms": 481.8565137684345,
+      "wall_ms": 481.88040778040886,
+      "used": false
+    },
+    {
+      "frame": "0022_10",
+      "bits": 10,
+      "pipeline_ms": 827.6971876621246,
+      "wall_ms": 827.7215249836445,
+      "used": false
+    },
+    {
+      "frame": "0022_12",
+      "bits": 12,
+      "pipeline_ms": 464.6018519997597,
+      "wall_ms": 464.6281450986862,
+      "used": false
+    },
+    {
+      "frame": "0022_24",
+      "bits": 24,
+      "pipeline_ms": 273.0001397430897,
+      "wall_ms": 273.02517369389534,
+      "used": false
+    },
+    {
+      "frame": "0023_00",
+      "bits": 0,
+      "pipeline_ms": 813.053734600544,
+      "wall_ms": 813.0862861871719,
+      "used": false
+    },
+    {
+      "frame": "0023_01",
+      "bits": 1,
+      "pipeline_ms": 274.5351754128933,
+      "wall_ms": 274.556428194046,
+      "used": false
+    },
+    {
+      "frame": "0023_02",
+      "bits": 2,
+      "pipeline_ms": 280.98101913928986,
+      "wall_ms": 281.0020186007023,
+      "used": false
+    },
+    {
+      "frame": "0023_04",
+      "bits": 4,
+      "pipeline_ms": 275.64939111471176,
+      "wall_ms": 275.67119151353836,
+      "used": false
+    },
+    {
+      "frame": "0023_16",
+      "bits": 16,
+      "pipeline_ms": 277.0392782986164,
+      "wall_ms": 277.05977112054825,
+      "used": true
+    },
+    {
+      "frame": "0023_08",
+      "bits": 8,
+      "pipeline_ms": 309.23789367079735,
+      "wall_ms": 309.26255881786346,
+      "used": true
+    },
+    {
+      "frame": "0023_09",
+      "bits": 9,
+      "pipeline_ms": 314.3591657280922,
+      "wall_ms": 314.3851161003113,
+      "used": true
+    },
+    {
+      "frame": "0023_10",
+      "bits": 10,
+      "pipeline_ms": 386.6262137889862,
+      "wall_ms": 386.6492621600628,
+      "used": false
+    },
+    {
+      "frame": "0023_12",
+      "bits": 12,
+      "pipeline_ms": 392.55597442388535,
+      "wall_ms": 392.5788626074791,
+      "used": false
+    },
+    {
+      "frame": "0023_24",
+      "bits": 24,
+      "pipeline_ms": 278.61305698752403,
+      "wall_ms": 278.636422008276,
+      "used": true
+    },
+    {
+      "frame": "0024_00",
+      "bits": 0,
+      "pipeline_ms": 304.3438494205475,
+      "wall_ms": 304.3716289103031,
+      "used": false
+    },
+    {
+      "frame": "0024_01",
+      "bits": 1,
+      "pipeline_ms": 298.7568601965904,
+      "wall_ms": 298.77954348921776,
+      "used": false
+    },
+    {
+      "frame": "0024_02",
+      "bits": 2,
+      "pipeline_ms": 276.69642493128777,
+      "wall_ms": 276.7183631658554,
+      "used": false
+    },
+    {
+      "frame": "0024_04",
+      "bits": 4,
+      "pipeline_ms": 354.638259857893,
+      "wall_ms": 354.6587564051151,
+      "used": false
+    },
+    {
+      "frame": "0024_16",
+      "bits": 16,
+      "pipeline_ms": 318.57191026210785,
+      "wall_ms": 318.5947574675083,
+      "used": false
+    },
+    {
+      "frame": "0024_08",
+      "bits": 8,
+      "pipeline_ms": 270.8057053387165,
+      "wall_ms": 270.82962170243263,
+      "used": false
+    },
+    {
+      "frame": "0024_09",
+      "bits": 9,
+      "pipeline_ms": 261.2297348678112,
+      "wall_ms": 261.25097274780273,
+      "used": false
+    },
+    {
+      "frame": "0024_10",
+      "bits": 10,
+      "pipeline_ms": 275.4485160112381,
+      "wall_ms": 275.4727192223072,
+      "used": false
+    },
+    {
+      "frame": "0024_12",
+      "bits": 12,
+      "pipeline_ms": 346.9562567770481,
+      "wall_ms": 346.97941318154335,
+      "used": false
+    },
+    {
+      "frame": "0024_24",
+      "bits": 24,
+      "pipeline_ms": 323.6437477171421,
+      "wall_ms": 323.6665725708008,
+      "used": false
+    },
+    {
+      "frame": "0025_00",
+      "bits": 0,
+      "pipeline_ms": 255.6404396891594,
+      "wall_ms": 255.66891953349113,
+      "used": false
+    },
+    {
+      "frame": "0025_01",
+      "bits": 1,
+      "pipeline_ms": 269.1235616803169,
+      "wall_ms": 269.143708050251,
+      "used": false
+    },
+    {
+      "frame": "0025_02",
+      "bits": 2,
+      "pipeline_ms": 266.66373014450073,
+      "wall_ms": 266.68520644307137,
+      "used": false
+    },
+    {
+      "frame": "0025_04",
+      "bits": 4,
+      "pipeline_ms": 262.619785964489,
+      "wall_ms": 262.6447454094887,
+      "used": false
+    },
+    {
+      "frame": "0025_16",
+      "bits": 16,
+      "pipeline_ms": 264.43932205438614,
+      "wall_ms": 264.46519047021866,
+      "used": false
+    },
+    {
+      "frame": "0025_08",
+      "bits": 8,
+      "pipeline_ms": 261.7783546447754,
+      "wall_ms": 261.79924979805946,
+      "used": false
+    },
+    {
+      "frame": "0025_09",
+      "bits": 9,
+      "pipeline_ms": 283.57844799757004,
+      "wall_ms": 283.59997272491455,
+      "used": false
+    },
+    {
+      "frame": "0025_10",
+      "bits": 10,
+      "pipeline_ms": 262.34145835042,
+      "wall_ms": 262.362215667963,
+      "used": false
+    },
+    {
+      "frame": "0025_12",
+      "bits": 12,
+      "pipeline_ms": 268.30779761075974,
+      "wall_ms": 268.32958683371544,
+      "used": false
+    },
+    {
+      "frame": "0025_24",
+      "bits": 24,
+      "pipeline_ms": 265.7147943973541,
+      "wall_ms": 265.734750777483,
+      "used": false
+    },
+    {
+      "frame": "0026_00",
+      "bits": 0,
+      "pipeline_ms": 260.8977258205414,
+      "wall_ms": 260.9264627099037,
+      "used": false
+    },
+    {
+      "frame": "0026_01",
+      "bits": 1,
+      "pipeline_ms": 269.4468945264816,
+      "wall_ms": 269.4694586098194,
+      "used": false
+    },
+    {
+      "frame": "0026_02",
+      "bits": 2,
+      "pipeline_ms": 266.4666473865509,
+      "wall_ms": 266.4901614189148,
+      "used": false
+    },
+    {
+      "frame": "0026_04",
+      "bits": 4,
+      "pipeline_ms": 253.68420779705048,
+      "wall_ms": 253.7073791027069,
+      "used": false
+    },
+    {
+      "frame": "0026_16",
+      "bits": 16,
+      "pipeline_ms": 277.54054591059685,
+      "wall_ms": 277.56135910749435,
+      "used": false
+    },
+    {
+      "frame": "0026_08",
+      "bits": 8,
+      "pipeline_ms": 499.71382319927216,
+      "wall_ms": 499.73491579294205,
+      "used": true
+    },
+    {
+      "frame": "0026_09",
+      "bits": 9,
+      "pipeline_ms": 466.20238944888115,
+      "wall_ms": 466.2245362997055,
+      "used": false
+    },
+    {
+      "frame": "0026_10",
+      "bits": 10,
+      "pipeline_ms": 265.8264562487602,
+      "wall_ms": 265.84843173623085,
+      "used": false
+    },
+    {
+      "frame": "0026_12",
+      "bits": 12,
+      "pipeline_ms": 360.80407351255417,
+      "wall_ms": 360.82648858428,
+      "used": false
+    },
+    {
+      "frame": "0026_24",
+      "bits": 24,
+      "pipeline_ms": 356.4647361636162,
+      "wall_ms": 356.48537799715996,
+      "used": true
+    },
+    {
+      "frame": "0027_00",
+      "bits": 0,
+      "pipeline_ms": 339.43988010287285,
+      "wall_ms": 339.4695147871971,
+      "used": true
+    },
+    {
+      "frame": "0027_01",
+      "bits": 1,
+      "pipeline_ms": 341.7978659272194,
+      "wall_ms": 341.818880289793,
+      "used": true
+    },
+    {
+      "frame": "0027_02",
+      "bits": 2,
+      "pipeline_ms": 300.04071071743965,
+      "wall_ms": 300.0631667673588,
+      "used": false
+    },
+    {
+      "frame": "0027_04",
+      "bits": 4,
+      "pipeline_ms": 332.1955129504204,
+      "wall_ms": 332.21471309661865,
+      "used": false
+    },
+    {
+      "frame": "0027_16",
+      "bits": 16,
+      "pipeline_ms": 358.9203208684921,
+      "wall_ms": 358.9414358139038,
+      "used": false
+    },
+    {
+      "frame": "0027_08",
+      "bits": 8,
+      "pipeline_ms": 341.1940447986126,
+      "wall_ms": 341.2143588066101,
+      "used": true
+    },
+    {
+      "frame": "0027_09",
+      "bits": 9,
+      "pipeline_ms": 355.3403876721859,
+      "wall_ms": 355.3600087761879,
+      "used": true
+    },
+    {
+      "frame": "0027_10",
+      "bits": 10,
+      "pipeline_ms": 300.0072352588177,
+      "wall_ms": 300.0304140150547,
+      "used": false
+    },
+    {
+      "frame": "0027_12",
+      "bits": 12,
+      "pipeline_ms": 336.8997871875763,
+      "wall_ms": 336.92045882344246,
+      "used": false
+    },
+    {
+      "frame": "0027_24",
+      "bits": 24,
+      "pipeline_ms": 370.55808678269386,
+      "wall_ms": 370.57824805378914,
+      "used": false
+    },
+    {
+      "frame": "0028_00",
+      "bits": 0,
+      "pipeline_ms": 262.51497864723206,
+      "wall_ms": 262.54289224743843,
+      "used": false
+    },
+    {
+      "frame": "0028_01",
+      "bits": 1,
+      "pipeline_ms": 273.09638261795044,
+      "wall_ms": 273.11718091368675,
+      "used": false
+    },
+    {
+      "frame": "0028_02",
+      "bits": 2,
+      "pipeline_ms": 278.68204191327095,
+      "wall_ms": 278.7047065794468,
+      "used": false
+    },
+    {
+      "frame": "0028_04",
+      "bits": 4,
+      "pipeline_ms": 310.1801536977291,
+      "wall_ms": 310.20183116197586,
+      "used": false
+    },
+    {
+      "frame": "0028_16",
+      "bits": 16,
+      "pipeline_ms": 273.4152562916279,
+      "wall_ms": 273.4513469040394,
+      "used": false
+    },
+    {
+      "frame": "0028_08",
+      "bits": 8,
+      "pipeline_ms": 275.2460427582264,
+      "wall_ms": 275.27210116386414,
+      "used": true
+    },
+    {
+      "frame": "0028_09",
+      "bits": 9,
+      "pipeline_ms": 266.5598765015602,
+      "wall_ms": 266.5814831852913,
+      "used": true
+    },
+    {
+      "frame": "0028_10",
+      "bits": 10,
+      "pipeline_ms": 284.479059278965,
+      "wall_ms": 284.50677543878555,
+      "used": false
+    },
+    {
+      "frame": "0028_12",
+      "bits": 12,
+      "pipeline_ms": 351.0035611689091,
+      "wall_ms": 351.0272167623043,
+      "used": false
+    },
+    {
+      "frame": "0028_24",
+      "bits": 24,
+      "pipeline_ms": 278.27446162700653,
+      "wall_ms": 278.3026434481144,
+      "used": true
+    },
+    {
+      "frame": "0029_00",
+      "bits": 0,
+      "pipeline_ms": 274.40497651696205,
+      "wall_ms": 274.43331852555275,
+      "used": true
+    },
+    {
+      "frame": "0029_01",
+      "bits": 1,
+      "pipeline_ms": 300.3740534186363,
+      "wall_ms": 300.3946542739868,
+      "used": true
+    },
+    {
+      "frame": "0029_02",
+      "bits": 2,
+      "pipeline_ms": 281.9078303873539,
+      "wall_ms": 281.9296456873417,
+      "used": false
+    },
+    {
+      "frame": "0029_04",
+      "bits": 4,
+      "pipeline_ms": 331.8818174302578,
+      "wall_ms": 331.9024331867695,
+      "used": false
+    },
+    {
+      "frame": "0029_16",
+      "bits": 16,
+      "pipeline_ms": 289.19288888573647,
+      "wall_ms": 289.2146408557892,
+      "used": false
+    },
+    {
+      "frame": "0029_08",
+      "bits": 8,
+      "pipeline_ms": 295.65034806728363,
+      "wall_ms": 295.6719361245632,
+      "used": true
+    },
+    {
+      "frame": "0029_09",
+      "bits": 9,
+      "pipeline_ms": 433.34003910422325,
+      "wall_ms": 433.36131423711777,
+      "used": true
+    },
+    {
+      "frame": "0029_10",
+      "bits": 10,
+      "pipeline_ms": 437.04915419220924,
+      "wall_ms": 437.0727278292179,
+      "used": true
+    },
+    {
+      "frame": "0029_12",
+      "bits": 12,
+      "pipeline_ms": 415.99319130182266,
+      "wall_ms": 416.0168394446373,
+      "used": false
+    },
+    {
+      "frame": "0029_24",
+      "bits": 24,
+      "pipeline_ms": 277.95058861374855,
+      "wall_ms": 277.9727652668953,
+      "used": false
+    },
+    {
+      "frame": "0030_00",
+      "bits": 0,
+      "pipeline_ms": 263.8629265129566,
+      "wall_ms": 263.89242708683014,
+      "used": false
+    },
+    {
+      "frame": "0030_01",
+      "bits": 1,
+      "pipeline_ms": 367.7855357527733,
+      "wall_ms": 367.8051382303238,
+      "used": false
+    },
+    {
+      "frame": "0030_02",
+      "bits": 2,
+      "pipeline_ms": 272.1850909292698,
+      "wall_ms": 272.2078040242195,
+      "used": false
+    },
+    {
+      "frame": "0030_04",
+      "bits": 4,
+      "pipeline_ms": 285.0396893918514,
+      "wall_ms": 285.06047278642654,
+      "used": false
+    },
+    {
+      "frame": "0030_16",
+      "bits": 16,
+      "pipeline_ms": 441.4444714784622,
+      "wall_ms": 441.46592542529106,
+      "used": false
+    },
+    {
+      "frame": "0030_08",
+      "bits": 8,
+      "pipeline_ms": 278.84458005428314,
+      "wall_ms": 278.8667418062687,
+      "used": false
+    },
+    {
+      "frame": "0030_09",
+      "bits": 9,
+      "pipeline_ms": 329.85155284404755,
+      "wall_ms": 329.87260818481445,
+      "used": false
+    },
+    {
+      "frame": "0030_10",
+      "bits": 10,
+      "pipeline_ms": 290.2441658079624,
+      "wall_ms": 290.2648560702801,
+      "used": false
+    },
+    {
+      "frame": "0030_12",
+      "bits": 12,
+      "pipeline_ms": 284.3790426850319,
+      "wall_ms": 284.40091013908386,
+      "used": false
+    },
+    {
+      "frame": "0030_24",
+      "bits": 24,
+      "pipeline_ms": 417.9365187883377,
+      "wall_ms": 417.9562218487263,
+      "used": false
+    },
+    {
+      "frame": "0031_00",
+      "bits": 0,
+      "pipeline_ms": 254.86813858151436,
+      "wall_ms": 254.89498674869537,
+      "used": false
+    },
+    {
+      "frame": "0031_01",
+      "bits": 1,
+      "pipeline_ms": 265.8264599740505,
+      "wall_ms": 265.84645360708237,
+      "used": false
+    },
+    {
+      "frame": "0031_02",
+      "bits": 2,
+      "pipeline_ms": 261.0001638531685,
+      "wall_ms": 261.0226012766361,
+      "used": false
+    },
+    {
+      "frame": "0031_04",
+      "bits": 4,
+      "pipeline_ms": 258.51647183299065,
+      "wall_ms": 258.54334235191345,
+      "used": false
+    },
+    {
+      "frame": "0031_16",
+      "bits": 16,
+      "pipeline_ms": 262.5407464802265,
+      "wall_ms": 262.5635601580143,
+      "used": false
+    },
+    {
+      "frame": "0031_08",
+      "bits": 8,
+      "pipeline_ms": 263.6365182697773,
+      "wall_ms": 263.6561430990696,
+      "used": false
+    },
+    {
+      "frame": "0031_09",
+      "bits": 9,
+      "pipeline_ms": 266.3351781666279,
+      "wall_ms": 266.3555145263672,
+      "used": true
+    },
+    {
+      "frame": "0031_10",
+      "bits": 10,
+      "pipeline_ms": 411.5389250218868,
+      "wall_ms": 411.55993193387985,
+      "used": false
+    },
+    {
+      "frame": "0031_12",
+      "bits": 12,
+      "pipeline_ms": 275.61498060822487,
+      "wall_ms": 275.63703805208206,
+      "used": false
+    },
+    {
+      "frame": "0031_24",
+      "bits": 24,
+      "pipeline_ms": 280.2477777004242,
+      "wall_ms": 280.26898577809334,
+      "used": true
+    },
+    {
+      "frame": "0032_00",
+      "bits": 0,
+      "pipeline_ms": 248.3244240283966,
+      "wall_ms": 248.35100024938583,
+      "used": false
+    },
+    {
+      "frame": "0032_01",
+      "bits": 1,
+      "pipeline_ms": 271.274421364069,
+      "wall_ms": 271.29529044032097,
+      "used": true
+    },
+    {
+      "frame": "0032_02",
+      "bits": 2,
+      "pipeline_ms": 272.24693819880486,
+      "wall_ms": 272.2815275192261,
+      "used": false
+    },
+    {
+      "frame": "0032_04",
+      "bits": 4,
+      "pipeline_ms": 309.40767377614975,
+      "wall_ms": 309.42900851368904,
+      "used": false
+    },
+    {
+      "frame": "0032_16",
+      "bits": 16,
+      "pipeline_ms": 279.61115539073944,
+      "wall_ms": 279.6326354146004,
+      "used": false
+    },
+    {
+      "frame": "0032_08",
+      "bits": 8,
+      "pipeline_ms": 390.01354575157166,
+      "wall_ms": 390.03976061940193,
+      "used": false
+    },
+    {
+      "frame": "0032_09",
+      "bits": 9,
+      "pipeline_ms": 401.9458293914795,
+      "wall_ms": 401.9695185124874,
+      "used": false
+    },
+    {
+      "frame": "0032_10",
+      "bits": 10,
+      "pipeline_ms": 378.0354782938957,
+      "wall_ms": 378.0561462044716,
+      "used": false
+    },
+    {
+      "frame": "0032_12",
+      "bits": 12,
+      "pipeline_ms": 305.70824816823006,
+      "wall_ms": 305.73028326034546,
+      "used": false
+    },
+    {
+      "frame": "0032_24",
+      "bits": 24,
+      "pipeline_ms": 364.67303708195686,
+      "wall_ms": 364.6945506334305,
+      "used": true
+    },
+    {
+      "frame": "0033_00",
+      "bits": 0,
+      "pipeline_ms": 284.82208773493767,
+      "wall_ms": 284.85067188739777,
+      "used": false
+    },
+    {
+      "frame": "0033_01",
+      "bits": 1,
+      "pipeline_ms": 342.2962874174118,
+      "wall_ms": 342.315711081028,
+      "used": false
+    },
+    {
+      "frame": "0033_02",
+      "bits": 2,
+      "pipeline_ms": 272.359162569046,
+      "wall_ms": 272.3802402615547,
+      "used": false
+    },
+    {
+      "frame": "0033_04",
+      "bits": 4,
+      "pipeline_ms": 312.046118080616,
+      "wall_ms": 312.0676167309284,
+      "used": false
+    },
+    {
+      "frame": "0033_16",
+      "bits": 16,
+      "pipeline_ms": 436.32952123880386,
+      "wall_ms": 436.35107576847076,
+      "used": false
+    },
+    {
+      "frame": "0033_08",
+      "bits": 8,
+      "pipeline_ms": 314.20931220054626,
+      "wall_ms": 314.23209607601166,
+      "used": false
+    },
+    {
+      "frame": "0033_09",
+      "bits": 9,
+      "pipeline_ms": 352.7091071009636,
+      "wall_ms": 352.7306318283081,
+      "used": false
+    },
+    {
+      "frame": "0033_10",
+      "bits": 10,
+      "pipeline_ms": 278.3188447356224,
+      "wall_ms": 278.34004908800125,
+      "used": false
+    },
+    {
+      "frame": "0033_12",
+      "bits": 12,
+      "pipeline_ms": 298.37891459465027,
+      "wall_ms": 298.4006628394127,
+      "used": false
+    },
+    {
+      "frame": "0033_24",
+      "bits": 24,
+      "pipeline_ms": 411.90220043063164,
+      "wall_ms": 411.9221940636635,
+      "used": false
+    },
+    {
+      "frame": "0034_00",
+      "bits": 0,
+      "pipeline_ms": 264.96022939682007,
+      "wall_ms": 264.9867534637451,
+      "used": false
+    },
+    {
+      "frame": "0034_01",
+      "bits": 1,
+      "pipeline_ms": 259.0877376496792,
+      "wall_ms": 259.10843908786774,
+      "used": false
+    },
+    {
+      "frame": "0034_02",
+      "bits": 2,
+      "pipeline_ms": 261.17608696222305,
+      "wall_ms": 261.19792088866234,
+      "used": false
+    },
+    {
+      "frame": "0034_04",
+      "bits": 4,
+      "pipeline_ms": 271.13401517271996,
+      "wall_ms": 271.1552269756794,
+      "used": false
+    },
+    {
+      "frame": "0034_16",
+      "bits": 16,
+      "pipeline_ms": 258.6805447936058,
+      "wall_ms": 258.7024159729481,
+      "used": false
+    },
+    {
+      "frame": "0034_08",
+      "bits": 8,
+      "pipeline_ms": 279.0621295571327,
+      "wall_ms": 279.0829725563526,
+      "used": true
+    },
+    {
+      "frame": "0034_09",
+      "bits": 9,
+      "pipeline_ms": 262.85141333937645,
+      "wall_ms": 262.87079602479935,
+      "used": false
+    },
+    {
+      "frame": "0034_10",
+      "bits": 10,
+      "pipeline_ms": 402.9599204659462,
+      "wall_ms": 402.97938138246536,
+      "used": false
+    },
+    {
+      "frame": "0034_12",
+      "bits": 12,
+      "pipeline_ms": 275.6381593644619,
+      "wall_ms": 275.65939351916313,
+      "used": false
+    },
+    {
+      "frame": "0034_24",
+      "bits": 24,
+      "pipeline_ms": 280.1942564547062,
+      "wall_ms": 280.21566942334175,
+      "used": true
+    },
+    {
+      "frame": "0035_00",
+      "bits": 0,
+      "pipeline_ms": 298.64370077848434,
+      "wall_ms": 298.6731678247452,
+      "used": false
+    },
+    {
+      "frame": "0035_01",
+      "bits": 1,
+      "pipeline_ms": 295.9389016032219,
+      "wall_ms": 295.9590442478657,
+      "used": false
+    },
+    {
+      "frame": "0035_02",
+      "bits": 2,
+      "pipeline_ms": 282.57790207862854,
+      "wall_ms": 282.5995162129402,
+      "used": false
+    },
+    {
+      "frame": "0035_04",
+      "bits": 4,
+      "pipeline_ms": 289.21493142843246,
+      "wall_ms": 289.23536092042923,
+      "used": false
+    },
+    {
+      "frame": "0035_16",
+      "bits": 16,
+      "pipeline_ms": 309.9135346710682,
+      "wall_ms": 309.9335953593254,
+      "used": false
+    },
+    {
+      "frame": "0035_08",
+      "bits": 8,
+      "pipeline_ms": 287.9115231335163,
+      "wall_ms": 287.93272003531456,
+      "used": false
+    },
+    {
+      "frame": "0035_09",
+      "bits": 9,
+      "pipeline_ms": 304.92938682436943,
+      "wall_ms": 304.9501068890095,
+      "used": false
+    },
+    {
+      "frame": "0035_10",
+      "bits": 10,
+      "pipeline_ms": 282.2110801935196,
+      "wall_ms": 282.23229199647903,
+      "used": false
+    },
+    {
+      "frame": "0035_12",
+      "bits": 12,
+      "pipeline_ms": 302.1444007754326,
+      "wall_ms": 302.1661154925823,
+      "used": false
+    },
+    {
+      "frame": "0035_24",
+      "bits": 24,
+      "pipeline_ms": 308.3369806408882,
+      "wall_ms": 308.3580918610096,
+      "used": true
+    },
+    {
+      "frame": "0036_00",
+      "bits": 0,
+      "pipeline_ms": 327.38932594656944,
+      "wall_ms": 327.4150975048542,
+      "used": true
+    },
+    {
+      "frame": "0036_01",
+      "bits": 1,
+      "pipeline_ms": 411.30945086479187,
+      "wall_ms": 411.33199259638786,
+      "used": false
+    },
+    {
+      "frame": "0036_02",
+      "bits": 2,
+      "pipeline_ms": 330.41664958000183,
+      "wall_ms": 330.44538646936417,
+      "used": false
+    },
+    {
+      "frame": "0036_04",
+      "bits": 4,
+      "pipeline_ms": 488.7225851416588,
+      "wall_ms": 488.76816034317017,
+      "used": false
+    },
+    {
+      "frame": "0036_16",
+      "bits": 16,
+      "pipeline_ms": 400.14854818582535,
+      "wall_ms": 400.1816362142563,
+      "used": true
+    },
+    {
+      "frame": "0036_08",
+      "bits": 8,
+      "pipeline_ms": 331.84973523020744,
+      "wall_ms": 331.8772576749325,
+      "used": false
+    },
+    {
+      "frame": "0036_09",
+      "bits": 9,
+      "pipeline_ms": 358.4946542978287,
+      "wall_ms": 358.51888358592987,
+      "used": false
+    },
+    {
+      "frame": "0036_10",
+      "bits": 10,
+      "pipeline_ms": 339.91651237010956,
+      "wall_ms": 339.946024119854,
+      "used": false
+    },
+    {
+      "frame": "0036_12",
+      "bits": 12,
+      "pipeline_ms": 401.6912914812565,
+      "wall_ms": 401.72046795487404,
+      "used": false
+    },
+    {
+      "frame": "0036_24",
+      "bits": 24,
+      "pipeline_ms": 399.2338478565216,
+      "wall_ms": 399.2602117359638,
+      "used": false
+    },
+    {
+      "frame": "0037_00",
+      "bits": 0,
+      "pipeline_ms": 271.70753479003906,
+      "wall_ms": 271.7418633401394,
+      "used": false
+    },
+    {
+      "frame": "0037_01",
+      "bits": 1,
+      "pipeline_ms": 284.7120016813278,
+      "wall_ms": 284.73181650042534,
+      "used": false
+    },
+    {
+      "frame": "0037_02",
+      "bits": 2,
+      "pipeline_ms": 285.8967147767544,
+      "wall_ms": 285.9170623123646,
+      "used": false
+    },
+    {
+      "frame": "0037_04",
+      "bits": 4,
+      "pipeline_ms": 316.36951118707657,
+      "wall_ms": 316.39062613248825,
+      "used": false
+    },
+    {
+      "frame": "0037_16",
+      "bits": 16,
+      "pipeline_ms": 271.2794058024883,
+      "wall_ms": 271.30407094955444,
+      "used": true
+    },
+    {
+      "frame": "0037_08",
+      "bits": 8,
+      "pipeline_ms": 278.824869543314,
+      "wall_ms": 278.8458913564682,
+      "used": true
+    },
+    {
+      "frame": "0037_09",
+      "bits": 9,
+      "pipeline_ms": 281.57487139105797,
+      "wall_ms": 281.60614892840385,
+      "used": true
+    },
+    {
+      "frame": "0037_10",
+      "bits": 10,
+      "pipeline_ms": 277.8858095407486,
+      "wall_ms": 277.9133841395378,
+      "used": true
+    },
+    {
+      "frame": "0037_12",
+      "bits": 12,
+      "pipeline_ms": 309.9568784236908,
+      "wall_ms": 309.97852236032486,
+      "used": false
+    },
+    {
+      "frame": "0037_24",
+      "bits": 24,
+      "pipeline_ms": 270.8643525838852,
+      "wall_ms": 270.88793739676476,
+      "used": true
+    },
+    {
+      "frame": "0038_00",
+      "bits": 0,
+      "pipeline_ms": 253.12701612710953,
+      "wall_ms": 253.1547248363495,
+      "used": false
+    },
+    {
+      "frame": "0038_01",
+      "bits": 1,
+      "pipeline_ms": 268.6302103102207,
+      "wall_ms": 268.6493322253227,
+      "used": false
+    },
+    {
+      "frame": "0038_02",
+      "bits": 2,
+      "pipeline_ms": 258.67628678679466,
+      "wall_ms": 258.69806855916977,
+      "used": false
+    },
+    {
+      "frame": "0038_04",
+      "bits": 4,
+      "pipeline_ms": 251.3694055378437,
+      "wall_ms": 251.39161944389343,
+      "used": false
+    },
+    {
+      "frame": "0038_16",
+      "bits": 16,
+      "pipeline_ms": 256.4562223851681,
+      "wall_ms": 256.4789243042469,
+      "used": false
+    },
+    {
+      "frame": "0038_08",
+      "bits": 8,
+      "pipeline_ms": 350.41141510009766,
+      "wall_ms": 350.43229907751083,
+      "used": true
+    },
+    {
+      "frame": "0038_09",
+      "bits": 9,
+      "pipeline_ms": 429.05985563993454,
+      "wall_ms": 429.0790818631649,
+      "used": true
+    },
+    {
+      "frame": "0038_10",
+      "bits": 10,
+      "pipeline_ms": 264.7019773721695,
+      "wall_ms": 264.72390443086624,
+      "used": false
+    },
+    {
+      "frame": "0038_12",
+      "bits": 12,
+      "pipeline_ms": 345.32300382852554,
+      "wall_ms": 345.34548595547676,
+      "used": true
+    },
+    {
+      "frame": "0038_24",
+      "bits": 24,
+      "pipeline_ms": 384.2739164829254,
+      "wall_ms": 384.2950686812401,
+      "used": true
+    },
+    {
+      "frame": "0039_00",
+      "bits": 0,
+      "pipeline_ms": 280.2185043692589,
+      "wall_ms": 280.2591621875763,
+      "used": true
+    },
+    {
+      "frame": "0039_01",
+      "bits": 1,
+      "pipeline_ms": 304.4379688799381,
+      "wall_ms": 304.4598624110222,
+      "used": false
+    },
+    {
+      "frame": "0039_02",
+      "bits": 2,
+      "pipeline_ms": 258.57508555054665,
+      "wall_ms": 258.5959881544113,
+      "used": false
+    },
+    {
+      "frame": "0039_04",
+      "bits": 4,
+      "pipeline_ms": 339.4671529531479,
+      "wall_ms": 339.4872881472111,
+      "used": false
+    },
+    {
+      "frame": "0039_16",
+      "bits": 16,
+      "pipeline_ms": 351.19710117578506,
+      "wall_ms": 351.2190580368042,
+      "used": false
+    },
+    {
+      "frame": "0039_08",
+      "bits": 8,
+      "pipeline_ms": 298.0717718601227,
+      "wall_ms": 298.0925291776657,
+      "used": true
+    },
+    {
+      "frame": "0039_09",
+      "bits": 9,
+      "pipeline_ms": 300.7023446261883,
+      "wall_ms": 300.72420090436935,
+      "used": false
+    },
+    {
+      "frame": "0039_10",
+      "bits": 10,
+      "pipeline_ms": 267.5323374569416,
+      "wall_ms": 267.5553001463413,
+      "used": false
+    },
+    {
+      "frame": "0039_12",
+      "bits": 12,
+      "pipeline_ms": 330.6036703288555,
+      "wall_ms": 330.62490075826645,
+      "used": false
+    },
+    {
+      "frame": "0039_24",
+      "bits": 24,
+      "pipeline_ms": 347.09230437874794,
+      "wall_ms": 347.1149727702141,
+      "used": false
+    },
+    {
+      "frame": "0040_00",
+      "bits": 0,
+      "pipeline_ms": 250.1366212964058,
+      "wall_ms": 250.16524270176888,
+      "used": false
+    },
+    {
+      "frame": "0040_01",
+      "bits": 1,
+      "pipeline_ms": 274.06398579478264,
+      "wall_ms": 274.08526465296745,
+      "used": false
+    },
+    {
+      "frame": "0040_02",
+      "bits": 2,
+      "pipeline_ms": 279.9936607480049,
+      "wall_ms": 280.0160273909569,
+      "used": false
+    },
+    {
+      "frame": "0040_04",
+      "bits": 4,
+      "pipeline_ms": 257.43942707777023,
+      "wall_ms": 257.45999068021774,
+      "used": false
+    },
+    {
+      "frame": "0040_16",
+      "bits": 16,
+      "pipeline_ms": 279.9123749136925,
+      "wall_ms": 279.9338661134243,
+      "used": false
+    },
+    {
+      "frame": "0040_08",
+      "bits": 8,
+      "pipeline_ms": 601.6886159777641,
+      "wall_ms": 601.7105840146542,
+      "used": false
+    },
+    {
+      "frame": "0040_09",
+      "bits": 9,
+      "pipeline_ms": 464.44524079561234,
+      "wall_ms": 464.46602791547775,
+      "used": true
+    },
+    {
+      "frame": "0040_10",
+      "bits": 10,
+      "pipeline_ms": 267.70466566085815,
+      "wall_ms": 267.7268944680691,
+      "used": false
+    },
+    {
+      "frame": "0040_12",
+      "bits": 12,
+      "pipeline_ms": 422.72261530160904,
+      "wall_ms": 422.7477200329304,
+      "used": false
+    },
+    {
+      "frame": "0040_24",
+      "bits": 24,
+      "pipeline_ms": 423.9380285143852,
+      "wall_ms": 423.96044358611107,
+      "used": false
+    },
+    {
+      "frame": "0041_00",
+      "bits": 0,
+      "pipeline_ms": 299.15572330355644,
+      "wall_ms": 299.185186624527,
+      "used": false
+    },
+    {
+      "frame": "0041_01",
+      "bits": 1,
+      "pipeline_ms": 325.19854977726936,
+      "wall_ms": 325.21888986229897,
+      "used": false
+    },
+    {
+      "frame": "0041_02",
+      "bits": 2,
+      "pipeline_ms": 290.4180660843849,
+      "wall_ms": 290.44337943196297,
+      "used": true
+    },
+    {
+      "frame": "0041_04",
+      "bits": 4,
+      "pipeline_ms": 369.69296634197235,
+      "wall_ms": 369.71523985266685,
+      "used": false
+    },
+    {
+      "frame": "0041_16",
+      "bits": 16,
+      "pipeline_ms": 321.00020349025726,
+      "wall_ms": 321.02562859654427,
+      "used": true
+    },
+    {
+      "frame": "0041_08",
+      "bits": 8,
+      "pipeline_ms": 305.02547696232796,
+      "wall_ms": 305.0464019179344,
+      "used": true
+    },
+    {
+      "frame": "0041_09",
+      "bits": 9,
+      "pipeline_ms": 323.7568810582161,
+      "wall_ms": 323.7784281373024,
+      "used": true
+    },
+    {
+      "frame": "0041_10",
+      "bits": 10,
+      "pipeline_ms": 293.22297871112823,
+      "wall_ms": 293.2450361549854,
+      "used": true
+    },
+    {
+      "frame": "0041_12",
+      "bits": 12,
+      "pipeline_ms": 353.9070039987564,
+      "wall_ms": 353.92988845705986,
+      "used": false
+    },
+    {
+      "frame": "0041_24",
+      "bits": 24,
+      "pipeline_ms": 335.7384614646435,
+      "wall_ms": 335.7590511441231,
+      "used": false
+    },
+    {
+      "frame": "0042_00",
+      "bits": 0,
+      "pipeline_ms": 280.6096486747265,
+      "wall_ms": 280.6378975510597,
+      "used": true
+    },
+    {
+      "frame": "0042_01",
+      "bits": 1,
+      "pipeline_ms": 311.68825551867485,
+      "wall_ms": 311.7099553346634,
+      "used": false
+    },
+    {
+      "frame": "0042_02",
+      "bits": 2,
+      "pipeline_ms": 254.23935428261757,
+      "wall_ms": 254.2622722685337,
+      "used": false
+    },
+    {
+      "frame": "0042_04",
+      "bits": 4,
+      "pipeline_ms": 293.8726432621479,
+      "wall_ms": 293.89432817697525,
+      "used": false
+    },
+    {
+      "frame": "0042_16",
+      "bits": 16,
+      "pipeline_ms": 369.25240606069565,
+      "wall_ms": 369.2721240222454,
+      "used": false
+    },
+    {
+      "frame": "0042_08",
+      "bits": 8,
+      "pipeline_ms": 285.8516611158848,
+      "wall_ms": 285.8719527721405,
+      "used": false
+    },
+    {
+      "frame": "0042_09",
+      "bits": 9,
+      "pipeline_ms": 306.6502697765827,
+      "wall_ms": 306.71513080596924,
+      "used": false
+    },
+    {
+      "frame": "0042_10",
+      "bits": 10,
+      "pipeline_ms": 279.06909212470055,
+      "wall_ms": 279.091976583004,
+      "used": false
+    },
+    {
+      "frame": "0042_12",
+      "bits": 12,
+      "pipeline_ms": 301.28684267401695,
+      "wall_ms": 301.31058022379875,
+      "used": false
+    },
+    {
+      "frame": "0042_24",
+      "bits": 24,
+      "pipeline_ms": 383.15730169415474,
+      "wall_ms": 383.176039904356,
+      "used": false
+    },
+    {
+      "frame": "0043_00",
+      "bits": 0,
+      "pipeline_ms": 268.5674913227558,
+      "wall_ms": 268.6082012951374,
+      "used": false
+    },
+    {
+      "frame": "0043_01",
+      "bits": 1,
+      "pipeline_ms": 279.9203656613827,
+      "wall_ms": 279.94249388575554,
+      "used": false
+    },
+    {
+      "frame": "0043_02",
+      "bits": 2,
+      "pipeline_ms": 266.12358540296555,
+      "wall_ms": 266.14706218242645,
+      "used": true
+    },
+    {
+      "frame": "0043_04",
+      "bits": 4,
+      "pipeline_ms": 350.0578701496124,
+      "wall_ms": 350.08061677217484,
+      "used": true
+    },
+    {
+      "frame": "0043_16",
+      "bits": 16,
+      "pipeline_ms": 294.4289445877075,
+      "wall_ms": 294.4531552493572,
+      "used": true
+    },
+    {
+      "frame": "0043_08",
+      "bits": 8,
+      "pipeline_ms": 273.61147105693817,
+      "wall_ms": 273.6338712275028,
+      "used": false
+    },
+    {
+      "frame": "0043_09",
+      "bits": 9,
+      "pipeline_ms": 283.51789712905884,
+      "wall_ms": 283.5395596921444,
+      "used": false
+    },
+    {
+      "frame": "0043_10",
+      "bits": 10,
+      "pipeline_ms": 265.40518552064896,
+      "wall_ms": 265.4290273785591,
+      "used": false
+    },
+    {
+      "frame": "0043_12",
+      "bits": 12,
+      "pipeline_ms": 351.4469601213932,
+      "wall_ms": 351.46746039390564,
+      "used": false
+    },
+    {
+      "frame": "0043_24",
+      "bits": 24,
+      "pipeline_ms": 291.0459488630295,
+      "wall_ms": 291.0687178373337,
+      "used": false
+    },
+    {
+      "frame": "0044_00",
+      "bits": 0,
+      "pipeline_ms": 268.91080290079117,
+      "wall_ms": 268.9400352537632,
+      "used": true
+    },
+    {
+      "frame": "0044_01",
+      "bits": 1,
+      "pipeline_ms": 259.661290794611,
+      "wall_ms": 259.6849277615547,
+      "used": false
+    },
+    {
+      "frame": "0044_02",
+      "bits": 2,
+      "pipeline_ms": 264.87552002072334,
+      "wall_ms": 264.89946991205215,
+      "used": false
+    },
+    {
+      "frame": "0044_04",
+      "bits": 4,
+      "pipeline_ms": 313.98333609104156,
+      "wall_ms": 314.00370225310326,
+      "used": false
+    },
+    {
+      "frame": "0044_16",
+      "bits": 16,
+      "pipeline_ms": 291.10269248485565,
+      "wall_ms": 291.12444445490837,
+      "used": false
+    },
+    {
+      "frame": "0044_08",
+      "bits": 8,
+      "pipeline_ms": 386.5569867193699,
+      "wall_ms": 386.5783140063286,
+      "used": false
+    },
+    {
+      "frame": "0044_09",
+      "bits": 9,
+      "pipeline_ms": 399.96588602662086,
+      "wall_ms": 399.98626336455345,
+      "used": false
+    },
+    {
+      "frame": "0044_10",
+      "bits": 10,
+      "pipeline_ms": 263.4025439620018,
+      "wall_ms": 263.42401653528214,
+      "used": false
+    },
+    {
+      "frame": "0044_12",
+      "bits": 12,
+      "pipeline_ms": 316.68201833963394,
+      "wall_ms": 316.70424714684486,
+      "used": false
+    },
+    {
+      "frame": "0044_24",
+      "bits": 24,
+      "pipeline_ms": 360.81675067543983,
+      "wall_ms": 360.8408682048321,
+      "used": true
+    },
+    {
+      "frame": "0045_00",
+      "bits": 0,
+      "pipeline_ms": 291.3390286266804,
+      "wall_ms": 291.3663312792778,
+      "used": false
+    },
+    {
+      "frame": "0045_01",
+      "bits": 1,
+      "pipeline_ms": 421.4637018740177,
+      "wall_ms": 421.48345336318016,
+      "used": false
+    },
+    {
+      "frame": "0045_02",
+      "bits": 2,
+      "pipeline_ms": 383.9380070567131,
+      "wall_ms": 383.96894186735153,
+      "used": false
+    },
+    {
+      "frame": "0045_04",
+      "bits": 4,
+      "pipeline_ms": 309.45881083607674,
+      "wall_ms": 309.4884902238846,
+      "used": true
+    },
+    {
+      "frame": "0045_16",
+      "bits": 16,
+      "pipeline_ms": 452.78647541999817,
+      "wall_ms": 452.8074748814106,
+      "used": false
+    },
+    {
+      "frame": "0045_08",
+      "bits": 8,
+      "pipeline_ms": 301.2963533401489,
+      "wall_ms": 301.321130245924,
+      "used": false
+    },
+    {
+      "frame": "0045_09",
+      "bits": 9,
+      "pipeline_ms": 414.4664630293846,
+      "wall_ms": 414.50274735689163,
+      "used": false
+    },
+    {
+      "frame": "0045_10",
+      "bits": 10,
+      "pipeline_ms": 397.9851007461548,
+      "wall_ms": 398.01399782299995,
+      "used": false
+    },
+    {
+      "frame": "0045_12",
+      "bits": 12,
+      "pipeline_ms": 307.3884882032871,
+      "wall_ms": 307.417631149292,
+      "used": true
+    },
+    {
+      "frame": "0045_24",
+      "bits": 24,
+      "pipeline_ms": 457.77763798832893,
+      "wall_ms": 457.7980600297451,
+      "used": false
+    },
+    {
+      "frame": "0046_00",
+      "bits": 0,
+      "pipeline_ms": 265.2945928275585,
+      "wall_ms": 265.3256617486477,
+      "used": true
+    },
+    {
+      "frame": "0046_01",
+      "bits": 1,
+      "pipeline_ms": 267.39465817809105,
+      "wall_ms": 267.4203999340534,
+      "used": true
+    },
+    {
+      "frame": "0046_02",
+      "bits": 2,
+      "pipeline_ms": 257.3876455426216,
+      "wall_ms": 257.40963593125343,
+      "used": false
+    },
+    {
+      "frame": "0046_04",
+      "bits": 4,
+      "pipeline_ms": 264.9579495191574,
+      "wall_ms": 264.97866958379745,
+      "used": false
+    },
+    {
+      "frame": "0046_16",
+      "bits": 16,
+      "pipeline_ms": 273.8672271370888,
+      "wall_ms": 273.8889791071415,
+      "used": false
+    },
+    {
+      "frame": "0046_08",
+      "bits": 8,
+      "pipeline_ms": 276.66061744093895,
+      "wall_ms": 276.68024227023125,
+      "used": false
+    },
+    {
+      "frame": "0046_09",
+      "bits": 9,
+      "pipeline_ms": 272.5939676165581,
+      "wall_ms": 272.6176530122757,
+      "used": true
+    },
+    {
+      "frame": "0046_10",
+      "bits": 10,
+      "pipeline_ms": 259.51070338487625,
+      "wall_ms": 259.5325857400894,
+      "used": false
+    },
+    {
+      "frame": "0046_12",
+      "bits": 12,
+      "pipeline_ms": 269.75729689002037,
+      "wall_ms": 269.7784975171089,
+      "used": false
+    },
+    {
+      "frame": "0046_24",
+      "bits": 24,
+      "pipeline_ms": 282.86969289183617,
+      "wall_ms": 282.89059549570084,
+      "used": false
+    },
+    {
+      "frame": "0047_00",
+      "bits": 0,
+      "pipeline_ms": 264.8965120315552,
+      "wall_ms": 264.9245075881481,
+      "used": false
+    },
+    {
+      "frame": "0047_01",
+      "bits": 1,
+      "pipeline_ms": 267.12848246097565,
+      "wall_ms": 267.15053617954254,
+      "used": false
+    },
+    {
+      "frame": "0047_02",
+      "bits": 2,
+      "pipeline_ms": 261.8819810450077,
+      "wall_ms": 261.9040682911873,
+      "used": false
+    },
+    {
+      "frame": "0047_04",
+      "bits": 4,
+      "pipeline_ms": 310.15607342123985,
+      "wall_ms": 310.17720326781273,
+      "used": false
+    },
+    {
+      "frame": "0047_16",
+      "bits": 16,
+      "pipeline_ms": 270.34424990415573,
+      "wall_ms": 270.36600559949875,
+      "used": false
+    },
+    {
+      "frame": "0047_08",
+      "bits": 8,
+      "pipeline_ms": 276.7871804535389,
+      "wall_ms": 276.809711009264,
+      "used": true
+    },
+    {
+      "frame": "0047_09",
+      "bits": 9,
+      "pipeline_ms": 382.67432898283005,
+      "wall_ms": 382.6956897974014,
+      "used": true
+    },
+    {
+      "frame": "0047_10",
+      "bits": 10,
+      "pipeline_ms": 253.9536878466606,
+      "wall_ms": 253.97562980651855,
+      "used": false
+    },
+    {
+      "frame": "0047_12",
+      "bits": 12,
+      "pipeline_ms": 316.19181856513023,
+      "wall_ms": 316.21257960796356,
+      "used": true
+    },
+    {
+      "frame": "0047_24",
+      "bits": 24,
+      "pipeline_ms": 282.09149092435837,
+      "wall_ms": 282.1134440600872,
+      "used": true
+    },
+    {
+      "frame": "0048_00",
+      "bits": 0,
+      "pipeline_ms": 286.1967012286186,
+      "wall_ms": 286.2262465059757,
+      "used": false
+    },
+    {
+      "frame": "0048_01",
+      "bits": 1,
+      "pipeline_ms": 346.7657305300236,
+      "wall_ms": 346.78639844059944,
+      "used": false
+    },
+    {
+      "frame": "0048_02",
+      "bits": 2,
+      "pipeline_ms": 306.9726228713989,
+      "wall_ms": 306.99288100004196,
+      "used": false
+    },
+    {
+      "frame": "0048_04",
+      "bits": 4,
+      "pipeline_ms": 302.36830189824104,
+      "wall_ms": 302.3900240659714,
+      "used": false
+    },
+    {
+      "frame": "0048_16",
+      "bits": 16,
+      "pipeline_ms": 399.21794831752777,
+      "wall_ms": 399.238433688879,
+      "used": false
+    },
+    {
+      "frame": "0048_08",
+      "bits": 8,
+      "pipeline_ms": 286.9441844522953,
+      "wall_ms": 286.9647592306137,
+      "used": false
+    },
+    {
+      "frame": "0048_09",
+      "bits": 9,
+      "pipeline_ms": 330.10995015501976,
+      "wall_ms": 330.1311545073986,
+      "used": false
+    },
+    {
+      "frame": "0048_10",
+      "bits": 10,
+      "pipeline_ms": 309.5705285668373,
+      "wall_ms": 309.59442630410194,
+      "used": false
+    },
+    {
+      "frame": "0048_12",
+      "bits": 12,
+      "pipeline_ms": 294.13382709026337,
+      "wall_ms": 294.15588453412056,
+      "used": false
+    },
+    {
+      "frame": "0048_24",
+      "bits": 24,
+      "pipeline_ms": 396.2610214948654,
+      "wall_ms": 396.2783217430115,
+      "used": false
+    },
+    {
+      "frame": "0049_00",
+      "bits": 0,
+      "pipeline_ms": 273.11837300658226,
+      "wall_ms": 273.14866334199905,
+      "used": false
+    },
+    {
+      "frame": "0049_01",
+      "bits": 1,
+      "pipeline_ms": 281.72772005200386,
+      "wall_ms": 281.74734115600586,
+      "used": false
+    },
+    {
+      "frame": "0049_02",
+      "bits": 2,
+      "pipeline_ms": 286.9952544569969,
+      "wall_ms": 287.0161160826683,
+      "used": true
+    },
+    {
+      "frame": "0049_04",
+      "bits": 4,
+      "pipeline_ms": 289.48650136590004,
+      "wall_ms": 289.5085997879505,
+      "used": false
+    },
+    {
+      "frame": "0049_16",
+      "bits": 16,
+      "pipeline_ms": 286.1233465373516,
+      "wall_ms": 286.14485263824463,
+      "used": true
+    },
+    {
+      "frame": "0049_08",
+      "bits": 8,
+      "pipeline_ms": 375.87611749768257,
+      "wall_ms": 375.8973106741905,
+      "used": false
+    },
+    {
+      "frame": "0049_09",
+      "bits": 9,
+      "pipeline_ms": 410.455372184515,
+      "wall_ms": 410.47658771276474,
+      "used": false
+    },
+    {
+      "frame": "0049_10",
+      "bits": 10,
+      "pipeline_ms": 293.8007712364197,
+      "wall_ms": 293.8227728009224,
+      "used": false
+    },
+    {
+      "frame": "0049_12",
+      "bits": 12,
+      "pipeline_ms": 296.33208364248276,
+      "wall_ms": 296.35606333613396,
+      "used": false
+    },
+    {
+      "frame": "0049_24",
+      "bits": 24,
+      "pipeline_ms": 399.1948403418064,
+      "wall_ms": 399.2162086069584,
+      "used": false
+    },
+    {
+      "frame": "0050_00",
+      "bits": 0,
+      "pipeline_ms": 254.7442615032196,
+      "wall_ms": 254.77612018585205,
+      "used": false
+    },
+    {
+      "frame": "0050_01",
+      "bits": 1,
+      "pipeline_ms": 260.7513889670372,
+      "wall_ms": 260.7717253267765,
+      "used": false
+    },
+    {
+      "frame": "0050_02",
+      "bits": 2,
+      "pipeline_ms": 276.802659034729,
+      "wall_ms": 276.8234834074974,
+      "used": false
+    },
+    {
+      "frame": "0050_04",
+      "bits": 4,
+      "pipeline_ms": 268.6954736709595,
+      "wall_ms": 268.7155790627003,
+      "used": false
+    },
+    {
+      "frame": "0050_16",
+      "bits": 16,
+      "pipeline_ms": 282.72491320967674,
+      "wall_ms": 282.74621069431305,
+      "used": true
+    },
+    {
+      "frame": "0050_08",
+      "bits": 8,
+      "pipeline_ms": 362.3473830521107,
+      "wall_ms": 362.3685650527477,
+      "used": true
+    },
+    {
+      "frame": "0050_09",
+      "bits": 9,
+      "pipeline_ms": 466.2989154458046,
+      "wall_ms": 466.3208797574043,
+      "used": false
+    },
+    {
+      "frame": "0050_10",
+      "bits": 10,
+      "pipeline_ms": 277.6396870613098,
+      "wall_ms": 277.66240015625954,
+      "used": false
+    },
+    {
+      "frame": "0050_12",
+      "bits": 12,
+      "pipeline_ms": 373.6119046807289,
+      "wall_ms": 373.634722083807,
+      "used": false
+    },
+    {
+      "frame": "0050_24",
+      "bits": 24,
+      "pipeline_ms": 356.6608279943466,
+      "wall_ms": 356.68376460671425,
+      "used": true
+    },
+    {
+      "frame": "0051_00",
+      "bits": 0,
+      "pipeline_ms": 272.4139243364334,
+      "wall_ms": 272.4420316517353,
+      "used": false
+    },
+    {
+      "frame": "0051_01",
+      "bits": 1,
+      "pipeline_ms": 301.669929176569,
+      "wall_ms": 301.69040709733963,
+      "used": false
+    },
+    {
+      "frame": "0051_02",
+      "bits": 2,
+      "pipeline_ms": 273.0075977742672,
+      "wall_ms": 273.02858233451843,
+      "used": false
+    },
+    {
+      "frame": "0051_04",
+      "bits": 4,
+      "pipeline_ms": 298.90092834830284,
+      "wall_ms": 298.9226318895817,
+      "used": false
+    },
+    {
+      "frame": "0051_16",
+      "bits": 16,
+      "pipeline_ms": 388.2315829396248,
+      "wall_ms": 388.25104013085365,
+      "used": false
+    },
+    {
+      "frame": "0051_08",
+      "bits": 8,
+      "pipeline_ms": 294.38466578722,
+      "wall_ms": 294.40801590681076,
+      "used": false
+    },
+    {
+      "frame": "0051_09",
+      "bits": 9,
+      "pipeline_ms": 312.48127296566963,
+      "wall_ms": 312.5038519501686,
+      "used": false
+    },
+    {
+      "frame": "0051_10",
+      "bits": 10,
+      "pipeline_ms": 263.8113461434841,
+      "wall_ms": 263.8310492038727,
+      "used": false
+    },
+    {
+      "frame": "0051_12",
+      "bits": 12,
+      "pipeline_ms": 303.4215196967125,
+      "wall_ms": 303.44338342547417,
+      "used": true
+    },
+    {
+      "frame": "0051_24",
+      "bits": 24,
+      "pipeline_ms": 424.61883649230003,
+      "wall_ms": 424.6406815946102,
+      "used": false
+    },
+    {
+      "frame": "0052_00",
+      "bits": 0,
+      "pipeline_ms": 314.527191221714,
+      "wall_ms": 314.55517187714577,
+      "used": true
+    },
+    {
+      "frame": "0052_01",
+      "bits": 1,
+      "pipeline_ms": 302.8193600475788,
+      "wall_ms": 302.84056812524796,
+      "used": false
+    },
+    {
+      "frame": "0052_02",
+      "bits": 2,
+      "pipeline_ms": 293.59501227736473,
+      "wall_ms": 293.6165928840637,
+      "used": true
+    },
+    {
+      "frame": "0052_04",
+      "bits": 4,
+      "pipeline_ms": 352.10268199443817,
+      "wall_ms": 352.1249331533909,
+      "used": false
+    },
+    {
+      "frame": "0052_16",
+      "bits": 16,
+      "pipeline_ms": 304.690171033144,
+      "wall_ms": 304.71205338835716,
+      "used": false
+    },
+    {
+      "frame": "0052_08",
+      "bits": 8,
+      "pipeline_ms": 298.51534217596054,
+      "wall_ms": 298.5365726053715,
+      "used": true
+    },
+    {
+      "frame": "0052_09",
+      "bits": 9,
+      "pipeline_ms": 308.97727981209755,
+      "wall_ms": 309.00049582123756,
+      "used": true
+    },
+    {
+      "frame": "0052_10",
+      "bits": 10,
+      "pipeline_ms": 304.03196811676025,
+      "wall_ms": 304.0536008775234,
+      "used": false
+    },
+    {
+      "frame": "0052_12",
+      "bits": 12,
+      "pipeline_ms": 347.2066931426525,
+      "wall_ms": 347.2275137901306,
+      "used": false
+    },
+    {
+      "frame": "0052_24",
+      "bits": 24,
+      "pipeline_ms": 307.10742250084877,
+      "wall_ms": 307.12857842445374,
+      "used": true
+    },
+    {
+      "frame": "0053_00",
+      "bits": 0,
+      "pipeline_ms": 265.25263860821724,
+      "wall_ms": 265.28196409344673,
+      "used": false
+    },
+    {
+      "frame": "0053_01",
+      "bits": 1,
+      "pipeline_ms": 261.55148074030876,
+      "wall_ms": 261.57261431217194,
+      "used": false
+    },
+    {
+      "frame": "0053_02",
+      "bits": 2,
+      "pipeline_ms": 280.9273861348629,
+      "wall_ms": 280.9482477605343,
+      "used": false
+    },
+    {
+      "frame": "0053_04",
+      "bits": 4,
+      "pipeline_ms": 247.92783334851265,
+      "wall_ms": 247.94797226786613,
+      "used": false
+    },
+    {
+      "frame": "0053_16",
+      "bits": 16,
+      "pipeline_ms": 285.3846773505211,
+      "wall_ms": 285.4074761271477,
+      "used": false
+    },
+    {
+      "frame": "0053_08",
+      "bits": 8,
+      "pipeline_ms": 291.1341227591038,
+      "wall_ms": 291.15593060851097,
+      "used": true
+    },
+    {
+      "frame": "0053_09",
+      "bits": 9,
+      "pipeline_ms": 459.2607393860817,
+      "wall_ms": 459.2832401394844,
+      "used": false
+    },
+    {
+      "frame": "0053_10",
+      "bits": 10,
+      "pipeline_ms": 277.1441899240017,
+      "wall_ms": 277.16588228940964,
+      "used": false
+    },
+    {
+      "frame": "0053_12",
+      "bits": 12,
+      "pipeline_ms": 277.1647721529007,
+      "wall_ms": 277.1860398352146,
+      "used": false
+    },
+    {
+      "frame": "0053_24",
+      "bits": 24,
+      "pipeline_ms": 297.81781882047653,
+      "wall_ms": 297.83808439970016,
+      "used": true
+    },
+    {
+      "frame": "0054_00",
+      "bits": 0,
+      "pipeline_ms": 275.3698378801346,
+      "wall_ms": 275.3962129354477,
+      "used": false
+    },
+    {
+      "frame": "0054_01",
+      "bits": 1,
+      "pipeline_ms": 289.51986879110336,
+      "wall_ms": 289.53877463936806,
+      "used": false
+    },
+    {
+      "frame": "0054_02",
+      "bits": 2,
+      "pipeline_ms": 275.7680304348469,
+      "wall_ms": 275.7897786796093,
+      "used": false
+    },
+    {
+      "frame": "0054_04",
+      "bits": 4,
+      "pipeline_ms": 304.1298910975456,
+      "wall_ms": 304.1514791548252,
+      "used": false
+    },
+    {
+      "frame": "0054_16",
+      "bits": 16,
+      "pipeline_ms": 323.61065596342087,
+      "wall_ms": 323.63294064998627,
+      "used": false
+    },
+    {
+      "frame": "0054_08",
+      "bits": 8,
+      "pipeline_ms": 282.88019821047783,
+      "wall_ms": 282.901406288147,
+      "used": false
+    },
+    {
+      "frame": "0054_09",
+      "bits": 9,
+      "pipeline_ms": 295.6119067966938,
+      "wall_ms": 295.63312605023384,
+      "used": false
+    },
+    {
+      "frame": "0054_10",
+      "bits": 10,
+      "pipeline_ms": 271.8535512685776,
+      "wall_ms": 271.87585458159447,
+      "used": false
+    },
+    {
+      "frame": "0054_12",
+      "bits": 12,
+      "pipeline_ms": 304.03128266334534,
+      "wall_ms": 304.05178666114807,
+      "used": false
+    },
+    {
+      "frame": "0054_24",
+      "bits": 24,
+      "pipeline_ms": 300.0953383743763,
+      "wall_ms": 300.1161925494671,
+      "used": false
+    },
+    {
+      "frame": "0055_00",
+      "bits": 0,
+      "pipeline_ms": 261.48347184062004,
+      "wall_ms": 261.51661202311516,
+      "used": false
+    },
+    {
+      "frame": "0055_01",
+      "bits": 1,
+      "pipeline_ms": 276.21131017804146,
+      "wall_ms": 276.23559162020683,
+      "used": false
+    },
+    {
+      "frame": "0055_02",
+      "bits": 2,
+      "pipeline_ms": 289.40240293741226,
+      "wall_ms": 289.4238419830799,
+      "used": false
+    },
+    {
+      "frame": "0055_04",
+      "bits": 4,
+      "pipeline_ms": 277.80772000551224,
+      "wall_ms": 277.82898768782616,
+      "used": false
+    },
+    {
+      "frame": "0055_16",
+      "bits": 16,
+      "pipeline_ms": 258.9573822915554,
+      "wall_ms": 258.97911563515663,
+      "used": false
+    },
+    {
+      "frame": "0055_08",
+      "bits": 8,
+      "pipeline_ms": 278.2115750014782,
+      "wall_ms": 278.2330773770809,
+      "used": false
+    },
+    {
+      "frame": "0055_09",
+      "bits": 9,
+      "pipeline_ms": 270.8006463944912,
+      "wall_ms": 270.8205506205559,
+      "used": false
+    },
+    {
+      "frame": "0055_10",
+      "bits": 10,
+      "pipeline_ms": 291.97780042886734,
+      "wall_ms": 291.9992506504059,
+      "used": false
+    },
+    {
+      "frame": "0055_12",
+      "bits": 12,
+      "pipeline_ms": 267.04657450318336,
+      "wall_ms": 267.0680843293667,
+      "used": false
+    },
+    {
+      "frame": "0055_24",
+      "bits": 24,
+      "pipeline_ms": 255.3061805665493,
+      "wall_ms": 255.32863289117813,
+      "used": false
+    },
+    {
+      "frame": "0056_00",
+      "bits": 0,
+      "pipeline_ms": 266.3234695792198,
+      "wall_ms": 266.35217294096947,
+      "used": true
+    },
+    {
+      "frame": "0056_01",
+      "bits": 1,
+      "pipeline_ms": 283.3690866827965,
+      "wall_ms": 283.38832408189774,
+      "used": false
+    },
+    {
+      "frame": "0056_02",
+      "bits": 2,
+      "pipeline_ms": 273.3470909297466,
+      "wall_ms": 273.36878702044487,
+      "used": false
+    },
+    {
+      "frame": "0056_04",
+      "bits": 4,
+      "pipeline_ms": 356.5558083355427,
+      "wall_ms": 356.57645761966705,
+      "used": false
+    },
+    {
+      "frame": "0056_16",
+      "bits": 16,
+      "pipeline_ms": 303.3480979502201,
+      "wall_ms": 303.3707030117512,
+      "used": false
+    },
+    {
+      "frame": "0056_08",
+      "bits": 8,
+      "pipeline_ms": 275.6589874625206,
+      "wall_ms": 275.68046376109123,
+      "used": false
+    },
+    {
+      "frame": "0056_09",
+      "bits": 9,
+      "pipeline_ms": 302.1745793521404,
+      "wall_ms": 302.1947145462036,
+      "used": false
+    },
+    {
+      "frame": "0056_10",
+      "bits": 10,
+      "pipeline_ms": 266.98873564600945,
+      "wall_ms": 267.00884476304054,
+      "used": false
+    },
+    {
+      "frame": "0056_12",
+      "bits": 12,
+      "pipeline_ms": 364.8155592381954,
+      "wall_ms": 364.83723297715187,
+      "used": false
+    },
+    {
+      "frame": "0056_24",
+      "bits": 24,
+      "pipeline_ms": 298.06316271424294,
+      "wall_ms": 298.08612540364265,
+      "used": false
+    },
+    {
+      "frame": "0057_00",
+      "bits": 0,
+      "pipeline_ms": 276.21517330408096,
+      "wall_ms": 276.2439139187336,
+      "used": false
+    },
+    {
+      "frame": "0057_01",
+      "bits": 1,
+      "pipeline_ms": 310.53563207387924,
+      "wall_ms": 310.55527552962303,
+      "used": false
+    },
+    {
+      "frame": "0057_02",
+      "bits": 2,
+      "pipeline_ms": 251.46279484033585,
+      "wall_ms": 251.4869160950184,
+      "used": false
+    },
+    {
+      "frame": "0057_04",
+      "bits": 4,
+      "pipeline_ms": 288.77709060907364,
+      "wall_ms": 288.796853274107,
+      "used": false
+    },
+    {
+      "frame": "0057_16",
+      "bits": 16,
+      "pipeline_ms": 318.5443878173828,
+      "wall_ms": 318.5661658644676,
+      "used": false
+    },
+    {
+      "frame": "0057_08",
+      "bits": 8,
+      "pipeline_ms": 292.4986034631729,
+      "wall_ms": 292.5206497311592,
+      "used": false
+    },
+    {
+      "frame": "0057_09",
+      "bits": 9,
+      "pipeline_ms": 298.33201691508293,
+      "wall_ms": 298.3517497777939,
+      "used": false
+    },
+    {
+      "frame": "0057_10",
+      "bits": 10,
+      "pipeline_ms": 264.44410160183907,
+      "wall_ms": 264.4658237695694,
+      "used": false
+    },
+    {
+      "frame": "0057_12",
+      "bits": 12,
+      "pipeline_ms": 282.72775188088417,
+      "wall_ms": 282.74963051080704,
+      "used": false
+    },
+    {
+      "frame": "0057_24",
+      "bits": 24,
+      "pipeline_ms": 345.3505411744118,
+      "wall_ms": 345.3708849847317,
+      "used": false
+    },
+    {
+      "frame": "0058_00",
+      "bits": 0,
+      "pipeline_ms": 277.69942209124565,
+      "wall_ms": 277.72772312164307,
+      "used": false
+    },
+    {
+      "frame": "0058_01",
+      "bits": 1,
+      "pipeline_ms": 284.85677018761635,
+      "wall_ms": 284.8784066736698,
+      "used": false
+    },
+    {
+      "frame": "0058_02",
+      "bits": 2,
+      "pipeline_ms": 267.91582629084587,
+      "wall_ms": 267.9372653365135,
+      "used": true
+    },
+    {
+      "frame": "0058_04",
+      "bits": 4,
+      "pipeline_ms": 288.5313108563423,
+      "wall_ms": 288.5543331503868,
+      "used": false
+    },
+    {
+      "frame": "0058_16",
+      "bits": 16,
+      "pipeline_ms": 285.3817641735077,
+      "wall_ms": 285.40441021323204,
+      "used": true
+    },
+    {
+      "frame": "0058_08",
+      "bits": 8,
+      "pipeline_ms": 274.5061106979847,
+      "wall_ms": 274.52874183654785,
+      "used": false
+    },
+    {
+      "frame": "0058_09",
+      "bits": 9,
+      "pipeline_ms": 294.69117894768715,
+      "wall_ms": 294.7108969092369,
+      "used": false
+    },
+    {
+      "frame": "0058_10",
+      "bits": 10,
+      "pipeline_ms": 282.67981112003326,
+      "wall_ms": 282.7015407383442,
+      "used": true
+    },
+    {
+      "frame": "0058_12",
+      "bits": 12,
+      "pipeline_ms": 295.2040582895279,
+      "wall_ms": 295.2263839542866,
+      "used": false
+    },
+    {
+      "frame": "0058_24",
+      "bits": 24,
+      "pipeline_ms": 267.8689658641815,
+      "wall_ms": 267.8915373980999,
+      "used": false
+    },
+    {
+      "frame": "0059_00",
+      "bits": 0,
+      "pipeline_ms": 247.7523349225521,
+      "wall_ms": 247.78005853295326,
+      "used": false
+    },
+    {
+      "frame": "0059_01",
+      "bits": 1,
+      "pipeline_ms": 267.6996998488903,
+      "wall_ms": 267.7214480936527,
+      "used": false
+    },
+    {
+      "frame": "0059_02",
+      "bits": 2,
+      "pipeline_ms": 265.4718868434429,
+      "wall_ms": 265.4939740896225,
+      "used": false
+    },
+    {
+      "frame": "0059_04",
+      "bits": 4,
+      "pipeline_ms": 283.5395559668541,
+      "wall_ms": 283.5613079369068,
+      "used": false
+    },
+    {
+      "frame": "0059_16",
+      "bits": 16,
+      "pipeline_ms": 267.047718167305,
+      "wall_ms": 267.07011461257935,
+      "used": false
+    },
+    {
+      "frame": "0059_08",
+      "bits": 8,
+      "pipeline_ms": 281.1484895646572,
+      "wall_ms": 281.1693102121353,
+      "used": true
+    },
+    {
+      "frame": "0059_09",
+      "bits": 9,
+      "pipeline_ms": 276.1616036295891,
+      "wall_ms": 276.1821113526821,
+      "used": true
+    },
+    {
+      "frame": "0059_10",
+      "bits": 10,
+      "pipeline_ms": 277.803648263216,
+      "wall_ms": 277.8257392346859,
+      "used": false
+    },
+    {
+      "frame": "0059_12",
+      "bits": 12,
+      "pipeline_ms": 421.25101387500763,
+      "wall_ms": 421.27586528658867,
+      "used": false
+    },
+    {
+      "frame": "0059_24",
+      "bits": 24,
+      "pipeline_ms": 278.1063951551914,
+      "wall_ms": 278.13247218728065,
+      "used": true
+    },
+    {
+      "frame": "0060_00",
+      "bits": 0,
+      "pipeline_ms": 300.48540234565735,
+      "wall_ms": 300.51378160715103,
+      "used": false
+    },
+    {
+      "frame": "0060_01",
+      "bits": 1,
+      "pipeline_ms": 292.2285683453083,
+      "wall_ms": 292.252354323864,
+      "used": false
+    },
+    {
+      "frame": "0060_02",
+      "bits": 2,
+      "pipeline_ms": 265.3374746441841,
+      "wall_ms": 265.369288623333,
+      "used": false
+    },
+    {
+      "frame": "0060_04",
+      "bits": 4,
+      "pipeline_ms": 313.89254704117775,
+      "wall_ms": 313.91530856490135,
+      "used": false
+    },
+    {
+      "frame": "0060_16",
+      "bits": 16,
+      "pipeline_ms": 315.02505391836166,
+      "wall_ms": 315.04832580685616,
+      "used": false
+    },
+    {
+      "frame": "0060_08",
+      "bits": 8,
+      "pipeline_ms": 279.18171882629395,
+      "wall_ms": 279.20493111014366,
+      "used": false
+    },
+    {
+      "frame": "0060_09",
+      "bits": 9,
+      "pipeline_ms": 287.381611764431,
+      "wall_ms": 287.40109875798225,
+      "used": false
+    },
+    {
+      "frame": "0060_10",
+      "bits": 10,
+      "pipeline_ms": 439.8793689906597,
+      "wall_ms": 439.9029575288296,
+      "used": false
+    },
+    {
+      "frame": "0060_12",
+      "bits": 12,
+      "pipeline_ms": 692.7682906389236,
+      "wall_ms": 692.7952654659748,
+      "used": false
+    },
+    {
+      "frame": "0060_24",
+      "bits": 24,
+      "pipeline_ms": 704.1865773499012,
+      "wall_ms": 704.2106911540031,
+      "used": false
+    },
+    {
+      "frame": "0061_00",
+      "bits": 0,
+      "pipeline_ms": 628.1805746257305,
+      "wall_ms": 628.2069347798824,
+      "used": false
+    },
+    {
+      "frame": "0061_01",
+      "bits": 1,
+      "pipeline_ms": 574.9434679746628,
+      "wall_ms": 574.9659389257431,
+      "used": false
+    },
+    {
+      "frame": "0061_02",
+      "bits": 2,
+      "pipeline_ms": 254.75453585386276,
+      "wall_ms": 254.77734953165054,
+      "used": false
+    },
+    {
+      "frame": "0061_04",
+      "bits": 4,
+      "pipeline_ms": 267.7110433578491,
+      "wall_ms": 267.7309215068817,
+      "used": false
+    },
+    {
+      "frame": "0061_16",
+      "bits": 16,
+      "pipeline_ms": 258.9164189994335,
+      "wall_ms": 258.9389532804489,
+      "used": false
+    },
+    {
+      "frame": "0061_08",
+      "bits": 8,
+      "pipeline_ms": 394.22567188739777,
+      "wall_ms": 394.2478932440281,
+      "used": true
+    },
+    {
+      "frame": "0061_09",
+      "bits": 9,
+      "pipeline_ms": 1295.7937829196453,
+      "wall_ms": 1295.8177998661995,
+      "used": true
+    },
+    {
+      "frame": "0061_10",
+      "bits": 10,
+      "pipeline_ms": 464.8444205522537,
+      "wall_ms": 464.8658111691475,
+      "used": true
+    },
+    {
+      "frame": "0061_12",
+      "bits": 12,
+      "pipeline_ms": 281.1872251331806,
+      "wall_ms": 281.21112659573555,
+      "used": true
+    },
+    {
+      "frame": "0061_24",
+      "bits": 24,
+      "pipeline_ms": 281.91573917865753,
+      "wall_ms": 281.93580359220505,
+      "used": true
+    },
+    {
+      "frame": "0062_00",
+      "bits": 0,
+      "pipeline_ms": 283.90683233737946,
+      "wall_ms": 283.9340306818485,
+      "used": true
+    },
+    {
+      "frame": "0062_01",
+      "bits": 1,
+      "pipeline_ms": 287.27881982922554,
+      "wall_ms": 287.29960694909096,
+      "used": false
+    },
+    {
+      "frame": "0062_02",
+      "bits": 2,
+      "pipeline_ms": 289.94933515787125,
+      "wall_ms": 289.98658061027527,
+      "used": false
+    },
+    {
+      "frame": "0062_04",
+      "bits": 4,
+      "pipeline_ms": 298.06381836533546,
+      "wall_ms": 298.0872057378292,
+      "used": false
+    },
+    {
+      "frame": "0062_16",
+      "bits": 16,
+      "pipeline_ms": 268.70734989643097,
+      "wall_ms": 268.7301076948643,
+      "used": true
+    },
+    {
+      "frame": "0062_08",
+      "bits": 8,
+      "pipeline_ms": 724.5603650808334,
+      "wall_ms": 724.5819792151451,
+      "used": true
+    },
+    {
+      "frame": "0062_09",
+      "bits": 9,
+      "pipeline_ms": 489.00213092565536,
+      "wall_ms": 489.022608846426,
+      "used": false
+    },
+    {
+      "frame": "0062_10",
+      "bits": 10,
+      "pipeline_ms": 381.2020756304264,
+      "wall_ms": 381.2222294509411,
+      "used": false
+    },
+    {
+      "frame": "0062_12",
+      "bits": 12,
+      "pipeline_ms": 315.04370272159576,
+      "wall_ms": 315.0663785636425,
+      "used": false
+    },
+    {
+      "frame": "0062_24",
+      "bits": 24,
+      "pipeline_ms": 360.149759799242,
+      "wall_ms": 360.1703867316246,
+      "used": true
+    },
+    {
+      "frame": "0063_00",
+      "bits": 0,
+      "pipeline_ms": 285.13671830296516,
+      "wall_ms": 285.165224224329,
+      "used": true
+    },
+    {
+      "frame": "0063_01",
+      "bits": 1,
+      "pipeline_ms": 349.8329892754555,
+      "wall_ms": 349.85268861055374,
+      "used": false
+    },
+    {
+      "frame": "0063_02",
+      "bits": 2,
+      "pipeline_ms": 277.2493250668049,
+      "wall_ms": 277.2732302546501,
+      "used": false
+    },
+    {
+      "frame": "0063_04",
+      "bits": 4,
+      "pipeline_ms": 405.235692858696,
+      "wall_ms": 405.25947138667107,
+      "used": false
+    },
+    {
+      "frame": "0063_16",
+      "bits": 16,
+      "pipeline_ms": 363.7440875172615,
+      "wall_ms": 363.76480013132095,
+      "used": false
+    },
+    {
+      "frame": "0063_08",
+      "bits": 8,
+      "pipeline_ms": 289.3478646874428,
+      "wall_ms": 289.3696762621403,
+      "used": false
+    },
+    {
+      "frame": "0063_09",
+      "bits": 9,
+      "pipeline_ms": 348.26961532235146,
+      "wall_ms": 348.2896722853184,
+      "used": false
+    },
+    {
+      "frame": "0063_10",
+      "bits": 10,
+      "pipeline_ms": 278.7875086069107,
+      "wall_ms": 278.81039679050446,
+      "used": false
+    },
+    {
+      "frame": "0063_12",
+      "bits": 12,
+      "pipeline_ms": 393.9981199800968,
+      "wall_ms": 394.01712268590927,
+      "used": false
+    },
+    {
+      "frame": "0063_24",
+      "bits": 24,
+      "pipeline_ms": 364.97675999999046,
+      "wall_ms": 364.99933525919914,
+      "used": false
+    },
+    {
+      "frame": "0064_00",
+      "bits": 0,
+      "pipeline_ms": 274.14610236883163,
+      "wall_ms": 274.1715833544731,
+      "used": false
+    },
+    {
+      "frame": "0064_01",
+      "bits": 1,
+      "pipeline_ms": 274.50209483504295,
+      "wall_ms": 274.5244689285755,
+      "used": false
+    },
+    {
+      "frame": "0064_02",
+      "bits": 2,
+      "pipeline_ms": 290.29544815421104,
+      "wall_ms": 290.31791538000107,
+      "used": false
+    },
+    {
+      "frame": "0064_04",
+      "bits": 4,
+      "pipeline_ms": 380.75463846325874,
+      "wall_ms": 380.7969242334366,
+      "used": false
+    },
+    {
+      "frame": "0064_16",
+      "bits": 16,
+      "pipeline_ms": 290.24941474199295,
+      "wall_ms": 290.29177874326706,
+      "used": false
+    },
+    {
+      "frame": "0064_08",
+      "bits": 8,
+      "pipeline_ms": 280.43053299188614,
+      "wall_ms": 280.45133873820305,
+      "used": true
+    },
+    {
+      "frame": "0064_09",
+      "bits": 9,
+      "pipeline_ms": 288.873054087162,
+      "wall_ms": 288.89643773436546,
+      "used": true
+    },
+    {
+      "frame": "0064_10",
+      "bits": 10,
+      "pipeline_ms": 288.42242807149887,
+      "wall_ms": 288.44449296593666,
+      "used": true
+    },
+    {
+      "frame": "0064_12",
+      "bits": 12,
+      "pipeline_ms": 531.652171164751,
+      "wall_ms": 531.6737815737724,
+      "used": false
+    },
+    {
+      "frame": "0064_24",
+      "bits": 24,
+      "pipeline_ms": 274.62348341941833,
+      "wall_ms": 274.64447170495987,
+      "used": true
+    },
+    {
+      "frame": "0065_00",
+      "bits": 0,
+      "pipeline_ms": 273.76579120755196,
+      "wall_ms": 273.7961746752262,
+      "used": false
+    },
+    {
+      "frame": "0065_01",
+      "bits": 1,
+      "pipeline_ms": 272.96004444360733,
+      "wall_ms": 272.9813791811466,
+      "used": false
+    },
+    {
+      "frame": "0065_02",
+      "bits": 2,
+      "pipeline_ms": 265.8874839544296,
+      "wall_ms": 265.91185480356216,
+      "used": false
+    },
+    {
+      "frame": "0065_04",
+      "bits": 4,
+      "pipeline_ms": 297.12508246302605,
+      "wall_ms": 297.14660346508026,
+      "used": false
+    },
+    {
+      "frame": "0065_16",
+      "bits": 16,
+      "pipeline_ms": 282.0158340036869,
+      "wall_ms": 282.04092383384705,
+      "used": false
+    },
+    {
+      "frame": "0065_08",
+      "bits": 8,
+      "pipeline_ms": 300.64142495393753,
+      "wall_ms": 300.661813467741,
+      "used": true
+    },
+    {
+      "frame": "0065_09",
+      "bits": 9,
+      "pipeline_ms": 280.5250585079193,
+      "wall_ms": 280.54727986454964,
+      "used": false
+    },
+    {
+      "frame": "0065_10",
+      "bits": 10,
+      "pipeline_ms": 273.38532358407974,
+      "wall_ms": 273.4062448143959,
+      "used": true
+    },
+    {
+      "frame": "0065_12",
+      "bits": 12,
+      "pipeline_ms": 301.96869745850563,
+      "wall_ms": 301.991268992424,
+      "used": false
+    },
+    {
+      "frame": "0065_24",
+      "bits": 24,
+      "pipeline_ms": 286.7383137345314,
+      "wall_ms": 286.75995022058487,
+      "used": false
+    },
+    {
+      "frame": "0066_00",
+      "bits": 0,
+      "pipeline_ms": 346.6275706887245,
+      "wall_ms": 346.6540575027466,
+      "used": true
+    },
+    {
+      "frame": "0066_01",
+      "bits": 1,
+      "pipeline_ms": 362.0932251214981,
+      "wall_ms": 362.11173981428146,
+      "used": true
+    },
+    {
+      "frame": "0066_02",
+      "bits": 2,
+      "pipeline_ms": 298.6197806894779,
+      "wall_ms": 298.6416444182396,
+      "used": true
+    },
+    {
+      "frame": "0066_04",
+      "bits": 4,
+      "pipeline_ms": 437.5433698296547,
+      "wall_ms": 437.56358325481415,
+      "used": false
+    },
+    {
+      "frame": "0066_16",
+      "bits": 16,
+      "pipeline_ms": 378.7427321076393,
+      "wall_ms": 378.76464426517487,
+      "used": true
+    },
+    {
+      "frame": "0066_08",
+      "bits": 8,
+      "pipeline_ms": 351.3787314295769,
+      "wall_ms": 351.3995036482811,
+      "used": false
+    },
+    {
+      "frame": "0066_09",
+      "bits": 9,
+      "pipeline_ms": 361.769936978817,
+      "wall_ms": 361.79959774017334,
+      "used": true
+    },
+    {
+      "frame": "0066_10",
+      "bits": 10,
+      "pipeline_ms": 290.81084579229355,
+      "wall_ms": 290.8374145627022,
+      "used": true
+    },
+    {
+      "frame": "0066_12",
+      "bits": 12,
+      "pipeline_ms": 436.9445741176605,
+      "wall_ms": 436.96438521146774,
+      "used": false
+    },
+    {
+      "frame": "0066_24",
+      "bits": 24,
+      "pipeline_ms": 389.39475640654564,
+      "wall_ms": 389.4190564751625,
+      "used": false
+    },
+    {
+      "frame": "0067_00",
+      "bits": 0,
+      "pipeline_ms": 259.17285308241844,
+      "wall_ms": 259.19974967837334,
+      "used": false
+    },
+    {
+      "frame": "0067_01",
+      "bits": 1,
+      "pipeline_ms": 259.4273276627064,
+      "wall_ms": 259.44751128554344,
+      "used": false
+    },
+    {
+      "frame": "0067_02",
+      "bits": 2,
+      "pipeline_ms": 255.83859533071518,
+      "wall_ms": 255.85881993174553,
+      "used": false
+    },
+    {
+      "frame": "0067_04",
+      "bits": 4,
+      "pipeline_ms": 292.2898456454277,
+      "wall_ms": 292.3090569674969,
+      "used": false
+    },
+    {
+      "frame": "0067_16",
+      "bits": 16,
+      "pipeline_ms": 274.43714439868927,
+      "wall_ms": 274.458896368742,
+      "used": false
+    },
+    {
+      "frame": "0067_08",
+      "bits": 8,
+      "pipeline_ms": 250.22805109620094,
+      "wall_ms": 250.24912878870964,
+      "used": false
+    },
+    {
+      "frame": "0067_09",
+      "bits": 9,
+      "pipeline_ms": 263.41909170150757,
+      "wall_ms": 263.4383924305439,
+      "used": false
+    },
+    {
+      "frame": "0067_10",
+      "bits": 10,
+      "pipeline_ms": 250.06743520498276,
+      "wall_ms": 250.08757412433624,
+      "used": false
+    },
+    {
+      "frame": "0067_12",
+      "bits": 12,
+      "pipeline_ms": 294.22666504979134,
+      "wall_ms": 294.24651339650154,
+      "used": false
+    },
+    {
+      "frame": "0067_24",
+      "bits": 24,
+      "pipeline_ms": 263.13046365976334,
+      "wall_ms": 263.1523869931698,
+      "used": false
+    },
+    {
+      "frame": "0068_00",
+      "bits": 0,
+      "pipeline_ms": 255.79003617167473,
+      "wall_ms": 255.82115724682808,
+      "used": false
+    },
+    {
+      "frame": "0068_01",
+      "bits": 1,
+      "pipeline_ms": 271.22582122683525,
+      "wall_ms": 271.2459936738014,
+      "used": false
+    },
+    {
+      "frame": "0068_02",
+      "bits": 2,
+      "pipeline_ms": 277.64635905623436,
+      "wall_ms": 277.66843140125275,
+      "used": false
+    },
+    {
+      "frame": "0068_04",
+      "bits": 4,
+      "pipeline_ms": 298.25733602046967,
+      "wall_ms": 298.2776574790478,
+      "used": false
+    },
+    {
+      "frame": "0068_16",
+      "bits": 16,
+      "pipeline_ms": 303.7646599113941,
+      "wall_ms": 303.78471687436104,
+      "used": false
+    },
+    {
+      "frame": "0068_08",
+      "bits": 8,
+      "pipeline_ms": 452.41107046604156,
+      "wall_ms": 452.4306617677212,
+      "used": false
+    },
+    {
+      "frame": "0068_09",
+      "bits": 9,
+      "pipeline_ms": 435.7166849076748,
+      "wall_ms": 435.7370473444462,
+      "used": false
+    },
+    {
+      "frame": "0068_10",
+      "bits": 10,
+      "pipeline_ms": 269.6034833788872,
+      "wall_ms": 269.66073364019394,
+      "used": false
+    },
+    {
+      "frame": "0068_12",
+      "bits": 12,
+      "pipeline_ms": 299.0892566740513,
+      "wall_ms": 299.1112284362316,
+      "used": false
+    },
+    {
+      "frame": "0068_24",
+      "bits": 24,
+      "pipeline_ms": 359.32428762316704,
+      "wall_ms": 359.3444973230362,
+      "used": false
+    },
+    {
+      "frame": "0069_00",
+      "bits": 0,
+      "pipeline_ms": 286.81478649377823,
+      "wall_ms": 286.8447117507458,
+      "used": true
+    },
+    {
+      "frame": "0069_01",
+      "bits": 1,
+      "pipeline_ms": 348.7947918474674,
+      "wall_ms": 348.81579503417015,
+      "used": false
+    },
+    {
+      "frame": "0069_02",
+      "bits": 2,
+      "pipeline_ms": 257.85505026578903,
+      "wall_ms": 257.8781954944134,
+      "used": false
+    },
+    {
+      "frame": "0069_04",
+      "bits": 4,
+      "pipeline_ms": 296.85967043042183,
+      "wall_ms": 296.8815192580223,
+      "used": false
+    },
+    {
+      "frame": "0069_16",
+      "bits": 16,
+      "pipeline_ms": 415.51195457577705,
+      "wall_ms": 415.5319258570671,
+      "used": false
+    },
+    {
+      "frame": "0069_08",
+      "bits": 8,
+      "pipeline_ms": 295.47613859176636,
+      "wall_ms": 295.49771547317505,
+      "used": true
+    },
+    {
+      "frame": "0069_09",
+      "bits": 9,
+      "pipeline_ms": 340.4952436685562,
+      "wall_ms": 340.5153304338455,
+      "used": false
+    },
+    {
+      "frame": "0069_10",
+      "bits": 10,
+      "pipeline_ms": 265.1822939515114,
+      "wall_ms": 265.20371064543724,
+      "used": false
+    },
+    {
+      "frame": "0069_12",
+      "bits": 12,
+      "pipeline_ms": 303.044892847538,
+      "wall_ms": 303.0651621520519,
+      "used": false
+    },
+    {
+      "frame": "0069_24",
+      "bits": 24,
+      "pipeline_ms": 403.24317663908005,
+      "wall_ms": 403.26420590281487,
+      "used": false
+    },
+    {
+      "frame": "0070_00",
+      "bits": 0,
+      "pipeline_ms": 281.6929630935192,
+      "wall_ms": 281.7211039364338,
+      "used": false
+    },
+    {
+      "frame": "0070_01",
+      "bits": 1,
+      "pipeline_ms": 298.0221398174763,
+      "wall_ms": 298.04128408432007,
+      "used": false
+    },
+    {
+      "frame": "0070_02",
+      "bits": 2,
+      "pipeline_ms": 281.9860987365246,
+      "wall_ms": 282.0061929523945,
+      "used": true
+    },
+    {
+      "frame": "0070_04",
+      "bits": 4,
+      "pipeline_ms": 355.60767352581024,
+      "wall_ms": 355.62680661678314,
+      "used": false
+    },
+    {
+      "frame": "0070_16",
+      "bits": 16,
+      "pipeline_ms": 282.42479264736176,
+      "wall_ms": 282.44564682245255,
+      "used": false
+    },
+    {
+      "frame": "0070_08",
+      "bits": 8,
+      "pipeline_ms": 283.77412259578705,
+      "wall_ms": 283.7935946881771,
+      "used": true
+    },
+    {
+      "frame": "0070_09",
+      "bits": 9,
+      "pipeline_ms": 391.7634151875973,
+      "wall_ms": 391.7822875082493,
+      "used": true
+    },
+    {
+      "frame": "0070_10",
+      "bits": 10,
+      "pipeline_ms": 288.53311389684677,
+      "wall_ms": 288.55400905013084,
+      "used": true
+    },
+    {
+      "frame": "0070_12",
+      "bits": 12,
+      "pipeline_ms": 350.9594425559044,
+      "wall_ms": 350.980743765831,
+      "used": false
+    },
+    {
+      "frame": "0070_24",
+      "bits": 24,
+      "pipeline_ms": 301.1125177145004,
+      "wall_ms": 301.1332154273987,
+      "used": true
+    },
+    {
+      "frame": "0071_00",
+      "bits": 0,
+      "pipeline_ms": 265.2743309736252,
+      "wall_ms": 265.30225202441216,
+      "used": false
+    },
+    {
+      "frame": "0071_01",
+      "bits": 1,
+      "pipeline_ms": 286.9751751422882,
+      "wall_ms": 286.99658066034317,
+      "used": true
+    },
+    {
+      "frame": "0071_02",
+      "bits": 2,
+      "pipeline_ms": 284.7684361040592,
+      "wall_ms": 284.78917479515076,
+      "used": false
+    },
+    {
+      "frame": "0071_04",
+      "bits": 4,
+      "pipeline_ms": 266.6855826973915,
+      "wall_ms": 266.7054906487465,
+      "used": false
+    },
+    {
+      "frame": "0071_16",
+      "bits": 16,
+      "pipeline_ms": 279.20615300536156,
+      "wall_ms": 279.22580763697624,
+      "used": false
+    },
+    {
+      "frame": "0071_08",
+      "bits": 8,
+      "pipeline_ms": 381.6994018852711,
+      "wall_ms": 381.7211352288723,
+      "used": true
+    },
+    {
+      "frame": "0071_09",
+      "bits": 9,
+      "pipeline_ms": 459.2783898115158,
+      "wall_ms": 459.2975676059723,
+      "used": false
+    },
+    {
+      "frame": "0071_10",
+      "bits": 10,
+      "pipeline_ms": 460.3164494037628,
+      "wall_ms": 460.3370353579521,
+      "used": false
+    },
+    {
+      "frame": "0071_12",
+      "bits": 12,
+      "pipeline_ms": 282.1045108139515,
+      "wall_ms": 282.12564438581467,
+      "used": false
+    },
+    {
+      "frame": "0071_24",
+      "bits": 24,
+      "pipeline_ms": 368.80500614643097,
+      "wall_ms": 368.82495135068893,
+      "used": true
+    },
+    {
+      "frame": "0072_00",
+      "bits": 0,
+      "pipeline_ms": 278.07341143488884,
+      "wall_ms": 278.10053527355194,
+      "used": false
+    },
+    {
+      "frame": "0072_01",
+      "bits": 1,
+      "pipeline_ms": 306.8579211831093,
+      "wall_ms": 306.87759071588516,
+      "used": false
+    },
+    {
+      "frame": "0072_02",
+      "bits": 2,
+      "pipeline_ms": 248.744685202837,
+      "wall_ms": 248.76504763960838,
+      "used": false
+    },
+    {
+      "frame": "0072_04",
+      "bits": 4,
+      "pipeline_ms": 274.2390111088753,
+      "wall_ms": 274.25940707325935,
+      "used": false
+    },
+    {
+      "frame": "0072_16",
+      "bits": 16,
+      "pipeline_ms": 362.42618411779404,
+      "wall_ms": 362.4555990099907,
+      "used": false
+    },
+    {
+      "frame": "0072_08",
+      "bits": 8,
+      "pipeline_ms": 284.53367203474045,
+      "wall_ms": 284.554872661829,
+      "used": false
+    },
+    {
+      "frame": "0072_09",
+      "bits": 9,
+      "pipeline_ms": 307.78806656599045,
+      "wall_ms": 307.8085146844387,
+      "used": false
+    },
+    {
+      "frame": "0072_10",
+      "bits": 10,
+      "pipeline_ms": 262.8416605293751,
+      "wall_ms": 262.8624774515629,
+      "used": false
+    },
+    {
+      "frame": "0072_12",
+      "bits": 12,
+      "pipeline_ms": 288.71819004416466,
+      "wall_ms": 288.7397035956383,
+      "used": false
+    },
+    {
+      "frame": "0072_24",
+      "bits": 24,
+      "pipeline_ms": 354.9954257905483,
+      "wall_ms": 355.0153449177742,
+      "used": true
+    },
+    {
+      "frame": "0073_00",
+      "bits": 0,
+      "pipeline_ms": 262.9697732627392,
+      "wall_ms": 262.99771293997765,
+      "used": false
+    },
+    {
+      "frame": "0073_01",
+      "bits": 1,
+      "pipeline_ms": 289.0186347067356,
+      "wall_ms": 289.0383414924145,
+      "used": false
+    },
+    {
+      "frame": "0073_02",
+      "bits": 2,
+      "pipeline_ms": 277.59115397930145,
+      "wall_ms": 277.61276066303253,
+      "used": false
+    },
+    {
+      "frame": "0073_04",
+      "bits": 4,
+      "pipeline_ms": 252.33512744307518,
+      "wall_ms": 252.35534831881523,
+      "used": false
+    },
+    {
+      "frame": "0073_16",
+      "bits": 16,
+      "pipeline_ms": 276.12561360001564,
+      "wall_ms": 276.1484682559967,
+      "used": false
+    },
+    {
+      "frame": "0073_08",
+      "bits": 8,
+      "pipeline_ms": 267.3938572406769,
+      "wall_ms": 267.41528138518333,
+      "used": false
+    },
+    {
+      "frame": "0073_09",
+      "bits": 9,
+      "pipeline_ms": 274.2319628596306,
+      "wall_ms": 274.25169944763184,
+      "used": false
+    },
+    {
+      "frame": "0073_10",
+      "bits": 10,
+      "pipeline_ms": 265.7174691557884,
+      "wall_ms": 265.7373771071434,
+      "used": false
+    },
+    {
+      "frame": "0073_12",
+      "bits": 12,
+      "pipeline_ms": 256.3736252486706,
+      "wall_ms": 256.3944309949875,
+      "used": false
+    },
+    {
+      "frame": "0073_24",
+      "bits": 24,
+      "pipeline_ms": 266.53800532221794,
+      "wall_ms": 266.55856147408485,
+      "used": false
+    },
+    {
+      "frame": "0074_00",
+      "bits": 0,
+      "pipeline_ms": 268.7409594655037,
+      "wall_ms": 268.7666490674019,
+      "used": false
+    },
+    {
+      "frame": "0074_01",
+      "bits": 1,
+      "pipeline_ms": 274.8967669904232,
+      "wall_ms": 274.92083981633186,
+      "used": false
+    },
+    {
+      "frame": "0074_02",
+      "bits": 2,
+      "pipeline_ms": 272.775761783123,
+      "wall_ms": 272.8010453283787,
+      "used": true
+    },
+    {
+      "frame": "0074_04",
+      "bits": 4,
+      "pipeline_ms": 255.5796168744564,
+      "wall_ms": 255.7038888335228,
+      "used": false
+    },
+    {
+      "frame": "0074_16",
+      "bits": 16,
+      "pipeline_ms": 280.0886109471321,
+      "wall_ms": 280.1106758415699,
+      "used": false
+    },
+    {
+      "frame": "0074_08",
+      "bits": 8,
+      "pipeline_ms": 354.9439311027527,
+      "wall_ms": 354.96359318494797,
+      "used": false
+    },
+    {
+      "frame": "0074_09",
+      "bits": 9,
+      "pipeline_ms": 419.132050126791,
+      "wall_ms": 419.15445774793625,
+      "used": false
+    },
+    {
+      "frame": "0074_10",
+      "bits": 10,
+      "pipeline_ms": 284.4139337539673,
+      "wall_ms": 284.43631157279015,
+      "used": false
+    },
+    {
+      "frame": "0074_12",
+      "bits": 12,
+      "pipeline_ms": 353.02315279841423,
+      "wall_ms": 353.04468497633934,
+      "used": false
+    },
+    {
+      "frame": "0074_24",
+      "bits": 24,
+      "pipeline_ms": 376.082930713892,
+      "wall_ms": 376.1041462421417,
+      "used": true
+    },
+    {
+      "frame": "0075_00",
+      "bits": 0,
+      "pipeline_ms": 306.6885508596897,
+      "wall_ms": 306.71801045536995,
+      "used": true
+    },
+    {
+      "frame": "0075_01",
+      "bits": 1,
+      "pipeline_ms": 364.0185706317425,
+      "wall_ms": 364.0388697385788,
+      "used": false
+    },
+    {
+      "frame": "0075_02",
+      "bits": 2,
+      "pipeline_ms": 311.27334758639336,
+      "wall_ms": 311.2947754561901,
+      "used": false
+    },
+    {
+      "frame": "0075_04",
+      "bits": 4,
+      "pipeline_ms": 317.5030015408993,
+      "wall_ms": 317.5281137228012,
+      "used": false
+    },
+    {
+      "frame": "0075_16",
+      "bits": 16,
+      "pipeline_ms": 443.1452192366123,
+      "wall_ms": 443.1663155555725,
+      "used": false
+    },
+    {
+      "frame": "0075_08",
+      "bits": 8,
+      "pipeline_ms": 327.7420215308666,
+      "wall_ms": 327.76541262865067,
+      "used": true
+    },
+    {
+      "frame": "0075_09",
+      "bits": 9,
+      "pipeline_ms": 375.07667392492294,
+      "wall_ms": 375.0983327627182,
+      "used": false
+    },
+    {
+      "frame": "0075_10",
+      "bits": 10,
+      "pipeline_ms": 332.3894068598747,
+      "wall_ms": 332.40996301174164,
+      "used": false
+    },
+    {
+      "frame": "0075_12",
+      "bits": 12,
+      "pipeline_ms": 306.3998967409134,
+      "wall_ms": 306.421622633934,
+      "used": false
+    },
+    {
+      "frame": "0075_24",
+      "bits": 24,
+      "pipeline_ms": 432.47558921575546,
+      "wall_ms": 432.4970133602619,
+      "used": false
+    },
+    {
+      "frame": "0076_00",
+      "bits": 0,
+      "pipeline_ms": 259.4911493360996,
+      "wall_ms": 259.51870158314705,
+      "used": false
+    },
+    {
+      "frame": "0076_01",
+      "bits": 1,
+      "pipeline_ms": 268.4503085911274,
+      "wall_ms": 268.47172528505325,
+      "used": false
+    },
+    {
+      "frame": "0076_02",
+      "bits": 2,
+      "pipeline_ms": 273.989275097847,
+      "wall_ms": 274.0103416144848,
+      "used": false
+    },
+    {
+      "frame": "0076_04",
+      "bits": 4,
+      "pipeline_ms": 280.1446430385113,
+      "wall_ms": 280.1659405231476,
+      "used": false
+    },
+    {
+      "frame": "0076_16",
+      "bits": 16,
+      "pipeline_ms": 265.4517814517021,
+      "wall_ms": 265.47127962112427,
+      "used": false
+    },
+    {
+      "frame": "0076_08",
+      "bits": 8,
+      "pipeline_ms": 268.53012293577194,
+      "wall_ms": 268.55069026350975,
+      "used": true
+    },
+    {
+      "frame": "0076_09",
+      "bits": 9,
+      "pipeline_ms": 281.862061470747,
+      "wall_ms": 281.8816788494587,
+      "used": true
+    },
+    {
+      "frame": "0076_10",
+      "bits": 10,
+      "pipeline_ms": 273.59481528401375,
+      "wall_ms": 273.61709624528885,
+      "used": true
+    },
+    {
+      "frame": "0076_12",
+      "bits": 12,
+      "pipeline_ms": 268.32301542162895,
+      "wall_ms": 268.3444656431675,
+      "used": false
+    },
+    {
+      "frame": "0076_24",
+      "bits": 24,
+      "pipeline_ms": 271.51593938469887,
+      "wall_ms": 271.53629437088966,
+      "used": true
+    },
+    {
+      "frame": "0077_00",
+      "bits": 0,
+      "pipeline_ms": 273.3050249516964,
+      "wall_ms": 273.3340486884117,
+      "used": false
+    },
+    {
+      "frame": "0077_01",
+      "bits": 1,
+      "pipeline_ms": 316.37710705399513,
+      "wall_ms": 316.399522125721,
+      "used": true
+    },
+    {
+      "frame": "0077_02",
+      "bits": 2,
+      "pipeline_ms": 294.28642243146896,
+      "wall_ms": 294.3083569407463,
+      "used": false
+    },
+    {
+      "frame": "0077_04",
+      "bits": 4,
+      "pipeline_ms": 278.2013304531574,
+      "wall_ms": 278.22253853082657,
+      "used": false
+    },
+    {
+      "frame": "0077_16",
+      "bits": 16,
+      "pipeline_ms": 312.9556104540825,
+      "wall_ms": 312.97567486763,
+      "used": true
+    },
+    {
+      "frame": "0077_08",
+      "bits": 8,
+      "pipeline_ms": 303.5777434706688,
+      "wall_ms": 303.59987914562225,
+      "used": false
+    },
+    {
+      "frame": "0077_09",
+      "bits": 9,
+      "pipeline_ms": 505.33340498805046,
+      "wall_ms": 505.35500794649124,
+      "used": false
+    },
+    {
+      "frame": "0077_10",
+      "bits": 10,
+      "pipeline_ms": 474.85439479351044,
+      "wall_ms": 474.8748317360878,
+      "used": false
+    },
+    {
+      "frame": "0077_12",
+      "bits": 12,
+      "pipeline_ms": 280.8481343090534,
+      "wall_ms": 280.87206929922104,
+      "used": false
+    },
+    {
+      "frame": "0077_24",
+      "bits": 24,
+      "pipeline_ms": 313.886146992445,
+      "wall_ms": 314.0450641512871,
+      "used": false
+    },
+    {
+      "frame": "0078_00",
+      "bits": 0,
+      "pipeline_ms": 306.43119663000107,
+      "wall_ms": 306.45840615034103,
+      "used": true
+    },
+    {
+      "frame": "0078_01",
+      "bits": 1,
+      "pipeline_ms": 367.7462935447693,
+      "wall_ms": 367.76796728372574,
+      "used": true
+    },
+    {
+      "frame": "0078_02",
+      "bits": 2,
+      "pipeline_ms": 366.5786422789097,
+      "wall_ms": 366.6081614792347,
+      "used": false
+    },
+    {
+      "frame": "0078_04",
+      "bits": 4,
+      "pipeline_ms": 310.7779733836651,
+      "wall_ms": 310.8059912919998,
+      "used": false
+    },
+    {
+      "frame": "0078_16",
+      "bits": 16,
+      "pipeline_ms": 440.59041514992714,
+      "wall_ms": 440.6137578189373,
+      "used": false
+    },
+    {
+      "frame": "0078_08",
+      "bits": 8,
+      "pipeline_ms": 307.3050379753113,
+      "wall_ms": 307.33169987797737,
+      "used": false
+    },
+    {
+      "frame": "0078_09",
+      "bits": 9,
+      "pipeline_ms": 369.1154308617115,
+      "wall_ms": 369.13586035370827,
+      "used": false
+    },
+    {
+      "frame": "0078_10",
+      "bits": 10,
+      "pipeline_ms": 400.26701241731644,
+      "wall_ms": 400.29478445649147,
+      "used": false
+    },
+    {
+      "frame": "0078_12",
+      "bits": 12,
+      "pipeline_ms": 294.72363740205765,
+      "wall_ms": 294.75224390625954,
+      "used": false
+    },
+    {
+      "frame": "0078_24",
+      "bits": 24,
+      "pipeline_ms": 459.60767939686775,
+      "wall_ms": 459.63145047426224,
+      "used": true
+    },
+    {
+      "frame": "0079_00",
+      "bits": 0,
+      "pipeline_ms": 279.02553603053093,
+      "wall_ms": 279.05862405896187,
+      "used": false
+    },
+    {
+      "frame": "0079_01",
+      "bits": 1,
+      "pipeline_ms": 288.754615932703,
+      "wall_ms": 288.7742966413498,
+      "used": false
+    },
+    {
+      "frame": "0079_02",
+      "bits": 2,
+      "pipeline_ms": 283.858060836792,
+      "wall_ms": 283.8774658739567,
+      "used": true
+    },
+    {
+      "frame": "0079_04",
+      "bits": 4,
+      "pipeline_ms": 361.2234592437744,
+      "wall_ms": 361.2452708184719,
+      "used": false
+    },
+    {
+      "frame": "0079_16",
+      "bits": 16,
+      "pipeline_ms": 293.99215802550316,
+      "wall_ms": 294.0154857933521,
+      "used": false
+    },
+    {
+      "frame": "0079_08",
+      "bits": 8,
+      "pipeline_ms": 292.81504824757576,
+      "wall_ms": 292.83590987324715,
+      "used": false
+    },
+    {
+      "frame": "0079_09",
+      "bits": 9,
+      "pipeline_ms": 269.65853944420815,
+      "wall_ms": 269.67909932136536,
+      "used": false
+    },
+    {
+      "frame": "0079_10",
+      "bits": 10,
+      "pipeline_ms": 293.2949513196945,
+      "wall_ms": 293.31647604703903,
+      "used": false
+    },
+    {
+      "frame": "0079_12",
+      "bits": 12,
+      "pipeline_ms": 345.37120535969734,
+      "wall_ms": 345.3921861946583,
+      "used": false
+    },
+    {
+      "frame": "0079_24",
+      "bits": 24,
+      "pipeline_ms": 280.4882973432541,
+      "wall_ms": 280.5074155330658,
+      "used": false
+    },
+    {
+      "frame": "0080_00",
+      "bits": 0,
+      "pipeline_ms": 279.5325703918934,
+      "wall_ms": 279.5601449906826,
+      "used": false
+    },
+    {
+      "frame": "0080_01",
+      "bits": 1,
+      "pipeline_ms": 270.7267962396145,
+      "wall_ms": 270.7461230456829,
+      "used": false
+    },
+    {
+      "frame": "0080_02",
+      "bits": 2,
+      "pipeline_ms": 273.36105331778526,
+      "wall_ms": 273.3834907412529,
+      "used": false
+    },
+    {
+      "frame": "0080_04",
+      "bits": 4,
+      "pipeline_ms": 267.2003358602524,
+      "wall_ms": 267.2206498682499,
+      "used": false
+    },
+    {
+      "frame": "0080_16",
+      "bits": 16,
+      "pipeline_ms": 293.8125506043434,
+      "wall_ms": 293.83422061800957,
+      "used": true
+    },
+    {
+      "frame": "0080_08",
+      "bits": 8,
+      "pipeline_ms": 371.72312289476395,
+      "wall_ms": 371.74397706985474,
+      "used": true
+    },
+    {
+      "frame": "0080_09",
+      "bits": 9,
+      "pipeline_ms": 459.75280180573463,
+      "wall_ms": 459.77213606238365,
+      "used": true
+    },
+    {
+      "frame": "0080_10",
+      "bits": 10,
+      "pipeline_ms": 246.36909738183022,
+      "wall_ms": 246.39162048697472,
+      "used": false
+    },
+    {
+      "frame": "0080_12",
+      "bits": 12,
+      "pipeline_ms": 387.7740167081356,
+      "wall_ms": 387.7989500761032,
+      "used": false
+    },
+    {
+      "frame": "0080_24",
+      "bits": 24,
+      "pipeline_ms": 370.9311820566654,
+      "wall_ms": 370.9544390439987,
+      "used": true
+    },
+    {
+      "frame": "0081_00",
+      "bits": 0,
+      "pipeline_ms": 269.95866745710373,
+      "wall_ms": 269.9877768754959,
+      "used": false
+    },
+    {
+      "frame": "0081_01",
+      "bits": 1,
+      "pipeline_ms": 315.4221549630165,
+      "wall_ms": 315.443430095911,
+      "used": false
+    },
+    {
+      "frame": "0081_02",
+      "bits": 2,
+      "pipeline_ms": 301.1644035577774,
+      "wall_ms": 301.1909946799278,
+      "used": false
+    },
+    {
+      "frame": "0081_04",
+      "bits": 4,
+      "pipeline_ms": 384.2949941754341,
+      "wall_ms": 384.31964814662933,
+      "used": false
+    },
+    {
+      "frame": "0081_16",
+      "bits": 16,
+      "pipeline_ms": 400.4470221698284,
+      "wall_ms": 400.47038719058037,
+      "used": false
+    },
+    {
+      "frame": "0081_08",
+      "bits": 8,
+      "pipeline_ms": 278.19425240159035,
+      "wall_ms": 278.2196067273617,
+      "used": false
+    },
+    {
+      "frame": "0081_09",
+      "bits": 9,
+      "pipeline_ms": 316.97315722703934,
+      "wall_ms": 316.9938586652279,
+      "used": false
+    },
+    {
+      "frame": "0081_10",
+      "bits": 10,
+      "pipeline_ms": 308.1034906208515,
+      "wall_ms": 308.12885612249374,
+      "used": true
+    },
+    {
+      "frame": "0081_12",
+      "bits": 12,
+      "pipeline_ms": 370.392594486475,
+      "wall_ms": 370.4204633831978,
+      "used": false
+    },
+    {
+      "frame": "0081_24",
+      "bits": 24,
+      "pipeline_ms": 392.80667901039124,
+      "wall_ms": 392.8292505443096,
+      "used": false
+    },
+    {
+      "frame": "0082_00",
+      "bits": 0,
+      "pipeline_ms": 261.6521827876568,
+      "wall_ms": 261.68258488178253,
+      "used": false
+    },
+    {
+      "frame": "0082_01",
+      "bits": 1,
+      "pipeline_ms": 258.28998163342476,
+      "wall_ms": 258.3104930818081,
+      "used": false
+    },
+    {
+      "frame": "0082_02",
+      "bits": 2,
+      "pipeline_ms": 282.6903946697712,
+      "wall_ms": 282.711673527956,
+      "used": false
+    },
+    {
+      "frame": "0082_04",
+      "bits": 4,
+      "pipeline_ms": 262.79712840914726,
+      "wall_ms": 262.81874999403954,
+      "used": false
+    },
+    {
+      "frame": "0082_16",
+      "bits": 16,
+      "pipeline_ms": 257.87265598773956,
+      "wall_ms": 257.8934170305729,
+      "used": false
+    },
+    {
+      "frame": "0082_08",
+      "bits": 8,
+      "pipeline_ms": 274.86298605799675,
+      "wall_ms": 274.88504350185394,
+      "used": true
+    },
+    {
+      "frame": "0082_09",
+      "bits": 9,
+      "pipeline_ms": 280.4899774491787,
+      "wall_ms": 280.5110439658165,
+      "used": true
+    },
+    {
+      "frame": "0082_10",
+      "bits": 10,
+      "pipeline_ms": 288.19823637604713,
+      "wall_ms": 288.2184833288193,
+      "used": false
+    },
+    {
+      "frame": "0082_12",
+      "bits": 12,
+      "pipeline_ms": 278.7588872015476,
+      "wall_ms": 278.7799537181854,
+      "used": true
+    },
+    {
+      "frame": "0082_24",
+      "bits": 24,
+      "pipeline_ms": 275.2705477178097,
+      "wall_ms": 275.29314160346985,
+      "used": true
+    },
+    {
+      "frame": "0083_00",
+      "bits": 0,
+      "pipeline_ms": 266.25240966677666,
+      "wall_ms": 266.279224306345,
+      "used": false
+    },
+    {
+      "frame": "0083_01",
+      "bits": 1,
+      "pipeline_ms": 304.6140819787979,
+      "wall_ms": 304.6353831887245,
+      "used": true
+    },
+    {
+      "frame": "0083_02",
+      "bits": 2,
+      "pipeline_ms": 290.0942414999008,
+      "wall_ms": 290.116298943758,
+      "used": false
+    },
+    {
+      "frame": "0083_04",
+      "bits": 4,
+      "pipeline_ms": 271.835133433342,
+      "wall_ms": 271.8578092753887,
+      "used": false
+    },
+    {
+      "frame": "0083_16",
+      "bits": 16,
+      "pipeline_ms": 259.84369590878487,
+      "wall_ms": 259.86625626683235,
+      "used": false
+    },
+    {
+      "frame": "0083_08",
+      "bits": 8,
+      "pipeline_ms": 276.8249548971653,
+      "wall_ms": 276.8472880125046,
+      "used": false
+    },
+    {
+      "frame": "0083_09",
+      "bits": 9,
+      "pipeline_ms": 295.0333431363106,
+      "wall_ms": 295.0555831193924,
+      "used": false
+    },
+    {
+      "frame": "0083_10",
+      "bits": 10,
+      "pipeline_ms": 284.76229310035706,
+      "wall_ms": 284.7852297127247,
+      "used": false
+    },
+    {
+      "frame": "0083_12",
+      "bits": 12,
+      "pipeline_ms": 275.1336582005024,
+      "wall_ms": 275.1556672155857,
+      "used": false
+    },
+    {
+      "frame": "0083_24",
+      "bits": 24,
+      "pipeline_ms": 275.7400721311569,
+      "wall_ms": 275.7605090737343,
+      "used": false
+    },
+    {
+      "frame": "0084_00",
+      "bits": 0,
+      "pipeline_ms": 295.0718216598034,
+      "wall_ms": 295.09787261486053,
+      "used": false
+    },
+    {
+      "frame": "0084_01",
+      "bits": 1,
+      "pipeline_ms": 325.103584676981,
+      "wall_ms": 325.12327283620834,
+      "used": false
+    },
+    {
+      "frame": "0084_02",
+      "bits": 2,
+      "pipeline_ms": 279.93088960647583,
+      "wall_ms": 279.9520082771778,
+      "used": false
+    },
+    {
+      "frame": "0084_04",
+      "bits": 4,
+      "pipeline_ms": 299.5749041438103,
+      "wall_ms": 299.5948828756809,
+      "used": false
+    },
+    {
+      "frame": "0084_16",
+      "bits": 16,
+      "pipeline_ms": 396.0353992879391,
+      "wall_ms": 396.0571549832821,
+      "used": false
+    },
+    {
+      "frame": "0084_08",
+      "bits": 8,
+      "pipeline_ms": 301.0133355855942,
+      "wall_ms": 301.0341338813305,
+      "used": false
+    },
+    {
+      "frame": "0084_09",
+      "bits": 9,
+      "pipeline_ms": 324.55455511808395,
+      "wall_ms": 324.57374781370163,
+      "used": false
+    },
+    {
+      "frame": "0084_10",
+      "bits": 10,
+      "pipeline_ms": 270.03854513168335,
+      "wall_ms": 270.05910873413086,
+      "used": false
+    },
+    {
+      "frame": "0084_12",
+      "bits": 12,
+      "pipeline_ms": 302.61700600385666,
+      "wall_ms": 302.63806506991386,
+      "used": false
+    },
+    {
+      "frame": "0084_24",
+      "bits": 24,
+      "pipeline_ms": 397.91224896907806,
+      "wall_ms": 397.9313112795353,
+      "used": false
+    },
+    {
+      "frame": "0085_00",
+      "bits": 0,
+      "pipeline_ms": 248.31229075789452,
+      "wall_ms": 248.34445491433144,
+      "used": false
+    },
+    {
+      "frame": "0085_01",
+      "bits": 1,
+      "pipeline_ms": 263.3061148226261,
+      "wall_ms": 263.32608237862587,
+      "used": false
+    },
+    {
+      "frame": "0085_02",
+      "bits": 2,
+      "pipeline_ms": 253.11029702425003,
+      "wall_ms": 253.13056632876396,
+      "used": false
+    },
+    {
+      "frame": "0085_04",
+      "bits": 4,
+      "pipeline_ms": 270.9842808544636,
+      "wall_ms": 271.00493758916855,
+      "used": false
+    },
+    {
+      "frame": "0085_16",
+      "bits": 16,
+      "pipeline_ms": 253.91481444239616,
+      "wall_ms": 253.93514707684517,
+      "used": false
+    },
+    {
+      "frame": "0085_08",
+      "bits": 8,
+      "pipeline_ms": 261.08963415026665,
+      "wall_ms": 261.11146807670593,
+      "used": true
+    },
+    {
+      "frame": "0085_09",
+      "bits": 9,
+      "pipeline_ms": 253.49698588252068,
+      "wall_ms": 253.51891666650772,
+      "used": false
+    },
+    {
+      "frame": "0085_10",
+      "bits": 10,
+      "pipeline_ms": 253.12887504696846,
+      "wall_ms": 253.15071269869804,
+      "used": false
+    },
+    {
+      "frame": "0085_12",
+      "bits": 12,
+      "pipeline_ms": 277.1128676831722,
+      "wall_ms": 277.13287249207497,
+      "used": false
+    },
+    {
+      "frame": "0085_24",
+      "bits": 24,
+      "pipeline_ms": 262.63584196567535,
+      "wall_ms": 262.6563012599945,
+      "used": true
+    },
+    {
+      "frame": "0086_00",
+      "bits": 0,
+      "pipeline_ms": 269.2473642528057,
+      "wall_ms": 269.27531138062477,
+      "used": false
+    },
+    {
+      "frame": "0086_01",
+      "bits": 1,
+      "pipeline_ms": 291.1294884979725,
+      "wall_ms": 291.148379445076,
+      "used": true
+    },
+    {
+      "frame": "0086_02",
+      "bits": 2,
+      "pipeline_ms": 291.85018315911293,
+      "wall_ms": 291.871752589941,
+      "used": false
+    },
+    {
+      "frame": "0086_04",
+      "bits": 4,
+      "pipeline_ms": 341.4823152124882,
+      "wall_ms": 341.5020480751991,
+      "used": false
+    },
+    {
+      "frame": "0086_16",
+      "bits": 16,
+      "pipeline_ms": 302.8547689318657,
+      "wall_ms": 302.87475883960724,
+      "used": true
+    },
+    {
+      "frame": "0086_08",
+      "bits": 8,
+      "pipeline_ms": 281.04719519615173,
+      "wall_ms": 281.0700759291649,
+      "used": false
+    },
+    {
+      "frame": "0086_09",
+      "bits": 9,
+      "pipeline_ms": 416.8836399912834,
+      "wall_ms": 416.9037938117981,
+      "used": true
+    },
+    {
+      "frame": "0086_10",
+      "bits": 10,
+      "pipeline_ms": 314.1675889492035,
+      "wall_ms": 314.18825313448906,
+      "used": false
+    },
+    {
+      "frame": "0086_12",
+      "bits": 12,
+      "pipeline_ms": 360.83080992102623,
+      "wall_ms": 360.85133999586105,
+      "used": false
+    },
+    {
+      "frame": "0086_24",
+      "bits": 24,
+      "pipeline_ms": 310.12747809290886,
+      "wall_ms": 310.1494535803795,
+      "used": true
+    },
+    {
+      "frame": "0087_00",
+      "bits": 0,
+      "pipeline_ms": 324.154756963253,
+      "wall_ms": 324.18230175971985,
+      "used": false
+    },
+    {
+      "frame": "0087_01",
+      "bits": 1,
+      "pipeline_ms": 312.68439814448357,
+      "wall_ms": 312.859658151865,
+      "used": false
+    },
+    {
+      "frame": "0087_02",
+      "bits": 2,
+      "pipeline_ms": 268.1580260396004,
+      "wall_ms": 268.1816704571247,
+      "used": false
+    },
+    {
+      "frame": "0087_04",
+      "bits": 4,
+      "pipeline_ms": 400.76160803437233,
+      "wall_ms": 400.78630298376083,
+      "used": false
+    },
+    {
+      "frame": "0087_16",
+      "bits": 16,
+      "pipeline_ms": 389.0918865799904,
+      "wall_ms": 389.116782695055,
+      "used": false
+    },
+    {
+      "frame": "0087_08",
+      "bits": 8,
+      "pipeline_ms": 322.3118931055069,
+      "wall_ms": 322.3366476595402,
+      "used": false
+    },
+    {
+      "frame": "0087_09",
+      "bits": 9,
+      "pipeline_ms": 318.83595138788223,
+      "wall_ms": 318.8563883304596,
+      "used": false
+    },
+    {
+      "frame": "0087_10",
+      "bits": 10,
+      "pipeline_ms": 276.56153589487076,
+      "wall_ms": 276.5836678445339,
+      "used": false
+    },
+    {
+      "frame": "0087_12",
+      "bits": 12,
+      "pipeline_ms": 393.8778452575207,
+      "wall_ms": 393.9068168401718,
+      "used": false
+    },
+    {
+      "frame": "0087_24",
+      "bits": 24,
+      "pipeline_ms": 372.27438762784004,
+      "wall_ms": 372.29542434215546,
+      "used": false
+    },
+    {
+      "frame": "0088_00",
+      "bits": 0,
+      "pipeline_ms": 276.4236703515053,
+      "wall_ms": 276.4531411230564,
+      "used": false
+    },
+    {
+      "frame": "0088_01",
+      "bits": 1,
+      "pipeline_ms": 288.3477583527565,
+      "wall_ms": 288.3661910891533,
+      "used": false
+    },
+    {
+      "frame": "0088_02",
+      "bits": 2,
+      "pipeline_ms": 281.1463847756386,
+      "wall_ms": 281.1674512922764,
+      "used": true
+    },
+    {
+      "frame": "0088_04",
+      "bits": 4,
+      "pipeline_ms": 356.8008467555046,
+      "wall_ms": 356.8204380571842,
+      "used": false
+    },
+    {
+      "frame": "0088_16",
+      "bits": 16,
+      "pipeline_ms": 283.8864140212536,
+      "wall_ms": 283.90777111053467,
+      "used": false
+    },
+    {
+      "frame": "0088_08",
+      "bits": 8,
+      "pipeline_ms": 371.9980902969837,
+      "wall_ms": 372.0221370458603,
+      "used": false
+    },
+    {
+      "frame": "0088_09",
+      "bits": 9,
+      "pipeline_ms": 387.0449289679527,
+      "wall_ms": 387.0673440396786,
+      "used": true
+    },
+    {
+      "frame": "0088_10",
+      "bits": 10,
+      "pipeline_ms": 321.69002294540405,
+      "wall_ms": 321.71058282256126,
+      "used": false
+    },
+    {
+      "frame": "0088_12",
+      "bits": 12,
+      "pipeline_ms": 359.09151285886765,
+      "wall_ms": 359.1127246618271,
+      "used": false
+    },
+    {
+      "frame": "0088_24",
+      "bits": 24,
+      "pipeline_ms": 407.89397805929184,
+      "wall_ms": 407.91281312704086,
+      "used": false
+    },
+    {
+      "frame": "0089_00",
+      "bits": 0,
+      "pipeline_ms": 265.5211091041565,
+      "wall_ms": 265.5523344874382,
+      "used": false
+    },
+    {
+      "frame": "0089_01",
+      "bits": 1,
+      "pipeline_ms": 270.6730552017689,
+      "wall_ms": 270.6933878362179,
+      "used": false
+    },
+    {
+      "frame": "0089_02",
+      "bits": 2,
+      "pipeline_ms": 282.6090380549431,
+      "wall_ms": 282.6305255293846,
+      "used": false
+    },
+    {
+      "frame": "0089_04",
+      "bits": 4,
+      "pipeline_ms": 254.07322868704796,
+      "wall_ms": 254.09377738833427,
+      "used": false
+    },
+    {
+      "frame": "0089_16",
+      "bits": 16,
+      "pipeline_ms": 262.5751830637455,
+      "wall_ms": 262.59720697999,
+      "used": false
+    },
+    {
+      "frame": "0089_08",
+      "bits": 8,
+      "pipeline_ms": 357.4853911995888,
+      "wall_ms": 357.5064204633236,
+      "used": false
+    },
+    {
+      "frame": "0089_09",
+      "bits": 9,
+      "pipeline_ms": 416.3475036621094,
+      "wall_ms": 416.36836901307106,
+      "used": false
+    },
+    {
+      "frame": "0089_10",
+      "bits": 10,
+      "pipeline_ms": 289.313443005085,
+      "wall_ms": 289.33389857411385,
+      "used": false
+    },
+    {
+      "frame": "0089_12",
+      "bits": 12,
+      "pipeline_ms": 284.82457250356674,
+      "wall_ms": 284.84536334872246,
+      "used": false
+    },
+    {
+      "frame": "0089_24",
+      "bits": 24,
+      "pipeline_ms": 348.276536911726,
+      "wall_ms": 348.2995852828026,
+      "used": true
+    },
+    {
+      "frame": "0090_00",
+      "bits": 0,
+      "pipeline_ms": 322.18220829963684,
+      "wall_ms": 322.20999896526337,
+      "used": true
+    },
+    {
+      "frame": "0090_01",
+      "bits": 1,
+      "pipeline_ms": 367.29373410344124,
+      "wall_ms": 367.3131465911865,
+      "used": true
+    },
+    {
+      "frame": "0090_02",
+      "bits": 2,
+      "pipeline_ms": 299.41675439476967,
+      "wall_ms": 299.4385361671448,
+      "used": true
+    },
+    {
+      "frame": "0090_04",
+      "bits": 4,
+      "pipeline_ms": 430.3661957383156,
+      "wall_ms": 430.3865320980549,
+      "used": false
+    },
+    {
+      "frame": "0090_16",
+      "bits": 16,
+      "pipeline_ms": 353.9867587387562,
+      "wall_ms": 354.0092632174492,
+      "used": false
+    },
+    {
+      "frame": "0090_08",
+      "bits": 8,
+      "pipeline_ms": 327.9089815914631,
+      "wall_ms": 327.93039083480835,
+      "used": true
+    },
+    {
+      "frame": "0090_09",
+      "bits": 9,
+      "pipeline_ms": 372.3262585699558,
+      "wall_ms": 372.34705314040184,
+      "used": true
+    },
+    {
+      "frame": "0090_10",
+      "bits": 10,
+      "pipeline_ms": 298.90573397278786,
+      "wall_ms": 298.926405608654,
+      "used": true
+    },
+    {
+      "frame": "0090_12",
+      "bits": 12,
+      "pipeline_ms": 425.7666803896427,
+      "wall_ms": 425.7883094251156,
+      "used": false
+    },
+    {
+      "frame": "0090_24",
+      "bits": 24,
+      "pipeline_ms": 340.0072678923607,
+      "wall_ms": 340.0294594466686,
+      "used": false
+    },
+    {
+      "frame": "0091_00",
+      "bits": 0,
+      "pipeline_ms": 251.22444331645966,
+      "wall_ms": 251.25261023640633,
+      "used": false
+    },
+    {
+      "frame": "0091_01",
+      "bits": 1,
+      "pipeline_ms": 283.203162252903,
+      "wall_ms": 283.2247279584408,
+      "used": false
+    },
+    {
+      "frame": "0091_02",
+      "bits": 2,
+      "pipeline_ms": 270.65062895417213,
+      "wall_ms": 270.6720605492592,
+      "used": false
+    },
+    {
+      "frame": "0091_04",
+      "bits": 4,
+      "pipeline_ms": 254.96769323945045,
+      "wall_ms": 254.98925149440765,
+      "used": false
+    },
+    {
+      "frame": "0091_16",
+      "bits": 16,
+      "pipeline_ms": 263.25003802776337,
+      "wall_ms": 263.27185705304146,
+      "used": false
+    },
+    {
+      "frame": "0091_08",
+      "bits": 8,
+      "pipeline_ms": 260.52795723080635,
+      "wall_ms": 260.5493515729904,
+      "used": true
+    },
+    {
+      "frame": "0091_09",
+      "bits": 9,
+      "pipeline_ms": 271.06333151459694,
+      "wall_ms": 271.08290791511536,
+      "used": true
+    },
+    {
+      "frame": "0091_10",
+      "bits": 10,
+      "pipeline_ms": 269.9664384126663,
+      "wall_ms": 269.98892799019814,
+      "used": false
+    },
+    {
+      "frame": "0091_12",
+      "bits": 12,
+      "pipeline_ms": 260.72362065315247,
+      "wall_ms": 260.7458457350731,
+      "used": true
+    },
+    {
+      "frame": "0091_24",
+      "bits": 24,
+      "pipeline_ms": 264.088936150074,
+      "wall_ms": 264.10985365509987,
+      "used": true
+    },
+    {
+      "frame": "0092_00",
+      "bits": 0,
+      "pipeline_ms": 273.6797370016575,
+      "wall_ms": 273.708812892437,
+      "used": false
+    },
+    {
+      "frame": "0092_01",
+      "bits": 1,
+      "pipeline_ms": 275.88336169719696,
+      "wall_ms": 275.9050503373146,
+      "used": false
+    },
+    {
+      "frame": "0092_02",
+      "bits": 2,
+      "pipeline_ms": 272.2972482442856,
+      "wall_ms": 272.3187021911144,
+      "used": false
+    },
+    {
+      "frame": "0092_04",
+      "bits": 4,
+      "pipeline_ms": 273.25426787137985,
+      "wall_ms": 273.2759453356266,
+      "used": false
+    },
+    {
+      "frame": "0092_16",
+      "bits": 16,
+      "pipeline_ms": 284.2640094459057,
+      "wall_ms": 284.28541868925095,
+      "used": true
+    },
+    {
+      "frame": "0092_08",
+      "bits": 8,
+      "pipeline_ms": 378.9437711238861,
+      "wall_ms": 378.9643123745918,
+      "used": false
+    },
+    {
+      "frame": "0092_09",
+      "bits": 9,
+      "pipeline_ms": 457.3507532477379,
+      "wall_ms": 457.37117156386375,
+      "used": false
+    },
+    {
+      "frame": "0092_10",
+      "bits": 10,
+      "pipeline_ms": 278.65133062005043,
+      "wall_ms": 278.6721885204315,
+      "used": false
+    },
+    {
+      "frame": "0092_12",
+      "bits": 12,
+      "pipeline_ms": 296.9546541571617,
+      "wall_ms": 296.9771660864353,
+      "used": false
+    },
+    {
+      "frame": "0092_24",
+      "bits": 24,
+      "pipeline_ms": 375.80734491348267,
+      "wall_ms": 375.8285529911518,
+      "used": true
+    },
+    {
+      "frame": "0093_00",
+      "bits": 0,
+      "pipeline_ms": 270.57019621133804,
+      "wall_ms": 270.5967240035534,
+      "used": false
+    },
+    {
+      "frame": "0093_01",
+      "bits": 1,
+      "pipeline_ms": 319.2630484700203,
+      "wall_ms": 319.28254663944244,
+      "used": false
+    },
+    {
+      "frame": "0093_02",
+      "bits": 2,
+      "pipeline_ms": 269.0829560160637,
+      "wall_ms": 269.1035568714142,
+      "used": false
+    },
+    {
+      "frame": "0093_04",
+      "bits": 4,
+      "pipeline_ms": 285.3238433599472,
+      "wall_ms": 285.3449620306492,
+      "used": false
+    },
+    {
+      "frame": "0093_16",
+      "bits": 16,
+      "pipeline_ms": 388.092041015625,
+      "wall_ms": 388.112336397171,
+      "used": false
+    },
+    {
+      "frame": "0093_08",
+      "bits": 8,
+      "pipeline_ms": 282.6426029205322,
+      "wall_ms": 282.66533464193344,
+      "used": false
+    },
+    {
+      "frame": "0093_09",
+      "bits": 9,
+      "pipeline_ms": 308.50815773010254,
+      "wall_ms": 308.52947011590004,
+      "used": false
+    },
+    {
+      "frame": "0093_10",
+      "bits": 10,
+      "pipeline_ms": 286.31727769970894,
+      "wall_ms": 286.3388881087303,
+      "used": false
+    },
+    {
+      "frame": "0093_12",
+      "bits": 12,
+      "pipeline_ms": 285.0397527217865,
+      "wall_ms": 285.0625663995743,
+      "used": false
+    },
+    {
+      "frame": "0093_24",
+      "bits": 24,
+      "pipeline_ms": 385.8776316046715,
+      "wall_ms": 385.89882105588913,
+      "used": false
+    },
+    {
+      "frame": "0094_00",
+      "bits": 0,
+      "pipeline_ms": 263.94272595644,
+      "wall_ms": 263.9717683196068,
+      "used": false
+    },
+    {
+      "frame": "0094_01",
+      "bits": 1,
+      "pipeline_ms": 264.9822235107422,
+      "wall_ms": 265.00244066119194,
+      "used": false
+    },
+    {
+      "frame": "0094_02",
+      "bits": 2,
+      "pipeline_ms": 272.6518474519253,
+      "wall_ms": 272.67367765307426,
+      "used": false
+    },
+    {
+      "frame": "0094_04",
+      "bits": 4,
+      "pipeline_ms": 270.09133622050285,
+      "wall_ms": 270.1118551194668,
+      "used": false
+    },
+    {
+      "frame": "0094_16",
+      "bits": 16,
+      "pipeline_ms": 267.4848660826683,
+      "wall_ms": 267.50672981143,
+      "used": false
+    },
+    {
+      "frame": "0094_08",
+      "bits": 8,
+      "pipeline_ms": 271.9910852611065,
+      "wall_ms": 272.02487736940384,
+      "used": false
+    },
+    {
+      "frame": "0094_09",
+      "bits": 9,
+      "pipeline_ms": 403.2307267189026,
+      "wall_ms": 403.2524563372135,
+      "used": false
+    },
+    {
+      "frame": "0094_10",
+      "bits": 10,
+      "pipeline_ms": 262.9479542374611,
+      "wall_ms": 262.9682198166847,
+      "used": false
+    },
+    {
+      "frame": "0094_12",
+      "bits": 12,
+      "pipeline_ms": 277.26178988814354,
+      "wall_ms": 277.2843763232231,
+      "used": false
+    },
+    {
+      "frame": "0094_24",
+      "bits": 24,
+      "pipeline_ms": 283.7914079427719,
+      "wall_ms": 283.81283953785896,
+      "used": true
+    },
+    {
+      "frame": "0095_00",
+      "bits": 0,
+      "pipeline_ms": 258.96207243204117,
+      "wall_ms": 258.9917778968811,
+      "used": false
+    },
+    {
+      "frame": "0095_01",
+      "bits": 1,
+      "pipeline_ms": 275.6785675883293,
+      "wall_ms": 275.7006287574768,
+      "used": false
+    },
+    {
+      "frame": "0095_02",
+      "bits": 2,
+      "pipeline_ms": 259.9056549370289,
+      "wall_ms": 259.9274665117264,
+      "used": false
+    },
+    {
+      "frame": "0095_04",
+      "bits": 4,
+      "pipeline_ms": 258.5095353424549,
+      "wall_ms": 258.5294395685196,
+      "used": false
+    },
+    {
+      "frame": "0095_16",
+      "bits": 16,
+      "pipeline_ms": 265.71958512067795,
+      "wall_ms": 265.7404728233814,
+      "used": false
+    },
+    {
+      "frame": "0095_08",
+      "bits": 8,
+      "pipeline_ms": 278.2603017985821,
+      "wall_ms": 278.2813385128975,
+      "used": true
+    },
+    {
+      "frame": "0095_09",
+      "bits": 9,
+      "pipeline_ms": 284.16358307003975,
+      "wall_ms": 284.1839902102947,
+      "used": true
+    },
+    {
+      "frame": "0095_10",
+      "bits": 10,
+      "pipeline_ms": 266.239982098341,
+      "wall_ms": 266.2616856396198,
+      "used": true
+    },
+    {
+      "frame": "0095_12",
+      "bits": 12,
+      "pipeline_ms": 282.87288174033165,
+      "wall_ms": 282.89351239800453,
+      "used": true
+    },
+    {
+      "frame": "0095_24",
+      "bits": 24,
+      "pipeline_ms": 280.18614277243614,
+      "wall_ms": 280.20625188946724,
+      "used": true
+    },
+    {
+      "frame": "0096_00",
+      "bits": 0,
+      "pipeline_ms": 232.72890597581863,
+      "wall_ms": 232.75961726903915,
+      "used": false
+    },
+    {
+      "frame": "0096_01",
+      "bits": 1,
+      "pipeline_ms": 287.31783106923103,
+      "wall_ms": 287.3399928212166,
+      "used": false
+    },
+    {
+      "frame": "0096_02",
+      "bits": 2,
+      "pipeline_ms": 258.5745342075825,
+      "wall_ms": 258.59588012099266,
+      "used": false
+    },
+    {
+      "frame": "0096_04",
+      "bits": 4,
+      "pipeline_ms": 264.3436901271343,
+      "wall_ms": 264.3636055290699,
+      "used": false
+    },
+    {
+      "frame": "0096_16",
+      "bits": 16,
+      "pipeline_ms": 334.77815240621567,
+      "wall_ms": 334.7974307835102,
+      "used": false
+    },
+    {
+      "frame": "0096_08",
+      "bits": 8,
+      "pipeline_ms": 270.54620534181595,
+      "wall_ms": 270.56724950671196,
+      "used": true
+    },
+    {
+      "frame": "0096_09",
+      "bits": 9,
+      "pipeline_ms": 289.5486243069172,
+      "wall_ms": 289.5672954618931,
+      "used": false
+    },
+    {
+      "frame": "0096_10",
+      "bits": 10,
+      "pipeline_ms": 250.80128014087677,
+      "wall_ms": 250.82306191325188,
+      "used": false
+    },
+    {
+      "frame": "0096_12",
+      "bits": 12,
+      "pipeline_ms": 269.3820036947727,
+      "wall_ms": 269.4033905863762,
+      "used": true
+    },
+    {
+      "frame": "0096_24",
+      "bits": 24,
+      "pipeline_ms": 347.182534635067,
+      "wall_ms": 347.2030572593212,
+      "used": false
+    },
+    {
+      "frame": "0097_00",
+      "bits": 0,
+      "pipeline_ms": 267.2215513885021,
+      "wall_ms": 267.2492004930973,
+      "used": false
+    },
+    {
+      "frame": "0097_01",
+      "bits": 1,
+      "pipeline_ms": 263.4088322520256,
+      "wall_ms": 263.4281888604164,
+      "used": false
+    },
+    {
+      "frame": "0097_02",
+      "bits": 2,
+      "pipeline_ms": 269.88429948687553,
+      "wall_ms": 269.9059620499611,
+      "used": false
+    },
+    {
+      "frame": "0097_04",
+      "bits": 4,
+      "pipeline_ms": 273.31626415252686,
+      "wall_ms": 273.33834394812584,
+      "used": false
+    },
+    {
+      "frame": "0097_16",
+      "bits": 16,
+      "pipeline_ms": 263.1852924823761,
+      "wall_ms": 263.2066421210766,
+      "used": false
+    },
+    {
+      "frame": "0097_08",
+      "bits": 8,
+      "pipeline_ms": 267.11804792284966,
+      "wall_ms": 267.14181154966354,
+      "used": false
+    },
+    {
+      "frame": "0097_09",
+      "bits": 9,
+      "pipeline_ms": 261.9084417819977,
+      "wall_ms": 261.92834973335266,
+      "used": true
+    },
+    {
+      "frame": "0097_10",
+      "bits": 10,
+      "pipeline_ms": 261.1132115125656,
+      "wall_ms": 261.13246008753777,
+      "used": true
+    },
+    {
+      "frame": "0097_12",
+      "bits": 12,
+      "pipeline_ms": 281.04258328676224,
+      "wall_ms": 281.0653783380985,
+      "used": false
+    },
+    {
+      "frame": "0097_24",
+      "bits": 24,
+      "pipeline_ms": 264.9041600525379,
+      "wall_ms": 264.92708548903465,
+      "used": false
+    },
+    {
+      "frame": "0098_00",
+      "bits": 0,
+      "pipeline_ms": 256.26707822084427,
+      "wall_ms": 256.29379600286484,
+      "used": false
+    },
+    {
+      "frame": "0098_01",
+      "bits": 1,
+      "pipeline_ms": 278.9858691394329,
+      "wall_ms": 279.0057249367237,
+      "used": false
+    },
+    {
+      "frame": "0098_02",
+      "bits": 2,
+      "pipeline_ms": 306.9770447909832,
+      "wall_ms": 307.00739473104477,
+      "used": false
+    },
+    {
+      "frame": "0098_04",
+      "bits": 4,
+      "pipeline_ms": 263.3570730686188,
+      "wall_ms": 263.3866034448147,
+      "used": true
+    },
+    {
+      "frame": "0098_16",
+      "bits": 16,
+      "pipeline_ms": 269.3183906376362,
+      "wall_ms": 269.34153214097023,
+      "used": false
+    },
+    {
+      "frame": "0098_08",
+      "bits": 8,
+      "pipeline_ms": 277.29859203100204,
+      "wall_ms": 277.3197069764137,
+      "used": true
+    },
+    {
+      "frame": "0098_09",
+      "bits": 9,
+      "pipeline_ms": 287.25744783878326,
+      "wall_ms": 287.2791439294815,
+      "used": true
+    },
+    {
+      "frame": "0098_10",
+      "bits": 10,
+      "pipeline_ms": 292.76375100016594,
+      "wall_ms": 292.78476536273956,
+      "used": false
+    },
+    {
+      "frame": "0098_12",
+      "bits": 12,
+      "pipeline_ms": 276.3177342712879,
+      "wall_ms": 276.33900567889214,
+      "used": false
+    },
+    {
+      "frame": "0098_24",
+      "bits": 24,
+      "pipeline_ms": 304.50134724378586,
+      "wall_ms": 304.52432483434677,
+      "used": true
+    },
+    {
+      "frame": "0099_00",
+      "bits": 0,
+      "pipeline_ms": 308.56671184301376,
+      "wall_ms": 308.5940033197403,
+      "used": false
+    },
+    {
+      "frame": "0099_01",
+      "bits": 1,
+      "pipeline_ms": 342.36303716897964,
+      "wall_ms": 342.38217398524284,
+      "used": false
+    },
+    {
+      "frame": "0099_02",
+      "bits": 2,
+      "pipeline_ms": 301.85591802001,
+      "wall_ms": 301.8779419362545,
+      "used": false
+    },
+    {
+      "frame": "0099_04",
+      "bits": 4,
+      "pipeline_ms": 404.8897847533226,
+      "wall_ms": 404.91071715950966,
+      "used": false
+    },
+    {
+      "frame": "0099_16",
+      "bits": 16,
+      "pipeline_ms": 381.8917013704777,
+      "wall_ms": 381.9137029349804,
+      "used": false
+    },
+    {
+      "frame": "0099_08",
+      "bits": 8,
+      "pipeline_ms": 310.43216958642006,
+      "wall_ms": 310.4539141058922,
+      "used": false
+    },
+    {
+      "frame": "0099_09",
+      "bits": 9,
+      "pipeline_ms": 367.79018118977547,
+      "wall_ms": 367.81145632267,
+      "used": false
+    },
+    {
+      "frame": "0099_10",
+      "bits": 10,
+      "pipeline_ms": 301.1106215417385,
+      "wall_ms": 301.13261565566063,
+      "used": false
+    },
+    {
+      "frame": "0099_12",
+      "bits": 12,
+      "pipeline_ms": 406.88100829720497,
+      "wall_ms": 406.90353885293007,
+      "used": false
+    },
+    {
+      "frame": "0099_24",
+      "bits": 24,
+      "pipeline_ms": 383.1993117928505,
+      "wall_ms": 383.2195997238159,
+      "used": true
+    }
+  ],
+  "initialization": [
+    {
+      "group": 0,
+      "initialization_ms": 1903.7706553936005,
+      "warm_ms": 1795.5321073532104
+    },
+    {
+      "group": 1,
+      "initialization_ms": 736.5186661481857,
+      "warm_ms": 649.6036127209663
+    },
+    {
+      "group": 2,
+      "initialization_ms": 676.3514317572117,
+      "warm_ms": 598.6858047544956
+    },
+    {
+      "group": 3,
+      "initialization_ms": 901.9859731197357,
+      "warm_ms": 818.5744360089302
+    },
+    {
+      "group": 4,
+      "initialization_ms": 770.5689929425716,
+      "warm_ms": 677.9123060405254
+    },
+    {
+      "group": 5,
+      "initialization_ms": 704.4902853667736,
+      "warm_ms": 622.610691934824
+    },
+    {
+      "group": 6,
+      "initialization_ms": 706.9396264851093,
+      "warm_ms": 609.6845529973507
+    },
+    {
+      "group": 7,
+      "initialization_ms": 691.4321035146713,
+      "warm_ms": 609.1669760644436
+    },
+    {
+      "group": 8,
+      "initialization_ms": 887.6450248062611,
+      "warm_ms": 807.2175197303295
+    },
+    {
+      "group": 9,
+      "initialization_ms": 690.5297040939331,
+      "warm_ms": 597.5636430084705
+    },
+    {
+      "group": 10,
+      "initialization_ms": 676.0870106518269,
+      "warm_ms": 594.6272276341915
+    },
+    {
+      "group": 11,
+      "initialization_ms": 694.9614062905312,
+      "warm_ms": 615.4206842184067
+    },
+    {
+      "group": 12,
+      "initialization_ms": 678.5228401422501,
+      "warm_ms": 594.5878848433495
+    },
+    {
+      "group": 13,
+      "initialization_ms": 698.2270069420338,
+      "warm_ms": 617.7842319011688
+    },
+    {
+      "group": 14,
+      "initialization_ms": 852.0546704530716,
+      "warm_ms": 773.8405652344227
+    },
+    {
+      "group": 15,
+      "initialization_ms": 674.7948043048382,
+      "warm_ms": 588.7246690690517
+    },
+    {
+      "group": 16,
+      "initialization_ms": 661.6843417286873,
+      "warm_ms": 581.044401973486
+    },
+    {
+      "group": 17,
+      "initialization_ms": 668.6968952417374,
+      "warm_ms": 590.976644307375
+    },
+    {
+      "group": 18,
+      "initialization_ms": 694.5356167852879,
+      "warm_ms": 606.5165437757969
+    },
+    {
+      "group": 19,
+      "initialization_ms": 719.7639606893063,
+      "warm_ms": 639.1847692430019
+    },
+    {
+      "group": 20,
+      "initialization_ms": 680.6873232126236,
+      "warm_ms": 599.3309691548347
+    },
+    {
+      "group": 21,
+      "initialization_ms": 676.9150607287884,
+      "warm_ms": 592.1126790344715
+    },
+    {
+      "group": 22,
+      "initialization_ms": 856.1290726065636,
+      "warm_ms": 762.7509981393814
+    },
+    {
+      "group": 23,
+      "initialization_ms": 1509.1502480208874,
+      "warm_ms": 1429.526410996914
+    },
+    {
+      "group": 24,
+      "initialization_ms": 1132.0469975471497,
+      "warm_ms": 1047.526516020298
+    },
+    {
+      "group": 25,
+      "initialization_ms": 666.7536944150925,
+      "warm_ms": 587.2561410069466
+    },
+    {
+      "group": 26,
+      "initialization_ms": 662.1337421238422,
+      "warm_ms": 583.3394601941109
+    },
+    {
+      "group": 27,
+      "initialization_ms": 816.0046190023422,
+      "warm_ms": 729.5544408261776
+    },
+    {
+      "group": 28,
+      "initialization_ms": 673.6840605735779,
+      "warm_ms": 596.9540178775787
+    },
+    {
+      "group": 29,
+      "initialization_ms": 672.8353463113308,
+      "warm_ms": 587.8001265227795
+    },
+    {
+      "group": 30,
+      "initialization_ms": 694.7885267436504,
+      "warm_ms": 598.4121039509773
+    },
+    {
+      "group": 31,
+      "initialization_ms": 669.7954647243023,
+      "warm_ms": 592.0054167509079
+    },
+    {
+      "group": 32,
+      "initialization_ms": 668.5492433607578,
+      "warm_ms": 589.3534123897552
+    },
+    {
+      "group": 33,
+      "initialization_ms": 665.6935028731823,
+      "warm_ms": 582.2096131742001
+    },
+    {
+      "group": 34,
+      "initialization_ms": 841.040849685669,
+      "warm_ms": 748.2079528272152
+    },
+    {
+      "group": 35,
+      "initialization_ms": 682.4561506509781,
+      "warm_ms": 603.2973751425743
+    },
+    {
+      "group": 36,
+      "initialization_ms": 697.7033354341984,
+      "warm_ms": 612.6625686883926
+    },
+    {
+      "group": 37,
+      "initialization_ms": 656.0658924281597,
+      "warm_ms": 579.9726955592632
+    },
+    {
+      "group": 38,
+      "initialization_ms": 665.614627301693,
+      "warm_ms": 588.6835232377052
+    },
+    {
+      "group": 39,
+      "initialization_ms": 690.8008567988873,
+      "warm_ms": 606.5071225166321
+    },
+    {
+      "group": 40,
+      "initialization_ms": 642.0889273285866,
+      "warm_ms": 564.3394999206066
+    },
+    {
+      "group": 41,
+      "initialization_ms": 676.8998317420483,
+      "warm_ms": 597.9661494493484
+    },
+    {
+      "group": 42,
+      "initialization_ms": 829.7001831233501,
+      "warm_ms": 744.0365664660931
+    },
+    {
+      "group": 43,
+      "initialization_ms": 670.7506738603115,
+      "warm_ms": 593.7376990914345
+    },
+    {
+      "group": 44,
+      "initialization_ms": 663.1668545305729,
+      "warm_ms": 587.307445704937
+    },
+    {
+      "group": 45,
+      "initialization_ms": 679.2968101799488,
+      "warm_ms": 596.5933091938496
+    },
+    {
+      "group": 46,
+      "initialization_ms": 784.2567041516304,
+      "warm_ms": 707.20399543643
+    },
+    {
+      "group": 47,
+      "initialization_ms": 662.9344522953033,
+      "warm_ms": 585.1842612028122
+    },
+    {
+      "group": 48,
+      "initialization_ms": 672.2796261310577,
+      "warm_ms": 589.5119160413742
+    },
+    {
+      "group": 49,
+      "initialization_ms": 668.3148257434368,
+      "warm_ms": 590.4729142785072
+    },
+    {
+      "group": 50,
+      "initialization_ms": 642.1741023659706,
+      "warm_ms": 565.0564320385456
+    },
+    {
+      "group": 51,
+      "initialization_ms": 666.8382361531258,
+      "warm_ms": 583.1349045038223
+    },
+    {
+      "group": 52,
+      "initialization_ms": 671.8374900519848,
+      "warm_ms": 591.8171182274818
+    },
+    {
+      "group": 53,
+      "initialization_ms": 678.4668304026127,
+      "warm_ms": 600.4551686346531
+    },
+    {
+      "group": 54,
+      "initialization_ms": 810.5007968842983,
+      "warm_ms": 718.1103825569153
+    },
+    {
+      "group": 55,
+      "initialization_ms": 662.1523275971413,
+      "warm_ms": 584.8135650157928
+    },
+    {
+      "group": 56,
+      "initialization_ms": 668.8936203718185,
+      "warm_ms": 589.0264250338078
+    },
+    {
+      "group": 57,
+      "initialization_ms": 674.0423254668713,
+      "warm_ms": 589.7144414484501
+    },
+    {
+      "group": 58,
+      "initialization_ms": 671.582143753767,
+      "warm_ms": 594.4065004587173
+    },
+    {
+      "group": 59,
+      "initialization_ms": 679.7765828669071,
+      "warm_ms": 602.6036106050014
+    },
+    {
+      "group": 60,
+      "initialization_ms": 1013.2368355989456,
+      "warm_ms": 927.0819462835789
+    },
+    {
+      "group": 61,
+      "initialization_ms": 1372.817698866129,
+      "warm_ms": 1078.489262610674
+    },
+    {
+      "group": 62,
+      "initialization_ms": 798.4291464090347,
+      "warm_ms": 722.0786772668362
+    },
+    {
+      "group": 63,
+      "initialization_ms": 674.5715141296387,
+      "warm_ms": 592.0430161058903
+    },
+    {
+      "group": 64,
+      "initialization_ms": 672.1130460500717,
+      "warm_ms": 595.0599014759064
+    },
+    {
+      "group": 65,
+      "initialization_ms": 673.7832315266132,
+      "warm_ms": 595.3846126794815
+    },
+    {
+      "group": 66,
+      "initialization_ms": 810.9814040362835,
+      "warm_ms": 728.279247879982
+    },
+    {
+      "group": 67,
+      "initialization_ms": 669.531524181366,
+      "warm_ms": 590.7971262931824
+    },
+    {
+      "group": 68,
+      "initialization_ms": 665.2062088251114,
+      "warm_ms": 587.4785147607327
+    },
+    {
+      "group": 69,
+      "initialization_ms": 675.4072345793247,
+      "warm_ms": 591.2945158779621
+    },
+    {
+      "group": 70,
+      "initialization_ms": 661.5167073905468,
+      "warm_ms": 582.4624709784985
+    },
+    {
+      "group": 71,
+      "initialization_ms": 687.3836070299149,
+      "warm_ms": 596.2801948189735
+    },
+    {
+      "group": 72,
+      "initialization_ms": 674.7114807367325,
+      "warm_ms": 590.8506698906422
+    },
+    {
+      "group": 73,
+      "initialization_ms": 677.2132217884064,
+      "warm_ms": 595.7187749445438
+    },
+    {
+      "group": 74,
+      "initialization_ms": 831.4131125807762,
+      "warm_ms": 753.9092637598515
+    },
+    {
+      "group": 75,
+      "initialization_ms": 688.2949657738209,
+      "warm_ms": 591.9376090168953
+    },
+    {
+      "group": 76,
+      "initialization_ms": 664.3525660037994,
+      "warm_ms": 586.0104225575924
+    },
+    {
+      "group": 77,
+      "initialization_ms": 675.6545789539814,
+      "warm_ms": 595.2280163764954
+    },
+    {
+      "group": 78,
+      "initialization_ms": 701.3677805662155,
+      "warm_ms": 606.7705862224102
+    },
+    {
+      "group": 79,
+      "initialization_ms": 672.6820468902588,
+      "warm_ms": 595.489040017128
+    },
+    {
+      "group": 80,
+      "initialization_ms": 674.0638464689255,
+      "warm_ms": 586.6564884781837
+    },
+    {
+      "group": 81,
+      "initialization_ms": 812.0480142533779,
+      "warm_ms": 729.1716039180756
+    },
+    {
+      "group": 82,
+      "initialization_ms": 684.8316118121147,
+      "warm_ms": 605.9963256120682
+    },
+    {
+      "group": 83,
+      "initialization_ms": 667.3414558172226,
+      "warm_ms": 589.5510911941528
+    },
+    {
+      "group": 84,
+      "initialization_ms": 670.9288246929646,
+      "warm_ms": 588.2188156247139
+    },
+    {
+      "group": 85,
+      "initialization_ms": 671.021331101656,
+      "warm_ms": 592.2252908349037
+    },
+    {
+      "group": 86,
+      "initialization_ms": 677.8662241995335,
+      "warm_ms": 587.7419449388981
+    },
+    {
+      "group": 87,
+      "initialization_ms": 678.7187047302723,
+      "warm_ms": 595.3452438116074
+    },
+    {
+      "group": 88,
+      "initialization_ms": 817.1986006200314,
+      "warm_ms": 739.0620671212673
+    },
+    {
+      "group": 89,
+      "initialization_ms": 694.6795657277107,
+      "warm_ms": 611.6367317736149
+    },
+    {
+      "group": 90,
+      "initialization_ms": 666.1193370819092,
+      "warm_ms": 583.1811055541039
+    },
+    {
+      "group": 91,
+      "initialization_ms": 658.4277451038361,
+      "warm_ms": 581.1471417546272
+    },
+    {
+      "group": 92,
+      "initialization_ms": 662.0817743241787,
+      "warm_ms": 584.9300846457481
+    },
+    {
+      "group": 93,
+      "initialization_ms": 686.2018741667271,
+      "warm_ms": 591.4155058562756
+    },
+    {
+      "group": 94,
+      "initialization_ms": 682.7463582158089,
+      "warm_ms": 593.5315005481243
+    },
+    {
+      "group": 95,
+      "initialization_ms": 818.5787051916122,
+      "warm_ms": 739.8606911301613
+    },
+    {
+      "group": 96,
+      "initialization_ms": 674.5358780026436,
+      "warm_ms": 590.1005528867245
+    },
+    {
+      "group": 97,
+      "initialization_ms": 670.9798984229565,
+      "warm_ms": 591.2626050412655
+    },
+    {
+      "group": 98,
+      "initialization_ms": 678.3936731517315,
+      "warm_ms": 598.885290324688
+    },
+    {
+      "group": 99,
+      "initialization_ms": 698.2713229954243,
+      "warm_ms": 613.3827194571495
+    }
+  ]
+}

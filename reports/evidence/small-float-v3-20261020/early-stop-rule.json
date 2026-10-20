@@ -1,0 +1,1 @@
+{"minimum_epochs": 12, "patience": 8, "monitor": "validation score", "test_used": false}

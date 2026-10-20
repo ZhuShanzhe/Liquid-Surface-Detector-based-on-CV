@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 from .tof_scene_meter import ToFSceneMeter
 
-VERSION = 'unified_tof_console_v1_20261019'
+VERSION = 'unified_tof_console_v2_small_float_20261020'
 MATERIALS = frozenset(('ordinary_diffuse', 'homogeneous_transparent', 'homogeneous_translucent'))
 TAGS = frozenset(('low_light', 'glare', 'uneven_surface', 'floating_objects', 'partial_depth_loss'))
 
@@ -127,7 +127,7 @@ def make_plan(prediction, installation, quality):
 
 class UnifiedToFMeter:
     def __init__(self, installation, classifier, *, profile_path,
-                 compound_repair=True, repair_policy=None):
+                 compound_repair=True, repair_policy=None, small_float_peak=True):
         installation.validate()
         self.installation, self.classifier = installation, classifier
         self.shape = np.asarray(installation.dry_depth_m).shape
@@ -146,6 +146,14 @@ class UnifiedToFMeter:
         self.phase_cache = {}
         self.last_timestamp = None
         self._peak_warmed = False
+        self.small_float_peak_enabled = bool(small_float_peak and self.compound_repair is not None)
+        self._small_float_peak = None
+
+    def _small_float_refiner(self):
+        if self._small_float_peak is None:
+            from .small_float_peak import SmallFloatPeakRefiner
+            self._small_float_peak = SmallFloatPeakRefiner(self.installation.geometry, self.installation.dry_depth_m)
+        return self._small_float_peak
 
     def preload_optional_peak_models(self):
         """Load trusted assets at initialization; do NOT measure any non-float image."""
@@ -170,6 +178,8 @@ class UnifiedToFMeter:
         f.predictor.predict(observed_features(rgb,self.installation.dry_depth_m,
             self.installation.dry_depth_m,self.roi,self.installation.geometry))
         self._peak_warmed=True
+        if getattr(self,'small_float_peak_enabled',False):
+            self._small_float_refiner().warm()
         return (time.perf_counter()-start)*1000
 
     def measure(self, observation):
@@ -219,6 +229,15 @@ class UnifiedToFMeter:
                         rgb_bgr=observation.rgb_bgr,visual_enabled=True)
                     result['highest_height_m']=fallback.get('highest_height_m')
                 plan['modules'] += ['native_tof_input_validity','wet_dry_identity_evidence','supported_highest_height']
+            if self.small_float_peak_enabled:
+                result=self._small_float_refiner().refine(result,observation.depth_m,observation.rgb_bgr)
+                audit=result.get('diagnostics',{}).get('small_float_peak',{})
+                plan['modules'].append('highest_only_small_float_presence_probe')
+                plan['small_float_visual_accepted']=bool(audit.get('accepted'))
+                plan['small_float_visual_used']=bool(audit.get('used'))
+                if audit.get('used'):
+                    result['visual_module_executed']=True
+                    plan['modules'].append('small_float_supported_highest')
         liquid=result.get('liquid_depth_m');highest=result.get('highest_height_m')
         consistency=[]
         if liquid is not None and highest is not None and highest<liquid-.005:

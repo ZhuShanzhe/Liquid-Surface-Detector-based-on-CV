@@ -1,0 +1,1 @@
+{"complete": true, "epochs_run": 23, "best_epoch": 15, "reason": "validation_patience", "rule": {"minimum_epochs": 12, "patience": 8, "monitor": "validation score", "test_used": false}, "stopped_pids": [96443]}

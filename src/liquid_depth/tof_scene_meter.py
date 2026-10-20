@@ -2,7 +2,7 @@
 from .determined_scene_meter import DeterminedSceneMeter,OPAQUE_SCENES,REFRACTION_SCENES,SCENES
 from .tof_phase_refraction import PhasePriorMeter
 
-VERSION='tof_formal_v2_20261020'
+VERSION='tof_formal_v3_small_float_20261020'
 SENSORS=frozenset({'tof'})
 
 
@@ -11,9 +11,11 @@ class ToFSceneMeter:
         if sensor not in SENSORS:raise ValueError('formal_release_only_tof_supported')
         self.backend=backend;self.sensor=sensor;self.kind=kind;self.scene=scene
         self.repair=repair
+        self._small_float_peak=None
+        self._small_float_peak_inputs=None
 
     @classmethod
-    def from_empty_geometry(cls,bundle,dry_depth_m,*,evidence_repair=True,repair_policy=None,**kwargs):
+    def from_empty_geometry(cls,bundle,dry_depth_m,*,evidence_repair=True,repair_policy=None,small_float_peak=True,**kwargs):
         sensor=bundle['sensor_family']
         if sensor not in SENSORS:raise ValueError('formal_release_only_tof_supported')
         backend=DeterminedSceneMeter.from_empty_geometry(bundle,dry_depth_m,**kwargs)
@@ -22,7 +24,10 @@ class ToFSceneMeter:
             from .supported_scene_meter import FormalSceneMeter
             from .compound_tof_repair import CompoundToFRepair
             repair=CompoundToFRepair(FormalSceneMeter.from_empty_geometry(bundle,dry_depth_m),dry_depth_m,repair_policy)
-        return cls(backend,sensor=sensor,kind='empty_geometry',repair=repair)
+        meter=cls(backend,sensor=sensor,kind='empty_geometry',repair=repair)
+        if repair is not None and small_float_peak:
+            meter._small_float_peak_inputs=(bundle,dry_depth_m)
+        return meter
 
     @classmethod
     def from_phase_priors(cls,*,sensor,scene,profile,ray_coordinates,roi,prior_correlations,known_heights_m):
@@ -52,4 +57,9 @@ class ToFSceneMeter:
                     previous=self.backend.measure(scene,depth_m=depth,rgb_bgr=rgb_bgr,visual_enabled=True)
                     value['highest_height_m']=previous.get('highest_height_m')
                 value['input_validity_audit']=audit
+                if use_visual and self._small_float_peak_inputs is not None:
+                    if self._small_float_peak is None:
+                        from .small_float_peak import SmallFloatPeakRefiner
+                        self._small_float_peak=SmallFloatPeakRefiner(*self._small_float_peak_inputs)
+                    value=self._small_float_peak.refine(value,depth,rgb_bgr)
         return {**value,'release_version':VERSION,'sensor_family':self.sensor,'field_metrology_qualified':False}

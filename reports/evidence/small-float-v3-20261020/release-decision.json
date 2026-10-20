@@ -1,0 +1,6 @@
+{
+  "merge_allowed": true,
+  "numerical_gate": true,
+  "live_p95_gate": true,
+  "live_parity": true
+}

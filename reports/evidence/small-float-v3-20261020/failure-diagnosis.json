@@ -1,0 +1,692 @@
+{
+  "note": "post-test diagnosis only; no model, policy or test-set modifications",
+  "counts": {
+    "highest_candidate_confidence_or_correction_rejected": 11,
+    "highest_direct_support_insufficient": 7,
+    "inherited_high_outlier_not_demoted": 1,
+    "highest_pixel_presence_or_reliability_missed": 2,
+    "highest_component_spatial_or_coherence_filter": 7
+  },
+  "records": [
+    {
+      "frame": "0040_08",
+      "bits": 8,
+      "error_mm": 56.94670445032196,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 15,
+      "highest_detected_direct_points": 15,
+      "relevant_candidate_count": 1,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.3798754618391639,
+          "height_raw_m": 0.378536866185485,
+          "pixels": 55,
+          "bbox": [
+            260,
+            141,
+            270,
+            149
+          ],
+          "object_probability": 0.1690882419830953,
+          "top_probability": 0.16658103979618888,
+          "correction_m": 0.0013385956536788868,
+          "noise_m": 0.007243500091135502
+        }
+      ]
+    },
+    {
+      "frame": "0040_10",
+      "bits": 10,
+      "error_mm": 92.36229742086633,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 1,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0040_24",
+      "bits": 24,
+      "error_mm": 58.13685303932892,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 12,
+      "highest_detected_direct_points": 12,
+      "relevant_candidate_count": 3,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.37823110544562116,
+          "height_raw_m": 0.3783116251623664,
+          "pixels": 49,
+          "bbox": [
+            260,
+            141,
+            270,
+            149
+          ],
+          "object_probability": 0.12070086081625087,
+          "top_probability": 0.1200219014403155,
+          "correction_m": -8.051971674523075e-05,
+          "noise_m": 0.007243500091135502
+        },
+        {
+          "height_m": 0.3771678249782733,
+          "height_raw_m": 0.3769679803894951,
+          "pixels": 54,
+          "bbox": [
+            260,
+            141,
+            270,
+            149
+          ],
+          "object_probability": 0.14005661400817757,
+          "top_probability": 0.13351049533941906,
+          "correction_m": 0.000199844588778193,
+          "noise_m": 0.007244550157338381
+        },
+        {
+          "height_m": 0.3745408952562265,
+          "height_raw_m": 0.37443688887342735,
+          "pixels": 60,
+          "bbox": [
+            260,
+            140,
+            270,
+            149
+          ],
+          "object_probability": 0.07908966541185862,
+          "top_probability": 0.057551337660976754,
+          "correction_m": 0.00010400638279918533,
+          "noise_m": 0.007245250046253204
+        }
+      ]
+    },
+    {
+      "frame": "0096_09",
+      "bits": 9,
+      "error_mm": 80.26944834579626,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 0,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0096_24",
+      "bits": 24,
+      "error_mm": 79.79007285048596,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 22,
+      "highest_detected_direct_points": 22,
+      "relevant_candidate_count": 2,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.09218359265767796,
+          "height_raw_m": 0.09070191465380369,
+          "pixels": 52,
+          "bbox": [
+            267,
+            128,
+            278,
+            143
+          ],
+          "object_probability": 0.24943358885580894,
+          "top_probability": 0.2630850811770658,
+          "correction_m": 0.0014816780038742793,
+          "noise_m": 0.008017700165510178
+        },
+        {
+          "height_m": 0.09190486268164516,
+          "height_raw_m": 0.09082292466109845,
+          "pixels": 44,
+          "bbox": [
+            268,
+            129,
+            277,
+            141
+          ],
+          "object_probability": 0.5906779985754761,
+          "top_probability": 0.5917829549468631,
+          "correction_m": 0.0010819380205467058,
+          "noise_m": 0.008008599281311035
+        }
+      ]
+    },
+    {
+      "frame": "0021_09",
+      "bits": 9,
+      "error_mm": 1380.9157363467923,
+      "reason": "inherited_high_outlier_not_demoted",
+      "highest_direct_points": 1,
+      "highest_detected_direct_points": 1,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0033_10",
+      "bits": 10,
+      "error_mm": 54.19124630974206,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 0,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0069_09",
+      "bits": 9,
+      "error_mm": 56.25162675977546,
+      "reason": "highest_pixel_presence_or_reliability_missed",
+      "highest_direct_points": 33,
+      "highest_detected_direct_points": 2,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0069_12",
+      "bits": 12,
+      "error_mm": 51.41599960966695,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 63,
+      "highest_detected_direct_points": 63,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0026_08",
+      "bits": 8,
+      "error_mm": 52.52428684356275,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 16,
+      "highest_detected_direct_points": 16,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0026_09",
+      "bits": 9,
+      "error_mm": 63.207117611643994,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 20,
+      "highest_detected_direct_points": 20,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0026_10",
+      "bits": 10,
+      "error_mm": 60.46577856953472,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 56,
+      "highest_detected_direct_points": 55,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0030_08",
+      "bits": 8,
+      "error_mm": 51.689527409884874,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 12,
+      "highest_detected_direct_points": 12,
+      "relevant_candidate_count": 3,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.14878471945601052,
+          "height_raw_m": 0.14977996767738855,
+          "pixels": 26,
+          "bbox": [
+            222,
+            95,
+            228,
+            101
+          ],
+          "object_probability": 0.31587449546970137,
+          "top_probability": 0.4059913957726057,
+          "correction_m": -0.0009952482213780394,
+          "noise_m": 0.007500749547034502
+        },
+        {
+          "height_m": 0.1480797042921721,
+          "height_raw_m": 0.14839082965846034,
+          "pixels": 32,
+          "bbox": [
+            222,
+            94,
+            228,
+            101
+          ],
+          "object_probability": 0.2756147623763576,
+          "top_probability": 0.2554758084368816,
+          "correction_m": -0.00031112536628825454,
+          "noise_m": 0.007503200322389603
+        },
+        {
+          "height_m": 0.14800525184110994,
+          "height_raw_m": 0.14896788819894446,
+          "pixels": 29,
+          "bbox": [
+            222,
+            95,
+            228,
+            101
+          ],
+          "object_probability": 0.3600358113996334,
+          "top_probability": 0.41171048144651207,
+          "correction_m": -0.0009626363578345213,
+          "noise_m": 0.007501799613237381
+        }
+      ]
+    },
+    {
+      "frame": "0030_09",
+      "bits": 9,
+      "error_mm": 52.532144523137816,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 0,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0030_24",
+      "bits": 24,
+      "error_mm": 54.88740548068682,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 5,
+      "highest_detected_direct_points": 5,
+      "relevant_candidate_count": 2,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.14276872201532823,
+          "height_raw_m": 0.14634240881307878,
+          "pixels": 20,
+          "bbox": [
+            219,
+            93,
+            229,
+            100
+          ],
+          "object_probability": 0.16983498786929824,
+          "top_probability": 0.16649295116169188,
+          "correction_m": -0.0035736867977505605,
+          "noise_m": 0.007503900211304426
+        },
+        {
+          "height_m": 0.13841276268178304,
+          "height_raw_m": 0.13999808670683223,
+          "pixels": 29,
+          "bbox": [
+            218,
+            93,
+            231,
+            101
+          ],
+          "object_probability": 0.15311592239190933,
+          "top_probability": 0.13951785849809584,
+          "correction_m": -0.0015853240250491795,
+          "noise_m": 0.0075053004547953606
+        }
+      ]
+    },
+    {
+      "frame": "0034_10",
+      "bits": 10,
+      "error_mm": 55.81434313256184,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 16,
+      "highest_detected_direct_points": 16,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0038_10",
+      "bits": 10,
+      "error_mm": 81.55012357238544,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 7,
+      "highest_detected_direct_points": 7,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0042_08",
+      "bits": 8,
+      "error_mm": 63.032158118838886,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 15,
+      "highest_detected_direct_points": 15,
+      "relevant_candidate_count": 2,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.6440449632475828,
+          "height_raw_m": 0.6461502972855477,
+          "pixels": 59,
+          "bbox": [
+            296,
+            170,
+            304,
+            179
+          ],
+          "object_probability": 0.1154609750425915,
+          "top_probability": 0.08870709887758599,
+          "correction_m": -0.002105334037964988,
+          "noise_m": 0.00738769955933094
+        },
+        {
+          "height_m": 0.6433762033012279,
+          "height_raw_m": 0.6455489501961974,
+          "pixels": 63,
+          "bbox": [
+            296,
+            170,
+            304,
+            179
+          ],
+          "object_probability": 0.12531638347127122,
+          "top_probability": 0.047680794490323655,
+          "correction_m": -0.0021727468949694893,
+          "noise_m": 0.007388399913907051
+        }
+      ]
+    },
+    {
+      "frame": "0042_09",
+      "bits": 9,
+      "error_mm": 65.45697061072443,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 0,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0042_10",
+      "bits": 10,
+      "error_mm": 61.05306527260856,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 0,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0042_24",
+      "bits": 24,
+      "error_mm": 63.0659232776658,
+      "reason": "highest_pixel_presence_or_reliability_missed",
+      "highest_direct_points": 5,
+      "highest_detected_direct_points": 0,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0098_10",
+      "bits": 10,
+      "error_mm": 52.1528266541344,
+      "reason": "highest_component_spatial_or_coherence_filter",
+      "highest_direct_points": 22,
+      "highest_detected_direct_points": 20,
+      "relevant_candidate_count": 0,
+      "accepted_relevant_count": 0,
+      "candidates": []
+    },
+    {
+      "frame": "0011_09",
+      "bits": 9,
+      "error_mm": 80.08093539407982,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 6,
+      "highest_detected_direct_points": 6,
+      "relevant_candidate_count": 1,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.25590343079477,
+          "height_raw_m": 0.25321968525897665,
+          "pixels": 119,
+          "bbox": [
+            203,
+            82,
+            218,
+            93
+          ],
+          "object_probability": 0.09929667082320197,
+          "top_probability": 0.09052835056391915,
+          "correction_m": 0.002683745535793388,
+          "noise_m": 0.008154199458658695
+        }
+      ]
+    },
+    {
+      "frame": "0011_10",
+      "bits": 10,
+      "error_mm": 81.8606361665182,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 25,
+      "highest_detected_direct_points": 25,
+      "relevant_candidate_count": 1,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.25644244071793787,
+          "height_raw_m": 0.2539906141045307,
+          "pixels": 65,
+          "bbox": [
+            202,
+            84,
+            215,
+            91
+          ],
+          "object_probability": 0.29793750075281544,
+          "top_probability": 0.19286188499937845,
+          "correction_m": 0.0024518266134071496,
+          "noise_m": 0.008151399902999401
+        }
+      ]
+    },
+    {
+      "frame": "0083_08",
+      "bits": 8,
+      "error_mm": 50.161068977515825,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 21,
+      "highest_detected_direct_points": 21,
+      "relevant_candidate_count": 2,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.2863310031183359,
+          "height_raw_m": 0.28755763056545,
+          "pixels": 65,
+          "bbox": [
+            271,
+            158,
+            282,
+            167
+          ],
+          "object_probability": 0.35740906539550665,
+          "top_probability": 0.2829545490504346,
+          "correction_m": -0.001226627447114039,
+          "noise_m": 0.006318800151348114
+        },
+        {
+          "height_m": 0.28616007250097514,
+          "height_raw_m": 0.28755734990593484,
+          "pixels": 68,
+          "bbox": [
+            270,
+            158,
+            282,
+            167
+          ],
+          "object_probability": 0.3569347702645289,
+          "top_probability": 0.2999779757533668,
+          "correction_m": -0.00139727740495973,
+          "noise_m": 0.00631949957460165
+        }
+      ]
+    },
+    {
+      "frame": "0083_09",
+      "bits": 9,
+      "error_mm": 59.29847536560268,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 13,
+      "highest_detected_direct_points": 13,
+      "relevant_candidate_count": 3,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.28165533441161605,
+          "height_raw_m": 0.2825992709467057,
+          "pixels": 35,
+          "bbox": [
+            265,
+            137,
+            278,
+            145
+          ],
+          "object_probability": 0.33601460733921484,
+          "top_probability": 0.2920836017650678,
+          "correction_m": -0.000943936535089664,
+          "noise_m": 0.006331400014460087
+        },
+        {
+          "height_m": 0.2774964035097646,
+          "height_raw_m": 0.27804144791773916,
+          "pixels": 48,
+          "bbox": [
+            265,
+            137,
+            279,
+            146
+          ],
+          "object_probability": 0.2811573101469699,
+          "top_probability": 0.27791616113669576,
+          "correction_m": -0.0005450444079745336,
+          "noise_m": 0.0063324496150016785
+        },
+        {
+          "height_m": 0.27645731378139543,
+          "height_raw_m": 0.2774626383867281,
+          "pixels": 60,
+          "bbox": [
+            264,
+            136,
+            282,
+            146
+          ],
+          "object_probability": 0.12389629112221182,
+          "top_probability": 0.06233020312878268,
+          "correction_m": -0.0010053246053326626,
+          "noise_m": 0.006332799792289734
+        }
+      ]
+    },
+    {
+      "frame": "0083_10",
+      "bits": 10,
+      "error_mm": 75.89521843101998,
+      "reason": "highest_direct_support_insufficient",
+      "highest_direct_points": 8,
+      "highest_detected_direct_points": 4,
+      "relevant_candidate_count": 1,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.26422686603126644,
+          "height_raw_m": 0.2685645637416322,
+          "pixels": 3,
+          "bbox": [
+            235,
+            143,
+            237,
+            145
+          ],
+          "object_probability": 0.3435361370070121,
+          "top_probability": 0.3706457651064997,
+          "correction_m": -0.004337697710365727,
+          "noise_m": 0.006322999484837055
+        }
+      ]
+    },
+    {
+      "frame": "0083_24",
+      "bits": 24,
+      "error_mm": 55.74961414303209,
+      "reason": "highest_candidate_confidence_or_correction_rejected",
+      "highest_direct_points": 17,
+      "highest_detected_direct_points": 17,
+      "relevant_candidate_count": 6,
+      "accepted_relevant_count": 0,
+      "candidates": [
+        {
+          "height_m": 0.3004869978314544,
+          "height_raw_m": 0.3009252991495295,
+          "pixels": 22,
+          "bbox": [
+            222,
+            110,
+            228,
+            118
+          ],
+          "object_probability": 0.12740148847554025,
+          "top_probability": 0.16135893280784855,
+          "correction_m": -0.0004383013180750916,
+          "noise_m": 0.006341199390590191
+        },
+        {
+          "height_m": 0.29613968199460367,
+          "height_raw_m": 0.29660089113246046,
+          "pixels": 34,
+          "bbox": [
+            222,
+            109,
+            230,
+            118
+          ],
+          "object_probability": 0.1629701459478071,
+          "top_probability": 0.18660469368009264,
+          "correction_m": -0.00046120913785680824,
+          "noise_m": 0.006341549567878246
+        },
+        {
+          "height_m": 0.29031407910082124,
+          "height_raw_m": 0.29030114727893,
+          "pixels": 44,
+          "bbox": [
+            262,
+            96,
+            271,
+            105
+          ],
+          "object_probability": 0.13623344150240146,
+          "top_probability": 0.13130328295660415,
+          "correction_m": 1.2931821891222818e-05,
+          "noise_m": 0.006345749832689762
+        }
+      ]
+    }
+  ]
+}
