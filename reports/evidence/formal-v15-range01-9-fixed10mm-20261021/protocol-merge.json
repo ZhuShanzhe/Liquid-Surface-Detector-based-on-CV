@@ -1,0 +1,21 @@
+{
+  "commit": "40c4019de5496370dd9112a74c886feb6a72ce87",
+  "estimator_changed": false,
+  "files": [
+    "scripts/evaluate_range10mm/range_protocol.py",
+    "scripts/evaluate_range10mm/prepare_range.py",
+    "scripts/evaluate_range10mm/diverse_capture.py",
+    "scripts/evaluate_range10mm/diverse_launch.py",
+    "scripts/evaluate_range10mm/diverse_geometry.py",
+    "scripts/evaluate_range10mm/diverse_preflight.py",
+    "scripts/evaluate_range10mm/diverse_evaluate.py",
+    "scripts/evaluate_range10mm/audit_capture_inputs.py",
+    "scripts/evaluate_range10mm/finalize_diverse.py",
+    "scripts/evaluate_range10mm/summarize_evaluation.py",
+    "scripts/evaluate_range10mm/derive_report_conclusions.py",
+    "scripts/evaluate_range10mm/run.py",
+    "scripts/evaluate_range10mm/PROTOCOL.rst",
+    "tests/test_range10mm_protocol.py"
+  ],
+  "audit_patch_commit": "778e9f228fd4d159527476feb6463686c88e03e0"
+}

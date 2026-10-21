@@ -1,0 +1,842 @@
+[
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_00_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_00_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_03_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_03_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_06_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_06_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_08_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_08_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_12_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_12_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_13_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_13_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_00_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_00_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_03_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_03_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_06_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_06_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_08_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_08_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_12_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_12_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_13_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_13_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_00_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_00_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_03_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_03_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_06_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_06_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_08_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_08_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_12_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_12_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_13_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/reused_13_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_02_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_02_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_02_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_02_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_02_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_02_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_02_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_02_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_02_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_02_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_02_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_02_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_03_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_03_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_03_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_03_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_03_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_03_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_03_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_03_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_03_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_03_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_03_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_03_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_04_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_04_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_04_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_04_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_04_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_04_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_04_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_04_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_04_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_04_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_04_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_04_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_05_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_05_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_05_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_05_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_05_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_05_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_05_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_05_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_05_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_05_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_05_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_05_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_06_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_06_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_06_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_06_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_06_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_06_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_06_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_06_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_06_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_06_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_06_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_06_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_07_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_07_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_07_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_07_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_07_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_07_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_07_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_07_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_07_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_07_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_07_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_07_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_08_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_00_08_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_08_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_03_08_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_08_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_06_08_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_08_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_08_08_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_08_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_12_08_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_08_0000",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v15-range01-9-fixed10mm-20261021/data/new_13_08_0000",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  }
+]

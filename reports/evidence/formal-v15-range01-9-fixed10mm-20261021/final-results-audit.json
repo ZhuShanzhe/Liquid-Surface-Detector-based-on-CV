@@ -1,0 +1,1744 @@
+{
+  "evaluation_revision": "range_0p1_9m_fixed_10mm",
+  "generated_at": "2026-10-21T10:25:43.765448+00:00",
+  "audit_integrity_passed": true,
+  "integrity_components": {
+    "structural": true,
+    "annotation_budget": true,
+    "diagnostics": true,
+    "protocol": true
+  },
+  "meaning": "Integrity/budget audit only; ordinary measurement errors and no-output failures do not invalidate this audit if fully retained.",
+  "sampling_and_pairing": {
+    "expected_unique_images": 2500,
+    "unique_images": 2500,
+    "measurement_rows": 5000,
+    "complete_pairs": 2500,
+    "duplicate_rows": [],
+    "unexpected_variants": [],
+    "unknown_categories": [],
+    "qualification_mismatches": [],
+    "inconsistent_pair_inputs": [],
+    "out_of_range": [],
+    "missing_truth": [],
+    "declared_band_mismatches": [],
+    "ineligible_inputs_inferred": [],
+    "wrong_cohorts": [],
+    "camera_bottom_outside_protocol": [],
+    "per_category": {
+      "ordinary": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "low_light_low": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "low_light_medium": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "low_light_strong": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "glare_low": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "glare_medium": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "glare_strong": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "uneven_surface": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "floating_objects": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "loss_low": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "loss_medium": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "loss_high": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "transparent": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "translucent": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_03": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_05": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_06": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_07": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_09": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_10": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_11": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_12": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_13": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_14": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      },
+      "compound_15": {
+        "unique_images": 100,
+        "complete_pairs": 100,
+        "qualified_images": 100,
+        "depth_band_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "target_counts": [
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "exact100": true,
+        "quotas_exact": true
+      }
+    },
+    "overall_band_counts": [
+      300,
+      275,
+      275,
+      275,
+      275,
+      275,
+      275,
+      275,
+      275
+    ]
+  },
+  "measurement_outcomes": {
+    "ideal": {
+      "rows": 2500,
+      "qualified_rows": 2500,
+      "numeric_liquid": 2500,
+      "qualified_missing_liquid": 0,
+      "qualified_missing_highest_raw": 200,
+      "highest_not_applicable_phase": 200,
+      "geometry_highest_rows": 2300,
+      "qualified_missing_highest_geometry": 0,
+      "primary_exception_rows": 0,
+      "primary_exception_with_numeric_liquid": 0,
+      "diagnostic_error_rows": 0,
+      "pre_measurement_failure_rows": 0,
+      "missing_wall_time": 0
+    },
+    "operator_noise": {
+      "rows": 2500,
+      "qualified_rows": 2500,
+      "numeric_liquid": 2500,
+      "qualified_missing_liquid": 0,
+      "qualified_missing_highest_raw": 200,
+      "highest_not_applicable_phase": 200,
+      "geometry_highest_rows": 2300,
+      "qualified_missing_highest_geometry": 0,
+      "primary_exception_rows": 0,
+      "primary_exception_with_numeric_liquid": 0,
+      "diagnostic_error_rows": 0,
+      "pre_measurement_failure_rows": 0,
+      "missing_wall_time": 0
+    }
+  },
+  "calibration_annotations": {
+    "geometry": {
+      "by_variant": {
+        "ideal": {
+          "n": 500,
+          "mean_error_mm": 0.0,
+          "std_error_mm": 0.0,
+          "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+          "min_error_mm": 0.0,
+          "max_error_mm": 0.0,
+          "mae_mm": 0.0,
+          "p95_abs_error_mm": 0.0,
+          "max_abs_error_mm": 0.0,
+          "over_10mm": 0,
+          "n_installations": 100,
+          "count_unit": "unique installation/variant/annotation"
+        },
+        "operator_noise": {
+          "n": 500,
+          "mean_error_mm": -0.18560374351771927,
+          "std_error_mm": 3.1839566185763335,
+          "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+          "min_error_mm": -8.958942137931025,
+          "max_error_mm": 9.828340843379024,
+          "mae_mm": 2.5692543776975985,
+          "p95_abs_error_mm": 6.274073581405835,
+          "max_abs_error_mm": 9.828340843379024,
+          "over_10mm": 0,
+          "n_installations": 100,
+          "count_unit": "unique installation/variant/annotation"
+        }
+      },
+      "by_annotation": {
+        "bottom_distance": {
+          "ideal": {
+            "n": 100,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 100,
+            "mean_error_mm": 0.04789372044740947,
+            "std_error_mm": 3.1753446127282317,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -5.654500585253075,
+            "max_error_mm": 9.828340843379024,
+            "mae_mm": 2.611019597821947,
+            "p95_abs_error_mm": 5.645381876042954,
+            "max_abs_error_mm": 9.828340843379024,
+            "over_10mm": 0
+          }
+        },
+        "check_span": {
+          "ideal": {
+            "n": 100,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 100,
+            "mean_error_mm": -0.22714703594713342,
+            "std_error_mm": 2.978535341980563,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -8.627318775868753,
+            "max_error_mm": 5.785047752258965,
+            "mae_mm": 2.407256477645686,
+            "p95_abs_error_mm": 5.637703559540826,
+            "max_abs_error_mm": 8.627318775868753,
+            "over_10mm": 0
+          }
+        },
+        "rim_length": {
+          "ideal": {
+            "n": 100,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 100,
+            "mean_error_mm": -0.22078293184780165,
+            "std_error_mm": 3.248702094073048,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -8.958942137931025,
+            "max_error_mm": 6.925467486412984,
+            "mae_mm": 2.5374554767145288,
+            "p95_abs_error_mm": 6.629691854956564,
+            "max_abs_error_mm": 8.958942137931025,
+            "over_10mm": 0
+          }
+        },
+        "rim_width": {
+          "ideal": {
+            "n": 100,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 100,
+            "mean_error_mm": -0.1769182867545271,
+            "std_error_mm": 3.0078709295238597,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -7.022342416490357,
+            "max_error_mm": 8.093034008358924,
+            "mae_mm": 2.3971178477532904,
+            "p95_abs_error_mm": 5.590616017305694,
+            "max_abs_error_mm": 8.093034008358924,
+            "over_10mm": 0
+          }
+        },
+        "wall_height": {
+          "ideal": {
+            "n": 100,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 100,
+            "mean_error_mm": -0.35106418348654495,
+            "std_error_mm": 3.47089651915638,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -8.093778948138564,
+            "max_error_mm": 6.9685093131575115,
+            "mae_mm": 2.893422488552537,
+            "p95_abs_error_mm": 6.819211898024945,
+            "max_abs_error_mm": 8.093778948138564,
+            "over_10mm": 0
+          }
+        }
+      }
+    },
+    "phase": {
+      "by_variant": {
+        "ideal": {
+          "n": 744,
+          "mean_error_mm": 0.0,
+          "std_error_mm": 0.0,
+          "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+          "min_error_mm": 0.0,
+          "max_error_mm": 0.0,
+          "mae_mm": 0.0,
+          "p95_abs_error_mm": 0.0,
+          "max_abs_error_mm": 0.0,
+          "over_10mm": 0,
+          "n_installations": 93,
+          "count_unit": "unique installation/variant/material/annotation"
+        },
+        "operator_noise": {
+          "n": 744,
+          "mean_error_mm": -0.19551813158871217,
+          "std_error_mm": 3.191084993706948,
+          "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+          "min_error_mm": -9.838621842690465,
+          "max_error_mm": 8.9840416178808,
+          "mae_mm": 2.5449696767105183,
+          "p95_abs_error_mm": 6.220708288225099,
+          "max_abs_error_mm": 9.838621842690465,
+          "over_10mm": 0,
+          "n_installations": 93,
+          "count_unit": "unique installation/variant/material/annotation"
+        }
+      },
+      "by_annotation": {
+        "known_liquid_height_1": {
+          "ideal": {
+            "n": 186,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 186,
+            "mean_error_mm": -0.18724492515092614,
+            "std_error_mm": 3.2647310731936163,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -9.838621842690465,
+            "max_error_mm": 8.659596687443205,
+            "mae_mm": 2.6066143289402275,
+            "p95_abs_error_mm": 6.092123756862619,
+            "max_abs_error_mm": 9.838621842690465,
+            "over_10mm": 0
+          }
+        },
+        "known_liquid_height_2": {
+          "ideal": {
+            "n": 186,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 186,
+            "mean_error_mm": -0.3635448602323312,
+            "std_error_mm": 3.1633020673867103,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -9.071411650384832,
+            "max_error_mm": 8.9840416178808,
+            "mae_mm": 2.5074911328356437,
+            "p95_abs_error_mm": 6.3215611509709895,
+            "max_abs_error_mm": 9.071411650384832,
+            "over_10mm": 0
+          }
+        },
+        "known_liquid_height_3": {
+          "ideal": {
+            "n": 186,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 186,
+            "mean_error_mm": -0.29308925795807933,
+            "std_error_mm": 3.0808884809206525,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -8.282715810015716,
+            "max_error_mm": 7.7734797672235345,
+            "mae_mm": 2.4747498830234402,
+            "p95_abs_error_mm": 6.044159870928878,
+            "max_abs_error_mm": 8.282715810015716,
+            "over_10mm": 0
+          }
+        },
+        "known_liquid_height_4": {
+          "ideal": {
+            "n": 186,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 186,
+            "mean_error_mm": 0.06180651698648796,
+            "std_error_mm": 3.235928528200116,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -9.65854474441219,
+            "max_error_mm": 7.818955652131532,
+            "mae_mm": 2.5910233620427534,
+            "p95_abs_error_mm": 6.336396835770253,
+            "max_abs_error_mm": 9.65854474441219,
+            "over_10mm": 0
+          }
+        }
+      },
+      "by_material": {
+        "homogeneous_translucent": {
+          "ideal": {
+            "n": 372,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 372,
+            "mean_error_mm": -0.05909235800412634,
+            "std_error_mm": 3.1776046343043003,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -9.65854474441219,
+            "max_error_mm": 8.9840416178808,
+            "mae_mm": 2.53342275857308,
+            "p95_abs_error_mm": 6.096661314022755,
+            "max_abs_error_mm": 9.65854474441219,
+            "over_10mm": 0
+          }
+        },
+        "homogeneous_transparent": {
+          "ideal": {
+            "n": 372,
+            "mean_error_mm": 0.0,
+            "std_error_mm": 0.0,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": 0.0,
+            "max_error_mm": 0.0,
+            "mae_mm": 0.0,
+            "p95_abs_error_mm": 0.0,
+            "max_abs_error_mm": 0.0,
+            "over_10mm": 0
+          },
+          "operator_noise": {
+            "n": 372,
+            "mean_error_mm": -0.3319439051732982,
+            "std_error_mm": 3.198695308836851,
+            "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+            "min_error_mm": -9.838621842690465,
+            "max_error_mm": 8.659596687443205,
+            "mae_mm": 2.5565165948479525,
+            "p95_abs_error_mm": 6.30929162401361,
+            "max_abs_error_mm": 9.838621842690465,
+            "over_10mm": 0
+          }
+        }
+      }
+    },
+    "unique_annotation_count": 2488,
+    "conflicting_duplicate_count": 0,
+    "conflicting_duplicate_examples": [],
+    "metadata_problem_occurrences": 0,
+    "metadata_problem_examples": [],
+    "expected_geometry_annotations": 1000,
+    "expected_phase_annotations": 1488,
+    "missing_geometry_annotations": [],
+    "missing_phase_annotations": [],
+    "all_unique_error_statistics": {
+      "n": 2488,
+      "mean_error_mm": -0.09576662446176092,
+      "std_error_mm": 2.256449025595521,
+      "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+      "min_error_mm": -9.838621842690465,
+      "max_error_mm": 9.828340843379024,
+      "mae_mm": 1.2773652043092536,
+      "p95_abs_error_mm": 5.221880727432988,
+      "max_abs_error_mm": 9.838621842690465,
+      "over_10mm": 0
+    },
+    "max_abs_error_including_conflicting_duplicates_mm": 9.838621842690465
+  },
+  "phase_extrapolation": {
+    "reference": "true prior capture depth=max(prior fractions)*capacity; annotation threshold separately audited",
+    "count_unit": "measurement rows within each variant; not two independent images",
+    "by_material": {
+      "transparent": {
+        "by_variant": {
+          "ideal": {
+            "total_rows": 100,
+            "above_true_prior": {
+              "n": 30,
+              "mean_error_mm": 0.6637421277303266,
+              "std_error_mm": 9.46177317419978,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -30.42147014596175,
+              "max_error_mm": 15.163939193123532,
+              "mae_mm": 7.203232711101303,
+              "p95_abs_error_mm": 14.565188363205769,
+              "max_abs_error_mm": 30.42147014596175,
+              "over_10mm": 8,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_true_prior": {
+              "n": 70,
+              "mean_error_mm": -0.014021337133773315,
+              "std_error_mm": 6.8303174229500305,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -14.70208409147844,
+              "max_error_mm": 20.38394563779633,
+              "mae_mm": 5.2993720544835545,
+              "p95_abs_error_mm": 13.426861098463867,
+              "max_abs_error_mm": 20.38394563779633,
+              "over_10mm": 12,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_true_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "above_annotated_prior": {
+              "n": 30,
+              "mean_error_mm": 0.6637421277303266,
+              "std_error_mm": 9.46177317419978,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -30.42147014596175,
+              "max_error_mm": 15.163939193123532,
+              "mae_mm": 7.203232711101303,
+              "p95_abs_error_mm": 14.565188363205769,
+              "max_abs_error_mm": 30.42147014596175,
+              "over_10mm": 8,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_annotated_prior": {
+              "n": 70,
+              "mean_error_mm": -0.014021337133773315,
+              "std_error_mm": 6.8303174229500305,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -14.70208409147844,
+              "max_error_mm": 20.38394563779633,
+              "mae_mm": 5.2993720544835545,
+              "p95_abs_error_mm": 13.426861098463867,
+              "max_abs_error_mm": 20.38394563779633,
+              "over_10mm": 12,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_annotated_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            }
+          },
+          "operator_noise": {
+            "total_rows": 100,
+            "above_true_prior": {
+              "n": 30,
+              "mean_error_mm": 0.2486952761758438,
+              "std_error_mm": 8.846053331931161,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -25.38680320598985,
+              "max_error_mm": 13.817156070373038,
+              "mae_mm": 6.970115753155056,
+              "p95_abs_error_mm": 14.925330529520764,
+              "max_abs_error_mm": 25.38680320598985,
+              "over_10mm": 6,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_true_prior": {
+              "n": 70,
+              "mean_error_mm": -0.30146818151118676,
+              "std_error_mm": 7.556687312629247,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -20.303057989714546,
+              "max_error_mm": 22.7786829312997,
+              "mae_mm": 5.868666154245818,
+              "p95_abs_error_mm": 16.217103180709547,
+              "max_abs_error_mm": 22.7786829312997,
+              "over_10mm": 9,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_true_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "above_annotated_prior": {
+              "n": 30,
+              "mean_error_mm": 0.2486952761758438,
+              "std_error_mm": 8.846053331931161,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -25.38680320598985,
+              "max_error_mm": 13.817156070373038,
+              "mae_mm": 6.970115753155056,
+              "p95_abs_error_mm": 14.925330529520764,
+              "max_abs_error_mm": 25.38680320598985,
+              "over_10mm": 6,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_annotated_prior": {
+              "n": 70,
+              "mean_error_mm": -0.30146818151118676,
+              "std_error_mm": 7.556687312629247,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -20.303057989714546,
+              "max_error_mm": 22.7786829312997,
+              "mae_mm": 5.868666154245818,
+              "p95_abs_error_mm": 16.217103180709547,
+              "max_abs_error_mm": 22.7786829312997,
+              "over_10mm": 9,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_annotated_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            }
+          }
+        }
+      },
+      "translucent": {
+        "by_variant": {
+          "ideal": {
+            "total_rows": 100,
+            "above_true_prior": {
+              "n": 30,
+              "mean_error_mm": -1.012773493107059,
+              "std_error_mm": 15.185152597368301,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -38.005510916548246,
+              "max_error_mm": 26.437250365144216,
+              "mae_mm": 11.113712868392174,
+              "p95_abs_error_mm": 31.817369315079187,
+              "max_abs_error_mm": 38.005510916548246,
+              "over_10mm": 12,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_true_prior": {
+              "n": 70,
+              "mean_error_mm": 0.8987895714497426,
+              "std_error_mm": 7.01012390432419,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -16.022451371178192,
+              "max_error_mm": 23.847566253921038,
+              "mae_mm": 5.398913476362557,
+              "p95_abs_error_mm": 13.10003533115509,
+              "max_abs_error_mm": 23.847566253921038,
+              "over_10mm": 10,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_true_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "above_annotated_prior": {
+              "n": 30,
+              "mean_error_mm": -1.012773493107059,
+              "std_error_mm": 15.185152597368301,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -38.005510916548246,
+              "max_error_mm": 26.437250365144216,
+              "mae_mm": 11.113712868392174,
+              "p95_abs_error_mm": 31.817369315079187,
+              "max_abs_error_mm": 38.005510916548246,
+              "over_10mm": 12,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_annotated_prior": {
+              "n": 70,
+              "mean_error_mm": 0.8987895714497426,
+              "std_error_mm": 7.01012390432419,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -16.022451371178192,
+              "max_error_mm": 23.847566253921038,
+              "mae_mm": 5.398913476362557,
+              "p95_abs_error_mm": 13.10003533115509,
+              "max_abs_error_mm": 23.847566253921038,
+              "over_10mm": 10,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_annotated_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            }
+          },
+          "operator_noise": {
+            "total_rows": 100,
+            "above_true_prior": {
+              "n": 30,
+              "mean_error_mm": -0.520135163589093,
+              "std_error_mm": 15.075246962182066,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -35.15202822087282,
+              "max_error_mm": 30.163306750189633,
+              "mae_mm": 11.235528728108989,
+              "p95_abs_error_mm": 31.308995855351533,
+              "max_abs_error_mm": 35.15202822087282,
+              "over_10mm": 12,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_true_prior": {
+              "n": 70,
+              "mean_error_mm": 0.4985940235783619,
+              "std_error_mm": 7.588053226480508,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -19.9328326071333,
+              "max_error_mm": 26.29762364392807,
+              "mae_mm": 5.734240447345236,
+              "p95_abs_error_mm": 13.809820654018989,
+              "max_abs_error_mm": 26.29762364392807,
+              "over_10mm": 12,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_true_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "above_annotated_prior": {
+              "n": 30,
+              "mean_error_mm": -0.520135163589093,
+              "std_error_mm": 15.075246962182066,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -35.15202822087282,
+              "max_error_mm": 30.163306750189633,
+              "mae_mm": 11.235528728108989,
+              "p95_abs_error_mm": 31.308995855351533,
+              "max_abs_error_mm": 35.15202822087282,
+              "over_10mm": 12,
+              "rows": 30,
+              "numeric": 30,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 30,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "within_annotated_prior": {
+              "n": 70,
+              "mean_error_mm": 0.4985940235783619,
+              "std_error_mm": 7.588053226480508,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": -19.9328326071333,
+              "max_error_mm": 26.29762364392807,
+              "mae_mm": 5.734240447345236,
+              "p95_abs_error_mm": 13.809820654018989,
+              "max_abs_error_mm": 26.29762364392807,
+              "over_10mm": 12,
+              "rows": 70,
+              "numeric": 70,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": 1.0,
+              "tolerance_pass_count": 70,
+              "tolerance_pass_fraction": 1.0,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            },
+            "unknown_annotated_prior": {
+              "n": 0,
+              "mean_error_mm": null,
+              "std_error_mm": null,
+              "std_definition": "population standard deviation; parent scope specifies unique annotation quantities or measurement rows",
+              "min_error_mm": null,
+              "max_error_mm": null,
+              "mae_mm": null,
+              "p95_abs_error_mm": null,
+              "max_abs_error_mm": null,
+              "over_10mm": 0,
+              "rows": 0,
+              "numeric": 0,
+              "missing": 0,
+              "invalid_truth": 0,
+              "coverage": null,
+              "tolerance_pass_count": 0,
+              "tolerance_pass_fraction": null,
+              "tolerance": "max(20mm,2% true liquid height); phase is planar"
+            }
+          }
+        }
+      }
+    },
+    "declared_flag_mismatches": []
+  },
+  "protocol": {
+    "measurement_range_m": [
+      0.1,
+      9.0
+    ],
+    "operator_calibration": {
+      "seed": "2026102197701+gid*9973",
+      "error_limit_m": 0.01,
+      "sigma_m": 0.0033333333333333335,
+      "distribution": "zero-mean Gaussian sigma=T/3, rejection-sampled within [-T,+T]",
+      "applies_to": "bottom distance, independently measured geometry dimensions, four known liquid-height priors",
+      "empty_prior": "confirmed empty H=0; datum uncertainty carried by bottom anchor, not invented nonzero liquid in empty frame",
+      "click_sigma_px": 0.3,
+      "gravity_component_sigma": 0.001,
+      "max_reannotation_attempts": 6,
+      "phase_label_max_reannotation_attempts": 100,
+      "reannotation_gate": "geometry/prior input validity only, never output error"
+    },
+    "phase_parameters": {
+      "index": [
+        1.31,
+        1.45
+      ],
+      "surface_ratio": [
+        0.03,
+        0.12
+      ],
+      "translucent_extinction": [
+        0.02,
+        0.08
+      ],
+      "translucent_scatter": [
+        0.08,
+        0.25
+      ],
+      "priors_fraction": [
+        0,
+        0.1,
+        0.35,
+        0.65,
+        0.95
+      ],
+      "phase_shape": [
+        3,
+        4,
+        48,
+        64
+      ],
+      "roi": "central native 64x48 crop intersects visible empty floor and analytic acquisition ROI",
+      "unknown_physical_parameters_given_to_inverse": false,
+      "limitation": "separate near-vertical planar analytic phase model, not coherent spectral Blender ray tracing"
+    }
+  },
+  "input_sha256": {
+    "measurements.jsonl": "770d099d7a8e402abf0bcf3847d566da55a46f3bbcc630059e4b58d073377d54",
+    "protocol.json": "0bafd8f6a7986774dadd9352d0c7b510db076f8f2a28db49deae3ea3e5648ba8"
+  },
+  "completion_marker_present": true
+}

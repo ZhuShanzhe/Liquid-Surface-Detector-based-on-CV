@@ -1,0 +1,7 @@
+{
+  "rejected": [],
+  "annotation_errors": [],
+  "initialization_failures": [],
+  "initialization_failure_policy": "retained as eligible; report initialization success and end-to-end coverage",
+  "qualification_policy": "objective geometry, visible ROI and measured modulation support only; never wet error or fit residual"
+}
