@@ -13,6 +13,17 @@ from .scene_classifier import SceneClassifier
 from .unified_tof import ToFObservation, ToFInstallation, UnifiedToFMeter
 
 ROOT=Path(__file__).resolve().parents[2]
+CONSOLE_VERSION='scene_console_v14_formal_functional_20261021'
+
+def framing_parameters(container_height_m,camera_to_bottom_m,auto_frame):
+    """Full rim with 12% margin; never substitute viewport zoom for intrinsics."""
+    if not auto_frame:return float(camera_to_bottom_m),54.
+    clearance=.55*1.12*(480/270)/math.tan(math.radians(100/2))
+    required=float(container_height_m)+clearance
+    bottom=float(camera_to_bottom_m) if camera_to_bottom_m>=required else math.ceil(required*1000)/1000
+    if bottom>10.+1e-9:raise ValueError('full_view_cannot_fit_within_10m_and_100deg')
+    needed=math.degrees(2*math.atan(.55*1.12*(480/270)/(bottom-container_height_m)))
+    return bottom,float(np.clip(needed,54.,100.))
 
 
 def plain(value):
@@ -26,24 +37,73 @@ def plain(value):
 
 def validate_controls(value):
     if not isinstance(value,dict):raise ValueError('controls_object_required')
-    allowed={'height_m','material','darkness','glare','wave_m','float_count','loss'}
+    allowed={'height_m','material','darkness','glare','wave_m','float_count','loss',
+             'container_height_m','camera_to_bottom_m','auto_frame'}
     if set(value)-allowed:raise ValueError('unknown_control')
-    defaults=dict(height_m=.6,material='ordinary_diffuse',darkness=0.,glare=0.,wave_m=0.,float_count=0,loss=0.)
+    defaults=dict(height_m=.6,material='ordinary_diffuse',darkness=0.,glare=0.,wave_m=0.,float_count=0,loss=0.,
+                  container_height_m=1.5,camera_to_bottom_m=4.,auto_frame=True)
     out={**defaults,**value}
     if out['material'] not in ('ordinary_diffuse','homogeneous_transparent','homogeneous_translucent'):
         raise ValueError('unsupported_material')
-    for key,maximum in [('height_m',1.5),('darkness',.98),('glare',1.),('wave_m',.12),('float_count',24),('loss',.5)]:
+    for key,maximum in [('height_m',9.8),('container_height_m',9.8),('camera_to_bottom_m',10.),
+                        ('darkness',.98),('glare',1.),('wave_m',.12),('float_count',24),('loss',.5)]:
         x=out[key]
         if isinstance(x,bool) or not isinstance(x,(int,float)) or not np.isfinite(x) or not 0<=x<=maximum:
             raise ValueError('out_of_range:'+key)
     if int(out['float_count'])!=out['float_count']:raise ValueError('integer_float_count_required')
-    if out['wave_m']>min(out['height_m']*.3,(1.5-out['height_m'])*.5):
+    if out['container_height_m']<.1:raise ValueError('container_height_minimum_0.1m')
+    if not isinstance(out['auto_frame'],bool):raise ValueError('boolean_auto_frame_required')
+    out['camera_to_bottom_m'],_=framing_parameters(out['container_height_m'],out['camera_to_bottom_m'],out['auto_frame'])
+    if out['camera_to_bottom_m']-out['container_height_m']<.1-1e-9:
+        raise ValueError('top_camera_requires_at_least_0.1m_above_rim')
+    if out['height_m']>out['container_height_m']:raise ValueError('liquid_exceeds_container_height')
+    if out['wave_m']>min(out['height_m']*.3,(out['container_height_m']-out['height_m'])*.5):
         raise ValueError('wave_exceeds_physical_freeboard_or_liquid_depth')
     if out['height_m']==0 and out['float_count']:
         raise ValueError('floating_objects_require_liquid')
     if out['material']!='ordinary_diffuse' and (out['wave_m']>0 or out['float_count']>0):
         raise ValueError('透明/半透明与漂浮物或起伏的组合尚未验证，请先选择普通液体，或移除漂浮物与起伏')
     return out
+
+
+def simulated_dimension_geometry(dry,cal,bottom,capacity,radius,spec):
+    """Demo-only independent installation dimensions when the rim is off screen.
+
+    Nothing here consumes a wet frame or current liquid height. Field use would
+    require a measured vessel diameter, bottom distance and camera pose; this is
+    not claimed to recover an unobserved complete boundary from an image.
+    """
+    from .empty_geometry_v41 import _plane
+    from .liquid_height_metrics import world_points
+    points=world_points(np.full(dry.shape,bottom),cal)
+    mask=(points[:,:,:2]**2).sum(-1)<(radius*.75)**2
+    up,raw_distance,quality=_plane(dry,cal.intrinsics,mask)
+    known_up=np.asarray(cal.camera_to_world_cv[2,:3])
+    disagreement=float(np.degrees(np.arccos(np.clip(up@known_up,-1,1))))
+    if disagreement>8 or abs(raw_distance-bottom)>max(.03,.03*bottom):
+        raise ValueError('empty_bottom_disagrees_with_independent_installation')
+    quality.update(camera_axis_tilt_deg=0.,normal_source='independent_simulated_gravity',
+                   full_boundary_observed=False,independent_container_dimensions_required=True,
+                   raw_vs_metric_distance_delta_m=bottom-raw_distance,
+                   depth_plane_gravity_disagreement_deg=disagreement)
+    angle=np.linspace(0,2*np.pi,64,endpoint=False)
+    circle=np.column_stack((radius*np.cos(angle),radius*np.sin(angle),np.zeros(64)))
+    def project(vertices):
+        cam=(vertices-cal.camera_to_world_cv[:3,3])@cal.camera_to_world_cv[:3,:3]
+        p=cam@cal.intrinsics.T
+        return (p[:,:2]/p[:,2:]).tolist()
+    return dict(schema_version=1,source='empty_rgbd_plus_independent_simulated_installation_dimensions',
+        shape='circle',sensor_family='tof',baseline_m=0.,rim_z_m=capacity,
+        image_size=[dry.shape[1],dry.shape[0]],
+        calibration=dict(intrinsics=cal.intrinsics.tolist(),camera_to_world_cv=cal.camera_to_world_cv.tolist(),
+                         bottom_z_m=0.,radii_m=[radius,radius],footprint_exponent=2.),
+        bottom_plane_camera=dict(up=known_up.tolist(),perpendicular_distance_m=bottom),
+        internal_dimensions_m=dict(width=radius*2,length=radius*2,height=capacity),
+        projected_bottom_outline_px=project(circle),projected_rim_outline_px=project(circle+np.array([0,0,capacity])),
+        operator_inputs=spec,quality=quality,production_qualified=False,continuous_motion_supported=False,
+        supported_routes=['ordinary_diffuse_v40'],
+        warnings=['simulation_independent_geometry_not_image_only_inference',
+                  'field_use_requires_measured_dimensions_and_independent_pose'])
 
 
 class Console:
@@ -57,11 +117,13 @@ class Console:
         self.compound_repair=bool(compound_repair)
 
     def submit(self,controls,initialize=False):
+        requested=dict(controls)
         controls=validate_controls(controls)
         with self.lock:
             if any(v['status'] in ('queued','running') for v in self.jobs.values()):
                 raise ValueError('simulation_busy')
-            job=uuid.uuid4().hex;self.jobs[job]=dict(status='queued',started=time.time())
+            job=uuid.uuid4().hex;self.jobs[job]=dict(status='queued',started=time.time(),
+                requested_camera_to_bottom_m=requested.get('camera_to_bottom_m',4.))
         self.worker.submit(self.run,job,controls,initialize)
         return job
 
@@ -75,13 +137,15 @@ class Console:
         if p.returncode or not (folder/'complete.json').exists():
             raise RuntimeError('simulation_capture_failed_check_server_render_log')
 
-    def initialize(self,material):
+    def initialize(self,material,container_height_m=1.5,camera_to_bottom_m=4.,horizontal_fov_deg=54.):
         sys.path.insert(0,str(ROOT/'scripts'))
         from measure_release import validated_profile
         from tof_phase_simulator import generate,rays
         name='installation-'+uuid.uuid4().hex[:10];folder=self.work/name
         folder.mkdir()
-        request=dict(seed=202610191901,index=0,bottom_m=4.,capacity_m=1.5,height_m=0.,radius_m=.55,
+        capacity=float(container_height_m);bottom=float(camera_to_bottom_m)
+        request=dict(seed=202610191901,index=0,bottom_m=bottom,capacity_m=capacity,height_m=0.,radius_m=.55,
+                     camera_mount='top_center',horizontal_fov_deg=horizontal_fov_deg,
                      material=material,darkness=0.,glare=0.,wave_m=0.,float_count=0,loss=0.)
         self.capture(request,folder/'empty')
         metadata=json.loads((folder/'empty/metadata.json').read_text())
@@ -102,24 +166,29 @@ class Console:
             p=camera@cal.intrinsics.T
             return (p[:,:2]/p[:,2:]).tolist()
         outline=np.column_stack((radius*np.cos(angle),radius*np.sin(angle),np.zeros(12)))
-        spec=dict(shape='circle',bottom_outline_px=project(outline),wall_height_m=1.5,
-            metric_anchor=dict(kind='perpendicular_distance',distance_m=4.),
+        spec=dict(shape='circle',bottom_outline_px=project(outline),wall_height_m=capacity,
+            metric_anchor=dict(kind='perpendicular_distance',distance_m=bottom),
             up_camera=cal.camera_to_world_cv[2,:3].tolist(),sensor_family='tof',baseline_m=0.,
             check_spans=[dict(pixels=project([[-radius*.5,0,0],[radius*.5,0,0]]),length_m=radius)],
             confirmed_empty=True,horizontal_flat_bottom=True,vertical_walls=True,fixed_camera=True,rectified_aligned=True)
-        rim_spec={**spec,'rim_outline_px':project(outline+np.array([0,0,1.5])),
+        rim_spec={**spec,'rim_outline_px':project(outline+np.array([0,0,capacity])),
                   'measured_rim_dimensions_m':[radius*2,radius*2]}
-        bundle=build_scene_geometry(dry,cal.intrinsics,spec,rim_spec=rim_spec)
-        prior_error=abs(bundle['bottom_plane_camera']['perpendicular_distance_m']-4.)
+        try:
+            bundle=build_scene_geometry(dry,cal.intrinsics,spec,rim_spec=rim_spec)
+        except ValueError as exc:
+            if str(exc) not in ('selected_points_outside_image','bottom_outline_too_small'):raise
+            bundle=simulated_dimension_geometry(dry,cal,bottom,capacity,radius,spec)
+            bundle['quality']['visible_outline_route_failure']=str(exc)
+        prior_error=abs(bundle['bottom_plane_camera']['perpendicular_distance_m']-bottom)
         if prior_error>1e-6:raise RuntimeError('ideal_empty_metric_anchor_verification_failed')
         item=dict(bundle=bundle,audit=dict(mode='ideal_simulated_independent_empty_ruler',
                  bottom_distance_error_mm=prior_error*1000,quality=bundle['quality']))
         profile=folder/'portable-profile.json';profile.write_text(json.dumps(validated_profile(ROOT)))
         physical=dict(seed=202610191919,index=1.333,extinction=.045 if material.endswith('translucent') else 0.,
                       scatter_strength=.16 if material.endswith('translucent') else 0.,surface_ratio=.07)
-        phase_profile=dict(bottom_m=4.,container_max_height_m=1.5,fx_px=470.94,center_q=[0.,0.],
+        phase_profile=dict(bottom_m=bottom,container_max_height_m=capacity,fx_px=float(cal.intrinsics[0,0]),center_q=[0.,0.],
                            frequencies_hz=[20e6,30e6,50e6],fixed_camera=True,sensor_profile='amcw_itof_phase3_formal_v1')
-        known=np.array([0.,.1,.35,.65,.95])*1.5
+        known=np.array([0.,.1,.35,.65,.95])*capacity
         captures=[]
         for j,h in enumerate(known):
             c,roi=generate('tof',phase_profile,physical,float(h),j);captures.append(c)
@@ -129,7 +198,8 @@ class Console:
              provenance=dict(mode='simulation_empty_plus_independent_ruler_and_five_known_priors',
                              current_test_truth_used=False,field_calibration_requires_operator_measurements=True),
              confirmed_refractive_planar_unoccluded=material!='ordinary_diffuse')
-        self.meter=UnifiedToFMeter(installation,self.classifier,profile_path=profile,
+        from .formal_tof_runtime import create_formal_meter
+        self.meter=create_formal_meter(installation,classifier=self.classifier,profile_path=profile,
                                   compound_repair=self.compound_repair)
         preload_ms=self.meter.preload_optional_peak_models() if material=='ordinary_diffuse' else 0.
         warmup_ms=self.meter.warm_optional_peak_models() if material=='ordinary_diffuse' and self.compound_repair else 0.
@@ -138,9 +208,13 @@ class Console:
             from .tof_scene_meter import ToFSceneMeter
             self.meter.phase_cache[material]=ToFSceneMeter.from_phase_priors(sensor='tof',scene=material,**phase)
         self.initialization=dict(id=name,folder=str(folder),audit=item['audit'],material=material,
+             container_height_m=capacity,camera_to_bottom_m=bottom,camera_mount='top_center',
+             camera_above_rim_m=bottom-capacity,
+             horizontal_fov_deg=horizontal_fov_deg,intrinsics=cal.intrinsics.tolist(),
              phase_known_heights_m=known.tolist(),phase_calibration_precomputed=material!='ordinary_diffuse',
              simulated_ruler_is_exact=True,current_truth_used_for_measurement=False,
              optional_peak_asset_preload_ms=preload_ms,optional_peak_assets_preloaded=material=='ordinary_diffuse')
+        self.initialization['formal_runtime']=self.meter.formal_runtime
         self.initialization['compound_repair_requested']=self.compound_repair
         self.initialization['compound_repair_enabled']=self.meter.compound_repair is not None
         self.initialization['optional_peak_kernel_warmup_ms']=warmup_ms
@@ -152,10 +226,15 @@ class Console:
         begin=time.perf_counter()
         with self.lock:self.jobs[job]['status']='running';self.state['status']='simulating'
         try:
-            if initialize or self.meter is None or self.initialization['material']!=controls['material']:
-                self.initialize(controls['material'])
+            _,fov=framing_parameters(controls['container_height_m'],controls['camera_to_bottom_m'],controls['auto_frame'])
+            changed=self.initialization is None or any(self.initialization.get(k)!=controls[k]
+                        for k in ('material','container_height_m','camera_to_bottom_m'))
+            changed=changed or self.initialization.get('horizontal_fov_deg')!=fov
+            if initialize or self.meter is None or changed:
+                self.initialize(controls['material'],controls['container_height_m'],controls['camera_to_bottom_m'],fov)
             self.counter+=1;folder=self.work/f'frame-{self.counter:06d}-{job[:6]}'
-            request=dict(**controls,seed=202610191901,index=self.counter,bottom_m=4.,capacity_m=1.5,radius_m=.55)
+            request=dict(**controls,seed=202610191901,index=self.counter,bottom_m=controls['camera_to_bottom_m'],
+                         capacity_m=controls['container_height_m'],radius_m=.55,camera_mount='top_center',horizontal_fov_deg=fov)
             render_start=time.perf_counter();self.capture(request,folder)
             render_ms=(time.perf_counter()-render_start)*1000
             rgb=cv2.imread(str(folder/'rgb.png'));depth=np.load(folder/'depth_m.npy',allow_pickle=False)
@@ -169,21 +248,47 @@ class Console:
                 correlations[:,:,absent]=1200
             observation=ToFObservation(job,rgb,depth,time.time(),correlations,
                                        installation_id=self.meter.installation.installation_id)
-            result=self.meter.measure(observation)
+            from .sim_input_qualification import qualify_simulated_input,measure_if_eligible
+            # Producer-only visibility is an offline SIMULATION eligibility check.
+            # Neither it nor current truth/height is an estimator input.
+            with np.load(folder/'offline_geometry.npz',allow_pickle=False) as visibility:
+                minimum=self.meter.compound_repair.policy.minimum_sensor_depth_m if self.meter.compound_repair is not None else 0.
+                qualification=qualify_simulated_input(depth,visibility['semantic'],
+                    material=controls['material'],has_floats=controls['float_count']>0,
+                    correlations=correlations,phase_roi=self.meter.installation.phase['roi'],minimum_depth_m=minimum)
+            result=measure_if_eligible(self.meter,observation,qualification)
+            if result is None:
+                result=dict(liquid_depth_m=None,highest_height_m=None,numeric_output=False,
+                    inference_executed=False,pipeline_ms=0.,precision_eligible=False,
+                    classification=dict(material=controls['material'],material_score=0.,tags=[],
+                                        model_id='not_executed_input_rejected'),
+                    module_plan=dict(tags=[],modules=['simulation_input_validation'],executed_modules=['simulation_input_validation'],
+                        blocked_reasons=qualification['reasons'],warnings=[],composite=False,visual_peak=False,liquid_route='not_executed'))
+            else:result['inference_executed']=True
             # Only AFTER inference, load current truth for display/scoring.
             truth=json.loads((folder/'truth.json').read_text())
             actual={k:truth[k] for k in ('liquid_height_m','highest_height_m','lowest_height_m')}
             estimate=dict(liquid_height_m=result.get('liquid_depth_m'),highest_height_m=result.get('highest_height_m'))
             from .empty_geometry_v41 import height_calibration
             from .liquid_height_metrics import world_points
-            xyz=world_points(depth,height_calibration(self.meter.installation.geometry))
-            good=(depth>0)&self.meter.roi
-            yy,xx=np.nonzero(good);stride=max(1,len(yy)//5500);yy,xx=yy[::stride],xx[::stride]
-            points=xyz[yy,xx].tolist();colors=rgb[yy,xx,::-1].tolist()
+            points=[];colors=[]
+            if qualification['eligible']:
+                xyz=world_points(depth,height_calibration(self.meter.installation.geometry))
+                good=(depth>0)&self.meter.roi
+                yy,xx=np.nonzero(good);stride=max(1,len(yy)//5500);yy,xx=yy[::stride],xx[::stride]
+                points=xyz[yy,xx].tolist();colors=rgb[yy,xx,::-1].tolist()
             _,encoded=cv2.imencode('.jpg',rgb,[cv2.IMWRITE_JPEG_QUALITY,84])
-            payload=dict(status='ready',frame_id=job,controls=controls,actual=actual,estimate=estimate,
+            payload=dict(status='ready',software_version=CONSOLE_VERSION,frame_id=job,controls=controls,actual=actual,estimate=estimate,
+                input_qualification=qualification,processing_status='measured' if qualification['eligible'] else 'input_rejected',
+                framing=dict(auto=controls['auto_frame'],horizontal_fov_deg=fov,
+                             requested_camera_to_bottom_m=self.jobs[job]['requested_camera_to_bottom_m'],
+                             effective_camera_to_bottom_m=controls['camera_to_bottom_m'],
+                             camera_distance_adjusted=abs(controls['camera_to_bottom_m']-self.jobs[job]['requested_camera_to_bottom_m'])>1e-9,
+                             radius_m=.55,margin_fraction=.12),
                 result=plain(result),initialization=self.initialization,
-                viewer=dict(meshes=truth['meshes'],observed_points=points,observed_colors=colors,radius_m=.55,capacity_m=1.5),
+                viewer=dict(meshes=truth['meshes'],observed_points=points,observed_colors=colors,radius_m=.55,
+                            capacity_m=controls['container_height_m'],camera_to_bottom_m=controls['camera_to_bottom_m'],
+                            camera_mount='top_center',horizontal_fov_deg=fov,image_aspect=480/270),
                 rgb='data:image/jpeg;base64,'+base64.b64encode(encoded).decode(),
                 timing=dict(render_ms=render_ms,pipeline_ms=result['pipeline_ms'],total_ms=(time.perf_counter()-begin)*1000),
                 simulation_only=True,
@@ -217,7 +322,8 @@ def serve(console,port):
             if self.path in assets:
                 name,kind=assets[self.path];return self.send((ROOT/'src/liquid_depth/ui'/name).read_bytes(),kind=kind)
             if self.path=='/api/status':
-                with console.lock:return self.send(dict(state=console.state,jobs=console.jobs,csrf=console.token))
+                with console.lock:return self.send(dict(state=console.state,jobs=console.jobs,csrf=console.token,
+                    software_version=CONSOLE_VERSION,supports_dynamic_installation=True))
             return self.send({'error':'not_found'},404)
 
         def do_POST(self):

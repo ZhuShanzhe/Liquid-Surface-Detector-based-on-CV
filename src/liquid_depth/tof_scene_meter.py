@@ -2,7 +2,7 @@
 from .determined_scene_meter import DeterminedSceneMeter,OPAQUE_SCENES,REFRACTION_SCENES,SCENES
 from .tof_phase_refraction import PhasePriorMeter
 
-VERSION='tof_formal_v3_small_float_20261020'
+VERSION='tof_formal_v14_dynamic_wet_interior_20261021'
 SENSORS=frozenset({'tof'})
 
 
@@ -22,8 +22,8 @@ class ToFSceneMeter:
         repair=None
         if evidence_repair:
             from .supported_scene_meter import FormalSceneMeter
-            from .compound_tof_repair import CompoundToFRepair
-            repair=CompoundToFRepair(FormalSceneMeter.from_empty_geometry(bundle,dry_depth_m),dry_depth_m,repair_policy)
+            from .dynamic_wet_interior import DynamicInteriorRepair
+            repair=DynamicInteriorRepair(FormalSceneMeter.from_empty_geometry(bundle,dry_depth_m),dry_depth_m,repair_policy)
         meter=cls(backend,sensor=sensor,kind='empty_geometry',repair=repair)
         if repair is not None and small_float_peak:
             meter._small_float_peak_inputs=(bundle,dry_depth_m)

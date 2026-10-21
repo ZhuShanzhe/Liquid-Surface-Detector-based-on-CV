@@ -46,7 +46,7 @@ def test_missing_rgb_keeps_frozen_output():
 
 
 def test_v3_opaque_probe_default_and_phase_never_attaches_probe():
-    assert VERSION=='tof_formal_v3_small_float_20261020'
+    assert VERSION=='tof_formal_v14_dynamic_wet_interior_20261021'
     assert inspect.signature(UnifiedToFMeter).parameters['small_float_peak'].default is True
     m=ToFSceneMeter(None,sensor='tof',kind='five_phase_priors',scene='homogeneous_transparent')
     assert m._small_float_peak_inputs is None and m._small_float_peak is None

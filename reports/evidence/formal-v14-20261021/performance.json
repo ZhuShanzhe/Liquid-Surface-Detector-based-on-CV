@@ -1,0 +1,1413 @@
+{
+  "version": "formal_tof_v14_20261021",
+  "sensor": "tof",
+  "summary": {
+    "n": 1103,
+    "liquid_pass": 1.0,
+    "highest_pass": 1.0,
+    "functional_pass": 1.0,
+    "strict_two_height": 1.0,
+    "exact_tags": 0.6645512239347234,
+    "liquid": {
+      "coverage": 1.0,
+      "mae_mm": 1.8591520982165115,
+      "p95_mm": 5.951091878712458,
+      "max_mm": 28.156339013417853,
+      "absolute_bins": {
+        "\u22645mm": {
+          "n": 1019,
+          "fraction": 0.9238440616500453
+        },
+        "5\u201320mm": {
+          "n": 82,
+          "fraction": 0.0743427017225748
+        },
+        "20\u201350mm": {
+          "n": 2,
+          "fraction": 0.001813236627379873
+        },
+        "50\u2013100mm": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        "100\u2013500mm": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">500mm": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      }
+    },
+    "highest": {
+      "coverage": 1.0,
+      "mae_mm": 4.827133074840524,
+      "p95_mm": 15.067042306638585,
+      "max_mm": 30.39222783800577,
+      "absolute_bins": {
+        "\u22645mm": {
+          "n": 713,
+          "fraction": 0.6464188576609248
+        },
+        "5\u201320mm": {
+          "n": 370,
+          "fraction": 0.3354487760652765
+        },
+        "20\u201350mm": {
+          "n": 20,
+          "fraction": 0.01813236627379873
+        },
+        "50\u2013100mm": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        "100\u2013500mm": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">500mm": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      }
+    },
+    "latency": {
+      "p50_ms": 245.03900483250618,
+      "p95_ms": 461.0168799757956,
+      "max_ms": 575.0838220119476,
+      "over_500": 8
+    },
+    "functional_and_under_500": 0.9927470534904805,
+    "relative_bins": {
+      "\u22641%": {
+        "n": 951,
+        "fraction": 0.8621940163191296
+      },
+      "1\u20132%": {
+        "n": 100,
+        "fraction": 0.09066183136899365
+      },
+      "2\u20135%": {
+        "n": 51,
+        "fraction": 0.04623753399818677
+      },
+      "5\u201310%": {
+        "n": 1,
+        "fraction": 0.0009066183136899365
+      },
+      ">10%": {
+        "n": 0,
+        "fraction": 0.0
+      }
+    },
+    "wrong_tags_but_functional": 370
+  },
+  "by_combination": {
+    "3": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.43,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 0.7010960366724341,
+        "p95_mm": 1.5235289950253061,
+        "max_mm": 1.8017312156204945,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 100,
+            "fraction": 1.0
+          },
+          "5\u201320mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 7.3928389100583525,
+        "p95_mm": 11.07544706619872,
+        "max_mm": 12.005551372844202,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 13,
+            "fraction": 0.13
+          },
+          "5\u201320mm": {
+            "n": 87,
+            "fraction": 0.87
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 183.45625512301922,
+        "p95_ms": 272.14100956916803,
+        "max_ms": 336.4291675388813,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 96,
+          "fraction": 0.96
+        },
+        "1\u20132%": {
+          "n": 2,
+          "fraction": 0.02
+        },
+        "2\u20135%": {
+          "n": 2,
+          "fraction": 0.02
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 57
+    },
+    "5": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.89,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 2.732997421275721,
+        "p95_mm": 8.559217158366605,
+        "max_mm": 19.781872933576583,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 88,
+            "fraction": 0.88
+          },
+          "5\u201320mm": {
+            "n": 12,
+            "fraction": 0.12
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 2.6243560085964446,
+        "p95_mm": 6.527912058709325,
+        "max_mm": 20.029288310201288,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 90,
+            "fraction": 0.9
+          },
+          "5\u201320mm": {
+            "n": 9,
+            "fraction": 0.09
+          },
+          "20\u201350mm": {
+            "n": 1,
+            "fraction": 0.01
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 203.5987451672554,
+        "p95_ms": 334.1553835198283,
+        "max_ms": 476.7877869307995,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 78,
+          "fraction": 0.78
+        },
+        "1\u20132%": {
+          "n": 15,
+          "fraction": 0.15
+        },
+        "2\u20135%": {
+          "n": 7,
+          "fraction": 0.07
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 11
+    },
+    "6": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.79,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 2.447447628969224,
+        "p95_mm": 6.6614258826246,
+        "max_mm": 12.345598584083461,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 85,
+            "fraction": 0.85
+          },
+          "5\u201320mm": {
+            "n": 15,
+            "fraction": 0.15
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 1.981767691323128,
+        "p95_mm": 4.621801289676092,
+        "max_mm": 11.460314007089508,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 97,
+            "fraction": 0.97
+          },
+          "5\u201320mm": {
+            "n": 3,
+            "fraction": 0.03
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 206.9798745214939,
+        "p95_ms": 353.5942768678069,
+        "max_ms": 454.86023649573326,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 79,
+          "fraction": 0.79
+        },
+        "1\u20132%": {
+          "n": 14,
+          "fraction": 0.14
+        },
+        "2\u20135%": {
+          "n": 7,
+          "fraction": 0.07
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 21
+    },
+    "7": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.34,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 3.163917673164131,
+        "p95_mm": 9.776604883399836,
+        "max_mm": 28.156339013417853,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 84,
+            "fraction": 0.84
+          },
+          "5\u201320mm": {
+            "n": 14,
+            "fraction": 0.14
+          },
+          "20\u201350mm": {
+            "n": 2,
+            "fraction": 0.02
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 2.559813916787504,
+        "p95_mm": 6.515047593780172,
+        "max_mm": 13.00164859038655,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 86,
+            "fraction": 0.86
+          },
+          "5\u201320mm": {
+            "n": 14,
+            "fraction": 0.14
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 205.45047521591187,
+        "p95_ms": 292.31328908354044,
+        "max_ms": 497.6324513554573,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 76,
+          "fraction": 0.76
+        },
+        "1\u20132%": {
+          "n": 16,
+          "fraction": 0.16
+        },
+        "2\u20135%": {
+          "n": 8,
+          "fraction": 0.08
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 66
+    },
+    "9": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.82,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 0.6762663651752748,
+        "p95_mm": 1.4364673575660298,
+        "max_mm": 1.7854121989275828,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 100,
+            "fraction": 1.0
+          },
+          "5\u201320mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 7.739301162098287,
+        "p95_mm": 18.621949289383842,
+        "max_mm": 27.74951814962523,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 42,
+            "fraction": 0.42
+          },
+          "5\u201320mm": {
+            "n": 53,
+            "fraction": 0.53
+          },
+          "20\u201350mm": {
+            "n": 5,
+            "fraction": 0.05
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 254.94680367410183,
+        "p95_ms": 460.31268015503883,
+        "max_ms": 496.43149226903915,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 96,
+          "fraction": 0.96
+        },
+        "1\u20132%": {
+          "n": 2,
+          "fraction": 0.02
+        },
+        "2\u20135%": {
+          "n": 2,
+          "fraction": 0.02
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 18
+    },
+    "10": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.79,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 0.646079280922813,
+        "p95_mm": 1.4271484541042323,
+        "max_mm": 1.5789340026296506,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 100,
+            "fraction": 1.0
+          },
+          "5\u201320mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 7.095480492184532,
+        "p95_mm": 17.20761844066463,
+        "max_mm": 25.275300517626498,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 45,
+            "fraction": 0.45
+          },
+          "5\u201320mm": {
+            "n": 52,
+            "fraction": 0.52
+          },
+          "20\u201350mm": {
+            "n": 3,
+            "fraction": 0.03
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 277.63352915644646,
+        "p95_ms": 445.592712238431,
+        "max_ms": 479.5331656932831,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 99,
+          "fraction": 0.99
+        },
+        "1\u20132%": {
+          "n": 1,
+          "fraction": 0.01
+        },
+        "2\u20135%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 21
+    },
+    "11": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.3,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 0.6380394399768167,
+        "p95_mm": 1.454206831232857,
+        "max_mm": 1.7464411339884052,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 100,
+            "fraction": 1.0
+          },
+          "5\u201320mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 8.148004658784053,
+        "p95_mm": 18.570924806623857,
+        "max_mm": 28.451948856130116,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 39,
+            "fraction": 0.39
+          },
+          "5\u201320mm": {
+            "n": 58,
+            "fraction": 0.58
+          },
+          "20\u201350mm": {
+            "n": 3,
+            "fraction": 0.03
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 257.12184607982635,
+        "p95_ms": 440.15929605811834,
+        "max_ms": 468.42947974801064,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 98,
+          "fraction": 0.98
+        },
+        "1\u20132%": {
+          "n": 1,
+          "fraction": 0.01
+        },
+        "2\u20135%": {
+          "n": 1,
+          "fraction": 0.01
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 70
+    },
+    "12": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.84,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 2.2453637846186147,
+        "p95_mm": 5.885279359818197,
+        "max_mm": 15.839874802846765,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 89,
+            "fraction": 0.89
+          },
+          "5\u201320mm": {
+            "n": 11,
+            "fraction": 0.11
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 3.0717348698599283,
+        "p95_mm": 9.030896699394471,
+        "max_mm": 17.117838465241675,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 81,
+            "fraction": 0.81
+          },
+          "5\u201320mm": {
+            "n": 19,
+            "fraction": 0.19
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 271.69634215533733,
+        "p95_ms": 417.5703918561338,
+        "max_ms": 500.0879652798176,
+        "over_500": 1
+      },
+      "functional_and_under_500": 0.99,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 80,
+          "fraction": 0.8
+        },
+        "1\u20132%": {
+          "n": 13,
+          "fraction": 0.13
+        },
+        "2\u20135%": {
+          "n": 7,
+          "fraction": 0.07
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 16
+    },
+    "13": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.85,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 2.407655512938951,
+        "p95_mm": 7.133876769390867,
+        "max_mm": 16.873120340510805,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 89,
+            "fraction": 0.89
+          },
+          "5\u201320mm": {
+            "n": 11,
+            "fraction": 0.11
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 3.4194302903760887,
+        "p95_mm": 11.857134964320798,
+        "max_mm": 21.40249888275872,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 79,
+            "fraction": 0.79
+          },
+          "5\u201320mm": {
+            "n": 20,
+            "fraction": 0.2
+          },
+          "20\u201350mm": {
+            "n": 1,
+            "fraction": 0.01
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 302.83431336283684,
+        "p95_ms": 500.05982108414173,
+        "max_ms": 575.0838220119476,
+        "over_500": 5
+      },
+      "functional_and_under_500": 0.95,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 89,
+          "fraction": 0.89
+        },
+        "1\u20132%": {
+          "n": 7,
+          "fraction": 0.07
+        },
+        "2\u20135%": {
+          "n": 4,
+          "fraction": 0.04
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 15
+    },
+    "14": {
+      "n": 100,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.84,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 2.466202084626338,
+        "p95_mm": 6.141535492326652,
+        "max_mm": 14.78959187626172,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 90,
+            "fraction": 0.9
+          },
+          "5\u201320mm": {
+            "n": 10,
+            "fraction": 0.1
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 4.150616585008874,
+        "p95_mm": 15.076821156682684,
+        "max_mm": 25.843685679055874,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 76,
+            "fraction": 0.76
+          },
+          "5\u201320mm": {
+            "n": 20,
+            "fraction": 0.2
+          },
+          "20\u201350mm": {
+            "n": 4,
+            "fraction": 0.04
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 306.1294499784708,
+        "p95_ms": 473.56951721012587,
+        "max_ms": 535.3298485279083,
+        "over_500": 2
+      },
+      "functional_and_under_500": 0.98,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 81,
+          "fraction": 0.81
+        },
+        "1\u20132%": {
+          "n": 14,
+          "fraction": 0.14
+        },
+        "2\u20135%": {
+          "n": 5,
+          "fraction": 0.05
+        },
+        "5\u201310%": {
+          "n": 0,
+          "fraction": 0.0
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 16
+    },
+    "15": {
+      "n": 103,
+      "liquid_pass": 1.0,
+      "highest_pass": 1.0,
+      "functional_pass": 1.0,
+      "strict_two_height": 1.0,
+      "exact_tags": 0.42718446601941745,
+      "liquid": {
+        "coverage": 1.0,
+        "mae_mm": 2.312021762124086,
+        "p95_mm": 6.23444031543592,
+        "max_mm": 10.786995947498434,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 94,
+            "fraction": 0.912621359223301
+          },
+          "5\u201320mm": {
+            "n": 9,
+            "fraction": 0.08737864077669903
+          },
+          "20\u201350mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "highest": {
+        "coverage": 1.0,
+        "mae_mm": 4.912556534382317,
+        "p95_mm": 14.496933315454013,
+        "max_mm": 30.39222783800577,
+        "absolute_bins": {
+          "\u22645mm": {
+            "n": 65,
+            "fraction": 0.6310679611650486
+          },
+          "5\u201320mm": {
+            "n": 35,
+            "fraction": 0.33980582524271846
+          },
+          "20\u201350mm": {
+            "n": 3,
+            "fraction": 0.02912621359223301
+          },
+          "50\u2013100mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          "100\u2013500mm": {
+            "n": 0,
+            "fraction": 0.0
+          },
+          ">500mm": {
+            "n": 0,
+            "fraction": 0.0
+          }
+        }
+      },
+      "latency": {
+        "p50_ms": 278.0715599656105,
+        "p95_ms": 464.8973543196916,
+        "max_ms": 492.27408319711685,
+        "over_500": 0
+      },
+      "functional_and_under_500": 1.0,
+      "relative_bins": {
+        "\u22641%": {
+          "n": 79,
+          "fraction": 0.7669902912621359
+        },
+        "1\u20132%": {
+          "n": 15,
+          "fraction": 0.14563106796116504
+        },
+        "2\u20135%": {
+          "n": 8,
+          "fraction": 0.07766990291262135
+        },
+        "5\u201310%": {
+          "n": 1,
+          "fraction": 0.009708737864077669
+        },
+        ">10%": {
+          "n": 0,
+          "fraction": 0.0
+        }
+      },
+      "wrong_tags_but_functional": 59
+    }
+  },
+  "planned_conditions": 11,
+  "qualified_frames": 1103,
+  "input_skipped": 7023,
+  "qualification_fraction": 0.13573714004430223,
+  "skipped_reasons": {
+    "liquid_invalid_fraction_above_50pct": 6963,
+    "insufficient_visible_liquid_returns": 929,
+    "insufficient_float_support": 1989
+  },
+  "exact_tags_are_hard_gate": false,
+  "no_error_based_frame_removal": true,
+  "material_scope": "confirmed_ordinary_diffuse_four_visual_tags_plus_0_to_50pct_observed_loss",
+  "actual_liquid_height_range_m": [
+    0.02069392489891022,
+    7.3039861334419
+  ],
+  "failed_frames": 0,
+  "timing_excludes": [
+    "initialization",
+    "Blender_render",
+    "disk_load",
+    "network",
+    "browser"
+  ],
+  "field_metrology_qualified": false,
+  "auxiliary_label_diagnostics": {
+    "low_light": {
+      "tp": 679,
+      "fp": 0,
+      "fn": 24,
+      "precision": 1.0,
+      "recall": 0.9658605974395448
+    },
+    "glare": {
+      "tp": 445,
+      "fp": 25,
+      "fn": 258,
+      "precision": 0.9468085106382979,
+      "recall": 0.6330014224751067
+    },
+    "uneven_surface": {
+      "tp": 698,
+      "fp": 1,
+      "fn": 5,
+      "precision": 0.9985693848354793,
+      "recall": 0.9928876244665719
+    },
+    "floating_objects": {
+      "tp": 631,
+      "fp": 24,
+      "fn": 72,
+      "precision": 0.9633587786259542,
+      "recall": 0.8975817923186344
+    }
+  },
+  "over_500ms_frames": [
+    {
+      "frame": "120052_12",
+      "bits": 12,
+      "wall_ms": 500.0879652798176,
+      "target_tags": [
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "130011_13",
+      "bits": 13,
+      "wall_ms": 575.0838220119476,
+      "target_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "130063_13",
+      "bits": 13,
+      "wall_ms": 505.81513345241547,
+      "target_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "130176_13",
+      "bits": 13,
+      "wall_ms": 529.100377112627,
+      "target_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "130196_13",
+      "bits": 13,
+      "wall_ms": 532.820139080286,
+      "target_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "130281_13",
+      "bits": 13,
+      "wall_ms": 520.3553959727287,
+      "target_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "low_light",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "140424_14",
+      "bits": 14,
+      "wall_ms": 535.3298485279083,
+      "target_tags": [
+        "glare",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "glare",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    },
+    {
+      "frame": "140573_14",
+      "bits": 14,
+      "wall_ms": 515.1918604969978,
+      "target_tags": [
+        "glare",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "predicted_tags": [
+        "glare",
+        "uneven_surface",
+        "floating_objects"
+      ],
+      "visual_peak": true
+    }
+  ]
+}

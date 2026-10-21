@@ -25,7 +25,7 @@ def render(request, folder, *, corpus=False):
     rx, ry = radius, radius * request.get('aspect', 1.)
     base, _ = make_scene(0, request['seed'])
     scene = replace(base, seed=request['seed'], index=request.get('index', 0),
-        width=384 if corpus else 480, height=216 if corpus else 270, horizontal_fov_deg=54.,
+        width=384 if corpus else 480, height=216 if corpus else 270, horizontal_fov_deg=float(request.get('horizontal_fov_deg',54.)),
         # Composition is described by independent controls. `compound` in the
         # legacy sensor proxy ALSO enables refractive bias/multipath, and must
         # not be selected just because an opaque liquid has glare.
@@ -35,7 +35,7 @@ def render(request, folder, *, corpus=False):
         surface_radius_x_m=rx, surface_radius_y_m=ry,
         # Source mesh origin follows nominal surface. After shifting to bottom=0,
         # camera and look-at remain fixed when the liquid-height slider changes.
-        camera_position_m=(.025*b, -.025*b, b-h),
+        camera_position_m=(0., 0., b-h) if request.get('camera_mount')=='top_center' else (.025*b, -.025*b, b-h),
         camera_target_m=(0., 0., -h), container_bottom_z_m=-h-.003,
         wall_thickness_m=.003, container_rim_z_m=cap-h, floating_object_count=count,
         wave_amplitude_m=wave, wave_frequency_x=float(rng.uniform(3, 9)),

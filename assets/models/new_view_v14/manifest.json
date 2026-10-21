@@ -1,0 +1,14 @@
+{
+  "version": "formal_tof_v14_20261021",
+  "sklearn_version": "1.9.0",
+  "semantic_accuracy_is_not_release_gate": true,
+  "sha256": {
+    "candidate.joblib": "0f6122a9093f2fe8d857d5ef032da637fbceccd2015ddcb1583a2619746ee85d",
+    "glare_head.pt": "4aedce2685bb77feda5073ccb17f17613bff11cd87b6c0e0f710612cfc803ac2",
+    "native_best.pt": "e613a617e4212a324551353630d9d47531decada3e904f4e000728a3348557a6"
+  },
+  "ordinary_only": true,
+  "known_material_required": true,
+  "qualification": "extended compound holdout completed; functional metrics, not exact-label gate",
+  "extended_compound_evidence": "reports/evidence/formal-v14-20261021/performance.json"
+}

@@ -12,7 +12,8 @@ from pathlib import Path
 import numpy as np
 
 from .rgbd_evidence_model import RGBDEvidencePredictor
-from .small_float_peak_core import float_features, dense_candidates, score_candidates, choose_highest
+from .small_float_peak_core import float_features, score_candidates, choose_highest
+from .native_float_components import dense_candidates
 
 VERSION = 'small_float_highest_v1_20261020'
 

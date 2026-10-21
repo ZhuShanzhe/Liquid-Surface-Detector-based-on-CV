@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 from .tof_scene_meter import ToFSceneMeter
 
-VERSION = 'unified_tof_console_v2_small_float_20261020'
+VERSION = 'unified_tof_formal_v14_20261021'
 MATERIALS = frozenset(('ordinary_diffuse', 'homogeneous_transparent', 'homogeneous_translucent'))
 TAGS = frozenset(('low_light', 'glare', 'uneven_surface', 'floating_objects', 'partial_depth_loss'))
 
@@ -141,8 +141,8 @@ class UnifiedToFMeter:
             raise ValueError('empty_calibrated_container_roi')
         self.compound_repair = None
         if compound_repair and installation.confirmed_material == 'ordinary_diffuse':
-            from .compound_tof_repair import CompoundToFRepair
-            self.compound_repair = CompoundToFRepair(base, installation.dry_depth_m, repair_policy)
+            from .dynamic_wet_interior import DynamicInteriorRepair
+            self.compound_repair = DynamicInteriorRepair(base, installation.dry_depth_m, repair_policy)
         self.phase_cache = {}
         self.last_timestamp = None
         self._peak_warmed = False
