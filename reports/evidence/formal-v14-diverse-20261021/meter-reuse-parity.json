@@ -1,0 +1,170 @@
+[
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/00_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/00_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/03_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/03_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/06_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/06_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/08_0001",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/08_0001",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/00_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/00_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/03_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/03_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/06_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/06_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/08_0003",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/08_0003",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/00_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/00_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/03_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/03_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/06_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/06_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/08_0005",
+    "variant": "ideal",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  },
+  {
+    "frame": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-diverse-20261021/data/08_0005",
+    "variant": "operator_noise",
+    "liquid_equal": true,
+    "highest_equal": true,
+    "tags_equal": true
+  }
+]

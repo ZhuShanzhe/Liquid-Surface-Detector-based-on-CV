@@ -1,0 +1,1551 @@
+{
+  "git_commit": "0a848c2e9423d3cf0a9d08a91e7beafb755679ee",
+  "source_sha256": {
+    "unified_tof.py": "255ab8436ebe8321472b87edcb1051af9151aab968024fd52c83095318dbe6a9",
+    "dynamic_wet_interior.py": "ba2e7af527bd43af89a9c5e8b67237a062d9a75cbaf18cd70929e7d0f26e6f8a",
+    "formal_tof_runtime.py": "1136309542168bffc01378d471de781fcd81008b7f0372c7f0b39bb006f1f4a0",
+    "new_view_classifier.py": "5ace5f404f99c3adf66cf6f7655d815d4516dd38994323b89f421ca12467a837",
+    "new_view_native.py": "38a6bc6011f4df882daf9bcf61b8e02912a7ca2f7093121ac30be0ef1f30616f",
+    "new_view_features.py": "73c691a11c525904ef68dfd0613808ba1c19cf7aa2abd38ffe3b014e8908dcca",
+    "new_view_glare.py": "87eb2cba63a8186abd420adc15ef8af1fe1a87986de977da0832a05d46dbe19d",
+    "packed_native_forest.py": "2f516e61cb4351d0ff01244369c9b91092614182790107a0a274ae4b16d6e8db",
+    "compiled_native_forest.py": "5591db32b6a3d225c760f17cb2687ece6075dcfd9d5f88277d1d7badb1040dbb",
+    "native_forest.cpp": "be37963109808e2430b657906fe22e65e1ad24087c69c35a18c299478f9f5447",
+    "geometry_execution.py": "39e613df2cf5932543aff9b93db8f7bc22159d0697b997c48c75323d5a0a1a40",
+    "native_float_components.py": "973d0224eafdcd4cb4e708ab9c559982799f0834234241ba98929459ad645301",
+    "small_float_peak.py": "d15d8d0bb8369bc237eb62e0fafe37c8b5be617ff4da46917845765d8cb790ce",
+    "small_float_peak_core.py": "1f75fc1a0d0aaf38b21b26c4cb5f254e58d8069f4101d591eb0110cda463169e",
+    "symmetric_visual_meter.py": "d524efa18e38db5a6f1089332321ad70013773b2484902fe4e73f36f755adf24",
+    "scene_console_web.py": "f3a5cd29776e44eb5c212ec41aa04a5696a211781cf6c1e1cc692d4228596a25",
+    "sim_input_qualification.py": "fbba1304689437cdcdb1980cef068d31ed556cf25a07a207845f7e2beb14c6c0",
+    "formal_symmetric_meter.py": "af7ca72107b674b533f29e4904067514eec9cdd1115cbaf71f97167ef6b4db69",
+    "tof_scene_meter.py": "8f1626b4358a8d8cbd56cd3898c14802d193f67510f2fc2522aa75549dcd2e54"
+  },
+  "model_sha256": {
+    "assets/models/v8/apex_verifier.joblib": "96971b6485cb9578aa533627fea789eca167061484db105a7c0fa31a1bca3c51",
+    "assets/models/v8/instance_rank.joblib": "da7ad76369716acfd8a02a59e8d6b23134fde2c7e5a78484e0f9d89176cecbb6",
+    "assets/models/v8/pixel_best.pt": "bddcae7adbee12461ba1677fc32ac4bae95ea1927082c2290b464fa2e600197a",
+    "assets/models/v8/region_verifier.joblib": "d9c74fd5de2e28a92502890711dcf1254f9af8341db57895766a21815083cc74",
+    "assets/models/scene_router/scene_head.pt": "c4bbbcf97c44876a4bb593f438d38ec40d5b83b66af61d0ab243be8167798394",
+    "assets/models/scene_router/model_card.json": "05627fefa7267cf5421513fcd49016973bf66eb304bde83f183a711596669f7a",
+    "assets/models/small_float_peak/pixel_best.pt": "ee0a04054140ff8468bcb608dc4bbe4f79c615e5d378437283fc455061b6e73b",
+    "assets/models/small_float_peak/policy.json": "5de6c3e302893737e5c685c4d7499841e3cbda3a5ed446f768206fd13ea4c26d",
+    "assets/models/small_float_peak/candidates.joblib": "56a0fb69bb21e02f1dd2bbb9ae2f2328fcf4336ec560bb51d747625f3971e980",
+    "assets/models/small_float_peak/manifest.json": "9c4d2e3cb5bb37e6586459df3929629c432060a6195e1c8c364fa824ee5540b9",
+    "assets/models/new_view_v14/candidate.joblib": "0f6122a9093f2fe8d857d5ef032da637fbceccd2015ddcb1583a2619746ee85d",
+    "assets/models/new_view_v14/glare_head.pt": "4aedce2685bb77feda5073ccb17f17613bff11cd87b6c0e0f710612cfc803ac2",
+    "assets/models/new_view_v14/native_best.pt": "e613a617e4212a324551353630d9d47531decada3e904f4e000728a3348557a6",
+    "assets/models/new_view_v14/manifest.json": "8104efd1dcbac1fcaa051693817f0b78b385ee4037305275455e3534c096f36a"
+  },
+  "algorithm_changed": false,
+  "qualification_frozen_before_inference": true,
+  "exact_tags_gate": false,
+  "field_metrology_qualified": false,
+  "calibration_variants": [
+    "ideal",
+    "operator_noise"
+  ],
+  "primary_variant": "operator_noise",
+  "minimum_qualified_per_category": 100,
+  "generation_seed": "geometry 2026102180039+gid*104729; scene 2026102190011+category*10000019+attempt*99991",
+  "geometry": {
+    "shapes": [
+      "cylindrical",
+      "elliptical",
+      "rectangular_tank"
+    ],
+    "radius_m": [
+      0.3,
+      1.5
+    ],
+    "aspect": [
+      0.65,
+      1.45
+    ],
+    "cylinder_aspect": 1.0,
+    "camera_bottom_m": [
+      0.9,
+      10.0
+    ],
+    "camera_xy_fraction_radius": [
+      -0.22,
+      0.22
+    ],
+    "fov_deg": [
+      45,
+      100
+    ],
+    "capacity": "0.15 to B minus optical headroom",
+    "sampling": "one shallow frame 0.01 to min(0.6,0.45 capacity), one 0.3-0.97 capacity per installation; not uniform depth"
+  },
+  "operator_calibration": {
+    "seed": "2026102197701+gid*9973",
+    "error_limit_m": "T=max(0.010,0.01*abs(calibrated quantity in metres))",
+    "distribution": "zero-mean Gaussian sigma=T/3, rejection-sampled within [-T,+T]",
+    "applies_to": "bottom distance, independently measured geometry dimensions, four known liquid-height priors",
+    "empty_prior": "confirmed empty H=0; datum uncertainty carried by bottom anchor, not invented nonzero liquid in empty frame",
+    "click_sigma_px": 0.3,
+    "gravity_component_sigma": 0.001,
+    "max_reannotation_attempts": 6,
+    "phase_label_max_reannotation_attempts": 100,
+    "reannotation_gate": "geometry/prior input validity only, never output error"
+  },
+  "sensor_sensitivity": {
+    "families": [
+      "base iid",
+      "plus spatial",
+      "plus frame common drift",
+      "plus both"
+    ],
+    "common_sigma_m": "0.001+0.0005*(B-H)",
+    "spatial_each_of_four_sigma_m": "0.0006+0.00015*(B-H)",
+    "definition": "additional frame-specific drift relative to empty acquisition; not installation-fixed bias, not measured hardware parameters",
+    "rgb_ir_decoupled": true,
+    "glare_rgb": "three-light glare renderer, primary gain .7+3.3*glare, source size .38-.27*glare, liquid roughness=max(.008,.22*(1-glare))",
+    "glare_depth_loss": "local ellipse 8-30 percent visible bbox radii; dropout probability .25+.65*glare",
+    "legacy_bug_reintroduced": false
+  },
+  "phase_parameters": {
+    "index": [
+      1.31,
+      1.45
+    ],
+    "surface_ratio": [
+      0.03,
+      0.12
+    ],
+    "translucent_extinction": [
+      0.02,
+      0.08
+    ],
+    "translucent_scatter": [
+      0.08,
+      0.25
+    ],
+    "priors_fraction": [
+      0,
+      0.1,
+      0.35,
+      0.65,
+      0.95
+    ],
+    "phase_shape": [
+      3,
+      4,
+      48,
+      64
+    ],
+    "roi": "central native 64x48 crop intersects visible empty floor and analytic acquisition ROI",
+    "unknown_physical_parameters_given_to_inverse": false,
+    "limitation": "separate near-vertical planar analytic phase model, not coherent spectral Blender ray tracing"
+  },
+  "qualification": "input-only simulator return provenance: >=30 genuine liquid points and span>=3px; invalid<=50%; highest instance >=3 genuine points; phase finite support>=30 and preflight common-prior/current selected modulation support>=64 in actual empty projected ROI",
+  "timing": "serial warmed qualification+classification+measurement with CUDA sync; excludes render, IO, per-install initialization, network, UI",
+  "liquid_tolerance": "max(20mm,2% true bottom-relative depth); actual uneven max(50mm,5%)",
+  "highest_tolerance": "max(50mm,5% true highest)",
+  "interpretation": "diverse shallow-weighted simulation sensitivity benchmark, not field accuracy or manufacturer specification",
+  "generated_single_target": 1400,
+  "generated_composite_target": 1100,
+  "evaluation_helpers_sha256": {
+    "diverse_capture.py": "abaa00031dbfb0a79bff806b5894bef53536ae77d7e469fafc5626f81724f49e",
+    "diverse_launch.py": "4b00277dd522e3e8dbeb83bdac89e704edb9b24186033fa40414c55324c817ff",
+    "start_diverse.py": "6e1da87420f0f4a745a5e9912df0935b118fc749a1c70610f03709379eaec8fe",
+    "diverse_geometry.py": "ac6af2223db883d979e2a1bd330921fdb92e5de510056dea939e3508b386e5b2",
+    "diverse_evaluate.py": "8e1057cb9c92a2d98a7afd8d4b834fa8a4020b1d0658b25781e74f53fbd11911",
+    "start_diverse_eval.py": "4e9819f6b84b9b9c8ce35e430ce181e54df0673c51956ba2b0358e9fb38f70f4",
+    "summarize_evaluation.py": "5a50b39cb9cc58a04df1266f677f09dd1660e2b37644385594e33c2ebacf1abc",
+    "diverse_preflight.py": "de9089fb6c7353eef97d43cc35aaed0777eb04c779bc6dd574d9d2316315d274",
+    "inspect_diverse.py": "df2881c87fb745748c599039e2cddc738492edf7d5834dc49e8a7e8df5cbb474",
+    "smoke_diverse.py": "19bc4640121925e16e72fcbd57c5615895d8e92898e9741d653f1e6a61f3193c",
+    "diverse_status.py": "f9ce0fb62bb564afceb8dec4c78f3af50a122955b25e7e7a65ea9f132fad080b",
+    "finalize_diverse.py": "25751b54439556c53426aacc605305225f0b638b042022711028e564b49f4671",
+    "archive_invalid_glare_capture.py": "4be89e2a02f960f0b6e3785d8cc25eeba47d9865008d199f2d95883ed1fb62fd",
+    "audit_capture_inputs.py": "3b26a59525ce0328fff657ffa896a01a657bd6b0aa532975728f52faea7d44d5",
+    "publish_diverse_report.py": "c7c91ce73f469c5e41f46d9c97be1b801935c4c328dbad484c59c31c6362d8e0",
+    "derive_report_conclusions.py": "1a026554793f45c915a17f9c08fb0ce30b8b3bfa63a0f67990f9b299a51c13a3"
+  },
+  "source_snapshot_sha256": "f42a2f781d65ed0eddf19e413042f739de6d5a0a9c9209d9494549e917c742d8",
+  "narrow_control_root": "/root/autodl-tmp/liquid-depth-artifacts/formal-v14-single-composite-20261021",
+  "preflight_geometry": {
+    "installations": 56,
+    "variants": 2,
+    "errors": []
+  },
+  "capture_domain_audit": [
+    {
+      "category": "ordinary",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.22673189516287476,
+            "median": 0.7824698617793305,
+            "p95": 0.9000549981491439,
+            "max": 0.941035433041141
+          },
+          "luminance_p95": {
+            "min": 0.4588235294117647,
+            "median": 0.8431372549019608,
+            "p95": 0.9411764705882353,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.003842939510934022,
+            "max": 0.17358490566037735
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "low_light_low",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.07810479642093804,
+            "median": 0.6050197686664307,
+            "p95": 0.8009184060373437,
+            "max": 0.8881690034504369
+          },
+          "luminance_p95": {
+            "min": 0.16862745098039217,
+            "median": 0.7039215686274509,
+            "p95": 0.8745098039215686,
+            "max": 0.9490196078431372
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.000668613775844753,
+            "max": 0.10900473933649289
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "low_light_medium",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.012537337209765421,
+            "median": 0.3288053381686491,
+            "p95": 0.6063258784090727,
+            "max": 0.6907814883878624
+          },
+          "luminance_p95": {
+            "min": 0.03529411764705882,
+            "median": 0.4372549019607843,
+            "p95": 0.7256862745098038,
+            "max": 0.8
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.7247925156225046,
+            "max": 0.9647935003385241
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "low_light_strong",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016023340697467728,
+            "median": 0.0443359164743906,
+            "p95": 0.2674092369377961,
+            "max": 0.4053666346461736
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.08823529411764705,
+            "p95": 0.3692156862745098,
+            "max": 0.5215686274509804
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.42940286739011047,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "glare_low",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.15120362470440193,
+            "median": 0.9119614203852153,
+            "p95": 0.9796095359997569,
+            "max": 0.993666231792266
+          },
+          "luminance_p95": {
+            "min": 0.34901960784313724,
+            "median": 0.9647058823529412,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.061372775245444953,
+            "p95": 0.9420722002394806,
+            "max": 0.985183594588791
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "glare_medium",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.15168671084567348,
+            "median": 0.9316910324579974,
+            "p95": 0.9905323667834702,
+            "max": 0.9985043448343478
+          },
+          "luminance_p95": {
+            "min": 0.34509803921568627,
+            "median": 0.984313725490196,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.6165601724269167,
+            "p95": 0.9756067309335313,
+            "max": 0.9899616512519739
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "glare_strong",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.15192435806033125,
+            "median": 0.9353287999907243,
+            "p95": 0.9940329269223582,
+            "max": 0.9988592215928673
+          },
+          "luminance_p95": {
+            "min": 0.34509803921568627,
+            "median": 0.9921568627450981,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.7604684151591962,
+            "p95": 0.9831167338643372,
+            "max": 0.9968107725017717
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "uneven_surface",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.20693775140387907,
+            "median": 0.7717352878821375,
+            "p95": 0.8865216852492541,
+            "max": 0.9404861875450112
+          },
+          "luminance_p95": {
+            "min": 0.42745098039215684,
+            "median": 0.8470588235294118,
+            "p95": 0.9413725490196078,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.002779301792473041,
+            "max": 0.17556017556017556
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 430.0,
+            "median": 16315.5,
+            "p95": 31576.399999999998,
+            "max": 37702.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "floating_objects",
+      "summary": {
+        "False": {
+          "n": 4,
+          "luminance_mean": {
+            "min": 0.2267297270667061,
+            "median": 0.425807573549182,
+            "p95": 0.5701400655755171,
+            "max": 0.5823799582463466
+          },
+          "luminance_p95": {
+            "min": 0.5490196078431373,
+            "median": 0.6333333333333333,
+            "p95": 0.7182156862745092,
+            "max": 0.7203921568627444
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 430.0,
+            "median": 1521.0,
+            "p95": 2342.7999999999997,
+            "max": 2395.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.2324272967614012,
+            "median": 0.785701014791496,
+            "p95": 0.9000380404406833,
+            "max": 0.9405673250220048
+          },
+          "luminance_p95": {
+            "min": 0.4621568627450977,
+            "median": 0.8470588235294118,
+            "p95": 0.9411764705882353,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0038483931034771304,
+            "max": 0.17290792494656004
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 1424.0,
+            "median": 16239.5,
+            "p95": 31040.85,
+            "max": 37463.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "loss_low",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.22673189516287476,
+            "median": 0.7824698617793305,
+            "p95": 0.9000549981491439,
+            "max": 0.941035433041141
+          },
+          "luminance_p95": {
+            "min": 0.4588235294117647,
+            "median": 0.8431372549019608,
+            "p95": 0.9411764705882353,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.003842939510934022,
+            "max": 0.17358490566037735
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "loss_medium",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.22673189516287476,
+            "median": 0.7824698617793305,
+            "p95": 0.9000549981491439,
+            "max": 0.941035433041141
+          },
+          "luminance_p95": {
+            "min": 0.4588235294117647,
+            "median": 0.8431372549019608,
+            "p95": 0.9411764705882353,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.003842939510934022,
+            "max": 0.17358490566037735
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "loss_high",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.22673189516287476,
+            "median": 0.7824698617793305,
+            "p95": 0.9000549981491439,
+            "max": 0.941035433041141
+          },
+          "luminance_p95": {
+            "min": 0.4588235294117647,
+            "median": 0.8431372549019608,
+            "p95": 0.9411764705882353,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.003842939510934022,
+            "max": 0.17358490566037735
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "transparent",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.09986011926673047,
+            "median": 0.24947097586063613,
+            "p95": 0.47366967594424153,
+            "max": 0.5654959377601699
+          },
+          "luminance_p95": {
+            "min": 0.1450980392156863,
+            "median": 0.48627450980392156,
+            "p95": 0.8127450980392157,
+            "max": 0.9137254901960784
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "translucent",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.1533537663562419,
+            "median": 0.5560016059819608,
+            "p95": 0.7245123018650608,
+            "max": 0.798196712647323
+          },
+          "luminance_p95": {
+            "min": 0.25882352941176473,
+            "median": 0.707843137254902,
+            "p95": 0.8552941176470588,
+            "max": 0.9294117647058824
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_03",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016214794717363556,
+            "median": 0.4033781791014188,
+            "p95": 0.8813598035152546,
+            "max": 0.9262529618956133
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.5627450980392157,
+            "p95": 0.9299999999999999,
+            "max": 0.9647058823529412
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.005479957319404969,
+            "max": 0.4557512596356746
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0004488365474076319,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16274.0,
+            "p95": 31550.199999999997,
+            "max": 37721.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_05",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016060296951150403,
+            "median": 0.16893009011973054,
+            "p95": 0.6037139924724626,
+            "max": 0.6984315128829761
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.2431372549019608,
+            "p95": 0.7178431372549019,
+            "max": 0.7647058823529411
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0020933494742203505,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 430.0,
+            "median": 16279.5,
+            "p95": 31537.45,
+            "max": 37702.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_06",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.15170895120294237,
+            "median": 0.9218535162951923,
+            "p95": 0.9896890964555624,
+            "max": 0.9989411164159385
+          },
+          "luminance_p95": {
+            "min": 0.34901960784313724,
+            "median": 0.9882352941176471,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.5741800011179858,
+            "p95": 0.9796048661722597,
+            "max": 0.9925553034600113
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16332.5,
+            "p95": 31571.649999999998,
+            "max": 37702.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_07",
+      "summary": {
+        "False": {
+          "n": 0,
+          "luminance_mean": null,
+          "luminance_p95": null,
+          "saturated_any_channel_fraction": null,
+          "underexposed_fraction": null,
+          "liquid_visible_pixels": null
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016274706698057215,
+            "median": 0.501235054125819,
+            "p95": 0.8637693721903574,
+            "max": 0.8961825913963571
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.696078431372549,
+            "p95": 0.9413725490196078,
+            "max": 0.9607843137254902
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.00919839468181616,
+            "max": 0.07988811831870953
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0017062550376910862,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 16281.5,
+            "p95": 31565.0,
+            "max": 37708.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_09",
+      "summary": {
+        "False": {
+          "n": 2,
+          "luminance_mean": {
+            "min": 0.03467396260829913,
+            "median": 0.04583634084696167,
+            "p95": 0.05588248126175795,
+            "max": 0.056998719085624205
+          },
+          "luminance_p95": {
+            "min": 0.07450980392156863,
+            "median": 0.11568627450980393,
+            "p95": 0.15274509803921568,
+            "max": 0.1568627450980392
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.5628140703517588,
+            "median": 0.6395465700596004,
+            "p95": 0.7086058197966577,
+            "max": 0.7162790697674418
+          },
+          "liquid_visible_pixels": {
+            "min": 430.0,
+            "median": 712.5,
+            "p95": 966.75,
+            "max": 995.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016081385473210002,
+            "median": 0.2007470566170671,
+            "p95": 0.6015116644873211,
+            "max": 0.6994413646120402
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.30196078431372547,
+            "p95": 0.6984313725490195,
+            "max": 0.8156862745098039
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.00019982787226237666,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 1472.0,
+            "median": 15995.0,
+            "p95": 31338.649999999998,
+            "max": 37554.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_10",
+      "summary": {
+        "False": {
+          "n": 9,
+          "luminance_mean": {
+            "min": 0.2215487177511031,
+            "median": 0.3765812737573366,
+            "p95": 0.915332850971941,
+            "max": 0.9747563696137139
+          },
+          "luminance_p95": {
+            "min": 0.4666666666666667,
+            "median": 0.615686274509804,
+            "p95": 0.9741176470588235,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.5317365269461074,
+            "max": 0.8862275449101796
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 422.0,
+            "median": 2309.0,
+            "p95": 7239.999999999999,
+            "max": 8078.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.15275898145827616,
+            "median": 0.9342615466872027,
+            "p95": 0.9947499639843316,
+            "max": 0.999575182169364
+          },
+          "luminance_p95": {
+            "min": 0.34509803921568627,
+            "median": 0.9901960784313726,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.7246282944969997,
+            "p95": 0.9808831741858072,
+            "max": 0.9965938120919671
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 1466.0,
+            "median": 16902.0,
+            "p95": 31079.3,
+            "max": 37150.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_11",
+      "summary": {
+        "False": {
+          "n": 4,
+          "luminance_mean": {
+            "min": 0.0028962669986290794,
+            "median": 0.03569158095086888,
+            "p95": 0.5118891707521561,
+            "max": 0.5940955021003986
+          },
+          "luminance_p95": {
+            "min": 0.00784313725490196,
+            "median": 0.09058823529411751,
+            "p95": 0.7632549019607839,
+            "max": 0.8784313725490196
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.6794378866747288,
+            "p95": 0.9716635338345864,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 429.0,
+            "median": 2930.5,
+            "p95": 15386.499999999995,
+            "max": 17443.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0017420109668597852,
+            "median": 0.45746014055360085,
+            "p95": 0.8644539534882135,
+            "max": 0.9275907076196629
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.6372549019607843,
+            "p95": 0.918235294117647,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0038623548852326542,
+            "max": 0.23929560462969537
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0016853569927562009,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 970.0,
+            "median": 16165.0,
+            "p95": 31431.449999999997,
+            "max": 37259.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_12",
+      "summary": {
+        "False": {
+          "n": 6,
+          "luminance_mean": {
+            "min": 0.2038975099242151,
+            "median": 0.4106127416753602,
+            "p95": 0.814927102888213,
+            "max": 0.8846940118920436
+          },
+          "luminance_p95": {
+            "min": 0.42235294117647076,
+            "median": 0.6120588235294115,
+            "p95": 0.9147058823529411,
+            "max": 0.9411764705882353
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.034135938359933955,
+            "max": 0.04551458447991194
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 420.0,
+            "median": 1756.5,
+            "p95": 14202.0,
+            "max": 18170.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.23124513343243436,
+            "median": 0.7692784823126452,
+            "p95": 0.886968949020006,
+            "max": 0.940591299741447
+          },
+          "luminance_p95": {
+            "min": 0.448823529411764,
+            "median": 0.8490196078431372,
+            "p95": 0.9413725490196078,
+            "max": 0.9882352941176471
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0007803589878370084,
+            "max": 0.17317207256734468
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 2126.0,
+            "median": 16019.5,
+            "p95": 31420.05,
+            "max": 37213.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_13",
+      "summary": {
+        "False": {
+          "n": 5,
+          "luminance_mean": {
+            "min": 0.01613629058180649,
+            "median": 0.04932678032048328,
+            "p95": 0.055367149882783434,
+            "max": 0.05643084534744611
+          },
+          "luminance_p95": {
+            "min": 0.0392156862745098,
+            "median": 0.11372549019607843,
+            "p95": 0.14823529411764705,
+            "max": 0.1568627450980392
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.47928994082840237,
+            "median": 0.5822130299896587,
+            "p95": 0.9091598281322391,
+            "max": 0.9648711943793911
+          },
+          "liquid_visible_pixels": {
+            "min": 427.0,
+            "median": 1476.0,
+            "p95": 5245.599999999999,
+            "max": 5408.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016020869663845292,
+            "median": 0.19134771180924823,
+            "p95": 0.5910358930695264,
+            "max": 0.6538180723345
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.292156862745098,
+            "p95": 0.698235294117647,
+            "max": 0.788235294117647
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0007342970868690404,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 1997.0,
+            "median": 16468.0,
+            "p95": 31360.85,
+            "max": 37634.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_14",
+      "summary": {
+        "False": {
+          "n": 9,
+          "luminance_mean": {
+            "min": 0.1998572533158865,
+            "median": 0.34466885861907,
+            "p95": 0.9316985295250639,
+            "max": 0.9435141961818801
+          },
+          "luminance_p95": {
+            "min": 0.3803921568627451,
+            "median": 0.611764705882353,
+            "p95": 0.9905882352941177,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.5745261991053634,
+            "max": 0.7656627830292372
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 431.0,
+            "median": 2285.0,
+            "p95": 12171.199999999993,
+            "max": 18196.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.1521387146407859,
+            "median": 0.9248458352482165,
+            "p95": 0.9900795439781487,
+            "max": 0.9989469105450735
+          },
+          "luminance_p95": {
+            "min": 0.347254901960785,
+            "median": 0.9882352941176471,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.6183522757239686,
+            "p95": 0.97871000876798,
+            "max": 0.993996383363472
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "liquid_visible_pixels": {
+            "min": 1441.0,
+            "median": 16997.0,
+            "p95": 31101.949999999997,
+            "max": 37678.0
+          }
+        }
+      },
+      "metadata_failures": []
+    },
+    {
+      "category": "compound_15",
+      "summary": {
+        "False": {
+          "n": 11,
+          "luminance_mean": {
+            "min": 0.0064774635663807575,
+            "median": 0.05906144055195385,
+            "p95": 0.4111913078859328,
+            "max": 0.5886132725590021
+          },
+          "luminance_p95": {
+            "min": 0.0196078431372549,
+            "median": 0.12823529411764703,
+            "p95": 0.5058823529411764,
+            "max": 0.7254901960784313
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "underexposed_fraction": {
+            "min": 0.00012943308309603936,
+            "median": 0.43174924165824063,
+            "p95": 0.979680571082387,
+            "max": 0.9974132975665836
+          },
+          "liquid_visible_pixels": {
+            "min": 427.0,
+            "median": 3049.0,
+            "p95": 16808.0,
+            "max": 23178.0
+          }
+        },
+        "True": {
+          "n": 100,
+          "luminance_mean": {
+            "min": 0.0016193480546792848,
+            "median": 0.38027814089314205,
+            "p95": 0.8315900317319171,
+            "max": 0.8777278781572473
+          },
+          "luminance_p95": {
+            "min": 0.00392156862745098,
+            "median": 0.5509803921568628,
+            "p95": 0.8901960784313725,
+            "max": 0.9294117647058824
+          },
+          "saturated_any_channel_fraction": {
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0020065971863040084,
+            "max": 0.011969164187178794
+          },
+          "underexposed_fraction": {
+            "min": 0.0,
+            "median": 0.0030735428211164633,
+            "p95": 1.0,
+            "max": 1.0
+          },
+          "liquid_visible_pixels": {
+            "min": 1439.0,
+            "median": 16856.0,
+            "p95": 31422.95,
+            "max": 37237.0
+          }
+        }
+      },
+      "metadata_failures": []
+    }
+  ]
+}
