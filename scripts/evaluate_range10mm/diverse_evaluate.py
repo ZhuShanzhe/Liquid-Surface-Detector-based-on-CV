@@ -167,15 +167,19 @@ with (OUT/'measurements.jsonl').open('w') as stream:
                 result=measure_if_eligible(meter,obs,qualification);torch.cuda.synchronize()
                 row.update(liquid=result.get('liquid_depth_m'),highest=result.get('highest_height_m'),wall_ms=(time.perf_counter()-start)*1000,classification=result['classification'],module_plan=result['module_plan'],formal_runtime=meter.formal_runtime,diagnostics=result.get('diagnostics',{}))
                 if (gid<3 and req['repeat']==1 or gid>=10000 and gid%1000==0) and state['category_id'] in (0,3,6,8,12,13):
+                    row['fresh_parity_checked']=True
                     check,diagnostic=fresh_parity_diagnostic(
                         row,obs,lambda:create_formal_meter(meter.installation,profile_path=profile),torch.cuda.synchronize)
                     if check is not None:parity.append(check)
                     if diagnostic is not None:
                         diagnostic_failures.append(diagnostic)
                         row['diagnostic_error']=diagnostic
-                    (OUT/'meter-reuse-parity.json').write_text(json.dumps(parity,indent=2))
-                    (OUT/'diagnostic-failures.json').write_text(json.dumps(diagnostic_failures,indent=2))
             except Exception as exc:row.update(error=repr(exc),traceback=traceback.format_exc())
+        if row.get('fresh_parity_checked'):
+            # Audit-file IO failure is not a primary measurement exception;
+            # fail the run instead of retaining an ambiguous row.error.
+            (OUT/'meter-reuse-parity.json').write_text(json.dumps(parity,indent=2))
+            (OUT/'diagnostic-failures.json').write_text(json.dumps(diagnostic_failures,indent=2))
         truth=json.loads((folder/'truth.json').read_text());row['truth']={k:truth[k] for k in ('liquid_height_m','highest_height_m','lowest_height_m')}
         assert band_of(row['truth']['liquid_height_m'])==item['depth_band'],'out-of-protocol liquid depth must be resolved before evaluation'
         stream.write(json.dumps(row,default=lambda x:x.tolist() if hasattr(x,'tolist') else str(x))+'\n');stream.flush();counts[variant+':'+state['category']]+=1

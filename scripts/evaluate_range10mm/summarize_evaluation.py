@@ -855,7 +855,7 @@ def fixed_capture_disposition(root, primary_rows, protocol):
                     eligible_candidate_fraction=None,
                     new_candidate_qualification_fraction=fresh_qualified / new_observed_attempts if new_observed_attempts and not sources['unknown_skipped_source'] else None,
                     disposition_balances=True,
-                    count_note='attempts is selected previously qualified reuse plus observed fresh candidates; not an unbiased random-candidate denominator')
+                    count_note='attempts is considered reuse including preflight exclusions plus observed fresh candidates; not an unbiased random-candidate denominator')
     for key in ('attempts', 'reused_selected', 'new_qualified', 'unknown_source', 'new_skipped',
                 'reused_skipped','unknown_skipped_source','skip_source_inferred_from_filename',
                 'new_observed_attempts', 'raw_state_attempts'):
@@ -884,6 +884,8 @@ def apply_fixed_range_protocol(data, rows, states, protocol, allow_incomplete=Fa
             raise ValueError('Unknown selected-input provenance')
     if any(row.get('measurement_reused') is True for row in rows):
         raise ValueError('This revision reruns both calibration variants, not old numeric results')
+    if not allow_incomplete and data.get('qualification',{}).get('all',{}).get('unknown_skipped_source',0):
+        raise ValueError('Skipped-input source is unresolved; cannot report fresh-candidate denominator')
     diagnostic_failures = [dict(frame=row['frame'],variant=row['calibration_variant'],error=row['diagnostic_error'])
                            for row in rows if row.get('diagnostic_error')]
     data['diagnostic_failures'] = diagnostic_failures
@@ -1074,6 +1076,8 @@ def report(data):
                            for label, item in [('单场景', data['qualification']['by_cohort']['single']),
                                               ('复合场景', data['qualification']['by_cohort']['composite']),
                                               ('合并', data['qualification']['all'])]])
+            sources=data['qualification']['all']
+            text += f"复用输入在本轮preflight另排除{sources.get('reused_skipped',0)}张，不计入新采候选/新采排除分母。缺source但按固定文件前缀恢复{sources.get('skip_source_inferred_from_filename',0)}条，未决来源{sources.get('unknown_skipped_source',0)}条；未决来源时不发布新采资格比例。\n\n"
         for condition in data['qualification'].get('additional_diverse_conditions', []):
             text += condition + '\n\n'
     text += table(['组别', '候选', '捕获暂收', '捕获排除', '最终合格', '资格通过比例'],
@@ -1329,6 +1333,11 @@ def self_test():
                        for record in calibration_rows]
     _, fixed_prior = calibration_audits(high_prior_rows, fixed_protocol)
     assert fixed_prior['by_variant']['operator_noise']['max_abs_to_limit'] == .4
+    sources=selected_source_counts([dict(attempts=10,qualified=[dict(source='reused_input')]*2+[dict(source='new_input')]*5,
+                                       skipped=[dict(source='reused_input'),dict(source='new_input'),dict(frame='/data/new_legacy')])])
+    assert sources['reused_selected']==2 and sources['new_qualified']==5
+    assert sources['reused_skipped']==1 and sources['new_skipped']==2 and sources['skip_source_inferred_from_filename']==1
+    assert sources['new_qualified']/(sources['new_qualified']+sources['new_skipped'])==5/7
     fixed_report = json.loads(json.dumps(diverse))
     fixed_report.update(evaluation_revision=FIXED_REVISION, depth_sampling_audit=sampling,
                         evaluation_provenance=fixed_data['evaluation_provenance'], scope_notes=fixed_data['scope_notes'])

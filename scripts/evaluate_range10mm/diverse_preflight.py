@@ -3,6 +3,20 @@ import json
 import os
 import sys
 from pathlib import Path
+
+
+def excluded_input_record(item, request, qualification):
+    return dict(item, frame=item['frame'], request=request, qualification=qualification,
+                measurement_calls=0, skip_stage='phase_preflight')
+
+
+if '--self-test-skip' in sys.argv:
+    original=dict(frame='reused_fixture',source='reused_input',source_frame='old/frame',depth_band=8)
+    rejected=excluded_input_record(original,{},dict(eligible=False))
+    assert rejected['source']=='reused_input' and rejected['source_frame']=='old/frame' and rejected['depth_band']==8
+    assert rejected['measurement_calls']==0 and 'qualification' not in original
+    print('PREFLIGHT_SKIP_SOURCE_SELF_TEST_OK');sys.exit(0)
+
 import numpy as np
 
 ROOT = Path(os.environ.get('LIQUID_EVAL_ROOT', Path(__file__).resolve().parent))
@@ -115,9 +129,7 @@ for state in states:
             accepted.append(item)
         else:
             phase_bad.append(dict(frame=str(folder), category=state['category'], qualification=q))
-            state['skipped'].append(dict(item, frame=str(folder), request=req,
-                                         qualification=q, measurement_calls=0,
-                                         skip_stage='phase_preflight'))
+            state['skipped'].append(excluded_input_record(item,req,q))
     state['qualified'] = accepted
     (ROOT/f"capture-{state['category_id']:02d}.json").write_text(json.dumps(state))
 
