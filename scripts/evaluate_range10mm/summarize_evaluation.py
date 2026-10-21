@@ -815,32 +815,54 @@ def fixed_range_audit(rows, states):
                 note='Counts only, not depth-stratified performance. Stratum-selected reuse is not a new random capture cohort.')
 
 
+def selected_source_counts(states):
+    result = Counter()
+    for state in states:
+        for item in state.get('qualified', []):
+            source = item.get('source')
+            result['reused_selected' if source == 'reused_input' else 'new_qualified' if source == 'new_input' else 'unknown_source'] += 1
+        for item in state.get('skipped', []):
+            source = item.get('source')
+            if source not in ('reused_input','new_input'):
+                # Recover older preflight records using the frozen input naming
+                # contract. Never silently assume all missing-source skips new.
+                name = Path(str(item.get('frame',''))).name
+                source = 'reused_input' if name.startswith('reused_') else 'new_input' if name.startswith('new_') else None
+                if source:result['skip_source_inferred_from_filename'] += 1
+            result['reused_skipped' if source == 'reused_input' else 'new_skipped' if source == 'new_input' else 'unknown_skipped_source'] += 1
+        result['pending_or_inflight'] += len(state.get('inflight', []))
+        result['raw_state_attempts'] += int(state.get('attempts',0))
+    keys=('reused_selected','new_qualified','unknown_source','reused_skipped','new_skipped','unknown_skipped_source',
+          'skip_source_inferred_from_filename','pending_or_inflight','raw_state_attempts')
+    return {key:result[key] for key in keys}
+
+
 def fixed_capture_disposition(root, primary_rows, protocol):
     states = [json.loads((root / f'capture-{index:02d}.json').read_text(encoding='utf-8')) for index in range(25)]
     data = capture_disposition(root, root, primary_rows, diverse=True)
     for cohort in ('single', 'composite'):
         subset = [state for state in states if state['cohort'] == cohort]
-        reused = sum(item.get('source') == 'reused_input' for state in subset for item in state.get('qualified', []))
-        fresh_qualified = sum(item.get('source') == 'new_input' for state in subset for item in state.get('qualified', []))
-        unknown = sum(item.get('source') not in ('reused_input', 'new_input') for state in subset for item in state.get('qualified', []))
-        new_skipped = sum(len(state.get('skipped', [])) for state in subset)
-        inflight = sum(len(state.get('inflight', [])) for state in subset)
+        sources = selected_source_counts(subset)
+        reused, fresh_qualified, unknown = sources['reused_selected'], sources['new_qualified'], sources['unknown_source']
+        new_skipped, reused_skipped = sources['new_skipped'], sources['reused_skipped']
+        inflight = sources['pending_or_inflight']
         new_observed_attempts = fresh_qualified + new_skipped + inflight
         item = data['by_cohort'][cohort]
-        item.update(reused_selected=reused, new_qualified=fresh_qualified, unknown_source=unknown,
+        item.update(sources, reused_selected=reused, new_qualified=fresh_qualified, unknown_source=unknown,
                     new_skipped=new_skipped, new_observed_attempts=new_observed_attempts,
                     raw_state_attempts=sum(int(state.get('attempts', 0)) for state in subset),
-                    attempts=reused + unknown + new_observed_attempts,
+                    attempts=reused + reused_skipped + unknown + sources['unknown_skipped_source'] + new_observed_attempts,
                     eligible_candidate_fraction=None,
-                    new_candidate_qualification_fraction=fresh_qualified / new_observed_attempts if new_observed_attempts else None,
+                    new_candidate_qualification_fraction=fresh_qualified / new_observed_attempts if new_observed_attempts and not sources['unknown_skipped_source'] else None,
                     disposition_balances=True,
                     count_note='attempts is selected previously qualified reuse plus observed fresh candidates; not an unbiased random-candidate denominator')
     for key in ('attempts', 'reused_selected', 'new_qualified', 'unknown_source', 'new_skipped',
+                'reused_skipped','unknown_skipped_source','skip_source_inferred_from_filename',
                 'new_observed_attempts', 'raw_state_attempts'):
         data['all'][key] = sum(item[key] for item in data['by_cohort'].values())
     data['all']['eligible_candidate_fraction'] = None
     new_total = data['all']['new_observed_attempts']
-    data['all']['new_candidate_qualification_fraction'] = data['all']['new_qualified'] / new_total if new_total else None
+    data['all']['new_candidate_qualification_fraction'] = data['all']['new_qualified'] / new_total if new_total and not data['all']['unknown_skipped_source'] else None
     data['selected_reuse_is_already_qualified'] = True
     data['selection_provenance'] = protocol.get('selection_provenance', {})
     return data, states
@@ -862,6 +884,11 @@ def apply_fixed_range_protocol(data, rows, states, protocol, allow_incomplete=Fa
             raise ValueError('Unknown selected-input provenance')
     if any(row.get('measurement_reused') is True for row in rows):
         raise ValueError('This revision reruns both calibration variants, not old numeric results')
+    diagnostic_failures = [dict(frame=row['frame'],variant=row['calibration_variant'],error=row['diagnostic_error'])
+                           for row in rows if row.get('diagnostic_error')]
+    data['diagnostic_failures'] = diagnostic_failures
+    if not allow_incomplete and diagnostic_failures:
+        raise ValueError('Fresh-parity diagnostics failed; primary numbers retained but this evaluation cannot be published as complete')
     anchor_records = data.get('calibration_anchor_audit', {}).get('records', [])
     limit_mismatches = [record for record in anchor_records
                         if finite(record.get('limit_mm')) is not None and abs(record['limit_mm'] - 10.) > 1e-6]

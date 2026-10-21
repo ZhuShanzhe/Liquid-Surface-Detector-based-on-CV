@@ -115,8 +115,9 @@ for state in states:
             accepted.append(item)
         else:
             phase_bad.append(dict(frame=str(folder), category=state['category'], qualification=q))
-            state['skipped'].append(dict(frame=str(folder), request=req,
-                                         qualification=q, measurement_calls=0))
+            state['skipped'].append(dict(item, frame=str(folder), request=req,
+                                         qualification=q, measurement_calls=0,
+                                         skip_stage='phase_preflight'))
     state['qualified'] = accepted
     (ROOT/f"capture-{state['category_id']:02d}.json").write_text(json.dumps(state))
 

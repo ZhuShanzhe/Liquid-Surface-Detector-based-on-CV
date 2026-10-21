@@ -1,6 +1,54 @@
 """Frozen V14, independent diverse holdout, paired empty calibration."""
 import collections,hashlib,json,os,subprocess,sys,time,traceback
 from pathlib import Path
+
+
+def fresh_parity_diagnostic(row, observation, factory, synchronize):
+    """Never mutate a valid primary result; diagnostics have a separate status."""
+    fresh = None
+    try:
+        fresh = factory()
+        again = fresh.measure(observation)
+        synchronize()
+        def equal(x, y):
+            return (x is None and y is None) or (x is not None and y is not None and abs(float(x)-float(y)) < 1e-7)
+        check = dict(frame=row['frame'], variant=row['calibration_variant'],
+                     liquid_equal=equal(row['liquid'], again.get('liquid_depth_m')),
+                     highest_equal=equal(row['highest'], again.get('highest_height_m')),
+                     tags_equal=row['classification']['tags'] == again['classification']['tags'])
+        if not all(check[key] for key in ('liquid_equal','highest_equal','tags_equal')):
+            return check, dict(frame=row['frame'], variant=row['calibration_variant'],
+                               reason='fresh_parity_mismatch', check=check)
+        return check, None
+    except Exception as exc:
+        return None, dict(frame=row['frame'], variant=row['calibration_variant'],
+                          reason='fresh_parity_diagnostic_exception', error=repr(exc),
+                          exception_type=type(exc).__name__, traceback=traceback.format_exc())
+    finally:
+        del fresh
+
+
+def parity_self_test():
+    row=dict(frame='fixture',calibration_variant='ideal',liquid=.5,highest=.6,classification=dict(tags=[]))
+    original=json.loads(json.dumps(row))
+    class Fake:
+        def measure(self, observation):
+            return dict(liquid_depth_m=.5,highest_height_m=.6,classification=dict(tags=[]))
+    check,failure=fresh_parity_diagnostic(row,None,Fake,lambda:None)
+    assert failure is None and check['liquid_equal'] and row==original
+    def fail_factory():raise RuntimeError('fresh-only failure')
+    check,failure=fresh_parity_diagnostic(row,None,fail_factory,lambda:None)
+    assert check is None and failure['reason']=='fresh_parity_diagnostic_exception' and row==original
+    class Different(Fake):
+        def measure(self, observation):return {**super().measure(observation),'liquid_depth_m':.8}
+    check,failure=fresh_parity_diagnostic(row,None,Different,lambda:None)
+    assert failure['reason']=='fresh_parity_mismatch' and not check['liquid_equal'] and row==original
+    print('PARITY_DIAGNOSTIC_SELF_TEST_OK')
+
+
+if '--self-test-parity' in sys.argv:
+    parity_self_test();sys.exit(0)
+
 from range_protocol import ROOT,BANDS,QUOTAS,band_of
 REPO=Path('/root/autodl-tmp/Liquid-Surface-Detector-based-on-CV')
 sys.path[:0]=[str(REPO/'src'),str(REPO/'scripts')]
@@ -65,7 +113,9 @@ protocol['evaluation_provenance']=dict(reused_input_images=sum(x['source']=='reu
     new_input_images=sum(x['source']=='new_input' for s,x in items),unique_input_images=len(items),new_measurement_runs=2*len(items),reused_measurement_runs=0,
     old_results_policy='no old measured values reused; Gaussian calibration distribution and sequence changed',attempts_includes_reused=True)
 (OUT/'protocol.json').write_text(json.dumps(protocol,indent=2));(OUT/'evaluated-inputs.json').write_text(json.dumps([dict(frame=x['frame'],category=s['category'],installation_id=x['installation_id']) for s,x in items]))
-counts=collections.Counter();current_gid=None;meters={};geometry={};phase_by_material={};inits={};parity=[]
+counts=collections.Counter();current_gid=None;meters={};geometry={};phase_by_material={};inits={};parity=[];diagnostic_failures=[]
+for marker in ('measurements.complete','report-ready.complete'):
+    (OUT/marker).unlink(missing_ok=True)
 with (OUT/'measurements.jsonl').open('w') as stream:
  for idx,(state,item) in enumerate(items):
     gid=item['installation_id'];folder=Path(item['frame']);req=json.loads((folder/'request.json').read_text());material=req['material'];bits=state['bits']
@@ -117,13 +167,14 @@ with (OUT/'measurements.jsonl').open('w') as stream:
                 result=measure_if_eligible(meter,obs,qualification);torch.cuda.synchronize()
                 row.update(liquid=result.get('liquid_depth_m'),highest=result.get('highest_height_m'),wall_ms=(time.perf_counter()-start)*1000,classification=result['classification'],module_plan=result['module_plan'],formal_runtime=meter.formal_runtime,diagnostics=result.get('diagnostics',{}))
                 if (gid<3 and req['repeat']==1 or gid>=10000 and gid%1000==0) and state['category_id'] in (0,3,6,8,12,13):
-                    fresh=create_formal_meter(meter.installation,profile_path=profile)
-                    again=fresh.measure(obs);torch.cuda.synchronize()
-                    eq=lambda x,y:(x is None and y is None) or (x is not None and y is not None and abs(float(x)-float(y))<1e-7)
-                    check=dict(frame=str(folder),variant=variant,liquid_equal=eq(row['liquid'],again.get('liquid_depth_m')),highest_equal=eq(row['highest'],again.get('highest_height_m')),tags_equal=row['classification']['tags']==again['classification']['tags'])
-                    parity.append(check);del fresh
+                    check,diagnostic=fresh_parity_diagnostic(
+                        row,obs,lambda:create_formal_meter(meter.installation,profile_path=profile),torch.cuda.synchronize)
+                    if check is not None:parity.append(check)
+                    if diagnostic is not None:
+                        diagnostic_failures.append(diagnostic)
+                        row['diagnostic_error']=diagnostic
                     (OUT/'meter-reuse-parity.json').write_text(json.dumps(parity,indent=2))
-                    if not all(check[k] for k in ('liquid_equal','highest_equal','tags_equal')):raise RuntimeError('meter_reuse_parity_failed')
+                    (OUT/'diagnostic-failures.json').write_text(json.dumps(diagnostic_failures,indent=2))
             except Exception as exc:row.update(error=repr(exc),traceback=traceback.format_exc())
         truth=json.loads((folder/'truth.json').read_text());row['truth']={k:truth[k] for k in ('liquid_height_m','highest_height_m','lowest_height_m')}
         assert band_of(row['truth']['liquid_height_m'])==item['depth_band'],'out-of-protocol liquid depth must be resolved before evaluation'
@@ -131,5 +182,6 @@ with (OUT/'measurements.jsonl').open('w') as stream:
     (OUT/'measurement-progress.json').write_text(json.dumps(dict(completed=(idx+1)*2,total=len(items)*2,per_category=dict(counts))))
     print('DIVERSE',idx+1,len(items),state['category'],row.get('error',''),flush=True)
 verify()
+assert not diagnostic_failures,'fresh-parity diagnostic failures: primary results retained, full evaluation not complete'
 assert all(r['liquid_equal'] and r['highest_equal'] and r['tags_equal'] for r in parity),'meter reuse changes results'
 (OUT/'measurements.complete').write_text('true')
