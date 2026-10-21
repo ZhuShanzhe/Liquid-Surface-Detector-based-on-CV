@@ -4,6 +4,10 @@
 
 本分支用于 Windows x64 的离线仿真桌面入口与打包源码。沿用 V14 正式测量核心，增加本地资源加载、CPU 执行、桌面窗口与安装参数接口；**没有用桌面 CPU 演示替换 `main` 正式链路，也没有用下面的小规模检查替换正式性能报告**。下文保留主线及历史研究说明，CPU 分支的启动方法和限制以本节为准。
 
+2026-10-21：最终 EXE 已从桌面中文路径、仅系统 PATH 环境完成 **12个场景用例、5个标定切换、2个故障拒绝、18项真实桌面界面检查**。常规复用标定操作中位约3.06秒。[去路径化验收数据](reports/evidence/desktop-cpu-v1.0.0/acceptance.json)及[验收说明](docs/desktop_acceptance.rst)随分支保存；这是CPU便携功能验证，不替代下文GPU统计报告。此分支存放源码、模型、构建配方与证据；完整Windows二进制包已交付本地桌面，不将约2.9GB运行库提交到Git历史。
+
+![CPU桌面软件实测界面](reports/evidence/desktop-cpu-v1.0.0/operation.png)
+
 完整便携包的入口为 `LiquidDepthSimulation.exe`。使用发布目录时不需要另外安装 Python、CUDA、Blender 或浏览器，不需要 SSH、联网或 USB 相机。Qt WebEngine 在独立桌面窗口内显示界面，本机回环通信仅供软件内部使用。
 
 **必须完整解压并保留整个 `LiquidDepthSimulation` 目录，不能只复制 EXE。** 内置模型、运行库、仿真器、脚本及第三方许可文件都是运行资源。可以在桌面建立主程序快捷方式；源码仓库不等于已生成的便携二进制包，不在此承诺尚未发布的下载链接。
