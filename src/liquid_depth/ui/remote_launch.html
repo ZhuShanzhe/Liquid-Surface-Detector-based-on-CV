@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>液深仿真 · 服务器入口</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1725;color:#edf6fb;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}.card{max-width:640px;margin:24px;padding:42px;background:#132437;border:1px solid #2c485f;border-radius:16px}h1{font-size:27px;margin:0 0 12px}.label{color:#52cfda;font-size:13px;letter-spacing:2px}p{color:#b7cbd9}a.button{display:inline-block;padding:13px 28px;background:#168596;color:white;text-decoration:none;border-radius:7px;font-weight:600}.small{font-size:13px;color:#8ea9bb}#server{overflow-wrap:anywhere}code{color:#c0d9e9}</style>
+<main class="card"><div class="label">ToF 液深感知 / 服务器计算</div><h1>液深仿真操作台</h1><p id="status">正在连接服务器，稍后自动进入操作界面。</p><p>这台电脑无需安装模型、Python 或 GPU 环境。打开后可调节容器、液位和场景，查看三维液面及测量结果。</p><p><a class="button" id="open">进入仿真界面</a></p><p class="small">需要联网，服务器须处于运行状态。临时连接重建后，可能需要更新本文件。每个浏览器分别保存本次会话的标定与操作状态。</p><details class="small"><summary>连接信息</summary><div id="server"></div></details></main>
+<script>
+const remoteUrl=__REMOTE_URL_JSON__,accessKey=__ACCESS_KEY_JSON__;
+const target=remoteUrl+'/#key='+encodeURIComponent(accessKey);
+document.getElementById('server').textContent=remoteUrl;
+document.getElementById('open').href=target;
+setTimeout(()=>location.replace(target),900);
+</script></html>

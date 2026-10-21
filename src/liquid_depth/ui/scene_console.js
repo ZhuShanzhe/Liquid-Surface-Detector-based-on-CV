@@ -1,6 +1,6 @@
 'use strict';
 const $=id=>document.getElementById(id);
-const ui={csrf:null,busy:false,ready:false,frame:null,viewer:null,initialized:false,lastJob:null};
+const ui={csrf:null,busy:false,ready:false,frame:null,viewer:null,initialized:false,lastJob:null,statusEtag:null};
 const names={empty_container_geometry:'空槽容器几何',rgb_multilabel_router:'RGB-D 场景分类',frozen_symmetric_liquid:'几何液深核心',five_prior_amcw_refraction:'五帧先验 · ToF 折射校正',low_light_observation_audit:'低照观测检查',glare_observation_audit:'眩光观测检查',partial_depth_loss_observation_audit:'缺失证据检查',geometric_surface_envelope:'不平整液面包络',v8_tof_v5_float_highest_only:'V8 漂浮物最高高度'};
 const tagNames={low_light:'低照',glare:'眩光',uneven_surface:'不平整',floating_objects:'漂浮物',partial_depth_loss:'深度缺失'};
 Object.assign(names,{simulation_input_validation:'仿真输入资格检查'});
@@ -93,7 +93,7 @@ function show(payload){
   draw();
 }
 async function poll(){
-  try{const response=await fetch('/api/status');if(!response.ok)throw new Error('连接失败');const data=await response.json();ui.csrf=data.csrf;if(!ui.ready){ui.ready=true;setBusy(false);$('apply').dataset.ready='true';}
+  try{const response=await fetch('/api/status',{headers:ui.statusEtag?{'If-None-Match':ui.statusEtag}:{}});if(response.status===304)return;if(!response.ok)throw new Error('连接失败');ui.statusEtag=response.headers.get('ETag');const data=await response.json();ui.csrf=data.csrf;if(!ui.ready){ui.ready=true;setBusy(false);$('apply').dataset.ready='true';}
     if(!ui.lastJob){const active=Object.entries(data.jobs).find(([,job])=>['queued','running'].includes(job.status));if(active){ui.lastJob=active[0];setBusy(true);}}
     if(ui.lastJob){const job=data.jobs[ui.lastJob];if(job&&job.status==='complete'&&data.state.frame_id===ui.lastJob){show(data.state);ui.lastJob=null;setBusy(false);}else if(job&&job.status==='error'){clearMetrics();$('message').textContent=job.message;$('status').textContent='任务失败 · 请检查';$('measurementState').textContent='本次无有效测量';$('algorithmTime').textContent='—';$('renderTime').textContent='—';$('initTime').textContent='—';$('errorText').textContent='液深误差 —';$('peakErrorText').textContent='最高高度误差 —';ui.lastJob=null;setBusy(false);}}
     else if(!ui.frame&&data.state.status==='ready')show(data.state);

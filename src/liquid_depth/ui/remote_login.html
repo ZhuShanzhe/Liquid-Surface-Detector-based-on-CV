@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>连接液深仿真服务器</title>
+<style>body{margin:0;background:#0c1825;color:#e6f0f7;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;display:grid;place-items:center;min-height:100vh}.card{max-width:600px;margin:24px;padding:38px;background:#132334;border:1px solid #2a465c;border-radius:14px}h1{font-size:25px;margin:0 0 20px}p{color:#b2c6d5}.accent{color:#50d0da}a{color:#50d0da}#detail{overflow-wrap:anywhere}</style>
+<main class="card"><h1>液深感知 · 服务器仿真台</h1><p id="status" class="accent">正在建立浏览器会话…</p><p id="detail">初始化后，仿真和测量由服务器执行，当前电脑只负责显示与操作。</p></main>
+<script>
+(async()=>{
+ const query=new URLSearchParams(location.hash.slice(1)),key=query.get('key');
+ history.replaceState(null,'',location.pathname);
+ const status=document.getElementById('status'),detail=document.getElementById('detail');
+ try{
+  if(!key){status.textContent='请从提供的 HTML 入口打开';detail.textContent='该入口会自动连接你的仿真会话。服务器或临时连接地址变化后，需要更新入口文件。';return;}
+  const response=await fetch('/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key})});
+  if(!response.ok){const result=await response.json();throw new Error(result.error==='invalid_access_key'?'入口凭据已失效，请更新 HTML 文件。':result.error==='invalid_request_or_session_limit'?'当前会话数量已满，请稍后重试。':'服务暂时无法初始化，请稍后重新打开 HTML。');}
+  status.textContent='连接成功，正在打开操作面板…';location.replace('/console');
+ }catch(error){status.textContent='连接未完成';detail.textContent=error.message;}
+})();
+</script></html>
