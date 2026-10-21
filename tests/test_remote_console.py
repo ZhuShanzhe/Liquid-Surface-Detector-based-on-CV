@@ -43,7 +43,7 @@ def portal(tmp_path, monkeypatch):
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
 
-    def request(method, path, value=None, cookie=None, token=None, origin=True, public=False):
+    def request(method, path, value=None, cookie=None, token=None, origin=True, public=False, etag=None):
         headers = {}
         expected = 'https://example.test' if public else 'http://127.0.0.1:' + str(server.server_port)
         if public:
@@ -54,6 +54,8 @@ def portal(tmp_path, monkeypatch):
             headers['Cookie'] = cookie
         if token:
             headers['X-Console-Token'] = token
+        if etag:
+            headers['If-None-Match'] = etag
         body = json.dumps(value).encode() if value is not None else None
         connection = http.client.HTTPConnection('127.0.0.1', server.server_port)
         connection.request(method, path, body, headers)
@@ -75,7 +77,8 @@ def portal(tmp_path, monkeypatch):
 
 
 def test_public_health_does_not_expose_private_state(portal):
-    assert portal.request('GET', '/healthz')[0] == 200
+    code, headers, _ = portal.request('GET', '/healthz')
+    assert code == 200 and headers['Access-Control-Allow-Origin'] == '*'
     assert portal.request('GET', '/api/status')[0] == 401
     assert portal.request('GET', '/console')[0] == 303
     assert not portal.pool.sessions
@@ -123,6 +126,17 @@ def test_session_limit_is_bounded(portal):
         portal.login()
     status, _, _ = portal.request('POST', '/session', {'key': portal.config['access_key']})
     assert status == 400 and len(portal.pool.sessions) == 3
+
+
+def test_poll_uses_weak_etag_and_refreshes_after_measurement(portal):
+    cookie, _ = portal.login()
+    code, headers, body = portal.request('GET', '/api/status', cookie=cookie)
+    token = json.loads(body)['csrf']
+    etag = headers['ETag']
+    assert portal.request('GET', '/api/status', cookie=cookie, etag='W/' + etag)[0] == 304
+    assert portal.request('POST', '/api/apply', {'height_m': .8}, cookie, token)[0] == 202
+    code, changed, body = portal.request('GET', '/api/status', cookie=cookie, etag=etag)
+    assert code == 200 and changed['ETag'] != etag
 
 
 def test_launcher_keeps_access_key_in_fragment_and_requires_https(tmp_path):

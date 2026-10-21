@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "probes": [
+    {
+      "status": 200,
+      "service": "liquid-remote-console",
+      "cors": "*"
+    },
+    {
+      "status": 200,
+      "service": "liquid-remote-console",
+      "cors": "*"
+    },
+    {
+      "status": 200,
+      "service": "liquid-remote-console",
+      "cors": "*"
+    },
+    {
+      "status": 200,
+      "service": "liquid-remote-console",
+      "cors": "*"
+    },
+    {
+      "status": 200,
+      "service": "liquid-remote-console",
+      "cors": "*"
+    }
+  ],
+  "standalone_html_bytes": 2464,
+  "private_entry_not_committed": true
+}

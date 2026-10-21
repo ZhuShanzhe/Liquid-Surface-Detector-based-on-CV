@@ -18,7 +18,7 @@ def main():
     args = parser.parse_args()
     make_config(args.config)
     command = [args.cloudflared, 'tunnel', '--no-autoupdate', '--url',
-               f'http://127.0.0.1:{args.port}', '--protocol', 'http2', '--edge-ip-version', '4']
+               f'http://127.0.0.1:{args.port}', '--protocol', 'auto', '--edge-ip-version', '4']
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                text=True, bufsize=1)
     try:

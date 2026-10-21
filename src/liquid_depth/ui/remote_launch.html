@@ -7,5 +7,15 @@ const remoteUrl=__REMOTE_URL_JSON__,accessKey=__ACCESS_KEY_JSON__;
 const target=remoteUrl+'/#key='+encodeURIComponent(accessKey);
 document.getElementById('server').textContent=remoteUrl;
 document.getElementById('open').href=target;
-setTimeout(()=>location.replace(target),900);
+async function connect(){
+ const status=document.getElementById('status');
+ try{
+  const response=await fetch(remoteUrl+'/healthz',{cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(6500)});
+  if(!response.ok)throw new Error('暂未就绪');
+  const health=await response.json();if(health.service!=='liquid-remote-console')throw new Error('服务未就绪');
+  status.textContent='服务器已连接，正在进入操作界面…';
+  setTimeout(()=>location.replace(target),350);
+ }catch(error){status.textContent='暂时无法连接服务器，正在自动重试。也可稍后重新打开本文件。';setTimeout(connect,3000);}
+}
+connect();
 </script></html>

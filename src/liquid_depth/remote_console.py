@@ -209,7 +209,7 @@ def handler_for(pool, config_path, *, allow_insecure_local=False):
                 if path == '/api/status' and response.status == 200:
                     etag = '"' + hashlib.sha256(value).hexdigest() + '"'
                     extra.append(('ETag', etag))
-                    if self.headers.get('If-None-Match') == etag:
+                    if self.headers.get('If-None-Match', '').removeprefix('W/') == etag:
                         return self.send(b'', 304, headers=extra)
                 if csp:
                     extra.append(('Content-Security-Policy', csp))
@@ -221,7 +221,8 @@ def handler_for(pool, config_path, *, allow_insecure_local=False):
 
         def do_GET(self):
             if self.path == '/healthz':
-                return self.send(dict(status='ready', service='liquid-remote-console', protocol=1))
+                return self.send(dict(status='ready', service='liquid-remote-console', protocol=1),
+                                 headers=[('Access-Control-Allow-Origin', '*')])
             if self.path == '/':
                 return self.send(login_page, kind='text/html; charset=utf-8', headers=[
                     ('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")])

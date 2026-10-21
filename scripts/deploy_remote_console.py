@@ -3,6 +3,7 @@ import argparse
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
@@ -33,6 +34,7 @@ def main():
 file={home}/control.sock
 chmod=0600
 [supervisord]
+nodaemon=true
 logfile={home}/logs/supervisor.log
 pidfile={home}/supervisord.pid
 childlogdir={home}/logs
@@ -69,7 +71,20 @@ priority=20
 '''
     supervisor.write_text(text, encoding='utf-8')
     supervisor.chmod(0o600)
-    subprocess.run([args.supervisord, '-c', str(supervisor)], check=True)
+    # Keep the service independent of the deployment SSH channel even when the
+    # platform's supervisord wrapper forces foreground operation.
+    with (home / 'logs/supervisor-boot.log').open('ab') as log:
+        process = subprocess.Popen([args.supervisord, '-c', str(supervisor)],
+            stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT,
+            start_new_session=True, close_fds=True)
+    for _ in range(100):
+        if process.poll() is not None:
+            raise RuntimeError('supervisor_failed_check_supervisor_boot_log')
+        if (home / 'control.sock').exists():
+            break
+        time.sleep(.1)
+    else:
+        raise RuntimeError('supervisor_control_socket_timeout')
     print('Remote demo supervisor started; private launcher will be created after the HTTPS endpoint is ready.')
 
 

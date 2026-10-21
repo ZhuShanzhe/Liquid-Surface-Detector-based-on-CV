@@ -1,0 +1,68 @@
+{
+  "success": true,
+  "cases": [
+    {
+      "actual": {
+        "liquid_height_m": 0.5999999999999999,
+        "highest_height_m": 0.6,
+        "lowest_height_m": 0.6
+      },
+      "estimate": {
+        "liquid_height_m": 0.6005206804771457,
+        "highest_height_m": 0.6052244122044523
+      },
+      "controls": {
+        "height_m": 0.6,
+        "material": "ordinary_diffuse",
+        "darkness": 0,
+        "glare": 0,
+        "wave_m": 0,
+        "float_count": 0,
+        "loss": 0,
+        "container_height_m": 1.5,
+        "camera_to_bottom_m": 4,
+        "auto_frame": true,
+        "container_shape": "cylinder",
+        "container_radius_x_m": 0.55,
+        "container_radius_y_m": 0.55,
+        "camera_offset_x_m": 0,
+        "camera_offset_y_m": 0,
+        "calibration_noise_mode": "fixed_10mm",
+        "refractive_index": 1.333,
+        "extinction": 0.045,
+        "scatter_strength": 0.16,
+        "surface_ratio": 0.07
+      },
+      "timing": {
+        "render_ms": 2267.8158953785896,
+        "pipeline_ms": 270.5911807715893,
+        "initialization_ms": 4180.138058960438,
+        "total_ms": 6968.940440565348
+      },
+      "eligible": true,
+      "measured": true,
+      "initialization_id": "installation-23504b6bff",
+      "rendering": {
+        "engine": "eevee",
+        "device": "graphics",
+        "published_renderer_unchanged": true,
+        "cpu_port_validation_only": false,
+        "cpu_renderer_performance_report_not_applicable": false
+      },
+      "name": "default_from_transferred_html",
+      "liquid_absolute_error_mm": 0.5206804771458184
+    }
+  ],
+  "checks": {
+    "html_opened_full_server_ui": true,
+    "rgb_and_depth_loaded": true,
+    "server_branding": true,
+    "access_key_removed_from_address": true,
+    "launcher_retries_temporary_connection_failure": true,
+    "qualified_default_measurement_numeric": true,
+    "no_javascript_errors": true
+  },
+  "javascript_errors": [],
+  "conditional_status_responses": 3,
+  "scope": "Post-transport-change HTML retry and default measurement smoke; injected initial health failure is not a performance sample"
+}

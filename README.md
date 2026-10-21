@@ -63,6 +63,14 @@ $desktopBlender = "C:\path\to\blender-4.2.0-windows-x64"
 
 预期构建入口是 `dist/LiquidDepthSimulation/LiquidDepthSimulation.exe`；交付时复制整个同名目录。构建脚本为 [build_desktop.ps1](scripts/build_desktop.ps1)，资源清单见 [liquid_simulation.spec](packaging/liquid_simulation.spec)。打包过程成功不代表所有功能已经验收，仍需按验收矩阵检查离线启动、搬移目录、容器及复合工况、真实计时、资源完整性和退出行为。
 
+## 服务器支持的单文件 HTML 入口
+
+已增加 `液深仿真_服务器版.html`：复制这一个文件到另一台电脑，双击后自动进入服务器仿真界面，无需安装运行库、GPU 环境或 SSH 客户端。Blender 渲染、初始化、分类及测量在服务器执行，浏览器显示三维画面并发送控件操作。入口先检查连接并自动重试；各浏览器有独立的容器与标定状态，计算在服务器串行执行。
+
+本次真实浏览器完成7项工况/操作与12项功能检查，包括独立浏览器、液深调整、容器/相机变更、复合工况以及透明和半透明。另验证了首次连接失败后的自动恢复。验证属于部署功能检查，[证据与截图](reports/evidence/server-html-v1-20261021/browser.json)随本分支保存。
+
+当前使用临时 HTTPS 隧道，需要服务器与服务保持运行；重建隧道会更新地址和生成的入口文件。私人入口保存在服务器 `private/liquid_remote.html` 并交付桌面；仓库保存其生成模板和部署代码。[使用与部署说明](docs/REMOTE_HTML_GUIDE.rst)。
+
 ---
 
 <!-- V14_CURRENT_PERFORMANCE_START -->
