@@ -26,8 +26,10 @@ class GlareNet(nn.Module):
     def forward(self,x):
         z=self.encoder(x);return self.head(torch.cat([z.mean((2,3)),z.amax((2,3))],1))[:,0]
 class GlarePredictor:
-    def __init__(self,path):
-        self.net=GlareNet().cuda().eval();self.net.load_state_dict(torch.load(path,map_location='cpu',weights_only=True)['state_dict'])
+    def __init__(self,path,device=None):
+        from .runtime_paths import inference_device
+        self.device=device or inference_device()
+        self.net=GlareNet().to(self.device).eval();self.net.load_state_dict(torch.load(path,map_location='cpu',weights_only=True)['state_dict'])
     @torch.inference_mode()
     def predict(self,rgb,depth,bundle):
-        x=torch.from_numpy(glare_tensor(rgb,depth,bundle))[None].cuda();return float(self.net(x).sigmoid()[0].cpu())
+        x=torch.from_numpy(glare_tensor(rgb,depth,bundle))[None].to(self.device);return float(self.net(x).sigmoid()[0].cpu())

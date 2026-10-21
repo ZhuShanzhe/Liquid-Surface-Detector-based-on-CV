@@ -7,7 +7,8 @@ from .empty_geometry_v41 import height_calibration
 from .geometry_execution import interior_ray_roi
 from .liquid_height_metrics import world_points
 from .new_view_native import native_input,summarize
-REPO=Path(__file__).resolve().parents[2]
+from .runtime_paths import resource_root
+REPO=resource_root()
 _GLOBAL_ENCODER=None
 @lru_cache(maxsize=128)
 def _aperture_cached(key, shape):
@@ -74,7 +75,7 @@ def features(rgb, raw, dry, bundle, net):
     ni, _ = native_input(rgb, raw, dry, bundle)
     h, w = ni.shape[1:]
     with torch.inference_mode():
-        z = net(torch.nn.functional.pad(torch.from_numpy(ni)[None].cuda(), (0, w % 2, 0, h % 2)))[0, :h, :w].cpu().numpy()
+        z = net(torch.nn.functional.pad(torch.from_numpy(ni)[None].to(next(net.parameters()).device), (0, w % 2, 0, h % 2)))[0, :h, :w].cpu().numpy()
     f.extend(summarize(z, ni[-1] > 0.5))
     bottom = bottom_roi(bundle, raw.shape)
     sy, sx = np.nonzero(bottom)
@@ -104,9 +105,9 @@ def features(rgb, raw, dry, bundle, net):
     else:
         f.extend(np.zeros(33 + 18 + 16 * 9))
     global _GLOBAL_ENCODER
-    if _GLOBAL_ENCODER is None:
+    if _GLOBAL_ENCODER is None or _GLOBAL_ENCODER.device != next(net.parameters()).device:
         from liquid_depth.scene_classifier import SceneClassifier
-        _GLOBAL_ENCODER = SceneClassifier(REPO / 'assets/models/scene_router/scene_head.pt', device='cuda')
+        _GLOBAL_ENCODER = SceneClassifier(REPO / 'assets/models/scene_router/scene_head.pt', device=next(net.parameters()).device)
     from .new_view_native import global_observed_features
     f.extend(global_observed_features(_GLOBAL_ENCODER, rgb, raw, dry, bottom))
     return np.nan_to_num(np.array(f, np.float32), nan=0.0, posinf=10000.0, neginf=-10000.0)

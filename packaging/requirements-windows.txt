@@ -1,0 +1,23 @@
+# Tested with standalone CPython 3.12.14 x64 on Windows.
+# CPU-only wheels; no CUDA runtime is distributed.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.11.0+cpu
+torchvision==0.26.0+cpu
+PySide6==6.12.0
+PySide6_Addons==6.12.0
+PySide6_Essentials==6.12.0
+PySide6_Pdf==6.12.0.140
+PySide6_WebEngine==6.12.0.140
+shiboken6==6.12.0
+numpy==2.5.4
+scipy==1.18.1
+scikit-learn==1.9.0
+joblib==1.6.0
+threadpoolctl==3.7.0
+opencv-python-headless==4.14.0.94
+pillow==13.0.0
+PyYAML==6.0.3
+cloudpickle==3.1.2
+pyinstaller==6.22.3
+pyinstaller-hooks-contrib==2026.9
+pytest==9.1.1

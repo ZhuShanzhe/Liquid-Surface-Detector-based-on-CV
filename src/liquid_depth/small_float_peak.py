@@ -14,6 +14,7 @@ import numpy as np
 from .rgbd_evidence_model import RGBDEvidencePredictor
 from .small_float_peak_core import float_features, score_candidates, choose_highest
 from .native_float_components import dense_candidates
+from .runtime_paths import resource_root
 
 VERSION = 'small_float_highest_v1_20261020'
 
@@ -22,7 +23,7 @@ class SmallFloatPeakRefiner:
     def __init__(self, bundle, dry_depth_m, *, asset_dir=None, device='cpu'):
         import joblib
         import sklearn
-        asset_dir = Path(asset_dir) if asset_dir else Path(__file__).resolve().parents[2] / 'assets/models/small_float_peak'
+        asset_dir = Path(asset_dir) if asset_dir else resource_root() / 'assets/models/small_float_peak'
         manifest = json.loads((asset_dir / 'manifest.json').read_text())
         if sklearn.__version__ != manifest['sklearn_version']:
             raise ValueError('small_float_requires_scikit_learn_' + manifest['sklearn_version'])

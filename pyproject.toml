@@ -47,7 +47,7 @@ liquid-depth-console = "liquid_depth.scene_console_web:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-liquid_depth = ["ui/*.html", "ui/*.css", "ui/*.js", "*.cpp"]
+liquid_depth = ["ui/*.html", "ui/*.css", "ui/*.js", "*.cpp", "native/*.dll", "native/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

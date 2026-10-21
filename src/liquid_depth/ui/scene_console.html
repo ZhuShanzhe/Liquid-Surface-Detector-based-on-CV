@@ -1,24 +1,53 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>液深感知 · ToF 仿真控制台</title><link rel="stylesheet" href="/console.css"><script defer src="/console.js"></script></head>
-<body><header><div class="brand">◈</div><div><h1>液深感知 <span>仿真控制台</span></h1><p>LIQUID SURFACE · MODULAR ToF SYSTEM</p></div><div class="header-end"><span class="badge">正式 V14 · ToF · 顶部俯视</span><span id="status" class="badge muted">等待初始化</span></div></header>
-<main><section class="view panel"><div class="section-head"><div><span class="eyebrow">01 / DIGITAL SCENE</span><h2>三维场景监视</h2></div><button id="resetView" class="subtle">复位视角</button></div>
-<div class="viewer-wrap"><canvas id="viewer" aria-label="可拖动旋转的三维液面与容器视图"></canvas><div class="view-help">左键旋转 · 右键平移 · 滚轮缩放</div><div class="view-legend"><span class="dot liquid"></span>液面真值 <span class="dot float"></span>漂浮物 <span class="line"></span>估计液面</div><div id="emptyView" class="empty-view">初始化后显示三维场景<br><small>按容器与相机设置自动建立先验</small></div><div class="rgb-preview"><span>传感器 RGB 输入</span><img id="rgb" alt="当前仿真RGB输入"></div></div>
-<div class="view-options"><label><input type="checkbox" id="truthLayer" checked>仿真真值</label><label><input type="checkbox" id="pointLayer">测量点云</label><label><input type="checkbox" id="estimateLayer" checked>估计液面</label><label><input type="checkbox" id="cameraLayer">相机位置</label><span>单位 m · 原点：容器内底面</span></div>
-<div class="route-box"><span class="eyebrow">ACTIVE MODULES / 当前模块</span><div id="modules">尚未启用</div><p id="routeNote">场景分类仅用于模块选择，不代表计量置信度。</p></div></section>
-<aside><section class="panel controls"><div class="section-head"><div><span class="eyebrow">02 / SCENE CONTROL</span><h2>仿真工况设置</h2></div><span class="small-badge">顶部 ToF</span></div>
-<div class="control-row"><label for="containerHeight">容器内高度</label><div class="stepper"><input id="containerHeight" type="number" min="0.1" max="9.8" step="0.1" value="1.50"><span>m</span></div></div>
-<div class="control-row"><label for="cameraBottom">相机到底面距离</label><div class="stepper"><input id="cameraBottom" type="number" min="0.2" max="10" step="0.1" value="4.00"><span>m</span></div></div>
-<label class="field"><input type="checkbox" id="autoFrame" checked> 自动构图 / 视场与安装距离联动<span class="field-note">仿真镜头54°–100°</span></label><p id="installationNote" class="hint"></p>
-<label class="field">液体类型<span class="field-note">初始化时确认材质</span><select id="material"><option value="ordinary_diffuse">普通漫反射液体</option><option value="homogeneous_transparent">均匀透明液体</option><option value="homogeneous_translucent">均匀半透明液体</option></select></label>
-<div class="control-row"><label for="height">实际液位</label><div class="stepper"><button id="minusLiquid" aria-label="减少液体">−</button><input id="height" type="number" min="0" max="1.5" step="0.05" value="0.60"><span>m</span><button id="plusLiquid" aria-label="增加液体">＋</button></div></div>
-<label class="slider-label" for="light">环境光照 <output id="lightValue">100%</output></label><input id="light" type="range" min="2" max="100" value="100"><div class="scale"><span>低照</span><span>正常照明</span></div>
-<label class="slider-label" for="glare">眩光程度 <output id="glareValue">0%</output></label><input id="glare" type="range" min="0" max="100" value="0">
-<div class="control-row"><label for="floats">漂浮物数量</label><div class="stepper"><button id="minusFloat" aria-label="减少漂浮物">−</button><input id="floats" type="number" min="0" max="24" step="1" value="0"><span>个</span><button id="plusFloat" aria-label="增加漂浮物">＋</button></div></div>
-<label class="slider-label" for="wave">液面起伏幅度 <output id="waveValue">0 mm</output></label><input id="wave" type="range" min="0" max="120" value="0">
-<label class="slider-label" for="loss">液面深度缺失（仿真控制）<output id="lossValue">0%</output></label><input id="loss" type="range" min="0" max="50" value="0">
-<div class="actions"><button id="initialize" class="secondary">初始化 / 重新标定</button><button id="apply" class="primary">应用工况并测量</button></div>
-<p class="hint">更改安装尺寸或材质将自动重建空槽与先验。液位不得高于容器；透明液体＋漂浮物或起伏暂不开放；无强制归零、无结果裁剪。</p><p id="message" role="status"></p></section>
-<section class="panel result-panel"><div class="section-head"><div><span class="eyebrow">03 / MEASUREMENT</span><h2>高度对照</h2></div><span class="small-badge">相对内底面</span></div>
-<div class="results"><div class="result-col"><h3>仿真实际值 <span>REFERENCE</span></h3><label>代表液面高度</label><strong id="actualLiquid">—<small>m</small></strong><label>最高高度 <span class="peak-caption">（存在漂浮物或起伏时）</span></label><strong id="actualPeak">—<small>m</small></strong></div><div class="result-col estimate"><h3>系统计算值 <span>ESTIMATED</span></h3><label>代表液面高度</label><strong id="estimateLiquid">—<small>m</small></strong><label>最高高度</label><strong id="estimatePeak">—<small>m</small></strong></div></div>
-<div class="timings"><span>算法 <b id="algorithmTime">—</b></span><span>仿真采集 <b id="renderTime">—</b></span><span id="errorText">等待测量</span></div></section></aside></main>
-<footer><span>仿真演示 / 非现场计量认证</span><span>统一 ToF 输入 · 安装变化自动重新标定</span><span id="frame">UNIFIED ToF · 可变安装</span></footer></body></html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>液深感知 · CPU离线仿真实验台</title><link rel="stylesheet" href="/console.css"><script defer src="/console.js"></script></head>
+<body>
+<header><div class="brand" aria-hidden="true">◈</div><div><h1>液深感知 <span>CPU离线仿真实验台</span></h1><p>ToF 液位测量 / CPU 演示 / 实地部署界面模板</p></div><div class="header-end"><span class="badge">V14 核心 · CPU 演示</span><span id="status" class="badge muted" role="status">正在连接本机服务</span></div></header>
+<main>
+<section class="view panel">
+  <div class="section-head"><div><span class="eyebrow">场景与传感器</span><h2>三维场景监视</h2></div><button id="resetView" class="subtle">复位视角</button></div>
+  <div class="viewer-wrap"><canvas id="viewer" aria-label="拖动旋转、右键平移、滚轮缩放三维容器与液面"></canvas><div class="view-help">左键旋转 · 右键平移 · 滚轮缩放</div><div class="view-legend"><i class="dot liquid"></i>液面真值 <i class="dot float"></i>漂浮物 <i class="line"></i>估计液面</div><div id="emptyView" class="empty-view">建立一个测量场景<small>设置安装参数与工况，点击“生成并测量”<br>空槽与已知液深先验会自动生成</small></div></div>
+  <div class="view-options"><label><input type="checkbox" id="truthLayer" checked>仿真真值</label><label><input type="checkbox" id="pointLayer">测量点云</label><label><input type="checkbox" id="estimateLayer" checked>估计液面</label><label><input type="checkbox" id="cameraLayer">相机位置</label><span>单位 m · 容器内底面为零位</span></div>
+  <div class="sensor-grid"><figure><figcaption>RGB 输入 <span>模型实际输入</span></figcaption><div class="sensor-image"><img id="rgb" alt="本帧仿真RGB输入"><span class="sensor-empty">等待采集</span></div></figure><figure><figcaption>深度输入 <span id="depthRange">无效点为黑色</span></figcaption><div class="sensor-image"><img id="depth" alt="本帧ToF深度伪彩色图"><span class="sensor-empty" id="depthEmpty">等待采集</span></div></figure></div>
+  <div class="route-box"><span class="eyebrow">实际执行模块</span><div id="modules">等待测量</div><p id="routeNote">场景分类用于选择模块，不能替代计量置信度。视觉模块仅参与漂浮物最高高度估计。</p></div>
+</section>
+<aside>
+<section class="panel controls">
+  <div class="section-head"><div><span class="eyebrow">控制与初始化</span><h2>参数面板</h2></div><span class="small-badge">顶部垂直俯视 ToF</span></div>
+  <div class="tabs" role="tablist" aria-label="参数分组"><button id="tabOperation" role="tab" aria-selected="true" aria-controls="operationFields" class="active">运行工况</button><button id="tabInstallation" role="tab" aria-selected="false" aria-controls="installationFields">安装与标定</button></div>
+  <div class="control-scroll">
+    <section id="operationFields" role="tabpanel" aria-labelledby="tabOperation">
+      <label class="field">液体类型<select id="material"><option value="ordinary_diffuse">普通漫反射液体</option><option value="homogeneous_transparent">均匀透明液体</option><option value="homogeneous_translucent">均匀半透明液体</option></select><span class="field-note">材质由操作人员确认；改变后自动重标定</span></label>
+      <div class="control-row"><label for="height">实际液深</label><div class="stepper"><button id="minusLiquid" aria-label="减少液体">−</button><input id="height" type="number" min="0" max="1.5" step="0.05" value="0.60"><span>m</span><button id="plusLiquid" aria-label="增加液体">＋</button></div></div>
+      <p class="inline-note">正式性能测试范围 0.10–9.00 m；空槽可用于初始化演示。</p>
+      <div class="sliders-two"><div><label class="slider-label" for="light">环境光照 <output id="lightValue">100%</output></label><input id="light" type="range" min="2" max="100" value="100"><div class="scale"><span>低照</span><span>正常</span></div></div><div><label class="slider-label" for="glare">眩光程度 <output id="glareValue">0%</output></label><input id="glare" type="range" min="0" max="100" value="0"><div class="scale"><span>无</span><span>强</span></div></div></div>
+      <div class="control-row"><label for="floats">漂浮物数量</label><div class="stepper"><button id="minusFloat" aria-label="减少漂浮物">−</button><input id="floats" type="number" min="0" max="24" step="1" value="0"><span>个</span><button id="plusFloat" aria-label="增加漂浮物">＋</button></div></div>
+      <label class="slider-label" for="wave">液面起伏幅度 <output id="waveValue">0 mm</output></label><input id="wave" type="range" min="0" max="120" value="0">
+      <label class="slider-label" for="loss">液面深度缺失设定 <output id="lossValue">0%</output></label><input id="loss" type="range" min="0" max="50" value="0">
+      <p class="hint">可组合低照、眩光、起伏、漂浮物及部分深度缺失。透明/半透明路线仅开放均匀、无遮挡、平整液体；不开放起伏或漂浮物组合。缺失率设定不是本帧实际观测缺失率。</p>
+    </section>
+    <section id="installationFields" role="tabpanel" aria-labelledby="tabInstallation" hidden>
+      <label class="field">容器形状<select id="containerShape"><option value="cylinder">圆柱容器</option><option value="ellipse">椭圆柱容器</option><option value="rectangle">矩形容器</option></select></label>
+      <div class="field-grid"><label>X 方向内尺寸<span class="unit-input"><input id="containerWidth" type="number" min="0.2" max="6" step="0.1" value="1.10"><span>m</span></span></label><label>Y 方向内尺寸<span class="unit-input"><input id="containerDepth" type="number" min="0.2" max="6" step="0.1" value="1.10"><span>m</span></span></label></div>
+      <p class="inline-note" id="shapeNote">圆柱尺寸为内直径，X / Y 自动保持一致。</p>
+      <div class="field-grid"><label>容器内高度<span class="unit-input"><input id="containerHeight" type="number" min="0.1" max="9.8" step="0.1" value="1.50"><span>m</span></span></label><label>相机到底面距离<span class="unit-input"><input id="cameraBottom" type="number" min="0.2" max="10" step="0.1" value="4.00"><span>m</span></span></label></div>
+      <div class="field-grid"><label>相机顶部偏心 X<span class="unit-input"><input id="cameraX" type="number" step="0.01" value="0.00"><span>m</span></span></label><label>相机顶部偏心 Y<span class="unit-input"><input id="cameraY" type="number" step="0.01" value="0.00"><span>m</span></span></label></div>
+      <p class="inline-note">相机保持竖直俯视；偏心各不超过对应半径/半宽的25%。</p>
+      <label class="check-field"><input type="checkbox" id="autoFrame" checked>自动构图：联动视场与相机高度</label><p id="installationNote" class="hint"></p>
+      <label class="field">初始化先验误差<select id="calibrationNoise"><option value="fixed_10mm">高斯标定误差 ≤ 10 mm（正式测试设置）</option><option value="ideal">理想标定（诊断对照）</option></select><span class="field-note">截断高斯 σ≈3.33 mm；不是测量结果裁剪</span></label>
+      <details id="opticalFields" hidden><summary>液体光学参数（改变后重新采集先验）</summary><div class="field-grid"><label>折射率<span class="unit-input"><input id="refractiveIndex" type="number" min="1.31" max="1.45" step="0.001" value="1.333"></span></label><label>表面回波权重<span class="unit-input"><input id="surfaceRatio" type="number" min="0.03" max="0.12" step="0.01" value="0.07"></span></label></div><div class="field-grid" id="scatterFields"><label>消光系数<span class="unit-input"><input id="extinction" type="number" min="0.02" max="0.08" step="0.005" value="0.045"><span>/m</span></span></label><label>散射强度<span class="unit-input"><input id="scatterStrength" type="number" min="0.08" max="0.25" step="0.01" value="0.16"></span></label></div><p class="hint">这些是仿真物性，不直接提供给测量逆解；测量仍通过5帧先验辨识参数。</p></details>
+      <p class="hint">安装、容器、材质或标定模式变化会自动重建空槽几何与先验。改变运行工况不必重新标定。无法完整构图或证据不足的输入会跳过计算。</p>
+    </section>
+  </div>
+  <div class="control-footer"><p id="validation" role="alert"></p><div class="actions"><button id="initialize" class="secondary">重建先验并测量</button><button id="apply" class="primary">生成并测量</button></div><p id="message" role="status">本机离线运行，不需要服务器或外部网页。</p></div>
+</section>
+<section class="panel result-panel">
+  <div class="section-head"><div><span class="eyebrow">测量结果</span><h2>高度对照</h2></div><span id="measurementState" class="small-badge">等待测量</span></div>
+  <div class="results"><div class="result-col"><h3>仿真实际值</h3><label>代表液面高度</label><strong id="actualLiquid">—<small>m</small></strong><label>最高高度 <span class="peak-caption">（漂浮物 / 起伏）</span></label><strong id="actualPeak">—<small>m</small></strong></div><div class="result-col estimate"><h3>系统计算值</h3><label>代表液面高度</label><strong id="estimateLiquid">—<small>m</small></strong><label>最高高度</label><strong id="estimatePeak">—<small>m</small></strong></div></div>
+  <div class="error-summary"><span id="errorText">液深误差 —</span><span id="peakErrorText">最高高度误差 —</span></div>
+  <div class="timings"><span>测量计算 <b id="algorithmTime">—</b></span><span>仿真采集 <b id="renderTime">—</b></span><span>初始化 <b id="initTime">—</b></span></div>
+</section>
+</aside>
+</main>
+<footer><span>仿真演示 / 非现场计量认证 · 仿真真值不输入测量核心</span><span id="frame">自带仿真 · ToF · 安装变化自动标定</span></footer>
+</body></html>

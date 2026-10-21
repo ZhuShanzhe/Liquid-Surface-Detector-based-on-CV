@@ -1,6 +1,11 @@
 #include <cstdint>
 #include <cstddef>
-extern "C" void forest_predict(int samples, int features, int trees, int width,
+#ifdef _WIN32
+#define LIQUID_FOREST_EXPORT extern "C" __declspec(dllexport)
+#else
+#define LIQUID_FOREST_EXPORT extern "C"
+#endif
+LIQUID_FOREST_EXPORT void forest_predict(int samples, int features, int trees, int width,
     const float* x, const std::int32_t* feature, const double* threshold,
     const std::int32_t* left, const std::int32_t* right,
     const std::uint8_t* leaf, const double* value, double* out) {

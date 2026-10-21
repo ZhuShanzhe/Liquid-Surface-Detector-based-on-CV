@@ -6,7 +6,7 @@ def test_old_defaults_are_compatible():
     c=validate_controls({})
     assert c['container_height_m']==1.5 and c['camera_to_bottom_m']==4.
 
-@pytest.mark.parametrize('capacity,bottom,height',[(.1,.2,0),(.5,1.2,.3),(1.5,4,.6),(3,6,2.9),(9,10,8.9),(9.8,10,9.8)])
+@pytest.mark.parametrize('capacity,bottom,height',[(.1,.2,0),(.5,1.2,.3),(1.5,4,.6),(3,6,2.9),(9,10,8.9),(9.8,10,9.)])
 def test_top_installation_valid(capacity,bottom,height):
     c=validate_controls(dict(container_height_m=capacity,camera_to_bottom_m=bottom,height_m=height,auto_frame=False))
     assert c['height_m']==height

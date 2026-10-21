@@ -3,12 +3,13 @@ from pathlib import Path
 
 from .floating_rank_application_v8 import from_empty_geometry as build_v8
 from .supported_scene_meter import FormalSceneMeter
+from .runtime_paths import resource_root
 
 OPAQUE_SCENES = frozenset({'ordinary_diffuse', 'partial_depth_loss', 'low_light',
                            'glare', 'floating_objects', 'uneven_surface'})
 REFRACTION_SCENES = frozenset({'homogeneous_transparent', 'homogeneous_translucent'})
 SCENES = OPAQUE_SCENES | REFRACTION_SCENES
-PROFILE = Path(__file__).resolve().parents[2]/'configs/floating_rank_v8.json'
+PROFILE = resource_root()/'configs/floating_rank_v8.json'
 VERSION = 'determined_all_scenes_v1_v8_peak_20261016'
 
 

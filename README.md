@@ -1,5 +1,66 @@
 # ToF RGB-D 液深测量系统
 
+## `simulation-desktop`：CPU 独立仿真桌面软件
+
+本分支用于 Windows x64 的离线仿真桌面入口与打包源码。沿用 V14 正式测量核心，增加本地资源加载、CPU 执行、桌面窗口与安装参数接口；**没有用桌面 CPU 演示替换 `main` 正式链路，也没有用下面的小规模检查替换正式性能报告**。下文保留主线及历史研究说明，CPU 分支的启动方法和限制以本节为准。
+
+完整便携包的入口为 `LiquidDepthSimulation.exe`。使用发布目录时不需要另外安装 Python、CUDA、Blender 或浏览器，不需要 SSH、联网或 USB 相机。Qt WebEngine 在独立桌面窗口内显示界面，本机回环通信仅供软件内部使用。
+
+**必须完整解压并保留整个 `LiquidDepthSimulation` 目录，不能只复制 EXE。** 内置模型、运行库、仿真器、脚本及第三方许可文件都是运行资源。可以在桌面建立主程序快捷方式；源码仓库不等于已生成的便携二进制包，不在此承诺尚未发布的下载链接。
+
+### 能做什么
+
+- 启动时自动生成默认空槽与独立标定先验，随后完成首帧测量；安装、材质、光学参数或标定模式变化时自动重标定。
+- 调整圆柱、椭圆柱、矩形容器的完整内尺寸与高度，调整顶部相机到底面距离、偏心和自动构图。
+- 调整液深、低照、眩光、起伏、漂浮物、0%–50% 深度缺失；透明类另有折射率、回波权重及半透明散射设置，物性不直接交给测量逆解。
+- 旋转、平移、缩放三维场景，查看 RGB / 深度输入、真值与估计值、实际执行模块；分别显示初始化、仿真采集和测量计算耗时。
+- 不合格输入在测量前跳过；完整记录保存在 `%LOCALAPPDATA%\LiquidDepthSimulation`，可从桌面“文件”菜单导出当前测量 JSON 或打开日志目录。
+
+### CPU 演示的性能与范围边界
+
+CPU 入口使用 **Blender Cycles CPU**，不是正式服务器报告中的 EEVEE。当前在 **Intel Core Ultra 9 285K（24 核）** 上的 12 个功能冒烟用例观察到：测量计算约 **34–774 ms**，仿真采集约 **2–2.6 s**，复用标定总耗时约 **3 s**，含重标定约 **5–7 s**。首次加载、处理器和系统负载会影响耗时，普通低配电脑可能明显更慢；这些数字不是完整性能认证或最大时延承诺，部分测量已超过 0.5 s。
+
+即使测量代码及权重来源相同，Cycles CPU 的 RGB 光照与材质呈现仍可能不同，**不能直接套用下文 EEVEE / GPU 测试的通过率、误差和延时**。源码冒烟测试也不能代替最终 EXE 的资源闭包与 Qt 窗口验收，状态见[桌面验收边界与记录](docs/desktop_acceptance.rst)。
+
+正式报告液深范围为 **0.10–9 m**；空槽及低于 0.10 m 仅作诊断。相机保持顶部俯视、到底面不超过 10 m；实际发布测试的相机距离约 3.532–9.999 m，不是所有可输入安装都已测试。透明/半透明限均匀、平整、无遮挡液体，不开放漂浮物或起伏组合；透明类与照明/缺失联合设置属探索配置。输入超出已发布采样边界时会提示，不沿用既有通过率。当前不含真实相机 SDK、泵阀 / PLC 或安全联锁，不是工业真机计量认证软件。
+
+- [CPU 离线版中文使用说明](docs/CPU_DESKTOP_GUIDE.rst)
+- [浅色离线 HTML 使用说明](docs/cpu_desktop_help.html)（下载后可本地查看，无外部资源）
+- [操作面板与接口说明](docs/desktop_ui.rst)
+
+### 从源码运行与打包（开发机）
+
+下列命令在仓库根目录的 PowerShell 中执行。**只有构建开发机**需要 Windows x64 Python、已安装的项目运行依赖、CPU 版 PyTorch / torchvision、SciPy、scikit-learn **1.9.0**、joblib、Pillow、PySide6 和 PyInstaller，以及 MSVC x64 或 MinGW-w64 编译器。需准备完整、可信的 Windows Blender **4.2.0** 目录；不能只提供 `blender.exe`。
+
+```powershell
+# 换成开发环境和完整 Blender 目录的实际路径。
+$desktopPython = "C:\path\to\python.exe"
+$desktopBlender = "C:\path\to\blender-4.2.0-windows-x64"
+
+# 生成正式森林的 Windows 原生库及哈希清单；不改变数值算法。
+& $desktopPython scripts/build_native_forest.py
+
+# 源码桌面入口；默认 CPU 推理、Cycles CPU 采集和自动初始化。
+& $desktopPython scripts/desktop_launcher.py --blender (Join-Path $desktopBlender "blender.exe")
+
+# 独立的首场景功能检查；不是正式性能评估。
+& $desktopPython scripts/desktop_launcher.py --self-test --quick `
+  --blender (Join-Path $desktopBlender "blender.exe") `
+  --output output/desktop-quick-check.json
+
+# 真实 Qt 窗口验收：初始化、图像/Canvas、数值回显、切页截图；结束后自动退出。
+& $desktopPython scripts/desktop_launcher.py --gui-self-test `
+  --blender (Join-Path $desktopBlender "blender.exe") `
+  --work output/desktop-gui-check --output output/desktop-gui-check.json
+
+# 构建完整便携目录；该命令会再次构建原生库并运行 PyInstaller。
+.\scripts\build_desktop.ps1 -Python $desktopPython -BlenderDirectory $desktopBlender
+```
+
+预期构建入口是 `dist/LiquidDepthSimulation/LiquidDepthSimulation.exe`；交付时复制整个同名目录。构建脚本为 [build_desktop.ps1](scripts/build_desktop.ps1)，资源清单见 [liquid_simulation.spec](packaging/liquid_simulation.spec)。打包过程成功不代表所有功能已经验收，仍需按验收矩阵检查离线启动、搬移目录、容器及复合工况、真实计时、资源完整性和退出行为。
+
+---
+
 <!-- V14_CURRENT_PERFORMANCE_START -->
 ## 当前正式链路评估：0.1–9 m液深、固定±10 mm标定误差（2026-10-21）
 
@@ -161,7 +222,7 @@ python scripts/recount_tof.py
 
 完整流程、额外已知尺寸的使用边界及实验启动方式见 [自动构图说明](docs/console_auto_framing.rst)。
 本次参数网格与复合工况测试属于软件回归，不替代原正式大样本性能报告或现场计量认证。
-桌面打包暂缓。当前入口已采用V14正式工厂及对应仓库内模块，不再依赖V10/V13实验目录执行。以下V5构图与前置资格规则继续保留；数值版本以文首V14说明和新报告为准。
+历史阶段曾暂缓桌面打包；本 `simulation-desktop` 分支现另行维护文首的 CPU 桌面入口，不能把其功能检查与原性能报告混为一谈。当前入口已采用V14正式工厂及对应仓库内模块，不再依赖V10/V13实验目录执行。以下V5构图与前置资格规则继续保留；数值版本以V14说明和新报告为准。
 
 V5展示在算法前增加仿真输入资格检查：不满足可见性/0%–50%液面缺失等范围的帧不执行分类和测量，
 不输出估计值，也不计入性能统计；只记录跳过原因。该仿真适配层使用独立可见性标签，

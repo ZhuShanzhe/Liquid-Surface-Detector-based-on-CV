@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "abi": "cdecl_f32_f64_v1",
+  "architecture": "win_amd64",
+  "source_sha256": "0673974b531257a3164aafbd658c510d67380cb80aa9535db3d99cc21b014f2b",
+  "library_sha256": "a588d5ba15b875470a4bdd67363080492e9ca532e122e6270777cf5ab6382356",
+  "compiler_family": "msvc",
+  "compiler_name": "cl.exe",
+  "floating_point": "float32_input_float64_threshold_and_tree_order_sum_no_fast_math",
+  "runtime": "static_msvc_CRT"
+}

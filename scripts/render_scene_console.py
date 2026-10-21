@@ -15,6 +15,7 @@ from generate_other_scenes_v34 import make_scene
 
 
 def render(request, folder, *, corpus=False):
+    folder=Path(folder).resolve()
     folder.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(request['seed']); rr = random.Random(request['seed'])
     h = float(request['height_m']); b = float(request['bottom_m']); cap = float(request['capacity_m'])
@@ -45,10 +46,42 @@ def render(request, folder, *, corpus=False):
         liquid_roughness=.025 if glare else .22,
         light_level=max(.015, 1-dark*.985), exposure=-.2-3*dark,
         corruption_severity=max(.18, dark*.7, glare*.8))
+    # Native desktop controls expose geometry previously available only to the
+    # diverse evaluation adapter. The camera remains fixed above the vessel.
+    if 'camera_xy_m' in request:
+        xy=tuple(map(float,request['camera_xy_m']))
+        scene=replace(scene,camera_position_m=(*xy,b-h))
+    if 'refractive_index' in request:
+        scene=replace(scene,liquid_ior=float(request['refractive_index']))
+    formal_proxy=request.get('sensor_model')=='formal_diverse_v15'
+    if formal_proxy:
+        scene=replace(scene,liquid_roughness=max(.008,.22*(1-glare)) if glare else .22,
+                      corruption_severity=float(request.get('sensor_severity',.18)))
     gen.clear_scene(); gen.create_environment(scene, rr); gen.create_container(scene)
     floor = floor_for(scene, rng)
-    gen.create_camera(scene); gen.create_lighting(scene, rr)
-    gen.configure_render(scene, argparse.Namespace(engine='eevee', render_samples=4 if corpus else 12))
+    gen.create_camera(scene)
+    optical_scene=scene
+    if formal_proxy and glare:scene=replace(scene,scenario_profile='calibration',corruption_severity=glare)
+    gen.create_lighting(scene, rr)
+    scene=optical_scene
+    render_engine=request.get('render_engine','eevee')
+    if render_engine=='cycles_cpu':
+        # Explicit CPU renderer for the no-GPU portability experiment. Do not
+        # call configure_render(engine='cycles'): it auto-selects OPTIX/GPU.
+        render_scene=bpy.context.scene
+        render_scene.render.resolution_x=scene.width;render_scene.render.resolution_y=scene.height
+        render_scene.render.resolution_percentage=100
+        render_scene.render.image_settings.file_format='PNG'
+        render_scene.render.image_settings.color_mode='RGB'
+        render_scene.render.image_settings.color_depth='8'
+        render_scene.render.film_transparent=False
+        render_scene.view_settings.look='AgX - Medium High Contrast'
+        render_scene.view_settings.exposure=scene.exposure
+        render_scene.render.engine='CYCLES';render_scene.cycles.device='CPU'
+        render_scene.cycles.samples=12;render_scene.cycles.use_denoising=False
+    elif render_engine=='eevee':
+        gen.configure_render(scene, argparse.Namespace(engine='eevee', render_samples=4 if corpus else 12))
+    else:raise ValueError('unsupported_render_engine')
     # Raster floor texture makes refractive appearance nontrivial, varied per install.
     mat = floor.data.materials[0]; mat.use_nodes=True
     nodes=mat.node_tree.nodes; links=mat.node_tree.links
@@ -79,7 +112,10 @@ def render(request, folder, *, corpus=False):
         labels=gen.render_geometric_labels(scene) if liquid else {'mask':visible.astype(np.uint8),'target_depth_m':water}
         labels['target_depth_m']=np.where(semantic==3,fdepth,water).astype(np.float32)
         labels['mask']=((semantic==2)|(semantic==3)).astype(np.uint8)
+        sensor_scene=scene
+        if formal_proxy:scene=replace(scene,scenario='ordinary')
         sim=gen.simulate_raw_depth(scene,labels) if liquid else {'raw_depth_m':full}
+        scene=sensor_scene
         # Raycast miss remains invalid. Never turn a missing background into a
         # tiny positive depth that can back-project next to the camera.
         background=np.where(full>0,full+rng.normal(0,.001,full.shape),0)
@@ -93,6 +129,16 @@ def render(request, folder, *, corpus=False):
         loss=float(request.get('loss',0));ids=np.flatnonzero(roi & (raw>0))
         desired=int(loss*roi.sum())-int((roi & (raw<=0)).sum())
         if desired>0 and len(ids):raw.flat[rng.choice(ids,min(desired,len(ids)),replace=False)]=0
+        if formal_proxy and glare:
+            # The formal proxy decouples optical darkness from IR dropout and
+            # models glare saturation locally instead of blanket depth loss.
+            yy,xx=np.indices(raw.shape);y,x=np.nonzero(roi)
+            if len(x):
+                k=int(rng.integers(len(x)))
+                sx=max(2,float(np.ptp(x))*rng.uniform(.08,.30))
+                sy=max(2,float(np.ptp(y))*rng.uniform(.08,.30))
+                spot=((xx-x[k])/sx)**2+((yy-y[k])/sy)**2<1
+                raw[spot&(raw>0)&(rng.random(raw.shape)<(.25+.65*glare))]=0
         raw=np.where(np.isfinite(raw)&(raw>0),raw,0).astype(np.float32)
         origin=np.array(sim.get('simulated_error_type',np.zeros_like(raw)),dtype=np.uint8)
         origin[(raw<=0)&(origin==0)]=1
@@ -101,7 +147,14 @@ def render(request, folder, *, corpus=False):
         np.save(folder/'depth_m.npy',raw)
         np.savez_compressed(folder/'routing_prior.npz',dry_depth_m=dry,roi=empty_roi)
     if not corpus:
+        highest_obj=max(floats,key=lambda o:max((o.matrix_world@v.co).z for v in o.data.vertices)) if floats else None
+        highest_depth=cast(scene,tree_for([highest_obj])) if highest_obj else np.zeros_like(full)
+        highest_visible=(highest_depth>0)&(abs(highest_depth-full)<.001)
         np.savez_compressed(folder/'offline_geometry.npz',true_depth_m=full,semantic=semantic)
+        # Keep the original export expression above for historical AST-based
+        # evaluation adapters, then extend the producer-only visibility record.
+        np.savez_compressed(folder/'offline_geometry.npz',true_depth_m=full,semantic=semantic,
+                            highest_instance_visible=highest_visible)
         # Include world vertices for the truthful 3D viewer, never pass them to meter.
         meshes=[]
         for obj in ([liquid] if liquid else [])+floats:
@@ -117,9 +170,13 @@ def render(request, folder, *, corpus=False):
         (folder/'truth.json').write_text(json.dumps(truth))
         metadata=gen.scene_metadata(scene,folder);metadata['interior_bottom_z_m']=-h
         metadata['nominal_liquid_height_m']=h;metadata['camera_to_bottom_m']=b
+        metadata['render_backend']=render_engine
+        metadata['render_device']='CPU' if render_engine=='cycles_cpu' else 'graphics'
+        metadata['original_gpu_performance_report_applies']=False if render_engine=='cycles_cpu' else None
         (folder/'metadata.json').write_text(json.dumps(metadata))
     (folder/'request.json').write_text(json.dumps(request))
-    (folder/'complete.json').write_text(json.dumps({'complete':True,'corpus':corpus}))
+    (folder/'complete.json').write_text(json.dumps({'complete':True,'corpus':corpus,'render_engine':render_engine,
+        'render_device':'CPU' if render_engine=='cycles_cpu' else 'graphics'}))
 
 
 def triangulate(obj):
